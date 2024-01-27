@@ -21,7 +21,7 @@ const LoginSMS = () => {
     const navigate = useNavigate();
 
     // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
-    const from =  PAGES.ADD_CONTACT;
+    const from =  PAGES.ADD_USER_TO_PANEL;
 
     const userRef = useRef();
     const errRef = useRef();
@@ -51,6 +51,7 @@ const LoginSMS = () => {
         e.preventDefault();
 
         try {
+
             const response = await axios.post(LOGIN_URL,
                 JSON.stringify({phoneNumber: user}),
                 {

@@ -41,7 +41,7 @@ function ListUsers() {
     const editButtonHandler = (params) => {
 
         const data = params.data
-        navigateTo(PAGES.ADD_USER, {state: {data}})
+        navigateTo(PAGES.ADD_NEW_ROLE_TO_PANEL, {state: {data}})
     }
 
     const myAxiosPrivate = useAxiosPrivate()

@@ -1,12 +1,14 @@
-import {Outlet} from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import useRefreshToken from '../hooks/useRefreshToken';
 import useAuth from '../hooks/useAuth';
 import useLocalStorage from "../hooks/useLocalStorage";
 import Loader from "./Loader";
+import {PAGES} from "../Pages/Route-string.tsx";
 
 const PersistLogin = () => {
-    debugger
+
+    const navigateTo = useNavigate()
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
     // @ts-ignore
@@ -26,9 +28,11 @@ const PersistLogin = () => {
                 debugger
             } catch (err) {
                 debugger
+                console.log("رفرش توکن مورد تایید نیست.");
+                navigateTo(PAGES.LOGIN)
                 console.error(err);
             } finally {
-                debugger
+
                 isMounted && setIsLoading(false);
             }
         }
@@ -49,13 +53,12 @@ const PersistLogin = () => {
     }, [])
 
 
-
     return (
         <>
             {!persist
                 ? <Outlet/>
                 : isLoading
-                    ? <Loader />
+                    ? <Loader/>
                     : <Outlet/>
             }
         </>

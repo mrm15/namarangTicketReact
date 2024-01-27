@@ -47,7 +47,7 @@ function ProfileInHeader() {
                     <FaUserCircle size={48}/>
 
                     <div className={'hidden md:block'}>
-                        {auth?.userInfo?.name ? auth?.userInfo?.name : 'کاربر'} <span>&nbsp;&nbsp;&nbsp;</span>
+                        {auth?.userInfo?.userData?.name ? auth?.userInfo?.name : 'کاربر'} <span>&nbsp;&nbsp;&nbsp;</span>
                     </div>
 
 

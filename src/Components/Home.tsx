@@ -5,10 +5,10 @@ const Home = () => {
 
 
     const shortcuts = [
-        { title:'افزودن مخاطب' , description:"افزودن مخاطب جدید به لیست ", icon:'blobb', link:PAGES.ADD_CONTACT},
-        { title:'مشاهده لیست مخاطبین' , description:"لیست مخاطبین ", icon:'blobb', link:PAGES.LIST_CONTACTS},
-        { title:'افزودن کاربر' , description:"افزودن کاربر جدید به لیست  ", icon:'blobb', link:PAGES.ADD_USER},
-        { title:'لیست کاربران' , description:"مشاهده لیست کاربران ", icon:'blobb', link:PAGES.LIST_USERS},
+        { title:'افزودن کاربر' , description:"افزودن کاربر جدید ", icon:'blobb', link:PAGES.ADD_USER_TO_PANEL},
+        { title:'مشاهده لیست کاربران نمارنگ' , description:"لیست کاربران ", icon:'blobb', link:PAGES.LIST_USER_PANEL},
+        { title:'افزودن نقش' , description:"افزودن نقش جدید به نقش های سایت  ", icon:'blobb', link:PAGES.ADD_NEW_ROLE_TO_PANEL},
+        { title:'لیست نقش ها' , description:"مشاهده لیست نقش های تعریف شده و دسترسی ها ", icon:'blobb', link:PAGES.LIST_ROLE_PANEL},
     ]
 
 

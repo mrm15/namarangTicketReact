@@ -3,13 +3,13 @@ import useAuth from "../hooks/useAuth";
 import {PAGES} from "../Pages/Route-string.tsx";
 
 const RequireAuth = ({allowedRoles}) => {
-    debugger
+
     // @ts-ignore
     const {auth} = useAuth();
     const location = useLocation();
     let isAllowed = false
     try {
-        isAllowed = auth?.userInfo[allowedRoles] === true
+        isAllowed = !!auth?.roles?.find(role => allowedRoles?.includes(role))
 
     } catch (error) {
         isAllowed = false

@@ -8,23 +8,14 @@ import Missing from "../Components/Missing"
 import LoginSMS from "../Components/LoginSMS.tsx";
 
 import {PAGES} from "./Route-string.tsx"
-import AddContact from "../Components/Contact/AddContact.tsx";
-import ListContact from "../Components/Contact/ListContact.tsx";
+import AddUserToPanel from "../Components/Users/AddContact.tsx";
+import ListUsers from "../Components/Users/ListUsers.tsx";
 import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
 import AddUser from "../Components/User/AddUser.tsx";
 import ListUsers from "../Components/User/ListUsers.tsx";
+import {ROLES} from "./ROLES.tsx";
 
-const ROLES = {
-    "addContactAccess": "addContactAccess",
-    "editContactAccess": "editContactAccess",
-    "deleteContactAccess": "deleteContactAccess",
-    "listAllContactAccess": "listAllContactAccess",
-    "listOwnContactAccess": "listOwnContactAccess",
-    "addUserAccess": "addUserAccess",
-    "deleteUserAccess": "deleteUserAccess",
-    "editUserAccess": "editUserAccess",
-    "listUserAccess": "listUserAccess",
-}
+
 
 
 const Pages = () => {
@@ -59,35 +50,43 @@ const Pages = () => {
 
                         {/* we want to protect these routes */}
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.addContactAccess}/>}>
-                            <Route path={'/'} element={<Home/>}/>
-                        </Route>
+                        <Route path={'/'} element={<Home/>}/>
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.addContactAccess}/>}>*/}
+                        {/*    <Route path={'/'} element={<Home/>}/>*/}
+                        {/*</Route>*/}
 
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.addContactAccess}/>}>
-                            <Route path={PAGES.ADD_CONTACT} element={<AddContact/>}/>
+                        <Route element={<RequireAuth allowedRoles={[
+                            ROLES.userCreate,
+                            ROLES.userReadAll,
+                            ROLES.userReadSameDepartment,
+                            ROLES.userUpdateAll,
+                            ROLES.userUpdateSameDepartment,
+                            ROLES.userDeleteAll,
+                            ROLES.userDeleteSameDepartment,
+                        ]}/>}>
+                            <Route path={PAGES.USER_ADD_EDIT} element={<AddUserToPanel/>}/>
+                            <Route path={PAGES.USER_LIST} element={<ListUsers/>}/>
                             {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.listAllContactAccess}/>}>
-                            <Route path={PAGES.LIST_CONTACTS} element={<ListContact/>}/>
+                        <Route element={<RequireAuth allowedRoles={[ROLES.listAllContactAccess]}/>}>
+                            <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.addUserAccess}/>}>
-                            <Route path={PAGES.ADD_USER} element={<AddUser/>}/>
+                        <Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>
+                            <Route path={PAGES.ADD_NEW_ROLE_TO_PANEL} element={<AddUser/>}/>
                         </Route>
-                        <Route element={<RequireAuth allowedRoles={ROLES.addUserAccess}/>}>
-                            <Route path={PAGES.LIST_USERS} element={<ListUsers/>}/>
-                        </Route>
-
-                        <Route element={<RequireAuth allowedRoles={ROLES.listAllContactAccess}/>}>
-                            <Route path={'/unauthorized'} element={<Unauthorized/>}/>
+                        <Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>
+                            <Route path={PAGES.LIST_ROLE_PANEL} element={<ListUsers/>}/>
                         </Route>
 
 
 
 
+
+                        <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
                     {/* catch all */}
