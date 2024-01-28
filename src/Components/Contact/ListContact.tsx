@@ -46,7 +46,7 @@ function ListContact() {
     const deleteButtonHandler = async (params) => {
 
         const data = params.data;
-        debugger
+         
         const message = `آیا مطمئنی که میخوای مخاطب با شماره
         ${data?.phoneNumber}
         به صورت کامل برای همیشه از لیست مخاطب ها حذف کنی؟
@@ -60,7 +60,7 @@ function ListContact() {
         `
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
-                debugger
+                 
                 await handleDeleteContact(data.phoneNumber)
             }
         }

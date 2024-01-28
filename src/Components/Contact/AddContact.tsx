@@ -136,7 +136,7 @@ function AddContact() {
 
 
     const changeHandler = (value: any, objectKey: string) => {
-        debugger
+         
         setContactForm({[objectKey]: value})
     }
 
@@ -154,7 +154,7 @@ function AddContact() {
         const url = mode === MODES.ADD ? '/contact/add' : 'contact/edit'
         try {
             const res = await myAxiosPrivate.post(url, contactForm)
-            debugger
+             
             if (res.data.message) {
                 toast.success(res.data.message);
                 if (mode === MODES.EDIT) {
@@ -187,7 +187,7 @@ function AddContact() {
                     <div className={'flex flex-wrap gap-1'}>
                         {addContactForm?.map((row, index) => {
                             const awesomeChangeHandler = (v) => {
-                                debugger
+                                 
                                 changeHandler(v, row.name)
 
                             }

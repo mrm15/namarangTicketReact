@@ -19,15 +19,15 @@ const PersistLogin = () => {
     // @ts-ignore
     useEffect(() => {
 
-        debugger
+         
         let isMounted = true;
 
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
-                debugger
+                 
             } catch (err) {
-                debugger
+                 
                 console.log("رفرش توکن مورد تایید نیست.");
                 navigateTo(PAGES.LOGIN)
                 console.error(err);

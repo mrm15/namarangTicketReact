@@ -49,7 +49,7 @@ const MyForm = () => {
     useEffect(() => {
 
 
-        debugger
+         
         const data = myLocation?.state?.data
         if (data) {
             setInitialValues(data);
@@ -83,7 +83,7 @@ const MyForm = () => {
         try {
 
             const res = await myPrivateAxios.post(url, values)
-            debugger
+             
             if (res.data.message) {
                 toast.success(res.data.message);
                 if (mode === MODES.EDIT) {

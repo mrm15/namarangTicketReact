@@ -62,7 +62,7 @@ function ListUsers() {
     const deleteButtonHandler = async (params) => {
 
         const data = params.data;
-        debugger
+         
         const message = `آیا مطمئنی که میخوای کاربر با شماره
         ${data?.phoneNumber}
         به صورت کامل برای همیشه از لیست کاربر ها حذف کنی؟
@@ -76,7 +76,7 @@ function ListUsers() {
         `
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
-                debugger
+                 
                 await handleDeleteUser(data.phoneNumber)
             }
         }

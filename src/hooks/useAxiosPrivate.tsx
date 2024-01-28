@@ -8,7 +8,7 @@ const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
     // @ts-ignore
     const { auth,setAuth } = useAuth();
-debugger
+ 
     useEffect(() => {
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {

@@ -38,7 +38,7 @@ const aggridDataShow = (props) => {
 
     const changeColumnDefsControl = (e, selectedColRow) => {
 
-        debugger
+         
         const newValue = e.target.checked
         const newCols = myColumnDefs.map((v: any) => {
             const row = {...v}

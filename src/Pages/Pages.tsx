@@ -8,8 +8,7 @@ import Missing from "../Components/Missing"
 import LoginSMS from "../Components/LoginSMS.tsx";
 
 import {PAGES} from "./Route-string.tsx"
-import AddUserToPanel from "../Components/Users/AddContact.tsx";
-import ListUsers from "../Components/Users/ListUsers.tsx";
+
 import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
 import AddUser from "../Components/User/AddUser.tsx";
 import ListUsers from "../Components/User/ListUsers.tsx";
@@ -21,7 +20,7 @@ import {ROLES} from "./ROLES.tsx";
 const Pages = () => {
 
 
-    debugger
+     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -56,31 +55,23 @@ const Pages = () => {
                         {/*</Route>*/}
 
 
-                        <Route element={<RequireAuth allowedRoles={[
-                            ROLES.userCreate,
-                            ROLES.userReadAll,
-                            ROLES.userReadSameDepartment,
-                            ROLES.userUpdateAll,
-                            ROLES.userUpdateSameDepartment,
-                            ROLES.userDeleteAll,
-                            ROLES.userDeleteSameDepartment,
-                        ]}/>}>
-                            <Route path={PAGES.USER_ADD_EDIT} element={<AddUserToPanel/>}/>
+                        <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
+                            <Route path={PAGES.USER_ADD_EDIT} element={<AddUser/>}/>
                             <Route path={PAGES.USER_LIST} element={<ListUsers/>}/>
                             {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={[ROLES.listAllContactAccess]}/>}>
-                            <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>
-                        </Route>
+                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
+                        {/*    <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>*/}
+                        {/*</Route>*/}
 
-                        <Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>
-                            <Route path={PAGES.ADD_NEW_ROLE_TO_PANEL} element={<AddUser/>}/>
-                        </Route>
-                        <Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>
-                            <Route path={PAGES.LIST_ROLE_PANEL} element={<ListUsers/>}/>
-                        </Route>
+                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>*/}
+                        {/*    <Route path={PAGES.ADD_NEW_ROLE_TO_PANEL} element={<AddUser/>}/>*/}
+                        {/*</Route>*/}
+                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>*/}
+                        {/*    <Route path={PAGES.LIST_ROLE_PANEL} element={<ListUsers/>}/>*/}
+                        {/*</Route>*/}
 
 
 

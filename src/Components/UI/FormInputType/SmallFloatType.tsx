@@ -11,7 +11,7 @@ function SmallFloatType({row,onChange,onBlur}) {
     onChange={e => {
 
 
-      debugger
+       
       let value = e.target.value;
       // بک اند گفت که باید این مورد ینی
       //smallFloat
