@@ -1,192 +1,90 @@
-import {Formik, Form, Field, FormikState} from 'formik';
+import React, { useState, useEffect } from 'react';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
-import {toast} from "react-toastify";
-import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
-import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import Loader from "../Loader";
-import {MODES} from "../CONSTANTS/consts.tsx";
 
-// Validation schema
-const validationSchema = Yup.object().shape({
-    phoneNumber: Yup.string().required('شماره اجباری'),
-    name: Yup.string().required('نام کاربر اجباری'),
-    addContactAccess: Yup.boolean().required('Required'),
-    editContactAccess: Yup.boolean().required('Required'),
-    deleteContactAccess: Yup.boolean().required('Required'),
-    listAllContactAccess: Yup.boolean().required('Required'),
-    listOwnContactAccess: Yup.boolean().required('Required'),
-    exportContactAccess: Yup.boolean().required('Required'),
-    addUserAccess: Yup.boolean().required('Required'),
-    deleteUserAccess: Yup.boolean().required('Required'),
-    editUserAccess: Yup.boolean().required('Required'),
-    listUserAccess: Yup.boolean().required('Required'),
-});
-const initilaFormValues = {
-    phoneNumber: "",
-    name: "",
-    addContactAccess: false,
-    editContactAccess: false,
-    deleteContactAccess: false,
-    listAllContactAccess: false,
-    listOwnContactAccess: false,
-    exportContactAccess: false,
-    addUserAccess: false,
-    deleteUserAccess: false,
-    editUserAccess: false,
-    listUserAccess: false,
+interface IUser {
+    userName: string;
+    email: string;
+    // Add an array to represent the checkboxes
+    roles?: string;
+    // ... other fields
 }
 
-const MyForm = () => {
-    const [mode, setMode] = useState(MODES.ADD)
-    const [isLoading, setIsLoading] = useState(true)
-    const [initialValues, setInitialValues] = useObjectDataHolder({...initilaFormValues})
+interface UserFormProps {
+    isEditMode: boolean;
+    userId?: string;
+}
 
-    const myLocation = useLocation()
-    const navigateTo = useNavigate()
+const UserForm: React.FC<UserFormProps> = ({ isEditMode, userId }) => {
+    const [initialValues, setInitialValues] = useState<IUser>({
+        userName: '',
+        email: '',
+        role:'',
+        // ...other default values
+    });
 
-    useEffect(() => {
+    const handleSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
 
-
-         
-        const data = myLocation?.state?.data
-        if (data) {
-            setInitialValues(data);
-            setMode(MODES.EDIT);
+        debugger
+        if (isEditMode && userId) {
+            // axios.put(`/api/users/${userId}`, values)
+            //     .then(/* handle success */)
+            //     .catch(/* handle error */);
+        } else {
+            // axios.post('/api/users', values)
+            //     .then(/* handle success */)
+            //     .catch(/* handle error */);
         }
-        setTimeout(()=>{
-            setIsLoading(false);
-        },100)
-
-
-    }, [myLocation?.state?.data]);
-
-    const myPrivateAxios = useAxiosPrivate()
-    const submitAddUser = async (values: {
-        phoneNumber: string;
-        name: string;
-        addContactAccess: boolean;
-        editContactAccess: boolean;
-        deleteContactAccess: boolean;
-        listAllContactAccess: boolean;
-        listOwnContactAccess: boolean;
-        exportContactAccess: boolean;
-        addUserAccess: boolean;
-        deleteUserAccess: boolean;
-        editUserAccess: boolean;
-        listUserAccess: boolean;
-    }, resetForm: { (nextState?: Partial<FormikState<any>>): void; (): void; }) => {
-
-        const url = mode === MODES.ADD ? '/users/add' : 'users/edit'
-
-        try {
-
-            const res = await myPrivateAxios.post(url, values)
-             
-            if (res.data.message) {
-                toast.success(res.data.message);
-                if (mode === MODES.EDIT) {
-                    navigateTo(-1)
-                } else {
-                        setInitialValues(initilaFormValues);
-                        resetForm()
-                }
-            }
-
-            // if (res.status === 201) {
-            //     toast.success(res?.data?.message)
-            //     setInitialValues(initilaFormValues);
-            //     resetForm()
-            //
-            // }
-        } catch (error) {
-            toast(JSON.stringify(error))
-        }
-    }
-
-    const title = mode === MODES.EDIT ? 'ویرایش کاربر' : 'افزودن کاربر';
-
-    const resetFormToInitial = (resetForm) => {
-        setMode(MODES.ADD);
-        resetForm({ values: initilaFormValues });
+        setSubmitting(false);
     };
 
-    // @ts-ignore
-    return <div>
+    const userSchema = Yup.object().shape({
+        userName: Yup.string().required('Username is required'),
+        email: Yup.string().email('Invalid email').required('Email is required'),
+        // Validate roles as an array
+        roles: Yup.string().required('U'),
+        // ...other validations
+    })
 
 
-            {
-                isLoading ? <Loader/> :
-                <div className={'select-none'}>
-                    <Formik
-                        initialValues={initialValues}
-                        validationSchema={validationSchema}
-                        onSubmit={async (values, {resetForm}) => {
-                            console.log(values);
-                            await submitAddUser(values, resetForm)
-                        }}
-                    >
+    // Define your checkbox options
+    const myHotForm= [
+        {label:'myLabel' ,name:'name', type:'text' , value:'' ,placehodler:'myplace',checked:undefined},
+        {label:'myLabel2' ,name:'name2', type:'text2' , value:'' ,placehodler:'myplace2',checked:undefined}
+    ];
 
-                        {({errors, touched,resetForm}) => <Form>
-                                <div className={'flex gap-3 my-5'}>
+    return (
+        <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            validationSchema={userSchema}
+            onSubmit={handleSubmit}
+        >
+            {({ values, setFieldValue }) => (
+                <Form dir={'rtl'}>
+                    {/* Other fields... */}
 
-                                    <div className={'font-bold'}>{title}</div>
+                    <div>
+                        {myHotForm.map((row,index) => (
+                            <label key={index}>
+                                <Field
+                                    type={row.type}
+                                    name={row.name}
+                                    placehodler={row.placehodler}
 
-                                    {mode === MODES.EDIT && <button
-                                      className={'rounded bg-blue-400 px-2'}
-                                      onClick={() => {
-                                          resetFormToInitial(resetForm)
+                                />
+                                {row.label}
+                            </label>
+                        ))}
+                    </div>
 
-                                      }}
-                                    > افزودن </button>}
-                                </div>
-
-                                <div className="div__group__input_select">
-                                    <label htmlFor="phoneNumber">شماره تماس کاربر (برای ورود به سامانه)</label>
-                                    <Field name="phoneNumber" type="text" placeholder="Phone Number"/>
-                                    {touched.phoneNumber && typeof errors?.phoneNumber === 'string' && <div>{errors?.phoneNumber}</div>}
-                                </div>
-
-                                <div className="div__group__input_select">
-                                    <label htmlFor="name">نام و نام خانوادگی کاربر</label>
-                                    <Field name="name" type="text" placeholder="Name"/>
-                                    {touched.name && typeof errors.name === 'string' && <div>{errors.name}</div>}
-                                </div>
-
-                                {/* Render checkboxes for boolean fields */}
-                                {Object.keys(initialValues).slice(2).map(key => {
-
-                                        const labelValue = {
-                                            addContactAccess: "دسترسی برای افزودن مخاطب جدید",
-                                            editContactAccess: "دسترسی برای ویرایش مخاطب ها",
-                                            deleteContactAccess: "دسترسی حذف مخاطب از لیست",
-                                            listAllContactAccess: "مشاهده لیست تمامی مخاطبین",
-                                            listOwnContactAccess: "مشاهده مخاطبینی که خودش ثبت کرده",
-                                            exportContactAccess: 'خروجی گرفتن از مخاطبین***',
-                                            addUserAccess: "دسترسی افزودن کاربر جدید",
-                                            deleteUserAccess: "دسترسی حذف کاربر",
-                                            editUserAccess: "دسترسی ویرایش اطلاعات و دسترسی های کاربر",
-                                            listUserAccess: " مشاهده لیست کاربران ",
-                                        }
-
-                                        return <div className="div__group__input_select" key={key}>
-                                            <label htmlFor={key}>{labelValue[key]}</label>
-                                            <Field name={key} id={key} type="checkbox"/>
-                                            {touched[key] && typeof errors[key] === 'string' && <div>{errors[key] as string}</div>}
-
-                                        </div>
-                                    }
-                                )}
-
-                                <div className="div__group__input_select">
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </Form>}
-                    </Formik>
-                </div>
-            }
-        </div>;
+                    <button type="submit">
+                        {isEditMode ? 'Update' : 'Add'}
+                    </button>
+                </Form>
+            )}
+        </Formik>
+    );
 };
 
-export default MyForm;
+export default UserForm;
