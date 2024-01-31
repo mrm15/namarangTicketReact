@@ -18,10 +18,10 @@ const LoginSMS = () => {
     // @ts-ignore
     const {setAuth} = useAuth();
 
-    const navigate = useNavigate();
+    const navigateTo = useNavigate();
 
     // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
-    const from =  PAGES.ADD_USER_TO_PANEL;
+    const from = PAGES.DASHBOARD;
 
     const userRef = useRef();
     const errRef = useRef();
@@ -95,6 +95,7 @@ const LoginSMS = () => {
                 }
             );
 
+            debugger
             const accessToken = response?.data?.accessToken;
             const userInfo = response?.data?.userInfo;
 
@@ -102,7 +103,7 @@ const LoginSMS = () => {
             setAuth({userInfo, accessToken});
             resetUser();
             setPwd('');
-            navigate(from, {replace: true});
+            navigateTo(from, {replace: true});
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');

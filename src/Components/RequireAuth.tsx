@@ -8,9 +8,9 @@ const RequireAuth = ({allowedRoles}) => {
     const {auth} = useAuth();
     const location = useLocation();
     let isAllowed = false
-    
+    debugger
     try {
-        isAllowed = !!auth?.roles?.find(role => allowedRoles?.includes(role))
+        isAllowed = !!auth?.userInfo?.roleAccessList?.find(role => allowedRoles?.includes(role))
 
     } catch (error) {
         isAllowed = false
