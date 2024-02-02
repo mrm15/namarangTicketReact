@@ -2,25 +2,33 @@ import {Outlet} from "react-router-dom"
 import SideBar from "./SideBar/SideBar.tsx";
 import HeaderDashboard from "./Dashboard/DashboardBody/HeaderDashboard.tsx";
 import FooterDashboard from "./Dashboard/DashboardBody/FooterDashboard.tsx";
-import './style.scss'
+import './layout.scss'
+import useWindowSize from "../hooks/useWindowSize.tsx";
 const Layout = () => {
+
+
+    const { width, height } = useWindowSize();
+    console.log("height")
+    console.log(height)
+    console.log("width")
+    console.log(width)
 
 
     const number = 1;
     if (number === 1) {
-        return <main className="main-dashboard0 prevent__horizontal__scroll">
+        return <main className="main-dashboard prevent__horizontal__scroll">
             {/*<HeaderDashboard/>*/}
             <div className={'flex'}>
                 <SideBar/>
                 <div className="w-full">
-                    <div className="main-outlet0 min-h-screen">
+                    <div className="">
                         <HeaderDashboard/>
                         <div
                             style={{
-                                minHeight: '85vh',
-                                //overflowY: 'scroll',
-                                padding: '0 5px',
-                        }}
+                                height: `${height-80}px`,
+                                overflowY: 'scroll',
+                                padding: '0 25px',
+                            }}
                         >
                             <Outlet/>
                         </div>
