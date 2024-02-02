@@ -1,90 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
-import * as Yup from 'yup';
-
-interface IUser {
-    userName: string;
-    email: string;
-    // Add an array to represent the checkboxes
-    roles?: string;
-    // ... other fields
-}
-
-interface UserFormProps {
-    isEditMode: boolean;
-    userId?: string;
-}
-
-const UserForm: React.FC<UserFormProps> = ({ isEditMode, userId }) => {
-    const [initialValues, setInitialValues] = useState<IUser>({
-        userName: '',
-        email: '',
-        role:'',
-        // ...other default values
-    });
-
-    const handleSubmit = (values: IUser, { setSubmitting }: FormikHelpers<IUser>) => {
-
-        debugger
-        if (isEditMode && userId) {
-            // axios.put(`/api/users/${userId}`, values)
-            //     .then(/* handle success */)
-            //     .catch(/* handle error */);
-        } else {
-            // axios.post('/api/users', values)
-            //     .then(/* handle success */)
-            //     .catch(/* handle error */);
-        }
-        setSubmitting(false);
-    };
-
-    const userSchema = Yup.object().shape({
-        userName: Yup.string().required('Username is required'),
-        email: Yup.string().email('Invalid email').required('Email is required'),
-        // Validate roles as an array
-        roles: Yup.string().required('U'),
-        // ...other validations
-    })
+import MyFormik from "../MyFormik";
+import Loader from "../Loader";
+import {useEffect, useState} from "react";
+import {formikFormAddUser, initialValuesAddUser, validationSchemaAddUser} from "./addUserFormikForm.tsx";
+import useAuth from "../../hooks/useAuth.tsx";
+import {useLocation} from "react-router-dom";
 
 
-    // Define your checkbox options
-    const myHotForm= [
-        {label:'myLabel' ,name:'name', type:'text' , value:'' ,placehodler:'myplace',checked:undefined},
-        {label:'myLabel2' ,name:'name2', type:'text2' , value:'' ,placehodler:'myplace2',checked:undefined}
-    ];
+const AddUser = () => {
 
-    return (
-        <Formik
-            enableReinitialize
-            initialValues={initialValues}
-            validationSchema={userSchema}
-            onSubmit={handleSubmit}
-        >
-            {({ values, setFieldValue }) => (
-                <Form dir={'rtl'}>
-                    {/* Other fields... */}
+    const [isLoading, setIsLoading] = useState(true)
 
-                    <div>
-                        {myHotForm.map((row,index) => (
-                            <label key={index}>
-                                <Field
-                                    type={row.type}
-                                    name={row.name}
-                                    placehodler={row.placehodler}
+    const myLocation = useLocation()
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const editMode = !!myLocation?.state?.phoneNumber
+    const requestUrl = editMode ? 'users/edit' : 'users/add'
 
-                                />
-                                {row.label}
-                            </label>
-                        ))}
-                    </div>
+    const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
+    // ///////////////////////////////////////////
 
-                    <button type="submit">
-                        {isEditMode ? 'Update' : 'Add'}
-                    </button>
-                </Form>
-            )}
-        </Formik>
-    );
+    //////////////////////////////
+
+
+    // @ts-ignore
+    const {auth} = useAuth();
+
+    useEffect(() => {
+        const updatedFormConfig = formikFormAddUser.map(field => {
+            // Initially set visibility to true for all fields
+            let isShow = true;
+
+            // Conditionally toggle visibility based on field name and user's role
+            if (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers')) {
+                isShow = false; // Hide if user lacks 'activeAndDeActiveUsers' role
+            }
+
+            if (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole')) {
+                isShow = false; // Hide if user lacks 'editUsersRole' role
+            }
+
+            // Return a new field object with updated visibility
+            return {...field, isShow};
+        });
+
+        // Simulate async operation, e.g., fetching form config
+        setTimeout(() => {
+            setMyFormikFormAddUser(updatedFormConfig);
+            setIsLoading(false);
+        }, 1000);
+    }, [auth?.userInfo?.roleAccessList]); // Depend on user's role list to re-evaluate form config on change
+
+
+    try {
+        return (<div className={'flex flex-wrap'}>
+            <div className="w-full text-center bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"
+                 role="alert">
+                <p className="font-bold"> افزودن کاربر جدید</p>
+                <p className="text-sm">افزودن کاربر جدید به سایت</p>
+            </div>
+
+            {isLoading ? <Loader type={1}/> :
+                <MyFormik
+                    formikForm={myFormikFormAddUser}
+                    initialValues={initialValuesAddUser}
+                    validationSchema={validationSchemaAddUser}
+                    afterSubmit={undefined}
+                    requestUrl={requestUrl}
+                />
+            }
+        </div>);
+    } catch (error) {
+        return <>{error?.toString()}</>
+    }
 };
 
-export default UserForm;
+export default AddUser;
