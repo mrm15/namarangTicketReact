@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import {STRINGS} from "../../utils/STRINGS.ts";
 // eslint-disable-next-line react-hooks/rules-of-hooks
 
 const checkboxOptions = [
@@ -8,11 +9,11 @@ const checkboxOptions = [
 ]
 
 const validationSchemaAddUser = Yup.object({
-    email: Yup.string().email('Invalid email format').required('Required'),
+    // email: Yup.string().email('Invalid email format').required('Required'),
 
-    bio: Yup.string().required('Required'),
-    course: Yup.string().required('Required'),
-    courseDate: Yup.date().required('Required').nullable()
+    phoneNumber: Yup.string().required(STRINGS.REQUIRED),
+    // course: Yup.string().required('Required'),
+    // courseDate: Yup.date().required('Required').nullable()
 
 })
 const dropdownOptions = [
