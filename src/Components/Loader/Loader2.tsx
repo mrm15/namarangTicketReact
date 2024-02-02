@@ -1,6 +1,6 @@
 import "./loader2.scss"
 
-function Loader2({text}) {
+function Loader2() {
 
 
     return (
