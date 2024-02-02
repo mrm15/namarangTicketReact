@@ -3,6 +3,7 @@ import { Field, ErrorMessage } from 'formik'
 import TextError from './TextError'
 
 import FormDatePicker from "../MyDatePicker";
+import {FileInput} from "./FileInput.tsx";
 
 function FileUpload (props) {
     const { label, name, ...rest } = props
@@ -14,7 +15,8 @@ function FileUpload (props) {
                 <Field
                     name={name}
                     type={'file'}
-                    multiple={true}
+                    // multiple={true}
+                    component={FileInput}
 
                 />
                 <ErrorMessage component={TextError} name={name} />
