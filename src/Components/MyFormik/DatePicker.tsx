@@ -9,7 +9,7 @@ function DatePicker (props) {
 
     try {
         return (
-            <div className='form-control'>
+            <div className='div__group__input_select'>
                 <label htmlFor={name}>{label}</label>
                 <Field name={name}>
                     {({ form, field }) => {

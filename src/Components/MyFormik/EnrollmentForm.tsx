@@ -1,90 +1,69 @@
-import React from 'react'
-import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
+import {Formik, Form} from 'formik'
 import FormikControl from './FormikControl'
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
-function EnrollmentForm () {
-  const dropdownOptions = [
-    { key: 'Select your course', value: '' },
-    { key: 'React', value: 'react' },
-    { key: 'Angular', value: 'angular' },
-    { key: 'Vue', value: 'vue' }
-  ]
 
-  const checkboxOptions = [
-    { key: 'HTML', value: 'html' },
-    { key: 'CSS', value: 'css' },
-    { key: 'JavaScript', value: 'javascript' }
-  ]
+function EnrollmentForm({formikForm, initialValues, validationSchema, afterSubmit}) {
 
-  const initialValues = {
-    email: '',
-    bio: '',
-    course: '',
-    skills: [],
-    courseDate: null
-  }
 
-  const validationSchema = Yup.object({
-    email: Yup.string()
-      .email('Invalid email format')
-      .required('Required'),
-    bio: Yup.string().required('Required'),
-    course: Yup.string().required('Required'),
-    courseDate: Yup.date()
-      .required('Required')
-      .nullable()
-  })
+    const myPrivateAxios = useAxiosPrivate()
 
-  const onSubmit = values => {
-    console.log('Form data', values)
-  }
+    // ///////////////////////////////////////////
+    const onSubmit = async (values, {resetForm}) => {
+        console.log('Form data', values);
+        try {
+            const response = await myPrivateAxios.post("/user/add", values); // Ensure you pass the values to your API call
+            if (response.status === 200) { // Check for a successful response status
+                console.log('Submission Successful', response.data);
+                resetForm(); // Reset the form after successful submission
+                !!afterSubmit && afterSubmit()
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {formik => {
+            } else {
+                console.log('Submission Failed', response);
+                // Handle unsuccessful submission if needed
+            }
+        } catch (error) {
+            console.error('Submission error', error);
+            // Handle submission error if needed
+        }
+    };
+
+
+    try {
         return (
-          <Form>
-            <FormikControl
-              control='input'
-              type='email'
-              label='Email'
-              name='email'
-            />
-            <FormikControl
-              control='textarea'
-              label='Bio'
-              name='bio'
-            />
-            <FormikControl
-              control='select'
-              label='Course'
-              name='course'
-              options={dropdownOptions}
-            />
-            <FormikControl
-              control='checkbox'
-              label='Your skillset'
-              name='skills'
-              options={checkboxOptions}
-            />
-            <FormikControl
-              control='date'
-              label='Course date'
-              name='courseDate'
-            />
-            <button type='submit' disabled={!formik.isValid}>
-              Submit
-            </button>
-          </Form>
+            <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+            >
+                {formik => {
+                    return (
+                        <Form>
+                            {formikForm?.map((row, index) => {
+                                return <FormikControl
+                                    key={index}
+                                    control={row.control}
+                                    label={row.label}
+                                    name={row.name}
+                                    options={row?.options}
+                                />
+
+
+                            })}
+
+
+                            <button type='submit' disabled={!formik.isValid}>
+                                Submit
+                            </button>
+                        </Form>
+                    )
+                }}
+            </Formik>
         )
-      }}
-    </Formik>
-  )
+
+    } catch (error) {
+        return <>{error.toString()}</>
+    }
 }
 
 export default EnrollmentForm

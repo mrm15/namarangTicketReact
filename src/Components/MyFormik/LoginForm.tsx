@@ -1,4 +1,3 @@
-import React from 'react'
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import FormikControl from './FormikControl'
@@ -17,8 +16,18 @@ function LoginForm () {
   })
 
   const onSubmit = values => {
-    console.log('Form data', values)
+    console.log('Form data', values);
+
+
   }
+
+
+
+
+
+
+
+
 
   return (
     <Formik

@@ -1,32 +1,36 @@
-import React from 'react'
-import Input from './Input'
-import Textarea from './Textarea'
-import Select from './Select'
-import RadioButtons from './RadioButtons'
-import CheckboxGroup from './CheckboxGroup'
-import DatePicker from './DatePicker'
-import ChakraInput from './ChakraInput'
+import Input from './Input';
+import Textarea from './Textarea';
+import Select from './Select';
+import RadioButtons from './RadioButtons';
+import CheckboxGroup from './CheckboxGroup';
+import DatePicker from './DatePicker';
+import FileUpload from './FileUpload';
 
-function FormikControl (props) {
-  const { control, ...rest } = props
-  switch (control) {
-    case 'input':
-      return <Input {...rest} />
-    case 'textarea':
-      return <Textarea {...rest} />
-    case 'select':
-      return <Select {...rest} />
-    case 'radio':
-      return <RadioButtons {...rest} />
-    case 'checkbox':
-      return <CheckboxGroup {...rest} />
-    case 'date':
-      return <DatePicker {...rest} />
-    case 'chakraInput':
-      return <ChakraInput {...rest} />
-    default:
-      return null
-  }
+const controlMap = {
+    input: Input,
+    textarea: Textarea,
+    select: Select,
+    radio: RadioButtons,
+    checkbox: CheckboxGroup,
+    date: DatePicker,
+    file: FileUpload,
+};
+
+function FormikControl(props) {
+
+    const {control, isShow, ...rest} = props;
+    const ControlComponent = controlMap[control];
+
+    if (isShow !== false) {
+
+        return ControlComponent ? <ControlComponent {...rest} /> : <div>
+            <br/>
+            یه مورد ناشناخته
+
+        </div>;
+    } else {
+        return <></>
+    }
 }
 
-export default FormikControl
+export default FormikControl;
