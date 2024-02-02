@@ -1,13 +1,19 @@
+import useWindowSize from "../../hooks/useWindowSize.tsx";
+import React from "react";
 
 function Loader1({text}) {
-    return (
-        <div style={{
-            display:'flex',
-            alignItems:'center',
-            justifyContent:'center',
-            marginTop:'10%',
+    const {widthWindowSize} = useWindowSize()
 
-        }}>
+    const styles : React.CSSProperties = {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: '10%',
+        width: `${widthWindowSize}px`
+
+    }
+    return <>
+        <div style={styles}>
             <div>
                 <div className="flex-col gap-4 w-full flex items-center justify-center">
                     <div
@@ -28,7 +34,7 @@ function Loader1({text}) {
             </div>
 
         </div>
-    );
+    </>;
 }
 
 export default Loader1;
