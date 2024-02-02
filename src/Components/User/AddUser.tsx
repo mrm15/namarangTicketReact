@@ -1,7 +1,7 @@
 import MyFormik from "../MyFormik";
 import Loader from "../Loader";
 import {useEffect, useState} from "react";
-import {formikFormAddUser, initialValuesAddUser, validationSchemaAddUser} from "./addUserFormikForm.tsx";
+import {formikFormAddUser,  validationSchemaAddUser} from "./addUserFormikForm.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
 import {useLocation} from "react-router-dom";
 
@@ -16,6 +16,7 @@ const AddUser = () => {
     const requestUrl = editMode ? 'users/edit' : 'users/add'
 
     const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
+    const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
     // ///////////////////////////////////////////
 
     //////////////////////////////
@@ -25,25 +26,28 @@ const AddUser = () => {
     const {auth} = useAuth();
 
     useEffect(() => {
-        const updatedFormConfig = formikFormAddUser.map(field => {
-            // Initially set visibility to true for all fields
-            let isShow = true;
-
-            // Conditionally toggle visibility based on field name and user's role
-            if (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers')) {
-                isShow = false; // Hide if user lacks 'activeAndDeActiveUsers' role
-            }
-
-            if (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole')) {
-                isShow = false; // Hide if user lacks 'editUsersRole' role
-            }
-
-            // Return a new field object with updated visibility
-            return {...field, isShow};
+        const updatedFormConfig = formikFormAddUser.filter(field => {
+            // Keep the field if it does not require special permissions,
+            // or if the user has the required role for 'isActive' or 'role' fields.
+            return !(
+                (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers')) ||
+                (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole'))
+            );
         });
+
+        const temp = {};
+        for (const row of updatedFormConfig) {
+            console.log(row)
+            temp[row.name]=''
+        }
+
+
+        console.log(temp)
 
         // Simulate async operation, e.g., fetching form config
         setTimeout(() => {
+
+            setMyInitialValuesAddUser(temp)
             setMyFormikFormAddUser(updatedFormConfig);
             setIsLoading(false);
         }, 1000);
@@ -59,13 +63,23 @@ const AddUser = () => {
             </div>
 
             {isLoading ? <Loader type={1}/> :
-                <MyFormik
-                    formikForm={myFormikFormAddUser}
-                    initialValues={initialValuesAddUser}
-                    validationSchema={validationSchemaAddUser}
-                    afterSubmit={undefined}
-                    requestUrl={requestUrl}
-                />
+               <>
+                   <MyFormik
+                       formikForm={myFormikFormAddUser}
+                       initialValues={myInitialValuesAddUser}
+                       // validationSchema={validationSchemaAddUser}
+                       afterSubmit={undefined}
+                       requestUrl={requestUrl}
+                   />
+
+                   <MyFormik
+                       formikForm={myFormikFormAddUser}
+                       initialValues={myInitialValuesAddUser}
+                       // validationSchema={validationSchemaAddUser}
+                       afterSubmit={undefined}
+                       requestUrl={requestUrl}
+                   />
+               </>
             }
         </div>);
     } catch (error) {
