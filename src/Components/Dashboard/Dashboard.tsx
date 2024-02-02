@@ -13,7 +13,7 @@ import SideBar from "../SideBar/SideBar";
 const Dashboard = () => {
 
     return (
-        <main className="main-dashboard0 ">
+        <main className="main-dashboard000 ">
             {/*<HeaderDashboard/>*/}
             <div className={'flex gap-6'}>
                 <SideBar/>
