@@ -6,46 +6,7 @@ const checkboxOptions = [
     {key: 'CSS', value: 'css'},
     {key: 'JavaScript', value: 'javascript'}
 ]
-const initialValuesAddUser = {
-    bio: '',
-    course: '',
-    skills: [],
-    courseDate: null,
-    //
-    userName: '',
-    departmentId: '',
-    role: '',
-    accountingCode: '',
-    company: '',
-    title: '',
-    name: '',
-    familyName: '',
-    middleName: '',
-    phoneNumber: '',
-    mobile: '',
-    fax: '',
-    phoneNumber1: '',
-    phoneNumber2: '',
-    phoneNumber3: '',
-    email: '',
-    website: '',
-    bankName: '',
-    accountNumber: '',
-    cardNumber: '',
-    SHABA_Number: '',
-    economicCodeCompany: '',
-    nationalCodeCompany: '',
-    registerNumberCompany: '',
-    description: '',
-    address: '',
-    country: '',
-    province: '',
-    city: '',
-    profilePictureUrl: '',
-    postalCode: '',
-    isActive: '',
 
-}
 const validationSchemaAddUser = Yup.object({
     email: Yup.string().email('Invalid email format').required('Required'),
 
@@ -105,7 +66,6 @@ const formikFormAddUser = [
 
 export {
     checkboxOptions,
-    initialValuesAddUser,
     validationSchemaAddUser,
     dropdownOptions,
     formikFormAddUser
