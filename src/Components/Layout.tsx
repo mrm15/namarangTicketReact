@@ -4,14 +4,17 @@ import HeaderDashboard from "./Dashboard/DashboardBody/HeaderDashboard.tsx";
 import FooterDashboard from "./Dashboard/DashboardBody/FooterDashboard.tsx";
 import './layout.scss'
 import useWindowSize from "../hooks/useWindowSize.tsx";
+import React from "react";
+
 const Layout = () => {
 
 
-    const { width, height } = useWindowSize();
-    console.log("height")
-    console.log(height)
-    console.log("width")
-    console.log(width)
+    const {heightWindowSize} = useWindowSize();
+    const styles :React.CSSProperties = {
+        height: `${heightWindowSize - 80}px`,
+        overflowY: 'scroll',
+        padding: '0 25px',
+    }
 
 
     const number = 1;
@@ -23,13 +26,7 @@ const Layout = () => {
                 <div className="w-full">
                     <div className="">
                         <HeaderDashboard/>
-                        <div
-                            style={{
-                                height: `${height-80}px`,
-                                overflowY: 'scroll',
-                                padding: '0 25px',
-                            }}
-                        >
+                        <div style={styles} >
                             <Outlet/>
                         </div>
                         <FooterDashboard/>
