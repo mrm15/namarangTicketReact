@@ -41,6 +41,10 @@ const useAxiosPrivate = () => {
                     return error
 
                 }
+                if(error?.response?.status === 404){
+                    toast.error(error?.response.data.message)
+                    return error
+                }
                 return Promise.reject(error);
             }
         );
