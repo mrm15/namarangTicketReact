@@ -19,20 +19,17 @@ const PersistLogin = () => {
     // @ts-ignore
     useEffect(() => {
 
-         
+
         let isMounted = true;
 
         const verifyRefreshToken = async () => {
             try {
                 await refresh();
-                 
             } catch (err) {
-                 
                 console.log("رفرش توکن مورد تایید نیست.");
                 navigateTo(PAGES.LOGIN)
                 console.error(err);
             } finally {
-
                 isMounted && setIsLoading(false);
             }
         }
@@ -42,9 +39,7 @@ const PersistLogin = () => {
         // !auth?.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
         if (!auth.accessToken) {
             setIsLoading(true)
-            verifyRefreshToken().then(r => {
-                console.log(r)
-            })
+            void verifyRefreshToken()
         } else {
             setIsLoading(false)
         }
