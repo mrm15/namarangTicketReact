@@ -31,7 +31,8 @@ const AddUser = () => {
             // or if the user has the required role for 'isActive' or 'role' fields.
             return !(
                 (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers')) ||
-                (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole'))
+                (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole')) ||
+                (field.name === 'departmentId' && !auth.userInfo.roleAccessList.includes('editUsersDepartment'))
             );
         });
 
@@ -67,18 +68,12 @@ const AddUser = () => {
                    <MyFormik
                        formikForm={myFormikFormAddUser}
                        initialValues={myInitialValuesAddUser}
-                       // validationSchema={validationSchemaAddUser}
+                       validationSchema={validationSchemaAddUser}
                        afterSubmit={undefined}
                        requestUrl={requestUrl}
                    />
 
-                   <MyFormik
-                       formikForm={myFormikFormAddUser}
-                       initialValues={myInitialValuesAddUser}
-                       // validationSchema={validationSchemaAddUser}
-                       afterSubmit={undefined}
-                       requestUrl={requestUrl}
-                   />
+
                </>
             }
         </div>);
