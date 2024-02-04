@@ -3,15 +3,19 @@ import FormikControl from './FormikControl'
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import "./styles.scss"
 import {toast} from "react-toastify";
+import {axiosPrivateFormData} from "../../api/axios.tsx";
+import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
 
 
 function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, requestUrl}) {
 
 
     const myPrivateAxios = useAxiosPrivate()
+    const axiosPrivateFormData = useAxiosPrivateFormData()
 
     const handleIfThereIsUploadFiles = async (val) => {
         let values = {...val}
+
 
         const uploadResults = {};
 
@@ -21,20 +25,25 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
 
                 // Check if the value is an instance of File
                 if (value instanceof File) {
+
                     console.log(`Uploading file for key: ${key}`);
                     const tId = toast.loading('در حال بارگزاری فایل...')
                     const result = await uploadFile(value, key);
                     toast.dismiss(tId)
-                    if (result.status===200) {
+                    if (result.status === 200) {
+                        debugger
                         // Store the upload result or file ID
-                        uploadResults[key] = result;
-                    }else {
+                        toast.success(result.data.message)
+                        uploadResults[key] = result.data.id;
+                    } else {
                         toast.error('آپلود فایل شکست خورد')
                         throw new Error('آپلود فایل شکست خورد')
                     }
                 }
                 // If the value is an array of files, iterate and upload each file
+                    // فعلا این قسمت توسعه داده نشده و هیچ بک اندی نداره.
                 else if (Array.isArray(value) && value.every(item => item instanceof File)) {
+                    debugger
                     uploadResults[key] = [];
                     for (const file of value) {
                         console.log(`Uploading file for key: ${key}`);
@@ -42,10 +51,10 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                         const result = await uploadFile(file, key);
                         toast.dismiss(tId)
                         debugger
-                        if (result?.status===200) {
+                        if (result?.status === 200) {
                             // Store the upload result or file ID
                             uploadResults[key].push(result);
-                        }else {
+                        } else {
                             toast.error('آپلود فایل شکست خورد')
                             throw new Error('آپلود فایل شکست خورد')
                         }
@@ -69,18 +78,18 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
     }
 
     async function uploadFile(file, key) {
-        const formData = new FormData();
-        formData.append(key, file);
+        const myFormData = new FormData();
+        // myFormData.append(key, file);
+        myFormData.append("singleFile", file);
+        myFormData.append("tag", key);
+
 
         try {
-            const response = await myPrivateAxios.post("/upload", formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const response = await axiosPrivateFormData.post("/upload", myFormData,);
+
             if (response.status === 200) {
                 console.log(`${key} upload successful`, response.data);
-                return response.data; // Assuming the backend returns data including an ID or file reference
+                return response; // Assuming the backend returns data including an ID or file reference
             } else {
                 console.log(`${key} upload failed`, response);
                 return null;
@@ -94,6 +103,7 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
 
     const onSubmit = async (values, {resetForm}) => {
 
+        debugger
         console.log('Form data', values);
 
         try {
@@ -102,6 +112,7 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
 
             const toastId = toast.loading('در حال ارسال اطلاعات...')
             const response = await myPrivateAxios.post("" + requestUrl, newValues); // Ensure you pass the values to your API call
+
 
             toast.dismiss(toastId)
             if (response.status === 200) { // Check for a successful response status
