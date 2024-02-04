@@ -29,6 +29,7 @@ const isActiveRadioOptions = [
 ]
 const formikFormAddUser = [
 
+    {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',},
     {control: 'input', name: 'userName', label: 'نام کاربری',},
     {control: 'input', name: 'departmentId', label: 'آیدی دپارتمان',},
     {control: 'input', name: 'role', label: 'نقش',},
@@ -38,7 +39,6 @@ const formikFormAddUser = [
     {control: 'input', name: 'name', label: 'نام',},
     {control: 'input', name: 'familyName', label: 'نام خانوداگی',},
     {control: 'input', name: 'middleName', label: 'نام نمایشی',},
-    {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',},
     {control: 'input', name: 'mobile', label: 'شماره موبایل',},
     {control: 'input', name: 'fax', label: 'فکس',},
     {control: 'input', name: 'phoneNumber1', label: 'شماره تماس اول',},
