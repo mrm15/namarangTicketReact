@@ -38,7 +38,7 @@ const AddUser = () => {
 
         const temp = {};
         for (const row of updatedFormConfig) {
-            console.log(row)
+            
             temp[row.name]=''
         }
 
