@@ -1,5 +1,19 @@
+import {useEffect, useState} from "react";
 
-export const FileInput = ({ field, form, ...rest }) => {
+export const FileInput = (props) => {
+    const {field, form, ...rest} = props
+
+    console.log(props);
+
+    const [realod, setRealod] = useState(1)
+    useEffect(() => {
+        if (!(form?.values[field?.name] instanceof File)) {
+            setRealod(realod+1)
+        }
+
+    }, [form?.values[field?.name]]);
+
+
     const handleChange = (e) => {
 
 
@@ -11,5 +25,5 @@ export const FileInput = ({ field, form, ...rest }) => {
         form.setFieldValue(field.name, myFiles)
     }
 
-    return <input type="file" {...rest} onChange={handleChange} />;
+    return <input key={realod} type="file" {...rest} onChange={handleChange}/>;
 };
