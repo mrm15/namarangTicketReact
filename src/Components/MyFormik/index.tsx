@@ -2,8 +2,7 @@ import {Formik, Form} from 'formik'
 import FormikControl from './FormikControl'
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import "./styles.scss"
-import {toast} from "react-toastify";
-import {axiosPrivateFormData} from "../../api/axios.tsx";
+import {Id, toast} from "react-toastify";
 import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
 
 
@@ -27,7 +26,7 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                 if (value instanceof File) {
 
                     console.log(`Uploading file for key: ${key}`);
-                    const tId = toast.loading('در حال بارگزاری فایل...')
+                    const tId:Id = toast.loading('در حال بارگزاری فایل...')
                     const result = await uploadFile(value, key);
                     toast.dismiss(tId)
                     if (result.status === 200) {
@@ -40,8 +39,8 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                         throw new Error('آپلود فایل شکست خورد')
                     }
                 }
-                // If the value is an array of files, iterate and upload each file
-                    // فعلا این قسمت توسعه داده نشده و هیچ بک اندی نداره.
+                    // If the value is an array of files, iterate and upload each file
+                // فعلا این قسمت توسعه داده نشده و هیچ بک اندی نداره.
                 else if (Array.isArray(value) && value.every(item => item instanceof File)) {
                     debugger
                     uploadResults[key] = [];
@@ -106,23 +105,25 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
         debugger
         console.log('Form data', values);
 
+        let toastId: Id
         try {
-
             const newValues = await handleIfThereIsUploadFiles(values)
 
-            const toastId = toast.loading('در حال ارسال اطلاعات...')
+            toastId = toast.loading('در حال ارسال اطلاعات...')
             const response = await myPrivateAxios.post("" + requestUrl, newValues); // Ensure you pass the values to your API call
-
-
             toast.dismiss(toastId)
+
+
             if (response.status === 200) { // Check for a successful response status
-                console.log('Submission Successful', response.data);
+                toast.success(response?.data?.message)
+                toast.success('عملیات با موفقیت انجام شد.')
+
                 resetForm(); // Reset the form after successful submission
                 !!afterSubmit && afterSubmit()
 
             } else {
-                console.log('Submission Failed', response);
-                // Handle unsuccessful submission if needed
+                toast.error(response?.data?.message)
+                toast.error('عملیات شکت خورد.')
             }
         } catch (error) {
             console.error('Submission error', error);
