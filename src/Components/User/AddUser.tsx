@@ -13,7 +13,7 @@ const AddUser = () => {
     const myLocation = useLocation()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const editMode = !!myLocation?.state?.phoneNumber
-    const requestUrl = editMode ? 'users/edit' : 'users/add'
+    const requestUrl = editMode ? 'users/edit' : 'user/create'
 
     const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
     const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
@@ -38,7 +38,7 @@ const AddUser = () => {
 
         const temp = {};
         for (const row of updatedFormConfig) {
-            
+
             temp[row.name]=''
         }
 
