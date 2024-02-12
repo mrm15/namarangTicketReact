@@ -5,7 +5,7 @@ import RadioButtons from './RadioButtons';
 import CheckboxGroup from './CheckboxGroup';
 import DatePicker from './DatePicker';
 import FileUpload from './FileUpload';
-import Checkbox from "./Checkbox.tsx";
+import InputColor from "./InputColor.tsx";
 
 const controlMap = {
     input: Input,
@@ -15,6 +15,7 @@ const controlMap = {
     checkbox: CheckboxGroup,
     date: DatePicker,
     file: FileUpload,
+    color: InputColor,
 };
 
 function FormikControl(props) {
