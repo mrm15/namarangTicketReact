@@ -9,6 +9,7 @@ import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
 function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, requestUrl}) {
 
 
+
     const myPrivateAxios = useAxiosPrivate()
     const axiosPrivateFormData = useAxiosPrivateFormData()
 
@@ -147,11 +148,12 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                                 {formikForm?.map((row, index) => {
                                     return <FormikControl
                                         key={index}
-                                        control={row.control}
-                                        label={row.label}
-                                        name={row.name}
-                                        options={row?.options}
-                                        isShow={row?.isShow}
+                                        // control={row.control}
+                                        // label={row.label}
+                                        // name={row.name}
+                                        // options={row?.options}
+                                        // isShow={row?.isShow}
+                                        {...row}
                                     />
                                 })}
                             </div>
