@@ -1,19 +1,27 @@
 import MyFormik from "../MyFormik";
 import Loader from "../Loader";
 import {useEffect, useState} from "react";
-import {formikFormAddUser,  validationSchemaAddUser} from "./addUserFormikForm.tsx";
+import {formikFormAddUser, validationSchemaAddUser} from "./addUserFormikForm.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
 
 const AddUser = () => {
 
     const [isLoading, setIsLoading] = useState(true)
 
-    const myLocation = useLocation()
+    const myLocation = useLocation();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const editMode = !!myLocation?.state?.phoneNumber
-    const requestUrl = editMode ? 'users/edit' : 'user/create'
+    const editMode = !!myLocation?.state?.data;
+    const formUniqId = myLocation?.state?.data?.id
+
+    const text = {
+        title: editMode ? 'ویرایش کاربر' : 'افزودن کاربر جدید',
+        subTitle: editMode ? `ویرایش کاربر با شناسه ${formUniqId}_ ${myLocation.state.data.phoneNumber}` : `افزودن کاربر جدید به سایت`
+    }
+
+    const requestUrl = editMode ? `user/update` : 'user/create'
 
     const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
     const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
@@ -24,57 +32,116 @@ const AddUser = () => {
 
     // @ts-ignore
     const {auth} = useAuth();
+    const myAxiosPrivate = useAxiosPrivate()
+    const getRoleList = async () => {
+
+
+        const res = await myAxiosPrivate.get("/role/roleList");
+        return res?.data?.roleList || []
+
+    }
 
     useEffect(() => {
-        const updatedFormConfig = formikFormAddUser.filter(field => {
+
+
+        let updatedFormConfig = formikFormAddUser.filter(field => {
             // Keep the field if it does not require special permissions,
             // or if the user has the required role for 'isActive' or 'role' fields.
             return !(
-                (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers')) ||
-                (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole')) ||
-                (field.name === 'departmentId' && !auth.userInfo.roleAccessList.includes('editUsersDepartment'))
+                (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers'))
+                // || (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole'))
+                ||(field.name === 'departmentId' && !auth.userInfo.roleAccessList.includes('editUsersDepartment'))
             );
         });
 
-        const temp = {};
-        for (const row of updatedFormConfig) {
+        if (editMode) {
 
-            temp[row.name]=''
+
+            debugger
+            updatedFormConfig = updatedFormConfig.map(v => {
+                const row = {...v}
+
+                if (row.name === 'phoneNumber') {
+                    row['disabled'] = true
+                }
+                return row
+
+            })
+            debugger
         }
 
 
-        console.log(temp)
+        const temp = {};
+        if (editMode) {
+            temp.id = formUniqId
+        }
+        for (const row of updatedFormConfig) {
+
+            if (editMode) {
+                temp[row.name] = myLocation.state.data[row.name]
+            } else {
+                temp[row.name] = ''
+            }
+        }
+
+
 
         // Simulate async operation, e.g., fetching form config
-        setTimeout(() => {
+        getRoleList().then(roleList =>{
+            updatedFormConfig = updatedFormConfig.map(r=>{
+                const row = {...r}
+
+                if(row.name==='role'){
+                    row.options = roleList
+                }
+                return row
+            })
+
 
             setMyInitialValuesAddUser(temp)
             setMyFormikFormAddUser(updatedFormConfig);
             setIsLoading(false);
-        }, 1000);
+
+        })
+
+        // setMyInitialValuesAddUser(temp)
+        // setMyFormikFormAddUser(updatedFormConfig);
+        // setIsLoading(false);
+
     }, [auth?.userInfo?.roleAccessList]); // Depend on user's role list to re-evaluate form config on change
 
 
+    const navigateTo = useNavigate()
+
+    let afterSubmit = undefined
+
+    if (editMode) {
+        afterSubmit = () => {
+            navigateTo(-1)
+        }
+    }
+
     try {
+
         return (<div className={'flex flex-wrap'}>
             <div className="w-full text-center bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"
                  role="alert">
-                <p className="font-bold"> افزودن کاربر جدید</p>
-                <p className="text-sm">افزودن کاربر جدید به سایت</p>
+                <p className="font-bold">{text.title}</p>
+                <p className="text-sm">{text.subTitle}</p>
             </div>
 
             {isLoading ? <Loader type={1}/> :
-               <>
-                   <MyFormik
-                       formikForm={myFormikFormAddUser}
-                       initialValues={myInitialValuesAddUser}
-                       validationSchema={validationSchemaAddUser}
-                       afterSubmit={undefined}
-                       requestUrl={requestUrl}
-                   />
+                <>
+                    <MyFormik
+                        formikForm={myFormikFormAddUser}
+                        initialValues={myInitialValuesAddUser}
+                        validationSchema={validationSchemaAddUser}
+                        afterSubmit={afterSubmit}
+                        requestUrl={requestUrl}
+                    />
 
 
-               </>
+                </>
             }
         </div>);
     } catch (error) {
