@@ -13,6 +13,8 @@ import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
 import AddUser from "../Components/User/AddUser.tsx";
 import ListUsers from "../Components/User/ListUsers.tsx";
 import {ROLES} from "./ROLES.tsx";
+import AddRole from "../Components/Role/AddRole.tsx";
+import ListRoles from "../Components/Role/ListRoles.tsx";
 
 
 
@@ -58,6 +60,13 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={<AddUser/>}/>
                             <Route path={PAGES.USER_LIST} element={<ListUsers/>}/>
+                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
+
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.role}/>}>
+                            <Route path={PAGES.ROLE_ADD_EDIT} element={<AddRole/>}/>
+                            <Route path={PAGES.ROLE_LIST} element={<ListRoles/>}/>
                             {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
                         </Route>
