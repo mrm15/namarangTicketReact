@@ -1,4 +1,3 @@
-import React from 'react'
 import {Field, ErrorMessage} from 'formik'
 import TextError from './TextError'
 
@@ -12,25 +11,30 @@ function CheckboxGroup(props) {
                     {({field}) => {
                         return options?.map(option => {
 
-                            return (
-                                <div className={'flex mt-2'} key={option.key}>
+                            try {
+                                return (
+                                    <div className={'flex mt-2 checkbox__formik'} key={option?.key}>
 
-                                    <div className={'flex '}>
-                                        <label htmlFor={option.value}>{option.key} </label>
-                                        <input
+                                        <div className={''}>
 
-                                            type='checkbox'
-                                            id={option.value}
-                                            {...field}
-                                            {...rest}
-                                            value={option.value}
-                                            checked={field.value.includes(option.value)}
-                                        />
+                                            <input
+
+                                                type='checkbox'
+                                                id={option?.value}
+                                                {...field}
+                                                {...rest}
+                                                value={option?.value}
+                                                checked={field?.value?.includes(option?.value)}
+                                            />
+                                            <label htmlFor={option?.value}>{option?.key} </label>
+
+                                        </div>
 
                                     </div>
-
-                                </div>
-                            )
+                                )
+                            }catch (error){
+                                return <>{error.toString()}</>
+                            }
                         })
                     }}
                 </Field>
