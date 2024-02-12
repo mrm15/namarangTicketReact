@@ -6,8 +6,8 @@ export const PAGES= {
     USER_ADD_EDIT:'/add-edit-user',
     USER_LIST:'/user-list',
 
-    ROLE_ADD_EDIT:'',
-    ROLE_LIST:'',
+    ROLE_ADD_EDIT:'/role-add-edit',
+    ROLE_LIST:'/role-list',
 
 
 };
