@@ -4,7 +4,7 @@ import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import ControlColumns from "./ControlColumns.tsx"; // Optional theme CSS
 
-const aggridDataShow = (props) => {
+const AgGridDataShow = (props) => {
 
     const {columnDefs, rowData,onCellClicked} = props
     const [myColumnDefs, setMyColumnDefs] = useState(columnDefs);
@@ -140,4 +140,4 @@ const aggridDataShow = (props) => {
     );
 };
 
-export default aggridDataShow;
+export default AgGridDataShow;
