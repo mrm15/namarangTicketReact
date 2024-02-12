@@ -5,6 +5,7 @@ import RadioButtons from './RadioButtons';
 import CheckboxGroup from './CheckboxGroup';
 import DatePicker from './DatePicker';
 import FileUpload from './FileUpload';
+import Checkbox from "./Checkbox.tsx";
 
 const controlMap = {
     input: Input,
