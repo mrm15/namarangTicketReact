@@ -9,5 +9,8 @@ export const PAGES= {
     ROLE_ADD_EDIT:'/role-add-edit',
     ROLE_LIST:'/role-list',
 
+    DEPARTMENT_ADD_EDIT:'/department-add-edit',
+    DEPARTMENT_LIST:'/department-list',
+
 
 };
