@@ -91,7 +91,7 @@ const AddUser = () => {
             updatedFormConfig = updatedFormConfig.map(r=>{
                 const row = {...r}
 
-                if(row.name==='role'){
+                if(row.name==='managerUserId'){
                     row.options = roleList
                 }
                 return row
