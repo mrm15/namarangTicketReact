@@ -3,7 +3,6 @@ import {useEffect, useState} from "react";
 export const FileInput = (props) => {
     const {field, form, ...rest} = props
 
-    console.log(props);
 
     const [realod, setRealod] = useState(1)
     useEffect(() => {
