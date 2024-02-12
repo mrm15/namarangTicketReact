@@ -1,4 +1,4 @@
-import AggridDataShow from "../AgGridDataShow/AggridDataShow.tsx";
+import AggridDataShow from "../AgGridDataShow/AgGridDataShow.tsx";
 import {useEffect, useState} from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import Loader from "../Loader";
