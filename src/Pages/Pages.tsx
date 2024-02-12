@@ -15,14 +15,13 @@ import ListUsers from "../Components/User/ListUsers.tsx";
 import {ROLES} from "./ROLES.tsx";
 import AddRole from "../Components/Role/AddRole.tsx";
 import ListRoles from "../Components/Role/ListRoles.tsx";
-
-
+import AddDepartment from "../Components/Department/AddDepartment.tsx";
+import ListDepartment from "../Components/Department/ListDepartment.tsx";
 
 
 const Pages = () => {
 
 
-     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -71,6 +70,12 @@ const Pages = () => {
 
                         </Route>
 
+                        <Route element={<RequireAuth allowedRoles={ROLES.department}/>}>
+                            <Route path={PAGES.DEPARTMENT_ADD_EDIT} element={<AddDepartment/>}/>
+                            <Route path={PAGES.DEPARTMENT_LIST} element={<ListDepartment/>}/>
+                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
+                        </Route>
+
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
                         {/*    <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>*/}
                         {/*</Route>*/}
@@ -81,9 +86,6 @@ const Pages = () => {
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>*/}
                         {/*    <Route path={PAGES.LIST_ROLE_PANEL} element={<ListUsers/>}/>*/}
                         {/*</Route>*/}
-
-
-
 
 
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
