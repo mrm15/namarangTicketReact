@@ -1,4 +1,4 @@
-import AggridDataShow from "../AgGridDataShow/AggridDataShow.tsx";
+import AggridDataShow from "../AgGridDataShow/AgGridDataShow.tsx";
 import {useEffect, useState} from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import Loader from "../Loader";
@@ -41,18 +41,19 @@ function ListUsers() {
     const editButtonHandler = (params) => {
 
         const data = params.data
-        navigateTo(PAGES.ADD_NEW_ROLE_TO_PANEL, {state: {data}})
+        navigateTo(PAGES.USER_ADD_EDIT, {state: {data}})
     }
 
     const myAxiosPrivate = useAxiosPrivate()
 
-    const handleDeleteUser = async (phoneNumber: any) => {
-        const url = 'users/delete'
+    const handleDeleteUser = async (id: any) => {
+        const url = 'user/delete/' + id
 
         try {
-            const response = await myAxiosPrivate.post(url, {phoneNumber})
+            const response = await myAxiosPrivate.delete(url)
             if (response?.data) {
-                toast(response?.data?.message)
+
+                toast.success(response?.data?.message)
                 setReload(ps => ps + 1)
             }
         } catch (error) {
@@ -62,7 +63,7 @@ function ListUsers() {
     const deleteButtonHandler = async (params) => {
 
         const data = params.data;
-         
+
         const message = `آیا مطمئنی که میخوای کاربر با شماره
         ${data?.phoneNumber}
         به صورت کامل برای همیشه از لیست کاربر ها حذف کنی؟
@@ -76,8 +77,8 @@ function ListUsers() {
         `
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
-                 
-                await handleDeleteUser(data.phoneNumber)
+
+                await handleDeleteUser(data.id)
             }
         }
     }
@@ -133,16 +134,65 @@ function ListUsers() {
         {headerName: "مشاهده لیست کاربر", field: "listUserAccess", hide: false, cellRenderer: CheckboxRenderer},
     ]
 
-    const [myRowData, setMyRowData] = useState([])
+    const [myTableData, setMyTableData] = useState({
+
+        columnDefs: [],
+        rowData: []
+    });
+
+    const addCustomColumn = (myHeaderArray: []) => {
+
+        const headerArray = [...myHeaderArray]
+
+        headerArray.unshift({
+            headerName: "عملیات", cellRenderer: (params) => (
+                <div className={'flex flex-wrap gap-1 items-center justify-center'}>
+                    <button
+                        onClick={() => editButtonHandler(params)}
+                    >
+                        <EditButton/>
+                    </button>
+                    <button
+                        onClick={() => deleteButtonHandler(params)}
+
+                        className={'text-red-600'}>
+
+                        <DeleteButton/>
+                    </button>
+                </div>
+            ),
+            cellStyle: () => ({
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }),
+        });
+
+
+        return headerArray
+
+
+    }
 
 
     useEffect(() => {
 
 
         const getList = async () => {
-            const res = await myAxiosPrivate.get('users/list')
+            const res = await myAxiosPrivate.get('user/read')
             if (res.data) {
-                setMyRowData(res.data)
+
+
+                const tableData = res.data.list;
+
+                tableData.columnDefs =addCustomColumn ( tableData.columnDefs)
+
+                // mohammad mrm
+
+
+
+                console.log(res.data)
+                setMyTableData(tableData)
                 setIsLoading(false)
             }
         }
@@ -159,9 +209,8 @@ function ListUsers() {
         return (
             <div>
                 <div className={'font-bold my-3 '}>
-
                     <div
-                        className={'flex flex-wrap justify-center items-center'}
+                        className={'bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3'}
                     >
                         <div> لیست کاربران</div>
                         <div
@@ -177,14 +226,10 @@ function ListUsers() {
                 {isLoading ? <Loader/> :
                     <div>
                         <AggridDataShow
-                            columnDefs={myColumnDefs}
-                            rowData={myRowData}
-                            onCellClicked={onCellClicked}
-
-
+                            columnDefs={myTableData.columnDefs}
+                            rowData={myTableData.rowData}
+                            // onCellClicked={onCellClicked}
                         />
-
-
                     </div>}
             </div>
         );
