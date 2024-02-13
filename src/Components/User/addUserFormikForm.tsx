@@ -31,7 +31,7 @@ const formikFormAddUser = [
 
     {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',},
     {control: 'input', name: 'userName', label: 'نام کاربری',},
-    {control: 'select', name: 'departmentId', label: 'آیدی دپارتمان',options:[]},
+    {control: 'select', name: 'departmentId', label: ' دپارتمان',options:[]},
     {control: 'select', name: 'role', label: 'نقش',},
     {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
     {control: 'input', name: 'company', label: 'شرکت',},
