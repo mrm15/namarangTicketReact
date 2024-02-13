@@ -1,6 +1,7 @@
 import useAuth from "../../../hooks/useAuth.tsx";
 import useLogout from "../../../hooks/useLogout.tsx";
 import {useNavigate} from "react-router-dom";
+import {PAGES} from "../../../Pages/Route-string.tsx";
 
 
 function HeaderMenu() {
@@ -16,9 +17,9 @@ function HeaderMenu() {
     const signOut = async () => {
 
         const yes = confirm("آیا میخواهید از سایت خارج شوید؟")
-        if(yes){
+        if (yes) {
             await logout();
-            navigateTo('/');
+            navigateTo(PAGES.LOGIN);
         }
 
     }
