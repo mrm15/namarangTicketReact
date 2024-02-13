@@ -1,6 +1,6 @@
 import { Link} from "react-router-dom";
 import {PAGES} from "../Pages/Route-string.tsx";
-import { FaUserPlus, FaUsers, FaUserTag, FaClipboardList, FaBuilding, FaSitemap } from 'react-icons/fa';
+import { FaUserPlus, FaUsers, FaUserTag, FaClipboardList, FaBuilding, FaSitemap , FaLayerGroup  } from 'react-icons/fa';
 
 
 const Home = () => {
@@ -9,10 +9,15 @@ const Home = () => {
     const shortcuts = [
         { title:'افزودن کاربر' , description:"افزودن کاربر جدید ", icon:FaUserPlus, link:PAGES.USER_ADD_EDIT},
         { title:'مشاهده لیست کاربران نمارنگ' , description:"لیست کاربران ", icon:FaUsers, link:PAGES.USER_LIST},
+
         { title:'افزودن نقش' , description:"افزودن نقش جدید به نقش های سایت  ", icon:FaUserTag, link:PAGES.ROLE_ADD_EDIT},
         { title:'لیست نقش ها' , description:"مشاهده لیست نقش ها", icon:FaClipboardList, link:PAGES.ROLE_LIST},
+
         { title:'افزودن دپارتمان' , description:"افزودن دپارتمان جدید به سایت  ", icon:FaBuilding, link:PAGES.DEPARTMENT_ADD_EDIT},
         { title:'لیست دپارتمان ها' , description:"مشاهده لیست دپارتمان ", icon:FaSitemap, link:PAGES.DEPARTMENT_LIST},
+
+        { title:'افزودن استاتوس تیکت' , description:"افزودن استاتوس جدید به سایت  ", icon:FaLayerGroup, link:PAGES.STATUS_ADD_EDIT},
+        { title:'لیست استاتوس تیکت' , description:"مشاهده لیست استاتوس ", icon:FaLayerGroup, link:PAGES.STATUS_LIST},
         // { title:'لیست نقش ها' , description:"مشاهده لیست نقش های تعریف شده و دسترسی ها ", icon:'blobb', link:PAGES.LIST_ROLE_PANEL},
     ]
 
