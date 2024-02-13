@@ -60,6 +60,15 @@ const dropdownOptions = [
     {value:'userUpdateSameDepartment', key: "آپدیت مشخصات کاربران همون دپارتمان" },
     {value:'userDeleteAll', key: "حذف کاربران" },
     {value:'userDeleteSameDepartment', key: "حذف کاربران همون دپارتمان" },
+
+
+
+    {value:'userActiveAndDeActiveUsers', key: "فعال یا غیر فعال کردن کاربران" },
+    {value:'userEditUsersRole', key: "تغییر  نقش کابران" },
+    {value:'userEditUsersDepartment', key: "تغییر دپارتمان کاربران" },
+
+
+
     {value:'report', key: "گزارشات" },
     {value:'howManyUsersThereAre', key: "تعداد کل کاربران سیستم" },
     {value:'howManyUsersIsInEveryDepartment', key: "تعداد کاربران همون دپارتمانی که توش قرار داریم" },
