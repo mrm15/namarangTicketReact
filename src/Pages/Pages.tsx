@@ -31,7 +31,7 @@ const Pages = () => {
             <Routes>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
-                <Route path="login" element={<LoginSMS/>}/>
+                <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
 
 
                 {/* pages all people can see and need sidebar */}
