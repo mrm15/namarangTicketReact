@@ -25,7 +25,7 @@ export const ColorInputElement = (props) => {
             onChange={handleChange}/>
         <div className={'flex'}>
             <div>کد رنگ انتخابی:</div>
-            <div className={'ltr font-mono'}>  {field.value === '' ? 'خالی' : field?.value.toUpperCase()}</div>
+            <div className={'ltr font-mono'}>  {field.value === '' ? 'خالی' : field?.value?.toUpperCase()}</div>
 
         </div>
     </>;
