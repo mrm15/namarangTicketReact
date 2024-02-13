@@ -12,5 +12,8 @@ export const PAGES= {
     DEPARTMENT_ADD_EDIT:'/department-add-edit',
     DEPARTMENT_LIST:'/department-list',
 
+    STATUS_ADD_EDIT:'/status-add-edit',
+    STATUS_LIST:'/status-list',
+
 
 };
