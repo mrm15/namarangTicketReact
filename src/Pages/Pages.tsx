@@ -17,6 +17,8 @@ import AddRole from "../Components/Role/AddRole.tsx";
 import ListRoles from "../Components/Role/ListRoles.tsx";
 import AddDepartment from "../Components/Department/AddDepartment.tsx";
 import ListDepartment from "../Components/Department/ListDepartment.tsx";
+import AddStatus from "../Components/Status/AddStatus.tsx";
+import ListStatus from "../Components/Status/ListStatus.tsx";
 
 
 const Pages = () => {
@@ -73,6 +75,11 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.department}/>}>
                             <Route path={PAGES.DEPARTMENT_ADD_EDIT} element={<AddDepartment/>}/>
                             <Route path={PAGES.DEPARTMENT_LIST} element={<ListDepartment/>}/>
+                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.status}/>}>
+                            <Route path={PAGES.STATUS_ADD_EDIT} element={<AddStatus/>}/>
+                            <Route path={PAGES.STATUS_LIST} element={<ListStatus/>}/>
                             {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
                         </Route>
 
