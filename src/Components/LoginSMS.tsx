@@ -8,27 +8,25 @@ import axios from '../api/axios';
 import LoginRegisterParent from "./Login_register_parent.tsx";
 import {toast} from "react-toastify";
 import {PAGES} from "../Pages/Route-string.tsx";
+import useRefreshToken from "../hooks/useRefreshToken.tsx";
+import Loader from "./Loader";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
 
 const LoginSMS = () => {
-
-
     // @ts-ignore
     const {setAuth} = useAuth();
-
     const navigateTo = useNavigate();
-
+    const tryToRefresh = useRefreshToken()
     // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
     const from = PAGES.DASHBOARD;
-
     const userRef = useRef();
     const errRef = useRef();
-
     const [user, resetUser, userAttribs] = useInput('user', '')
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     /*
      مقدار
@@ -40,8 +38,9 @@ const LoginSMS = () => {
 
     useEffect(() => {
         // @ts-ignore
-        userRef.current.focus();
-    }, [])
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        userRef?.current?.focus();
+    }, [isLoading])
 
     useEffect(() => {
         setErrMsg('');
@@ -120,8 +119,20 @@ const LoginSMS = () => {
     }
 
 
-    return (<>
+    useEffect(() => {
+        void tryToRefresh().then(r => {
+            console.log(r)
+            navigateTo(from)
+        }).catch(err => {
+            console.log(err?.toString())
+            setIsLoading(false)
+        })
+    }, [from, navigateTo, tryToRefresh]);
 
+    if (isLoading) {
+        return <Loader/>
+    }
+    return (<>
         <LoginRegisterParent>
             <section>
                 <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -180,7 +191,6 @@ const LoginSMS = () => {
                 </p>
             </section>
         </LoginRegisterParent>
-
     </>)
 }
 
