@@ -5,6 +5,7 @@ import {formikFormAddUser, validationSchemaAddUser} from "./addUserFormikForm.ts
 import useAuth from "../../hooks/useAuth.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
+import useList from "../../hooks/useList.tsx";
 
 
 const AddUser = () => {
@@ -33,13 +34,16 @@ const AddUser = () => {
     // @ts-ignore
     const {auth} = useAuth();
     const myAxiosPrivate = useAxiosPrivate()
-    const getRoleList = async () => {
+    const getRoleList1 = async () => {
 
 
         const res = await myAxiosPrivate.get("/role/roleList");
         return res?.data?.roleList || []
 
     }
+
+    const getDepartmentList = useList("department/departmentList")
+    const getRoleList = useList("/role/roleList")
 
     useEffect(() => {
 
@@ -48,9 +52,9 @@ const AddUser = () => {
             // Keep the field if it does not require special permissions,
             // or if the user has the required role for 'isActive' or 'role' fields.
             return !(
-                (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('activeAndDeActiveUsers'))
-                // || (field.name === 'role' && !auth.userInfo.roleAccessList.includes('editUsersRole'))
-                ||(field.name === 'departmentId' && !auth.userInfo.roleAccessList.includes('editUsersDepartment'))
+                (field.name === 'isActive' && !auth.userInfo.roleAccessList.includes('userActiveAndDeActiveUsers'))
+                || (field.name === 'role' && !auth.userInfo.roleAccessList.includes('userEditUsersRole'))
+                ||(field.name === 'departmentId' && !auth.userInfo.roleAccessList.includes('userEditUsersDepartment'))
             );
         });
 
@@ -87,12 +91,15 @@ const AddUser = () => {
 
 
         // Simulate async operation, e.g., fetching form config
-        getRoleList().then(roleList =>{
+        // getRoleList().then(roleList =>{
             updatedFormConfig = updatedFormConfig.map(r=>{
                 const row = {...r}
 
                 if(row.name==='role'){
-                    row.options = roleList
+                    row.options = getRoleList
+                }
+                if(row.name==='departmentId'){
+                    row.options = getDepartmentList
                 }
                 return row
             })
@@ -102,13 +109,13 @@ const AddUser = () => {
             setMyFormikFormAddUser(updatedFormConfig);
             setIsLoading(false);
 
-        })
+        // })
 
         // setMyInitialValuesAddUser(temp)
         // setMyFormikFormAddUser(updatedFormConfig);
         // setIsLoading(false);
 
-    }, [auth?.userInfo?.roleAccessList]); // Depend on user's role list to re-evaluate form config on change
+    }, [auth?.userInfo?.roleAccessList , getDepartmentList , getRoleList]); // Depend on user's role list to re-evaluate form config on change
 
 
     const navigateTo = useNavigate()
