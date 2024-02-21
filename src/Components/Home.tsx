@@ -1,6 +1,16 @@
 import { Link} from "react-router-dom";
 import {PAGES} from "../Pages/Route-string.tsx";
-import { FaUserPlus, FaUsers, FaUserTag, FaClipboardList, FaBuilding, FaSitemap , FaLayerGroup  } from 'react-icons/fa';
+import {
+    FaUserPlus,
+    FaUsers,
+    FaUserTag,
+    FaClipboardList,
+    FaBuilding,
+    FaSitemap,
+    FaLayerGroup,
+    FaFile,
+    FaTicketAlt
+} from 'react-icons/fa';
 
 
 const Home = () => {
@@ -19,6 +29,13 @@ const Home = () => {
         { title:'افزودن استاتوس تیکت' , description:"افزودن استاتوس جدید به سایت  ", icon:FaLayerGroup, link:PAGES.STATUS_ADD_EDIT},
         { title:'لیست استاتوس تیکت' , description:"مشاهده لیست استاتوس ", icon:FaLayerGroup, link:PAGES.STATUS_LIST},
         // { title:'لیست نقش ها' , description:"مشاهده لیست نقش های تعریف شده و دسترسی ها ", icon:'blobb', link:PAGES.LIST_ROLE_PANEL},
+
+        { title:'افزودن فایل' , description:"افزودن فایل جدید به بانک فایل ها  ", icon:FaFile  , link:PAGES.FILE_ADD_EDIT},
+        { title:'لیست فایل ها' , description:"مشاهده لیست فایل ها ", icon:FaFile  , link:PAGES.FILE_LIST},
+
+
+        {title:'ثبت سفارش جدید' , description: 'ایجاد سفارش جدید در نمارنگ' , icon:FaTicketAlt , link: PAGES.ticket_Create}
+
     ]
 
 
