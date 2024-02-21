@@ -14,13 +14,18 @@ export const ROLES = {
         'statusListUpdate',
         'statusListDelete',
     ],
-    ticket: [
-        'ticketCreate',
-        'ticketReadAll',
-        'ticketReadOwn',
-        'ticketUpdate',
-        'ticketDelete',
-    ],
+    // ticket: [
+    //     'ticketCreate', // create new ticket
+    //     'ticketReadAll',// list of all tickets
+    //     'ticketReadOwn', // list of my tickets or my orders
+    //     'ticketUpdate', // update Ticket // just admin
+    //     'ticketDelete', // delete a ticket just admin
+    // ],
+    ticketCreate: ['ticketCreate'],
+    ticketReadAll: ['ticketReadAll'],
+    ticketReadOwn: ['ticketReadOwn'],
+    ticketUpdate: ['ticketUpdate'],
+    ticketDelete: ['ticketDelete'],
 
     theme: [
         'themeCreate',
@@ -34,13 +39,13 @@ export const ROLES = {
         'departmentUpdate',
         'departmentDelete',
     ],
-    file:[
+    file: [
         'fileCreate',
         'fileRead',
         'fileUpdate',
         'fileDelete',
     ],
-    task:[
+    task: [
         'tasksCreateFullAccessToUsers',
         'tasksCreateToAssignSameDepartment',
         'tasksReadAll',
@@ -58,31 +63,28 @@ export const ROLES = {
         'rolesDelete',
     ],
 
-    ticketReply:[
+    ticketReply: [
         'ticketRepliesCreate',
         'ticketRepliesRead',
         'ticketRepliesUpdate',
         'ticketRepliesDelete',
     ],
-    ticketChangeHistory:[
+    ticketChangeHistory: [
         'ticketChangeHistoryRead',
         'ticketChangeHistoryRepliesUpdate',
         'ticketChangeHistoryDelete',
     ],
 
-    report:[
+    report: [
+        'howManyUsersThereAre',
+        'howManyUsersIsInEveryDepartment',
+        'howManyTicketsThereAre',
+        'howManyTicketsThereAreInEveryDepartment',
+        'howManyTicketsHasDoneStatus',
+        'howManyTicketsHasDoneStatusIn12Month',
+    ]
 
-    ],
 
+    // report: 'report',
 
-
-
-
-    report: 'report',
-    howManyUsersThereAre: 'howManyUsersThereAre',
-    howManyUsersIsInEveryDepartment: 'howManyUsersIsInEveryDepartment',
-    howManyTicketsThereAre: 'howManyTicketsThereAre',
-    howManyTicketsThereAreInEveryDepartment: 'howManyTicketsThereAreInEveryDepartment',
-    howManyTicketsHasDoneStatus: 'howManyTicketsHasDoneStatus',
-    howManyTicketsHasDoneStatusIn12Month: 'howManyTicketsHasDoneStatusIn12Month'
 }
