@@ -19,6 +19,9 @@ import AddDepartment from "../Components/Department/AddDepartment.tsx";
 import ListDepartment from "../Components/Department/ListDepartment.tsx";
 import AddStatus from "../Components/Status/AddStatus.tsx";
 import ListStatus from "../Components/Status/ListStatus.tsx";
+import AddFiles from "../Components/Files/AddFiles.tsx";
+import ListFiles from "../Components/Files/ListFiles.tsx";
+import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
 
 
 const Pages = () => {
@@ -61,26 +64,34 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={<AddUser/>}/>
                             <Route path={PAGES.USER_LIST} element={<ListUsers/>}/>
-                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.role}/>}>
                             <Route path={PAGES.ROLE_ADD_EDIT} element={<AddRole/>}/>
                             <Route path={PAGES.ROLE_LIST} element={<ListRoles/>}/>
-                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
 
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.department}/>}>
                             <Route path={PAGES.DEPARTMENT_ADD_EDIT} element={<AddDepartment/>}/>
                             <Route path={PAGES.DEPARTMENT_LIST} element={<ListDepartment/>}/>
-                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
                         </Route>
+
                         <Route element={<RequireAuth allowedRoles={ROLES.status}/>}>
                             <Route path={PAGES.STATUS_ADD_EDIT} element={<AddStatus/>}/>
                             <Route path={PAGES.STATUS_LIST} element={<ListStatus/>}/>
-                            {/*<Route path="add-contact" element={<AddProduct/>}/>*/}
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.file}/>}>
+                            <Route path={PAGES.FILE_ADD_EDIT} element={<AddFiles/>}/>
+                            <Route path={PAGES.FILE_LIST} element={<ListFiles/>}/>
+                        </Route>
+
+                        {/* ticket create */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>
+                            <Route path={PAGES.ticket_Create} element={<TicketCreate/>}/>
+
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
