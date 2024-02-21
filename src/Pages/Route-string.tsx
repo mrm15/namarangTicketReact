@@ -16,4 +16,15 @@ export const PAGES= {
     STATUS_LIST:'/status-list',
 
 
+    FILE_ADD_EDIT:'/file-add-edit',
+    FILE_LIST:'/file-list',
+
+    ticket_Create:'/ticket-new', // ad new ticket
+    ticket_Read_All:'/ticket-list', // show list Of tickets
+    Tickets_Incoming:'IncomingTickets',
+    ticket_Read_Own:'/ticket-read-own', // read ticket with ticket replies
+    ticket_Update:'/ticket-new', // change ticket text file description ( just Admin)
+
+
+
 };
