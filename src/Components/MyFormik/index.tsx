@@ -1,13 +1,13 @@
-import {Formik, Form} from 'formik'
+import {Form, Formik} from 'formik'
 import FormikControl from './FormikControl'
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import "./styles.scss"
 import {Id, toast} from "react-toastify";
 import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
+import {uploadFileUtil} from "../../utils/upload.tsx";
 
 
 function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, requestUrl}) {
-
 
 
     const myPrivateAxios = useAxiosPrivate()
@@ -27,8 +27,8 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                 if (value instanceof File) {
 
                     console.log(`Uploading file for key: ${key}`);
-                    const tId:Id = toast.loading('در حال بارگزاری فایل...')
-                    const result = await uploadFile(value, key);
+                    const tId: Id = toast.loading('در حال بارگزاری فایل...')
+                    const result = await uploadFileUtil(value, key, axiosPrivateFormData);
                     toast.dismiss(tId)
                     if (result.status === 200) {
                         debugger
@@ -43,14 +43,14 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                     // If the value is an array of files, iterate and upload each file
                 // فعلا این قسمت توسعه داده نشده و هیچ بک اندی نداره.
                 else if (Array.isArray(value) && value.every(item => item instanceof File)) {
-                    debugger
+
                     uploadResults[key] = [];
                     for (const file of value) {
                         console.log(`Uploading file for key: ${key}`);
                         const tId = toast.loading('در حال بارگزاری فایل...')
-                        const result = await uploadFile(file, key);
+                        const result = await uploadFileUtil(file, key, axiosPrivateFormData);
                         toast.dismiss(tId)
-                        debugger
+
                         if (result?.status === 200) {
                             // Store the upload result or file ID
                             uploadResults[key].push(result);
@@ -77,28 +77,6 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
 
     }
 
-    async function uploadFile(file, key) {
-        const myFormData = new FormData();
-        // myFormData.append(key, file);
-        myFormData.append("singleFile", file);
-        myFormData.append("tag", key);
-
-
-        try {
-            const response = await axiosPrivateFormData.post("/upload", myFormData,);
-
-            if (response.status === 200) {
-                console.log(`${key} upload successful`, response.data);
-                return response; // Assuming the backend returns data including an ID or file reference
-            } else {
-                console.log(`${key} upload failed`, response);
-                return null;
-            }
-        } catch (error) {
-            console.error(`Error uploading ${key}:`, error);
-            return null;
-        }
-    }
 
 
     const onSubmit = async (values, {resetForm}) => {
@@ -162,7 +140,7 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
                             <div className={'w-full text-center mt-8'}>
                                 <button
                                     type={'submit'}
-                                    className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded hover:cursor-pointer'}
+                                    className={'btn-submit-mir'}
                                     // disabled={!formik.isValid}
                                 >
 
