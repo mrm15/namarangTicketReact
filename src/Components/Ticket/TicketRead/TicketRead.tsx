@@ -8,7 +8,7 @@ import DeleteButton from "../../../assets/icons/DeleteButton";
 import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
 
-function TicketRead() {
+export function TicketRead() {
     const requestUrl = 'status/read'
     const navigateEditPage = PAGES.STATUS_ADD_EDIT
     const deleteRequest = 'status/delete/'
