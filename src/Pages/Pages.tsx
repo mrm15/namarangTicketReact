@@ -22,6 +22,7 @@ import ListStatus from "../Components/Status/ListStatus.tsx";
 import AddFiles from "../Components/Files/AddFiles.tsx";
 import ListFiles from "../Components/Files/ListFiles.tsx";
 import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
+import {TicketRead} from "../Components/Ticket/TicketRead/TicketRead.tsx";
 
 
 const Pages = () => {
