@@ -34,7 +34,8 @@ const Home = () => {
         { title:'لیست فایل ها' , description:"مشاهده لیست فایل ها ", icon:FaFile  , link:PAGES.FILE_LIST},
 
 
-        {title:'ثبت سفارش جدید' , description: 'ایجاد سفارش جدید در نمارنگ' , icon:FaTicketAlt , link: PAGES.ticket_Create}
+        {title:'ثبت سفارش جدید' , description: 'ایجاد سفارش جدید در نمارنگ' , icon:FaTicketAlt , link: PAGES.ticket_Create},
+        {title:'مشاهده لیست سفارشات' , description: 'مشاهده لیست سفارشات' , icon:FaTicketAlt , link: PAGES.ticket_Read_All},
 
     ]
 
