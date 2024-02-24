@@ -91,7 +91,10 @@ const Pages = () => {
                         {/* ticket create */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>
                             <Route path={PAGES.ticket_Create} element={<TicketCreate/>}/>
-
+                        </Route>
+                        {/* ticket readAll */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
+                            <Route path={PAGES.ticket_Read_All} element={<TicketRead />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
