@@ -55,6 +55,11 @@ const useAxiosPrivate = () => {
 
                     return error
                 }
+                if(error?.response?.status === 500){
+                    toast.error(error?.response.data.message);
+
+                    return error
+                }
                 return Promise.reject(error);
             }
         );
