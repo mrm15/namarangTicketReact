@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {AgGridReact} from "ag-grid-react";
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -83,7 +83,8 @@ const AgGridDataShow = (props) => {
 
         const randomNumber = Math.random()*100
         if(randomNumber<50){
-            return { fontWeight: 'bold' };
+            // return { fontWeight: 'bold' };
+            return null
         }
         return null
         // if (!params?.data?.isOpened) {  // Assuming 'isOpened' is your condition
@@ -96,13 +97,19 @@ const AgGridDataShow = (props) => {
     // Grid options
     const gridOptions = {
         // other grid options...
-        rowHeight: 100, // Set your desired row height here
+        rowHeight: 40, // Set your desired row height here
         getRowStyle: getRowStyle,
 
     };
-
+    const defaultColDef = useMemo<ColDef>(() => {
+        return {
+            flex: 1,
+            minWidth: 200,
+            floatingFilter: true,
+        };
+    }, []);
     return (
-        <div className="ag-theme-alpine" style={{height: "80vh", width: '100%', direction: 'rtl'}}
+        <div className="ag-theme-alpine" style={{height: "70vh", width: '100%', direction: 'rtl'}}
         >
             <AgGridReact
                 ref={gridRef}
@@ -124,6 +131,7 @@ const AgGridDataShow = (props) => {
                     minWidth: 100,
                     filter: true,
                     resizable: true,
+                    floatingFilter: true,
                 }}
 
 
