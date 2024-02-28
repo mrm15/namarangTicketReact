@@ -99,6 +99,9 @@ html {
 .fontSize18 {
     font-size: 18px !important;
 }
+.fontSize22 {
+    font-size: 22px !important;
+}
 .ltr {
     direction: ltr;
 }
