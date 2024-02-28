@@ -19,6 +19,7 @@ const dropdownOptions = [
     {value:'statusListDelete', key: "حذف از جدول استاتوس ها" },
     {value:'ticketCreate', key: "ایجاد تیکت" },
     {value:'ticketReadAll', key: "خواندن همه تیکت ها" },
+    {value:'ticketChatList', key: "خواندن چت لیست تیکت" },
     {value:'ticketReadOwn', key: "خواندن تیکت های خودم که طبیعیه" },
     {value:'ticketUpdate', key: "به روز رسانی مشخصات یک تیکت" },
     {value:'ticketDelete', key: "حذف دائم یک تیکت" },
