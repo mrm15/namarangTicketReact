@@ -21,6 +21,7 @@ export const PAGES= {
 
     ticket_Create:'/ticket-new', // ad new ticket
     ticket_Read_All:'/ticket-list', // show list Of tickets
+    ticket_chat_list:'/ticket-chat-list', // ad new ticket
     Tickets_Incoming:'IncomingTickets',
     ticket_Read_Own:'/ticket-read-own', // read ticket with ticket replies
     ticket_Update:'/ticket-new', // change ticket text file description ( just Admin)
