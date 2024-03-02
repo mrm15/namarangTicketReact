@@ -23,6 +23,7 @@ export const ROLES = {
     // ],
     ticketCreate: ['ticketCreate'],
     ticketReadAll: ['ticketReadAll'],
+    ticketChatList: ['ticketChatList'],
     ticketReadOwn: ['ticketReadOwn'],
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
