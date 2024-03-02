@@ -23,6 +23,8 @@ import AddFiles from "../Components/Files/AddFiles.tsx";
 import ListFiles from "../Components/Files/ListFiles.tsx";
 import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
 import {TicketRead} from "../Components/Ticket/TicketRead/TicketRead.tsx";
+import TicketChatList from "../Components/Ticket/TicketChatList/TicketChatList.tsx";
+
 
 
 const Pages = () => {
@@ -38,6 +40,7 @@ const Pages = () => {
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
+
 
 
                 {/* pages all people can see and need sidebar */}
@@ -96,6 +99,10 @@ const Pages = () => {
                         {/* ticket readAll */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
                             <Route path={PAGES.ticket_Read_All} element={<TicketRead />}/>
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
+                            <Route path={PAGES.ticket_chat_list} element={<TicketChatList />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
