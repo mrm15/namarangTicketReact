@@ -7,10 +7,19 @@ import EditButton from "../../../assets/icons/EditButton";
 import DeleteButton from "../../../assets/icons/DeleteButton";
 import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
+import useAuth from "../../../hooks/useAuth.tsx";
+import {object} from "yup";
+
+interface ColumnDefinition {
+    minWidth: number;
+    headerName: string;
+    field: string;
+    cellStyle?: (params: any) => any; // Define cellStyle as an optional function
+}
 
 export function TicketRead() {
-    const requestUrl = 'status/read'
-    const navigateEditPage = PAGES.STATUS_ADD_EDIT
+    const requestUrl = 'ticket/read'
+    const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
 
     const CheckboxRenderer = (params) => {
@@ -39,10 +48,10 @@ export function TicketRead() {
 
 
     const navigateTo = useNavigate()
-    const editButtonHandler = (params) => {
+    const openTicketHandler = (params) => {
 
-        const data = params.data
-        navigateTo(navigateEditPage, {state: {data}})
+        const data = params.data;
+        navigateTo(navigateEditPage, {state: {id: data?._id}})
     }
 
     const myAxiosPrivate = useAxiosPrivate()
@@ -63,18 +72,19 @@ export function TicketRead() {
     }
     const deleteButtonHandler = async (params) => {
 
-        const data = params.data;
+        const data = params?.data;
 
-        const message = `آیا مطمئنی که میخوای وضعیت  با نام
+
+        const message = `آیا مطمئنی که میخوای سفارش  با نام
         ${data?.name}
-        به صورت کامل برای همیشه از لیست وضعیت  ها حذف کنی؟
+        به صورت کامل برای همیشه از لیست سفارش  ها حذف کنی؟
         `
         const confirmResult1 = confirm(message)
         if (confirmResult1) {
             const message = ` برای بار دوم  عرض میکنم.  این فرآیند قابل برگشت نیست.
-            آیا مطمئنی که میخوای وضعیت  با نام
+            آیا مطمئنی که میخوای سفارش  با نام
         ${data?.name}
-        به صورت کامل برای همیشه از لیست وضعیت  ها حذف کنی؟
+        به صورت کامل برای همیشه از لیست سفارش  ها حذف کنی؟
         `
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
@@ -84,62 +94,13 @@ export function TicketRead() {
         }
     }
 
-    const myColumnDefs = [
-        // Add the new column with icon and click handler
-        {
-            headerName: "عملیات", cellRenderer: (params) => (
-                <div className={'flex flex-wrap gap-1 items-center justify-center'}>
-                    <button
-                        onClick={() => editButtonHandler(params)}
-                    >
-                        <EditButton/>
-                    </button>
-                    <button
-                        onClick={() => deleteButtonHandler(params)}
-
-                        className={'text-red-600'}>
-
-                        <DeleteButton/>
-                    </button>
-                </div>
-            ),
-            cellStyle: () => ({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }),
-        },
-        /////////////////////
-        {headerName: "شماره تماس", field: "phoneNumber", minWidth: 150, hide: false},
-        {headerName: "نام", field: "name", minWidth: 150, hide: false},
-        {headerName: "دسترسی به مخاطبین", field: "addContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {
-            headerName: "ویرایش مخاطبین",
-            field: "editContactAccess",
-            minWidth: 150,
-            hide: false,
-            cellRenderer: CheckboxRenderer
-        },
-        {headerName: "حذف مخاطبین", field: "deleteContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده مخاطبین", field: "listAllContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده مخاطبین خودش", field: "listOwnContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {
-            headerName: "خروجی گرفتن از مخاطبین",
-            field: "exportContactAccess",
-            hide: false,
-            cellRenderer: CheckboxRenderer
-        },
-        {headerName: "افزودن وضعیت ", field: "addUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "حذف وضعیت ", field: "deleteUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "ویرایش وضعیت ", field: "editUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده لیست وضعیت ", field: "listUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-    ]
 
     const [myTableData, setMyTableData] = useState({
 
         columnDefs: [],
         rowData: []
     });
+    const {auth} = useAuth();
 
     const addCustomColumn = (myHeaderArray: []) => {
 
@@ -148,32 +109,60 @@ export function TicketRead() {
         // @ts-ignore
         headerArray.unshift({
             headerName: "عملیات", cellRenderer: (params) => (
-                <div className={'flex flex-wrap gap-1 items-center justify-center'}>
+                <div className={'flex gap-1 items-center justify-center'}>
                     <button
-                        onClick={() => editButtonHandler(params)}
-                    >
-                        <EditButton/>
-                    </button>
-                    <button
+                        onClick={() => openTicketHandler(params)}
+                        className={'btn-into-aggrid'}
+                    >مشاهده</button>
+                    {auth.userInfo?.roleAccessList?.includes('ticketDelete') &&
+
+                      <button
                         onClick={() => deleteButtonHandler(params)}
 
                         className={'text-red-600'}>
 
                         <DeleteButton/>
-                    </button>
+                      </button>
+                    }
                 </div>
             ),
             cellStyle: () => ({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                 // minWidth:'300px',
+                 // maxWidth:'300px',
+                 // width:'300px',
+                // display: 'flex',
+                // alignItems: 'center',
+                // justifyContent: 'center',
             }),
         });
 
+        const styleFunction = () => ({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            direction: 'ltr'
+        })
 
-        return headerArray
 
+// Define the type for the style function
+        type StyleFunction = (params: any) => any;
 
+// Assuming styleFunction is a function that accepts params and returns a style object
+
+// Map over headerArray and apply cellStyle to specific columns
+        const headerArray1: ColumnDefinition[] = headerArray.map((r: ColumnDefinition) => {
+            const row: ColumnDefinition = {...r}; // Shallow copy of the original object
+
+            // Check if the field is 'dateCreate' or 'lastChangeDate'
+            if (row.field === 'dateCreate' || row.field === 'lastChangeDate') {
+                // Assign the styleFunction to the cellStyle property
+                row.cellStyle = styleFunction as StyleFunction; // Assert styleFunction to StyleFunction type
+            }
+
+            return row;
+        });
+
+        return headerArray1
     }
 
 
@@ -188,6 +177,7 @@ export function TicketRead() {
                 const tableData = res.data.list;
 
                 tableData.columnDefs = addCustomColumn(tableData.columnDefs)
+
 
                 // mohammad mrm
 
@@ -213,14 +203,12 @@ export function TicketRead() {
                     <div
                         className={'bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3'}
                     >
-                        <div> لیست وضعیت </div>
+                        <div> لیست سفارش</div>
                         <div
                             className={'flex flex-wrap justify-center items-center mx-2'}
                         >
-
                         </div>
                     </div>
-
                 </div>
 
 
