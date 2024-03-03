@@ -8,14 +8,15 @@ const FormDatePicker = (props) => {
 
     const {value, onChange} = props
 
-    const dateCal = useRef()
+    const dateCal = useRef<HTMLInputElement>(null); // Specify the expected type for clarity
+
     useEffect(() => {
 
 
 
         const handleKeyDown = (event) => {
             if (event?.keyCode === 9) {
-                dateCal?.current?.closeCalendar();
+                (dateCal.current as any).closeCalendar();
             }
         };
 
