@@ -8,6 +8,24 @@ import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 
+interface ColumnDef {
+    headerName: string;
+    field: string;
+    minWidth?: number;
+    hide?: boolean;
+    cellRenderer?: (params: any) => JSX.Element;
+}
+
+interface TableData {
+    columnDefs: ColumnDef[];
+    rowData: any[];
+}
+
+interface HeaderItem {
+    headerName: string;
+    cellRenderer: (params: any) => JSX.Element;
+    cellStyle: () => React.CSSProperties;
+}
 
 function ListUsers() {
 
@@ -82,67 +100,14 @@ function ListUsers() {
             }
         }
     }
-
-    const myColumnDefs = [
-        // Add the new column with icon and click handler
-        {
-            headerName: "عملیات", cellRenderer: (params) => (
-                <div className={'flex flex-wrap gap-1 items-center justify-center'}>
-                    <button
-                        onClick={() => editButtonHandler(params)}
-                    >
-                        <EditButton/>
-                    </button>
-                    <button
-                        onClick={() => deleteButtonHandler(params)}
-
-                        className={'text-red-600'}>
-
-                        <DeleteButton/>
-                    </button>
-                </div>
-            ),
-            cellStyle: () => ({
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }),
-        },
-        /////////////////////
-        {headerName: "شماره تماس", field: "phoneNumber", minWidth: 150, hide: false},
-        {headerName: "نام", field: "name", minWidth: 150, hide: false},
-        {headerName: "دسترسی به مخاطبین", field: "addContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {
-            headerName: "ویرایش مخاطبین",
-            field: "editContactAccess",
-            minWidth: 150,
-            hide: false,
-            cellRenderer: CheckboxRenderer
-        },
-        {headerName: "حذف مخاطبین", field: "deleteContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده مخاطبین", field: "listAllContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده مخاطبین خودش", field: "listOwnContactAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {
-            headerName: "خروجی گرفتن از مخاطبین",
-            field: "exportContactAccess",
-            hide: false,
-            cellRenderer: CheckboxRenderer
-        },
-        {headerName: "افزودن کاربر", field: "addUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "حذف کاربر", field: "deleteUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "ویرایش کاربر", field: "editUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-        {headerName: "مشاهده لیست کاربر", field: "listUserAccess", hide: false, cellRenderer: CheckboxRenderer},
-    ]
-
-    const [myTableData, setMyTableData] = useState({
+    const [myTableData, setMyTableData] = useState<TableData>({
 
         columnDefs: [],
         rowData: []
     });
 
-    const addCustomColumn = (myHeaderArray: []) => {
-
-        const headerArray = [...myHeaderArray]
+    const addCustomColumn = (myHeaderArray: HeaderItem[]) => {
+        const headerArray = [...myHeaderArray];
 
         headerArray.unshift({
             headerName: "عملیات", cellRenderer: (params) => (
