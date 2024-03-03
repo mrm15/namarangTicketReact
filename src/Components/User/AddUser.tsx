@@ -19,7 +19,7 @@ const AddUser = () => {
 
     const text = {
         title: editMode ? 'ویرایش کاربر' : 'افزودن کاربر جدید',
-        subTitle: editMode ? `ویرایش کاربر با شناسه ${formUniqId}_ ${myLocation.state.data.phoneNumber}` : `افزودن کاربر جدید به سایت`
+        subTitle: editMode ? `ویرایش کاربر با شناسه ${formUniqId}_ ${myLocation?.state?.data?.phoneNumber}` : `افزودن کاربر جدید به سایت`
     }
 
     const requestUrl = editMode ? `user/update` : 'user/create'
@@ -61,7 +61,6 @@ const AddUser = () => {
         if (editMode) {
 
 
-            debugger
             updatedFormConfig = updatedFormConfig.map(v => {
                 const row = {...v}
 
@@ -71,11 +70,13 @@ const AddUser = () => {
                 return row
 
             })
-            debugger
+
         }
 
 
-        const temp = {};
+        const temp = {
+            id:undefined
+        };
         if (editMode) {
             temp.id = formUniqId
         }
