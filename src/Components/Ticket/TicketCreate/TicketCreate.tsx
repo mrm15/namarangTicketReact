@@ -7,6 +7,7 @@ import {uploadFileUtil} from "../../../utils/upload.tsx";
 import useAxiosPrivateFormData from "../../../hooks/useAxiosPrivateFormData.tsx";
 import {AxiosResponse} from "axios";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
+import {handleDragOver} from "../../../utils/utilsFunction.tsx";
 
 interface TicketData {
     title: string;
@@ -71,9 +72,7 @@ const MyComponent: React.FC = () => {
     };
 
 
-    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-    }
+
 
     const myAxiosPrivateFormData = useAxiosPrivateFormData()
 
