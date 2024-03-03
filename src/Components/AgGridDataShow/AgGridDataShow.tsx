@@ -101,7 +101,7 @@ const AgGridDataShow = (props) => {
         getRowStyle: getRowStyle,
 
     };
-    const defaultColDef = useMemo<ColDef>(() => {
+    const defaultColDef = useMemo(() => {
         return {
             flex: 1,
             minWidth: 200,
