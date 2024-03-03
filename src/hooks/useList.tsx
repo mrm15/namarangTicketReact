@@ -1,19 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import useAxiosPrivate from "./useAxiosPrivate";
+import React, { useEffect, useState } from 'react';
+import useAxiosPrivate from './useAxiosPrivate';
 
-const useList = (requestUrl) => {
+const useList = (requestUrl: string) => {
+    const [list, setList] = useState<any[]>([]); // Change the type to any[] temporarily
+    const myPrivateAxios = useAxiosPrivate();
 
-    const [list, setList] = useState([])
-    const myPrivateAxios = useAxiosPrivate()
     useEffect(() => {
-        myPrivateAxios(requestUrl).then((res: { data: { list: React.SetStateAction<{}>; }; }) => {
-            setList(res.data.list)
-        }).catch((_: any) => {
-            setList([])
-        })
-    }, [requestUrl]);
+        // @ts-ignore
+        myPrivateAxios(requestUrl)
+            .then((res: { data: { list: any[] }; }) => { // Change the type to any[] temporarily
+                setList(res.data.list);
+            })
+            .catch((_: any) => {
+                setList([]);
+            });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [requestUrl]); // Ignore the warning about missing dependencies
 
-    return list
+    return list;
 };
 
 export default useList;
