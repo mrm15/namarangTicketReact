@@ -4,11 +4,13 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import {getChatListData} from "./getChatListData";
 import Loader from "../../Loader";
 import ChatList from "./ChatList.tsx";
+import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 
 const RequestUrl = 'ticket/chatList/'
-const MyComponent = () => {
+const TicketChatList = () => {
 
     const [isLoading, setIsLoading] = useState(true);
+    const [reload, setReload] = useObjectDataHolder({value:0});
     const [chatList, setChatList] = useState([])
     const myLocation = useLocation();
     const myAxios = useAxiosPrivate()
@@ -29,7 +31,7 @@ const MyComponent = () => {
         if (id)
             void doTask()
 
-    }, []);
+    }, [reload]);
 
     if (!id) {
         return <div className={'m-3 bg-red-300 fontSize22 rounded-t p-16 text-blue-800'}>صفحه مورد نظر یافت نشد مجددا از لیست تیکت ها اقدام به مشاهده این صفحه نمایید</div>
@@ -38,11 +40,11 @@ const MyComponent = () => {
 
     return (
         <div className={'chat__list'}>
-            {isLoading ? <Loader/> : <ChatList chatList={chatList} />}
+            {isLoading ? <Loader/> : <ChatList reload={reload} setReload={setReload}  chatList={chatList} />}
 
 
         </div>
     );
 };
 
-export default MyComponent;
+export default TicketChatList;
