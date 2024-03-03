@@ -1,4 +1,5 @@
 import numeric from "./NumericFunction.tsx";
+import React from "react";
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -22,7 +23,7 @@ const removeComma = (str: string | number): string => {
 
 };
 
-const randomNumberGenerator = (): number => Math.random() * 10000000000;
+export const randomNumberGenerator = (): number => Math.random() * 10000000000;
 
 const utilsFunction = {
 
@@ -115,5 +116,9 @@ export const getCurrentDate = () => {
 
     return formattedDate || '';
 };
+
+export const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+}
 
 
