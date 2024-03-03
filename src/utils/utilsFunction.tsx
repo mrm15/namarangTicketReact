@@ -1,5 +1,4 @@
 import numeric from "./NumericFunction.tsx";
-import React from "react";
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
