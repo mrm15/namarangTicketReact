@@ -15,7 +15,7 @@ const MyComponent = props => {
     const [mySrc, setMySrc] = useState(true)
 
     const myLocation = useLocation()
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+
     const editMode = !!myLocation?.state?.data;
     const formUniqId = myLocation?.state?.data?.id
 
@@ -27,7 +27,7 @@ const MyComponent = props => {
     const requestUrl = editMode ? `status/update` : 'status/create'
 
     const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
-    const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
+    const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState<Record<string, any>>({});
     // ///////////////////////////////////////////
 
     //////////////////////////////
@@ -67,22 +67,6 @@ const MyComponent = props => {
             }
         }
 
-        // void getArrayList('/user/userList').then(userList => {
-        //     void getArrayList('/department/departmentList').then(departmentList => {
-        //         updatedFormConfig = updatedFormConfig.map(r => {
-        //             const row = {...r}
-        //             if (row.name === 'managerUserId') {
-        //                 row.options = userList
-        //             }
-        //
-        //             if (row.name === 'parentDepartmentId') {
-        //                 row.options = departmentList
-        //             }
-        //             return row
-        //         })
-
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-
 
         setMyInitialValuesAddUser(temp)
         setMyFormikFormAddUser(updatedFormConfig);
@@ -118,7 +102,7 @@ const MyComponent = props => {
                       <div className={'my-10'}>
                         <a
                           className={'bg-blue-400 p-2 rounded shadow shadow-black'}
-                          href={prefixDownloadUrl + myInitialValuesAddUser?.filePath}
+                          href={`${prefixDownloadUrl}${myInitialValuesAddUser.filePath as string}`}
                           target={'_blank'}
                         >
                           مشاهده فایل
