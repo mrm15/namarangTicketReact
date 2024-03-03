@@ -59,10 +59,7 @@ const Home = () => {
 
     const menus: MenuType = [
         {name: "داشبورد", link: "/", icon: MdOutlineDashboard},
-        {name: "مخاطب جدید", link: PAGES.ADD_USER_TO_PANEL, icon: AiOutlineUser},
-        {name: "لیست مخاطبین", link: PAGES.LIST_USER_PANEL, icon: FiMessageSquare},
-        {name: 'افزودن کاربر', link: PAGES.ADD_NEW_ROLE_TO_PANEL, icon: FiMessageSquare},
-        {name: 'لیست کاربران', link: PAGES.LIST_ROLE_PANEL, icon: FiMessageSquare},
+
         // { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
         // { name: "File Manager", link: "/", icon: FiFolder },
         // { name: "Cart", link: "/", icon: FiShoppingCart },
