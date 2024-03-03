@@ -56,13 +56,16 @@ const MyComponent = props => {
         }
 
 
-        const temp = {};
+        const temp = {
+            id:undefined,
+            statusListCreate:[],
+        };
         if (editMode) {
             temp.id = formUniqId
         }
         for (const row of updatedFormConfig) {
 
-            debugger
+
             if (editMode) {
                 temp[row.name] = myLocation.state.data[row.name]
             } else {
@@ -71,7 +74,7 @@ const MyComponent = props => {
         }
         // اینجا چون دسترسی نقش ها توی یک آرایه هست و کلیدش رو میدونیم
         if (editMode) {
-            debugger
+
             temp.statusListCreate = []
             const myObject = {...myLocation.state.data}
             for (const k in myObject) {
