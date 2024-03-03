@@ -108,3 +108,19 @@ html {
 .rtl {
     direction: rtl;
 }
+.border__gray{
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.width__90_Percent{
+    width: 90% !important;
+}
+.width__60_Percent{
+    width: 60% !important;
+}
+.width__50_Percent{
+    width: 50% !important;
+}
+.width__20_Percent{
+    width: 20% !important;
+}
