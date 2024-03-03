@@ -57,7 +57,7 @@ export function TicketRead() {
     const myAxiosPrivate = useAxiosPrivate()
 
     const handleDeleteUser = async (id: any) => {
-        const url = deleteRequest + id
+        const url = `${deleteRequest}${id}`
 
         try {
             const response = await myAxiosPrivate.delete(url)
@@ -100,6 +100,7 @@ export function TicketRead() {
         columnDefs: [],
         rowData: []
     });
+    // @ts-ignore
     const {auth} = useAuth();
 
     const addCustomColumn = (myHeaderArray: []) => {
