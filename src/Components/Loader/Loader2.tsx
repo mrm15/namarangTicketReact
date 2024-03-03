@@ -1,6 +1,11 @@
 import "./loader2.scss"
+import {string} from "yup";
 
-function Loader2() {
+interface Loader2Props {
+    text?: string
+}
+
+function Loader2({text}: Loader2Props) {
 
 
     return (
