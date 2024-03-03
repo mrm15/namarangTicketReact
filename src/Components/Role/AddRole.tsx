@@ -43,7 +43,6 @@ const MyComponent = props => {
         });
 
         if (editMode) {
-            debugger
             updatedFormConfig = updatedFormConfig.map(v => {
                 const row = {...v}
 
@@ -53,7 +52,7 @@ const MyComponent = props => {
                 return row
 
             })
-            debugger
+
         }
 
 
