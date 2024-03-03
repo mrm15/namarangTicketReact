@@ -7,6 +7,7 @@ import EditButton from "../../assets/icons/EditButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
+import {HeaderItem} from "../../utils/types/types.ts";
 
 
 function ListRoles() {
@@ -140,9 +141,8 @@ function ListRoles() {
         rowData: []
     });
 
-    const addCustomColumn = (myHeaderArray: []) => {
-
-        const headerArray = [...myHeaderArray]
+    const addCustomColumn = (myHeaderArray: HeaderItem[]) => {
+        const headerArray = [...myHeaderArray];
 
         headerArray.unshift({
             headerName: "عملیات", cellRenderer: (params) => (

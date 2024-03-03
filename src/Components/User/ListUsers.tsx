@@ -7,6 +7,7 @@ import EditButton from "../../assets/icons/EditButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
+import {HeaderItem} from "../../utils/types/types.ts";
 
 interface ColumnDef {
     headerName: string;
@@ -21,11 +22,7 @@ interface TableData {
     rowData: any[];
 }
 
-interface HeaderItem {
-    headerName: string;
-    cellRenderer: (params: any) => JSX.Element;
-    cellStyle: () => React.CSSProperties;
-}
+
 
 function ListUsers() {
 
