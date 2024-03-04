@@ -5,6 +5,7 @@ import {getChatListData} from "./getChatListData";
 import Loader from "../../Loader";
 import ChatList from "./ChatList.tsx";
 import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
+import './style.scss';
 
 const RequestUrl = 'ticket/chatList/'
 const TicketChatList = () => {
