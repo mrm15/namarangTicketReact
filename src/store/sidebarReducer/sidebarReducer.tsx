@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {fillInput} from "../functions";
 
 const initialState = {
-    isOpen: true,
+    isOpen: false,
     isMobile: window.innerWidth <= 768
 }
 
