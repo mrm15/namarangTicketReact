@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export const BASE_URL = 'http://localhost:3001';
-// const BASE_URL = 'https://nodejs-6mbttd.chbk.run';
+// export const BASE_URL = 'https://nodejs-6mbttd.chbk.run';
+
 
 
 export default axios.create({
