@@ -1,55 +1,70 @@
 import {FaTrash} from "react-icons/fa";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {handleDragOver, randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 import useAxiosPrivateFormData from "../../../hooks/useAxiosPrivateFormData.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {AxiosResponse} from "axios";
 import {uploadFileUtil} from "../../../utils/upload.tsx";
+import {toast} from "react-toastify";
+import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
+import {RiAttachmentLine} from "react-icons/ri";
+import {FiPaperclip} from "react-icons/fi";
 
 const requestUrl = '/ticketReply/create';
-const ResponseSection = ({chatList,setReload,reload}) => {
 
+interface IInitialSendData {
+    description: string;
+    visibleToUser: boolean;
+    attachments: File[] | [];
+}
 
+const ResponseSection = ({chatList, setReload, reload}) => {
+
+    const initialSendData: IInitialSendData = {
+        description: '',
+        visibleToUser: true,
+        attachments: []
+    }
 
     const messagesEndRef = useRef(null);
     // Function to scroll to the bottom of the container
     const scrollToBottom = () => {
         if (messagesEndRef.current) {
-            setTimeout(()=>{
+            setTimeout(() => {
                 messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
-            },500)
+            }, 500)
         }
     };
     // Scroll to the bottom of the container when messages update
     useEffect(() => {
-
-        debugger
         scrollToBottom();
     }, [reload]);
 
 
-
-    const [sendData, setSendData] = useState({
-        description: '',
-        visibleToUser: true,
-        attachments: []
-    })
-
+    const [sendData, setSendData] = useObjectDataHolder({...initialSendData})
+    const fileInputRef = useRef(null);
     const myAxiosPrivate = useAxiosPrivate()
     const myAxiosPrivateFormData = useAxiosPrivateFormData()
     const submitHandler = async () => {
+
+        if (sendData.description === '') {
+            toast.error('مقدار توضیحات نباید خالی باشد');
+            return
+        }
+
 
         const attachments = []
         // try Upload Files
         try {
             // بریم که فایل ها رو آپلود کنیم و   آی دی ها رو بریزیم توی آرایه
             // lets upload Files and  get IDs from backend and send Them in array
-            if (attachments.length > 0) {
-                for (const myFile of attachments) {
+            if (sendData.attachments.length > 0) {
+                const tId = toast.loading('در حال بارگزاری فایل')
+                for (const myFile of sendData.attachments) {
                     try {
                         const responseOfRequest: AxiosResponse<any> | null = await uploadFileUtil(myFile, "replyTicket", myAxiosPrivateFormData);
+
                         if (responseOfRequest && responseOfRequest.status === 200) {
-                            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
                             const fileId: string | undefined = responseOfRequest?.data?.id;
                             if (fileId) {
                                 attachments.push(fileId);
@@ -60,9 +75,11 @@ const ResponseSection = ({chatList,setReload,reload}) => {
                             attachments.push('');
                         }
                     } catch (error) {
-                        attachments.push('');
+
                     }
+
                 }
+                toast.dismiss(tId)
             }
         } catch (error) {
             attachments.push('');
@@ -75,57 +92,101 @@ const ResponseSection = ({chatList,setReload,reload}) => {
             attachments: attachments
         }
 
-        const respose = await myAxiosPrivate.post(requestUrl, temp);
-
-        const {data} = respose;
-        setReload({value: randomNumberGenerator()})
+        try {
+            const respose = await myAxiosPrivate.post(requestUrl, temp);
+            const {data} = respose;
+            toast.success(data?.message)
+            setSendData({...initialSendData})
+            setReload({value: randomNumberGenerator()})
+        } catch (error) {
+            toast.error(error.toString())
+        }
 
     }
 
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>, index: number) => {
+        event.preventDefault();
+        const droppedFiles = Array.from(event.dataTransfer.files);
+        if (droppedFiles.length > 3) {
+            toast.info('فقط سه فایل در هر تیکت میتوانید ارسال کنید')
+            return
+        }
+        setSendData({attachments: [...droppedFiles]})
 
-    let index = 0;
+    };
+    const handleInputFile = (e) => {
+        const files = e.target.files;
+
+        if (files.length > 3) {
+            toast.info('فقط سه فایل در هر تیکت میتوانید ارسال کنید')
+            return
+        }
+        setSendData({attachments: Array.from(files)});
+    }
+
+    const handleRemoveFile = () => {
+        setSendData({attachments: []});
+        if (fileInputRef.current) {
+            fileInputRef.current.value = ''; // Clear the value of the file input
+        }
+
+    }
+
+    const index = 0;
     try {
+
+
+        const ContentText = sendData.attachments.length > 0 ? sendData.attachments.map((file: File) => file.name).join(', ') : ` محل قرار گیری فایل`
         return <div
 
             className={'border-2 my-2'}>
             <textarea
 
+                value={sendData.description}
                 onChange={(e) => setSendData({...sendData, description: e.target.value})}
                 className={'p-2 w-full border__gray'}
-                placeholder={'متن پاسخ را وارد کنید'}>{sendData.description}</textarea>
-            <div className={'flex items-center'}>
+                placeholder={'متن پاسخ را وارد کنید'}/>
 
-                <input
-                    onChange={(e) => {
-                        // assignFileToState(e.target.files[0], index)
-                    }}
-                    id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+            <div className={'flex justify-between'}>
+                <div className={'flex justify-center'}>
+                    <div className={'flex items-center'}>
+                        {sendData.attachments.length > 0 && <FaTrash
+                          onClick={handleRemoveFile}
+                          className={'text-red-600 ms-2 '}/>}
+                    </div>
 
-                <div className={'flex items-center'}>
-                    <label htmlFor={`file${index + 1}`}
-                           className={'customFileLabel cursor-pointer w-full'}
-                    >
-                        <div
-                            id={`file${index + 1}`}
-                            className="same__input w-full"
-                            // onDrop={e => handleDrop(e, index)}
-                            onDragOver={handleDragOver}>
-                            <div>
-                                {/*{file?.name}*/}
-                                بکشید و رها کنید
+                    <div
+                        className={'flex items-center'}
+                    ><FiPaperclip/></div>
+                    <input
+                        ref={fileInputRef}
+                        multiple={true}
+                        onChange={handleInputFile}
+                        id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+
+                    <div className={'flex items-center'}>
+                        <label htmlFor={`file${index + 1}`}
+                               className={'customFileLabel cursor-pointer w-full'}
+                        >
+                            <div
+                                id={`file${index + 1}`}
+                                className="same__input w-full"
+                                onDrop={e => handleDrop(e, index)}
+                                onDragOver={handleDragOver}>
+                                <div className={'break-all px-1'}>
+                                    {ContentText}
+                                </div>
                             </div>
-                        </div>
-                    </label>
-                    <FaTrash
-                        // onClick={() => handleRemoveFile(index)}
-                        className={'text-red-600 ms-2'}/>
+                        </label>
+
+                    </div>
                 </div>
 
 
                 <button
                     ref={messagesEndRef}
                     onClick={submitHandler}
-                    className={'width__50_Percent bg-amber-100 h-full'}> ارسال
+                    className={'btn-submit-mir'}> ارسال
                 </button>
             </div>
         </div>
