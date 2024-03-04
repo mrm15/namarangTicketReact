@@ -29,10 +29,9 @@ const ChatList = ({chatList, setReload, reload}) => {
                         try {
                             return (
                                 <div key={index}
-                                    // className={'' + isTicketSender ? 'rtl ' : ''}
-                                     className={''}
+                                     className={isTicketSender ? 'rtl' : 'ltr'}
                                 >
-                                    <div className={'bg-blue-200 rounded mt-2 p-2  width__90_Percent'}>
+                                    <div className={'sm:w-full md:w-10/12 lg:w-1/2 rounded mt-2 p-2   chat__box rtl'}>
                                         <div className={'flex'}>
                                             <div>دپارتمان:</div>
                                             <div> {item?.department_name}</div>
@@ -56,7 +55,6 @@ const ChatList = ({chatList, setReload, reload}) => {
                                                 const temp = ((row.fileSize) / 1024)
                                                 const fileSize = temp.toFixed()
 
-                                                console.log(row)
 
                                                 let href = '';
                                                 if (typeof row.filePath === 'string') {
