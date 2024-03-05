@@ -25,6 +25,7 @@ export const ROLES = {
     ticketReadAll: ['ticketReadAll'],
     ticketChatList: ['ticketChatList'],
     ticketReadOwn: ['ticketReadOwn'],
+    ticketInput: ['ticketInput'],
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
 
@@ -63,9 +64,11 @@ export const ROLES = {
         'rolesUpdate',
         'rolesDelete',
     ],
+    ticketRepliesCreate:[
+        'ticketRepliesCreate',
+    ],
 
     ticketReply: [
-        'ticketRepliesCreate',
         'ticketRepliesRead',
         'ticketRepliesUpdate',
         'ticketRepliesDelete',
