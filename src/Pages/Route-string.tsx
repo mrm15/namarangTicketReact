@@ -20,7 +20,11 @@ export const PAGES= {
     FILE_LIST:'/file-list',
 
     ticket_Create:'/ticket-new', // ad new ticket
-    ticket_Read_All:'/ticket-list', // show list Of tickets
+    ticket_Read_All:'/ticket-list', // show list Of all tickets
+    ticketInput:'/ticket-list', // show list Of tickets
+    ticket_r:'/inboxList', // show list Of tickets
+    ticket_own_sent:'/ticket-sent', // show list Of tickets
+
     ticket_chat_list:'/ticket-chat-list', // ad new ticket
     Tickets_Incoming:'IncomingTickets',
     ticket_Read_Own:'/ticket-read-own', // read ticket with ticket replies
