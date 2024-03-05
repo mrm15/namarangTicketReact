@@ -8,7 +8,7 @@ import DeleteButton from "../../../assets/icons/DeleteButton";
 import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
 import useAuth from "../../../hooks/useAuth.tsx";
-import {object} from "yup";
+import {object, string} from "yup";
 
 interface ColumnDefinition {
     minWidth: number;
@@ -17,7 +17,11 @@ interface ColumnDefinition {
     cellStyle?: (params: any) => any; // Define cellStyle as an optional function
 }
 
-export function TicketRead() {
+interface TicketReadProps {
+    view?: string
+}
+
+export function TicketRead({view}: TicketReadProps) {
     const requestUrl = 'ticket/read'
     const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
@@ -114,7 +118,8 @@ export function TicketRead() {
                     <button
                         onClick={() => openTicketHandler(params)}
                         className={'btn-into-aggrid'}
-                    >مشاهده</button>
+                    >مشاهده
+                    </button>
                     {auth.userInfo?.roleAccessList?.includes('ticketDelete') &&
 
                       <button
@@ -128,9 +133,9 @@ export function TicketRead() {
                 </div>
             ),
             cellStyle: () => ({
-                 // minWidth:'300px',
-                 // maxWidth:'300px',
-                 // width:'300px',
+                // minWidth:'300px',
+                // maxWidth:'300px',
+                // width:'300px',
                 // display: 'flex',
                 // alignItems: 'center',
                 // justifyContent: 'center',
