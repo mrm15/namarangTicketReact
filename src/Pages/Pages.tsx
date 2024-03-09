@@ -97,7 +97,7 @@ const Pages = () => {
                             <Route path={PAGES.ticket_Create} element={<TicketCreate/>}/>
                             {/* ticketReadOwn تیکت هایی که خودم فرستادم رو ببینم */}
 
-                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readSentTicket'}  />}/>
+                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readSentTickets'}  />}/>
                         </Route>
 
 
@@ -107,7 +107,7 @@ const Pages = () => {
                         </Route>
                         {/* - که هم در پارتمان من هستند و هم من بهشون دسترسی دارم -   آخرین تیکت های دریافتی */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketInput}/>}>
-                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTicket'}  />}/>
+                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTickets'}  />}/>
                         </Route>
 
                         {/* -تمام تیکت هایی که من بهشون دسترسی دارم */}
