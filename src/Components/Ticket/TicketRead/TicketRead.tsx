@@ -22,7 +22,7 @@ interface TicketReadProps {
 }
 
 export function TicketRead({view}: TicketReadProps) {
-    const requestUrl = 'ticket/read'
+    const requestUrl = `ticket/${view}`
     const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
 
@@ -176,6 +176,7 @@ export function TicketRead({view}: TicketReadProps) {
 
 
         const getList = async () => {
+
             const res = await myAxiosPrivate.get(requestUrl)
             if (res.data) {
 
