@@ -35,7 +35,11 @@ const Home = () => {
 
 
         {title:'ثبت سفارش جدید' , description: 'ایجاد سفارش جدید در نمارنگ' , icon:FaTicketAlt , link: PAGES.ticket_Create},
-        {title:'مشاهده لیست سفارشات' , description: 'مشاهده لیست سفارشات' , icon:FaTicketAlt , link: PAGES.ticket_Read_All},
+
+        {title:'مشاهده همه سفارشات ادمین' , description: ' ' , icon:FaTicketAlt , link: PAGES.ticket_Read_All},
+        {title:'صندوق ورودی' , description: '' , icon:FaTicketAlt , link: PAGES.ticketInbox},
+        {title:'تمام تیکت های من' , description: '' , icon:FaTicketAlt , link: PAGES.ticket_read_my_all_tickets},
+        {title:'تیکت های فرستاده شده' , description: '' , icon:FaTicketAlt , link: PAGES.ticket_own_sent},
 
     ]
 
