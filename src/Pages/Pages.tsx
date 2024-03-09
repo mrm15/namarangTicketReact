@@ -95,27 +95,27 @@ const Pages = () => {
                         {/* ticket create */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>
                             <Route path={PAGES.ticket_Create} element={<TicketCreate/>}/>
+                            {/* ticketReadOwn تیکت هایی که خودم فرستادم رو ببینم */}
+
+                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readSentTicket'}  />}/>
                         </Route>
 
-                        {/* ticket readAll */}
+
+                        {/* ticket readAll for Admin */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
-                            <Route path={PAGES.ticket_Read_All} element={<TicketRead view={'readAllTickets'} />}/>
+                            <Route path={PAGES.ticket_Read_All} element={<TicketRead view={'read'} />} />
                         </Route>
-
-                        {/* ticketReadOwn تیکت هایی که خودم فرستادم رو ببینم */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwn}/>}>
-                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readOwnTickets'}  />}/>
-                        </Route>
-
                         {/* - که هم در پارتمان من هستند و هم من بهشون دسترسی دارم -   آخرین تیکت های دریافتی */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketInput}/>}>
-                            <Route path={PAGES.ticketInput} element={<TicketRead view={'readInbox'}  />}/>
+                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTicket'}  />}/>
                         </Route>
 
                         {/* -تمام تیکت هایی که من بهشون دسترسی دارم */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.ticketInput}/>}>
-                            <Route path={PAGES.ticketInput} element={<TicketRead view={'readInbox'}  />}/>
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwn}/>}>
+                            <Route path={PAGES.ticket_read_my_all_tickets} element={<TicketRead view={'readMyAllTickets'}  />}/>
                         </Route>
+
+
 
 
 
