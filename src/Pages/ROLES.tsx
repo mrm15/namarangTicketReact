@@ -24,7 +24,7 @@ export const ROLES = {
     ticketCreate: ['ticketCreate'],
     ticketReadAll: ['ticketReadAll'],
     ticketChatList: ['ticketChatList'],
-    ticketReadOwn: ['ticketReadOwn'],
+    ticketReadOwn: ['ticketReadOwn'], // all tickets user has access to them
     ticketInput: ['ticketInput'],
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
