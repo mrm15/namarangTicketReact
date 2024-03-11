@@ -22,6 +22,7 @@ const dropdownOptions = [
     {value:'ticketInput', key: "دسترسی به صندوق ورودی تیکت های مشترک من و دپارتمان" },
     {value:'ticketChatList', key: "خواندن چت لیست تیکت" },
     {value:'ticketReadOwn', key: "خواندن تیکت های خودم که طبیعیه" },
+    {value:'ticketReadOwnReceived', key: "مشاهده تمام تیکت هایی که من بهشون دسترسی دارم" },
     {value:'ticketUpdate', key: "به روز رسانی مشخصات یک تیکت" },
     {value:'ticketDelete', key: "حذف دائم یک تیکت" },
     {value:'themeCreate', key: "ایجاد تم جدید در آینده" },
