@@ -26,6 +26,7 @@ export const PAGES = {
     ticketInbox: '/ticket-inbox', // show list Of tickets in my department and in my access list
     // all my access list ticket
     ticket_read_my_all_tickets: '/readMyAllTickets', // show list Of tickets
+    ticket_read_department_tickets: '/readDepartmentTickets', // show department tickets
     // sent Ticket Link
     /////////////////////////////////////////
 
