@@ -6,7 +6,7 @@ import ControlColumns from "./ControlColumns.tsx"; // Optional theme CSS
 
 const AgGridDataShow = (props) => {
 
-    const {columnDefs, rowData,onCellClicked} = props
+    const {columnDefs, rowData,onCellClicked ,onSelectionChanged,setMyGridRefState} = props
     const [myColumnDefs, setMyColumnDefs] = useState(columnDefs);
 
     const [myRowData, setMyRowData] = useState(rowData);
@@ -56,7 +56,8 @@ const AgGridDataShow = (props) => {
 
     const gridRef = useRef(null);
 
-    const onGridReady = (params) => {
+    const onGridReady = (params:any) => {
+        (!!setMyGridRefState) && setMyGridRefState(params)
         const allColumnIds = [];
         params.columnApi.getAllColumns().forEach((column) => {
             allColumnIds.push(column.colId);
@@ -114,7 +115,7 @@ const AgGridDataShow = (props) => {
             <AgGridReact
                 ref={gridRef}
                 gridOptions={gridOptions}
-
+                onSelectionChanged={onSelectionChanged}
                 onGridReady={onGridReady}
                 onCellClicked={onCellClicked}
                 //
