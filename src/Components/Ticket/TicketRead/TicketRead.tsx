@@ -9,6 +9,8 @@ import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {object, string} from "yup";
+import {FaArrowRight, FaShareSquare} from "react-icons/fa";
+import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 
 interface ColumnDefinition {
     minWidth: number;
@@ -32,6 +34,9 @@ export function TicketRead({view}: TicketReadProps) {
     const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
 
+    const [currentParams, setCurrentParams] = useState({})
+    const [openForwardToUserModal, setOpenForwardToUserModal] = useState(false)
+    const [openForwardToDepartmentModal, setOpenForwardToDepartmentModal] = useState(false)
     const CheckboxRenderer = (params) => {
         const handleCheckboxClick = (e) => {
             e.stopPropagation();
@@ -113,11 +118,71 @@ export function TicketRead({view}: TicketReadProps) {
     // @ts-ignore
     const {auth} = useAuth();
 
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    const handleHeaderCheckboxChange = (e) => {
+        const isChecked = e.target.checked;
+        const allItems = myTableData.rowData.map((rowData) => rowData.id);
+        setSelectedItems(isChecked ? allItems : []);
+    };
+
+    console.log(selectedItems)
+
     const addCustomColumn = (myHeaderArray: []) => {
 
-        const headerArray = [...myHeaderArray]
+        const headerArray :any = [...myHeaderArray]
 
-        // @ts-ignore
+        headerArray.unshift({
+            headerName: "",
+            field: "headerCheckbox",
+            checkboxSelection: true,
+            headerCheckboxSelection: true,
+            headerCheckboxSelectionFilteredOnly: true,
+            headerComponentFramework: () => (
+                <input
+                    type="checkbox"
+                    onChange={handleHeaderCheckboxChange}
+                    checked={selectedItems.length === myTableData.rowData.length}
+                />
+            ),
+        });
+
+        // بعدا میگم اگه  کاربر دسترسی به  ارجارع به کاربر داشت اینو ادد کن
+        if(true){
+            headerArray.unshift({
+                minWidth: 250,
+                headerName: "ارجاع به کاربر", cellRenderer: (params) => (
+                    <div className={''}>
+                        <button
+                            onClick={() => {
+                                setCurrentParams(params)
+                                setOpenForwardToUserModal(true)
+                            }}
+                            className={'mx-1 flex items-center gap-1 items-center justify-center'}
+                        ><FaShareSquare />
+                            <span>ارجاع به کاربر</span>
+                        </button>
+
+
+                    </div>
+                ),
+                cellStyle: () => ({
+                    // minWidth:'300px',
+                    // maxWidth:'300px',
+                    // width:'300px',
+                    // display: 'flex',
+                    // alignItems: 'center',
+                    // justifyContent: 'center',
+                }),
+            });
+        }
+
+        // بعدا میگم اگه اینجا صندوق ورودی بود و کاربر دسترسی به  ارجارع به کاربر داشت اینو ادد کن
+
+
+
+
+
         headerArray.unshift({
             headerName: "عملیات", cellRenderer: (params) => (
                 <div className={'flex gap-1 items-center justify-center'}>
@@ -212,6 +277,14 @@ export function TicketRead({view}: TicketReadProps) {
     try {
         return (
             <div>
+                {openForwardToUserModal && <ForwardModal
+                  currentParams={currentParams}
+                  closeModal={()=>setOpenForwardToUserModal(false)}
+                    title={'ارجاع تیکت به کاربران دیگر'}
+                  onSubmit={()=>{
+                      console.log('Done')}}
+                />}
+                {openForwardToDepartmentModal && <ForwardModal/>}
                 <div className={'font-bold my-3 '}>
                     <div
                         className={'bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3'}
