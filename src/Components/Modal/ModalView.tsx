@@ -2,7 +2,7 @@ const MyComponent = (props) => {
     return (
         <div className="relative   mx-auto p-5 border   shadow-lg rounded-md bg-white">
             <div className={'flex justify-between p-3 border-b-2 '}>
-                <div>{props.title}</div>
+                <div className={'font-bold'}>{props.title}</div>
                 <div
                     className={'cursor-pointer   rounded text-red-500 scale-150'}
                     onClick={props.closeModal}
