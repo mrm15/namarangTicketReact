@@ -30,6 +30,22 @@ interface AuthState {
 
 export const AuthProvider = ({children}) => {
     // const [auth, setAuth] = useState({});
+    const [forwardConfig, setForwardConfig] = useState({
+        forwardToAllUsers: true,
+        forwardToOtherUsersInDepartments: true,
+        forwardUserList: [
+             {name:'بدون نام',         id:'3434343434' ,         photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+            {name:'محمد',              id:'3434343434' ,        photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+            {name:'علی',              id:'3434343434' ,         photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+
+        ],
+        forwardDepartmentList: [
+            {name:'بدون نام',         id:'3434343434' ,         photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+            {name:'محمد',              id:'3434343434' ,        photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+            {name:'علی',              id:'3434343434' ,         photoUrl:'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png'},
+        ],
+
+    });
     const [auth, setAuth] = useState<AuthState>(() => {
         // Load authentication data from local storage or a default value
         const storedAuth = localStorage.getItem("3319173716");
