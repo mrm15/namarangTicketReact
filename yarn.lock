@@ -7,6 +7,13 @@
   resolved "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
+"@ag-grid-community/react@^31.1.1":
+  version "31.1.1"
+  resolved "https://registry.yarnpkg.com/@ag-grid-community/react/-/react-31.1.1.tgz#ce670b71822b10ca6757ea02d8d8d4f46a7b8abf"
+  integrity sha512-b2htrkndkCx86Ze0LppG+Oc7em/19nMKvzaLzi0hO6lFGueL+xW24ALLu2nSyqsgAePSZLZpUNyM3BnhrTcFwQ==
+  dependencies:
+    prop-types "^15.8.1"
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
@@ -2051,10 +2058,10 @@ react-router@6.14.1:
   dependencies:
     "@remix-run/router" "1.7.1"
 
-react-select@^5.7.4:
-  version "5.7.4"
-  resolved "https://registry.npmjs.org/react-select/-/react-select-5.7.4.tgz"
-  integrity sha512-NhuE56X+p9QDFh4BgeygHFIvJJszO1i1KSkg/JPcIJrbovyRtI+GuOEa4XzFCEpZRAEoEI8u/cAHK+jG/PgUzQ==
+react-select@^5.8.0:
+  version "5.8.0"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-5.8.0.tgz#bd5c467a4df223f079dd720be9498076a3f085b5"
+  integrity sha512-TfjLDo58XrhP6VG5M/Mi56Us0Yt8X7xD6cDybC7yoRMUNm7BGO7qk8J0TLQOua/prb8vUOtsfnXZwfm30HGsAA==
   dependencies:
     "@babel/runtime" "^7.12.0"
     "@emotion/cache" "^11.4.0"
