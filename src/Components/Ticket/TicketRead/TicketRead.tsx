@@ -1,5 +1,5 @@
 import {PAGES} from "../../../Pages/Route-string";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import {toast} from "react-toastify";
@@ -12,6 +12,7 @@ import {object, string} from "yup";
 import {FaArrowRight, FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 
+
 interface ColumnDefinition {
     minWidth: number;
     headerName: string;
@@ -22,44 +23,35 @@ interface ColumnDefinition {
 interface TicketReadProps {
     view?: string
 }
+
+type MyStateType = {
+    [key: string]: any;
+};
+
 const title = {
-    readSentTickets: 'لیست پیام های ارسالی' ,
-    read: 'همه ی تیکت های موجود در سیستم' ,
-    readMyInboxTickets: 'صندوق ورودی من' ,
-    readMyAllTickets: 'همه ی تیکت های من' ,
-    readDepartmentTickets: 'تیکت های دپارتمان' ,
+    readSentTickets: 'لیست پیام های ارسالی',
+    read: 'همه ی تیکت های موجود در سیستم',
+    readMyInboxTickets: 'صندوق ورودی من',
+    readMyAllTickets: 'همه ی تیکت های من',
+    readDepartmentTickets: 'تیکت های دپارتمان',
 }
+
 export function TicketRead({view}: TicketReadProps) {
+
+
     const requestUrl = `ticket/${view}`
     const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
 
     const [currentParams, setCurrentParams] = useState({})
     const [openForwardToUserModal, setOpenForwardToUserModal] = useState(false)
-    const [openForwardToDepartmentModal, setOpenForwardToDepartmentModal] = useState(false)
-    const CheckboxRenderer = (params) => {
-        const handleCheckboxClick = (e) => {
-            e.stopPropagation();
-            console.log("Checkbox clicked:", params.data);
-            // Additional logic
-        };
-
-        try {
-            return (
-                <input
-                    type="checkbox"
-                    checked={params.value}
-                    onClick={handleCheckboxClick}
-                />
-            );
-        } catch (error) {
-            return <>{error.toString()}</>
-        }
-    };
-
-
     const [isLoading, setIsLoading] = useState(true)
     const [reload, setReload] = useState(1)
+    const [myTableData, setMyTableData] = useState({
+        columnDefs: [],
+        rowData: []
+    });
+    const [selectedItems, setSelectedItems] = useState([]);
 
 
     const navigateTo = useNavigate()
@@ -110,56 +102,35 @@ export function TicketRead({view}: TicketReadProps) {
     }
 
 
-    const [myTableData, setMyTableData] = useState({
-
-        columnDefs: [],
-        rowData: []
-    });
     // @ts-ignore
     const {auth} = useAuth();
 
-    const [selectedItems, setSelectedItems] = useState([]);
 
-    const handleHeaderCheckboxChange = (e) => {
-        const isChecked = e.target.checked;
-        const allItems = myTableData.rowData.map((rowData) => rowData.id);
-        setSelectedItems(isChecked ? allItems : []);
-    };
+    const onCellClicked = (params) => {
+        console.log(params)
+    }
 
-    console.log(selectedItems)
 
     const addCustomColumn = (myHeaderArray: []) => {
 
-        const headerArray :any = [...myHeaderArray]
-
-        headerArray.unshift({
-            headerName: "",
-            field: "headerCheckbox",
-            checkboxSelection: true,
-            headerCheckboxSelection: true,
-            headerCheckboxSelectionFilteredOnly: true,
-            headerComponentFramework: () => (
-                <input
-                    type="checkbox"
-                    onChange={handleHeaderCheckboxChange}
-                    checked={selectedItems.length === myTableData.rowData.length}
-                />
-            ),
-        });
-
+        const headerArray: any = [...myHeaderArray]
         // بعدا میگم اگه  کاربر دسترسی به  ارجارع به کاربر داشت اینو ادد کن
-        if(true){
+        const small = 11
+        const result = small === 11
+        if (result) {
             headerArray.unshift({
+                floatingFilter: false,
                 minWidth: 250,
                 headerName: "ارجاع به کاربر", cellRenderer: (params) => (
                     <div className={''}>
                         <button
                             onClick={() => {
                                 setCurrentParams(params)
+                                console.log(params)
                                 setOpenForwardToUserModal(true)
                             }}
                             className={'mx-1 flex items-center gap-1 items-center justify-center'}
-                        ><FaShareSquare />
+                        ><FaShareSquare/>
                             <span>ارجاع به کاربر</span>
                         </button>
 
@@ -180,10 +151,8 @@ export function TicketRead({view}: TicketReadProps) {
         // بعدا میگم اگه اینجا صندوق ورودی بود و کاربر دسترسی به  ارجارع به کاربر داشت اینو ادد کن
 
 
-
-
-
         headerArray.unshift({
+            floatingFilter: false,
             headerName: "عملیات", cellRenderer: (params) => (
                 <div className={'flex gap-1 items-center justify-center'}>
                     <button
@@ -213,20 +182,63 @@ export function TicketRead({view}: TicketReadProps) {
             }),
         });
 
+
+        // headerArray.unshift({
+        //     headerName: "انتخاب همه",
+        //     field: "headerCheckbox",
+        //
+        //     // cellRenderer: 'agCheckboxCellRenderer',
+        //     // cellEditor: 'agCheckboxCellEditor',
+        //     // checkboxSelection: true,
+        //     // headerCheckboxSelection: true,
+        //     // headerCheckboxSelectionFilteredOnly: true,
+        //     minWidth: 150,
+        //     checkboxSelection: true,
+        //     headerCheckboxSelection: true,
+        //     floatingFilter: false,
+        // });
+
+
+        const AllCheckboxRenderer = () => {
+            const handleCheckboxChange = (e) => {
+                const isChecked = e.target.checked;
+                const allIds = myTableData.rowData.map(row => row.id);
+                setSelectedItems(isChecked ? allIds : []);
+            };
+
+            return (
+                <>
+                    <input
+                        type="checkbox"
+                        checked={selectedItems.length === myTableData.rowData.length}
+                        onChange={handleCheckboxChange}
+                    /></>
+            );
+        };
+
+        const selectAll = {
+            floatingFilter: false,
+            headerName: "انتخاب همه",
+            field: "selectAll",
+            headerCheckboxSelection: true,
+            checkboxSelection: true,
+            headerCheckboxSelectionFilteredOnly: true,
+            headerComponentFramework: AllCheckboxRenderer,
+            minWidth: 150,
+        }
+
+        headerArray.unshift(selectAll)
+
         const styleFunction = () => ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             direction: 'ltr'
         })
-
-
-// Define the type for the style function
+        // Define the type for the style function
         type StyleFunction = (params: any) => any;
 
-// Assuming styleFunction is a function that accepts params and returns a style object
-
-// Map over headerArray and apply cellStyle to specific columns
+        // Map over headerArray and apply cellStyle to specific columns
         const headerArray1: ColumnDefinition[] = headerArray.map((r: ColumnDefinition) => {
             const row: ColumnDefinition = {...r}; // Shallow copy of the original object
 
@@ -271,20 +283,30 @@ export function TicketRead({view}: TicketReadProps) {
 
     }, [reload]);
 
-    const onCellClicked = (params) => {
-        console.log(params.data)
+
+    const [myGridRefState, setMyGridRefState] = useState<MyStateType>()
+
+    const handleOnSelectionChanged = (params) => {
+        const selectedRows = params.api.getSelectedRows();
+        console.log("Selected Rows:", selectedRows);
+        setSelectedItems(selectedRows)
+        console.log(selectedItems)
+        console.log("selectedItems")
+        console.log(selectedItems)
+
     }
     try {
         return (
             <div>
                 {openForwardToUserModal && <ForwardModal
                   currentParams={currentParams}
-                  closeModal={()=>setOpenForwardToUserModal(false)}
-                    title={'ارجاع تیکت به کاربران دیگر'}
-                  onSubmit={()=>{
-                      console.log('Done')}}
+                  selectedItems={selectedItems}
+                  closeModal={() => setOpenForwardToUserModal(false)}
+                  title={'ارجاع تیکت'}
+                  onSubmit={() => {
+                      console.log('Done')
+                  }}
                 />}
-                {openForwardToDepartmentModal && <ForwardModal/>}
                 <div className={'font-bold my-3 '}>
                     <div
                         className={'bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3'}
@@ -300,10 +322,26 @@ export function TicketRead({view}: TicketReadProps) {
 
                 {isLoading ? <Loader/> :
                     <div>
+                        <button
+                            className={'btn-submit-mir'}
+                            onClick={() => {
+                                if(selectedItems.length===0) {
+                                    toast('حداقل یک مورد را انتخاب کنید')
+                                    return
+                                }
+                                setOpenForwardToUserModal(true)
+                            }}
+
+
+                        > ارجاع چندتایی
+                        </button>
+                        <br/>
                         <AggridDataShow
+                            setMyGridRefState={setMyGridRefState}
                             columnDefs={myTableData.columnDefs}
                             rowData={myTableData.rowData}
                             // onCellClicked={onCellClicked}
+                            onSelectionChanged={handleOnSelectionChanged}
                         />
                     </div>}
             </div>
