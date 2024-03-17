@@ -5,11 +5,13 @@ import {Provider} from 'react-redux'
 import store from './store'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {AuthProvider} from './context/AuthProvider';
+import MyQueryClientProvider from "./Components/MyQueryClientProvider/MyQueryClientProvider.tsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
-        <Provider store={store}>
+    <Provider store={store}>
+        <MyQueryClientProvider>
             <BrowserRouter>
                 <AuthProvider>
                     <Routes>
@@ -17,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     </Routes>
                 </AuthProvider>
             </BrowserRouter>
-        </Provider>
+        </MyQueryClientProvider>
+    </Provider>
     // </React.StrictMode>,
 )
