@@ -56,6 +56,8 @@ const dropdownOptions = [
     {value:'ticketChangeHistoryRead', key: "خواندن سوابق یک تیکت" },
     {value:'ticketChangeHistoryRepliesUpdate', key: "ویرایش جدول سوابق یک تیکت" },
     {value:'ticketChangeHistoryDelete', key: "حذف یک مورد از سوابق یک تیکت" },
+    {value:'forwardTickets', key: "قابلیت ارجاع تیکت داشته باشد یا نه؟" },
+    {value:'UnlimitedForward', key: "ارجاع تیکت به همه ی دپارتمان ها و همه کاربران" },
     {value:'userCreate', key: "ایجاد کاربر جدید" },
     {value:'userReadAll', key: "مشاهده جدول کاربران" },
     {value:'userReadSameDepartment', key: "مشاهده کاربرانی که توی همون دپارتمان خودش هستن" },
