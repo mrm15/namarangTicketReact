@@ -28,7 +28,7 @@ const useAxiosPrivateFormData = () => {
 
                     prevRequest.sent = true;
                     const newAccessToken = await refresh();
-                    debugger
+
                     prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                     return axiosPrivateFormData(prevRequest);
                 }
