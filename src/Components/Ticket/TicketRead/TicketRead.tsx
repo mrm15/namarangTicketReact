@@ -8,9 +8,9 @@ import DeleteButton from "../../../assets/icons/DeleteButton";
 import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
 import useAuth from "../../../hooks/useAuth.tsx";
-import {object, string} from "yup";
 import {FaArrowRight, FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
+import {useQuery} from "@tanstack/react-query";
 
 
 interface ColumnDefinition {
@@ -42,6 +42,10 @@ export function TicketRead({view}: TicketReadProps) {
     const requestUrl = `ticket/${view}`
     const navigateEditPage = PAGES.ticket_chat_list;
     const deleteRequest = 'status/delete/'
+    // @ts-ignore
+    const {auth} = useAuth();
+
+    const isEnableForwarding = auth.userInfo.roleAccessList.includes('forwardTickets')
 
     const [currentParams, setCurrentParams] = useState({})
     const [openForwardToUserModal, setOpenForwardToUserModal] = useState(false)
@@ -102,8 +106,6 @@ export function TicketRead({view}: TicketReadProps) {
     }
 
 
-    // @ts-ignore
-    const {auth} = useAuth();
 
 
     const onCellClicked = (params) => {
@@ -254,6 +256,17 @@ export function TicketRead({view}: TicketReadProps) {
         return headerArray1
     }
 
+    const queryFn = () => {
+        return myAxiosPrivate.get('/forward/getConfig/')
+    }
+
+    const query = useQuery({
+        queryKey: ['forwardConfig'],
+        queryFn,
+        staleTime: 86400000,  // === 60*60*24*1000
+        enabled: isEnableForwarding,
+    })
+    console.log(query)
 
     useEffect(() => {
 
@@ -266,7 +279,9 @@ export function TicketRead({view}: TicketReadProps) {
 
                 const tableData = res.data.list;
 
-                tableData.columnDefs = addCustomColumn(tableData.columnDefs)
+                if (isEnableForwarding) {
+                    tableData.columnDefs = addCustomColumn(tableData.columnDefs);
+                }
 
 
                 // mohammad mrm
@@ -295,6 +310,8 @@ export function TicketRead({view}: TicketReadProps) {
         console.log(selectedItems)
 
     }
+
+
     try {
         return (
             <div>
@@ -325,7 +342,7 @@ export function TicketRead({view}: TicketReadProps) {
                         <button
                             className={'btn-submit-mir'}
                             onClick={() => {
-                                if(selectedItems.length===0) {
+                                if (selectedItems.length === 0) {
                                     toast('حداقل یک مورد را انتخاب کنید')
                                     return
                                 }
