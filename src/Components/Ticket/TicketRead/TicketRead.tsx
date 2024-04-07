@@ -263,6 +263,7 @@ export function TicketRead({view}: TicketReadProps) {
     const query = useQuery({
         queryKey: ['forwardConfig'],
         queryFn,
+
         staleTime: 86400000,  // === 60*60*24*1000
         enabled: isEnableForwarding,
     })
@@ -320,9 +321,7 @@ export function TicketRead({view}: TicketReadProps) {
                   selectedItems={selectedItems}
                   closeModal={() => setOpenForwardToUserModal(false)}
                   title={'ارجاع تیکت'}
-                  onSubmit={() => {
-                      console.log('Done')
-                  }}
+
                 />}
                 <div className={'font-bold my-3 '}>
                     <div
