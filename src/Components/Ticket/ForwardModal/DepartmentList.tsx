@@ -1,12 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Select from 'react-select'
-
-const options = [
-    { value: 'chocolate', label: 'محمد میرعرب' },
-    { value: 'strawberry', label: 'علی بای ' },
-    { value: 'vanilla', label: 'امیر حسین ' },
-    { value: 'vanilla1', label: 'کاربر جدید ' },
-];
+import {string} from "yup";
 
 const customStyles = {
     control: (provided, state) => ({
@@ -43,18 +37,30 @@ const customStyles = {
         ...provided,
         color: '#999', // Change text color of the placeholder
     }),
-    indicatorSeparator: () => ({ display: 'none' }), // Hide the indicator separator
-    indicatorsContainer: () => ({ display: 'none' }), // Hide the dropdown indicators
+    indicatorSeparator: () => ({display: 'none'}), // Hide the indicator separator
+    indicatorsContainer: () => ({display: 'none'}), // Hide the dropdown indicators
 };
 
-const DepartmentList = () => {
+const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
     const [selectedOption, setSelectedOption] = useState(null); // State to store the selected option
 
-    const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption); // Update the selected option state
+    console.log(myOptions)
+    const options = myOptions?.map((item: { name: any; id: any; }) => {
+        return {label: item.name, value: item.id}
+    })
+    options?.unshift({value: '', label: 'انتخاب کنید'})
+
+    useEffect(() => {
+        setSelectedOption({value: '', label: 'انتخاب کنید'})
+    }, [myOptions]);
+
+
+    const handleChange = (mySelectedOption) => {
+        setSelectedOption(mySelectedOption); // Update the selected option state
+        setSelectedData({[myKey]: mySelectedOption.value})
     };
 
-    console.log(selectedOption)
+
     return (
         <div>
             <Select
