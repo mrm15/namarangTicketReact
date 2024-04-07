@@ -43,10 +43,6 @@ const formikFormAddDepartment = [
     {control: 'radio' , name:'accessToSameDepartmentToAssignTask', label: 'ایجاد تسک برای همدپارتمانی ها' , options: isActiveRadioOptions},
     {control: 'radio' , name:'accessToOtherUsersToAssignTask', label: 'ایجاد تسک برای همه' , options: isActiveRadioOptions},
 
-
-
-
-
 ]
 
 export {
