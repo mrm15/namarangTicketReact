@@ -3,32 +3,99 @@ import "./style.scss"
 import SelectedTicketsInModal from "./SelectedTicketsInModal.tsx";
 import DepartmentList from "./DepartmentList.tsx";
 import UserList from "./UserList.tsx";
+import {useQuery} from "@tanstack/react-query";
+import {toast} from "react-toastify";
+import {v4 as uuidV4} from 'uuid';
+import {useEffect, useState} from "react";
+import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
+import FullAdminSection from "./FullAdminSection.tsx";
+import DepartmentAdminViewSection from "./DepartmentAdminViewSection.tsx";
+import UsualUserViewSection from "./UsualUserViewSection.tsx";
+
 
 function ForwardModal({currentParams, selectedItems, ...rest}) {
     console.log(currentParams);
 
+    const [selectedData, setSelectedData] = useObjectDataHolder({
+        department: '',
+        user: '',
+    })
+    const [userList, setUserList] = useState([])
 
 
-    return (
-        <div>
-            <Modal {...rest}>
-                <SelectedTicketsInModal
-                    selectedItems={selectedItems}
-                />
-
-                <div className={' flex gap-2'}>
-                    <div className={'w-full'}>
-                        <div>انتخاب دپارتمان</div>
-                        <DepartmentList /></div>
-                    <div className={'w-full'}>
-                       <div> انتخاب کاربر</div>
-                        <DepartmentList/></div>
-                </div>
+    const {data, isLoading, error} = useQuery<any>({
+        queryKey: ['forwardConfig'],
+    });
 
 
-            </Modal>
-        </div>
-    );
+    const onSubmit = () => {
+        console.log(selectedData)
+    }
+
+
+    const listView = data?.data?.list;
+    const mode: 'admin' | 'departmentAdmin' | 'usualUser' | undefined = data?.data?.list?.mode;
+   
+    const departmentList = data?.data?.list?.departmentList;
+    const destinationUserList = data?.data?.list?.destinationUserList;
+
+
+    useEffect(() => {
+        if (mode === 'admin') {
+            const temp = departmentList.find((row: { id: any; }) => row.id === selectedData.department)
+
+            setUserList(temp?.userList)
+        }
+
+    }, [selectedData]);
+    useEffect(() => {
+        setSelectedData({user: ''})
+    }, [selectedData.department]);
+
+
+    try {
+        return (
+            <div>
+                <Modal {...rest}
+                       onSubmit={onSubmit}
+                >
+                    {data ?
+                        <>
+                            <SelectedTicketsInModal
+                                selectedItems={selectedItems}
+                            />
+
+                            {mode === 'admin' && <FullAdminSection
+                              mode={mode}
+                              departmentList={departmentList}
+                              setSelectedData={setSelectedData}
+                              userList={userList}
+                            />}
+                            {mode === 'departmentAdmin' && <DepartmentAdminViewSection
+                              mode={mode}
+                              departmentList={departmentList}
+                              setSelectedData={setSelectedData}
+                              destinationUserList={destinationUserList}
+                            />
+                            }
+                            {mode === 'usualUser' && <UsualUserViewSection
+                              mode={mode}
+                              setSelectedData={setSelectedData}
+                              destinationUserList={destinationUserList}
+                            />
+                            }
+
+                        </> :
+                        <div>اطلاعات مربوط به ارجاع یافت نشد لطفا مجددا تلاش کنید. </div>
+                    }
+
+
+                </Modal>
+            </div>
+        );
+    } catch (error) {
+        return <>{error.toString()}</>
+    }
 }
 
 export default ForwardModal;
