@@ -42,10 +42,12 @@ const customStyles = {
 };
 
 const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
-    const [selectedOption, setSelectedOption] = useState(null); // State to store the selected option
+    const [selectedOption, setSelectedOption] = useState({value: '', label: 'انتخاب کنید'}); // State to store the selected option
 
     console.log(myOptions)
-    const options = myOptions?.map((item: { name: any; id: any; }) => {
+
+    let options  = [{label: '', value: ''}]
+    options = myOptions?.map((item: { name: any; id: any; }) => {
         return {label: item.name, value: item.id}
     })
     options?.unshift({value: '', label: 'انتخاب کنید'})
@@ -71,7 +73,26 @@ const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
                 value={selectedOption} // Set the selected option
             />
         </div>
-    );
+    )
+    // try {
+    //     return (
+    //         <div>
+    //             <Select
+    //                 placeholder={'یک کاربر انتخاب کنید'}
+    //                 options={options}
+    //                 styles={customStyles}    // Apply custom styles
+    //                 onChange={handleChange} // Handle option selection
+    //                 value={selectedOption} // Set the selected option
+    //             />
+    //
+    //             <div className={'h-6'}>مورد انتخابی: [{myKey}] {selectedOption.label}</div>
+    //         </div>
+    //     )
+    // } catch (error) {
+    //     console.log(error)
+    //
+    //     return <div>{error.toString()}</div>
+    // }
 };
 
 export default DepartmentList;

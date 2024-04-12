@@ -6,57 +6,49 @@ const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, dest
     // 0  equal to just send to user
     // 1 just send to users in my department
 
-    return (
-        <div>
-            <div>دسترسی مدیر دپارتمان</div>
-            <div className={'flex'}>
-                <div>
-                    <label htmlFor="selectOneOfThem1">ارسال به دپارتمان</label>
-                    <input name={'selectOneOfThem'}
-                           type="radio"
-                           id={'selectOneOfThem1'}
-                           value={1}
-                           checked={whichView === 1}
-                           onClick={() => setWhichView(1)}
-                    />
-                </div>
-                <div className={'mx-3'}>
-                    <label htmlFor="selectOneOfThem2">ارسال به کاربران</label>
-                    <input
-                        name={'selectOneOfThem'}
-                        onClick={() => setWhichView(0)}
-                        type="radio"
-                        id={'selectOneOfThem2'}
-                        value={0}
-                        checked={whichView === 0}
-                    />
-                </div>
-            </div>
 
-            <div className={' flex gap-2'}>
-                {whichView === 1 &&
-                  <div className={'w-full'}>
-                    <div>انتخاب دپارتمان</div>
-                      {mode === 'admin' || mode === 'departmentAdmin' && <div>
-                        <DepartmentList
-                          myOptions={departmentList}
-                          myKey={'department'}
-                          setSelectedData={setSelectedData}
-                        />
-                      </div>}
-                  </div>
-                }
-                {whichView === 0 && <div className={'w-full'}>
-                  <div> انتخاب کاربر</div>
-                  <DepartmentList
-                    myOptions={destinationUserList}
-                    myKey={'user'}
-                    setSelectedData={setSelectedData}
-                  />
-                </div>}
+    const handleChange = (value) => {
+        setWhichView(parseInt(value))
+        setSelectedData({department: '', user: ''})
+    }
+    try{
+        return (
+            <div>
+                <div>دسترسی مدیر دپارتمان</div>
+                <div className={'flex'}>
+                    <div className={' flex gap-2  border border-2 p-2 rounded cursor-pointer'}>
+
+                        <div className={whichView===0 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(0)}>ارسال به دپارتمان</div>
+                        <div className={whichView===1 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(1)}>ارسال به کاربران</div>
+
+                    </div>
+                </div>
+
+                <div className={''}>
+                    {whichView === 1 && <div className={''}>
+                      <div>انتخاب دپارتمان</div>
+                        {<div>
+                            <DepartmentList
+                                myOptions={departmentList}
+                                myKey={'department'}
+                                setSelectedData={setSelectedData}
+                            />
+                        </div>}
+                    </div>}
+                    {whichView === 0 && <div className={'w-full'}>
+                      <div> انتخاب کاربر</div>
+                      <DepartmentList
+                        myOptions={destinationUserList}
+                        myKey={'user'}
+                        setSelectedData={setSelectedData}
+                      />
+                    </div>}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }catch (error){
+        return <>{error.toString()}</>
+    }
 };
 
 export default DepartmentAdminViewSection;

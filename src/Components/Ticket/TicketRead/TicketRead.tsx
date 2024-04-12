@@ -20,9 +20,11 @@ interface ColumnDefinition {
     cellStyle?: (params: any) => any; // Define cellStyle as an optional function
 }
 
-interface TicketReadProps {
-    view?: string
-}
+// interface TicketReadProps {
+//     view?: string;
+//     [key: any]: any;
+//
+// }
 
 type MyStateType = {
     [key: string]: any;
@@ -36,7 +38,7 @@ const title = {
     readDepartmentTickets: 'تیکت های دپارتمان',
 }
 
-export function TicketRead({view}: TicketReadProps) {
+export function TicketRead({view}) {
 
 
     const requestUrl = `ticket/${view}`
@@ -321,6 +323,7 @@ export function TicketRead({view}: TicketReadProps) {
                   selectedItems={selectedItems}
                   closeModal={() => setOpenForwardToUserModal(false)}
                   title={'ارجاع تیکت'}
+                  setReload={setReload}
 
                 />}
                 <div className={'font-bold my-3 '}>

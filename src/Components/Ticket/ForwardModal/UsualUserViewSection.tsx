@@ -5,7 +5,6 @@ const UsualUserViewSection = ({mode, setSelectedData, destinationUserList}) => {
     return (
         <div>
             <div>
-
                 <div className={' flex gap-2'}>
                     <div className={'w-full'}>
                         <div> انتخاب کاربر</div>

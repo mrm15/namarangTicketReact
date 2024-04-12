@@ -6,20 +6,23 @@ import UserList from "./UserList.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {toast} from "react-toastify";
 import {v4 as uuidV4} from 'uuid';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 import FullAdminSection from "./FullAdminSection.tsx";
 import DepartmentAdminViewSection from "./DepartmentAdminViewSection.tsx";
 import UsualUserViewSection from "./UsualUserViewSection.tsx";
+import {axiosPrivate} from "../../../api/axios.tsx";
+import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 
 
-function ForwardModal({currentParams, selectedItems, ...rest}) {
-    console.log(currentParams);
+function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
 
+    const requestUrl = '/forward/submit'
     const [selectedData, setSelectedData] = useObjectDataHolder({
+        tickets: [],
         department: '',
         user: '',
-    })
+    });
     const [userList, setUserList] = useState([])
 
 
@@ -28,19 +31,42 @@ function ForwardModal({currentParams, selectedItems, ...rest}) {
     });
 
 
-    const onSubmit = () => {
-        console.log(selectedData)
+    const onSubmit = async () => {
+
+        if (selectedData.department === '' && selectedData.user === '') {
+            toast.error('حداقل یک مورد را انتخاب کنید.')
+            return;
+        }
+
+        if (selectedData.tickets.length === 0) {
+            toast.error('حداقل یک تیکت را انتخاب کنید.')
+            return;
+        }
+
+
+        try {
+            const myResult = await axiosPrivate.post(requestUrl, selectedData);
+            toast.success(myResult?.data?.message);
+            setReload(randomNumberGenerator())
+            rest?.closeModal()
+
+
+        } catch (error) {
+            toast.error(error.toString)
+        }
+
     }
 
 
     const listView = data?.data?.list;
     const mode: 'admin' | 'departmentAdmin' | 'usualUser' | undefined = data?.data?.list?.mode;
-   
+
     const departmentList = data?.data?.list?.departmentList;
     const destinationUserList = data?.data?.list?.destinationUserList;
 
 
     useEffect(() => {
+
         if (mode === 'admin') {
             const temp = departmentList.find((row: { id: any; }) => row.id === selectedData.department)
 
@@ -48,6 +74,11 @@ function ForwardModal({currentParams, selectedItems, ...rest}) {
         }
 
     }, [selectedData]);
+
+    useEffect(() => {
+        setSelectedData({tickets: [...selectedItems]})
+    }, [selectedItems]);
+
     useEffect(() => {
         setSelectedData({user: ''})
     }, [selectedData.department]);
@@ -57,6 +88,7 @@ function ForwardModal({currentParams, selectedItems, ...rest}) {
         return (
             <div>
                 <Modal {...rest}
+
                        onSubmit={onSubmit}
                 >
                     {data ?
@@ -89,11 +121,14 @@ function ForwardModal({currentParams, selectedItems, ...rest}) {
                         <div>اطلاعات مربوط به ارجاع یافت نشد لطفا مجددا تلاش کنید. </div>
                     }
 
+                    <div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>
+                    <div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>
 
                 </Modal>
             </div>
         );
     } catch (error) {
+
         return <>{error.toString()}</>
     }
 }

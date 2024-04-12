@@ -8,13 +8,13 @@ const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => 
             <div className={' flex gap-2'}>
                 <div className={'w-full'}>
                     <div>انتخاب دپارتمان</div>
-                    {mode === 'admin' || mode === 'departmentAdmin' && <div>
-                      <DepartmentList
-                        myOptions={departmentList}
-                        myKey={'department'}
-                        setSelectedData={setSelectedData}
-                      />
-                    </div>}
+                    <div>
+                        <DepartmentList
+                            myOptions={departmentList}
+                            myKey={'department'}
+                            setSelectedData={setSelectedData}
+                        />
+                    </div>
                 </div>
                 <div className={'w-full'}>
                     <div> انتخاب کاربر</div>
