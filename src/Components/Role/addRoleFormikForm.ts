@@ -71,6 +71,7 @@ const dropdownOptions = [
     {value:'userActiveAndDeActiveUsers', key: "فعال یا غیر فعال کردن کاربران" },
     {value:'userEditUsersRole', key: "تغییر  نقش کابران" },
     {value:'userEditUsersDepartment', key: "تغییر دپارتمان کاربران" },
+    {value:'adminSettings', key: "تنظیمات مدیریتی" },
 
 
 

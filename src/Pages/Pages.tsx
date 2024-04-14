@@ -127,6 +127,10 @@ const Pages = () => {
                             <Route path={PAGES.ticket_chat_list} element={<TicketChatList />}/>
                         </Route>
 
+                        <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
+                            <Route path={PAGES.admin_settings} element={<TicketChatList />}/>
+                        </Route>
+
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
                         {/*    <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>*/}
                         {/*</Route>*/}

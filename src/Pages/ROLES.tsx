@@ -30,6 +30,7 @@ export const ROLES = {
     ticketInput: ['ticketInput'],
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
+    adminSettings:['adminSettings'],
 
     theme: [
         'themeCreate',

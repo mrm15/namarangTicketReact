@@ -34,6 +34,7 @@ export const PAGES = {
     Tickets_Incoming: 'IncomingTickets',
     ticket_Read_Own: '/ticket-read-own', // read ticket with ticket replies
     ticket_Update: '/ticket-new', // change ticket text file description ( just Admin)
+    admin_settings: '/admin-settings', // admin settings  just For admin
 
 
 };
