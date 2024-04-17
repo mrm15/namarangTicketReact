@@ -72,6 +72,7 @@ const dropdownOptions = [
     {value:'userEditUsersRole', key: "تغییر  نقش کابران" },
     {value:'userEditUsersDepartment', key: "تغییر دپارتمان کاربران" },
     {value:'adminSettings', key: "تنظیمات مدیریتی" },
+    {value:'userStatusInDashboard', key: "نمایش وضعیت آنلاینی در داشبورد" },
 
 
 
