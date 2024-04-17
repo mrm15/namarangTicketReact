@@ -24,6 +24,7 @@ import ListFiles from "../Components/Files/ListFiles.tsx";
 import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
 import {TicketRead} from "../Components/Ticket/TicketRead/TicketRead.tsx";
 import TicketChatList from "../Components/Ticket/TicketChatList/TicketChatList.tsx";
+import AddSettings from "../Components/AdminSettings/AddSettings.tsx";
 
 
 
@@ -128,7 +129,7 @@ const Pages = () => {
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
-                            <Route path={PAGES.admin_settings} element={<TicketChatList />}/>
+                            <Route path={PAGES.admin_settings} element={<AddSettings />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
