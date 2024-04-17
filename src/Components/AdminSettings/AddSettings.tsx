@@ -1,53 +1,124 @@
-import {useEffect, useState} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import useAuth from "../../hooks/useAuth";
-import {formikFormAddDepartment, validationSchemaAddUser} from "./addStatusFormikForm.ts";
 import Loader from "../Loader";
 import MyFormik from "../MyFormik";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
+import useList from "../../hooks/useList.tsx";
+import TextError from "../MyFormik/TextError.tsx";
+import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
+import {toast} from "react-toastify";
 
 const MyComponent = props => {
-    const getAdminSettingsRequest = '/getAdminSettings';
-    const submitAdminSettingsRequest = '/submitAdminSettingsRequest';
+
+    const getDepartmentListRequestUrl = "department/departmentList"
+    const getAdminSettingsRequest = 'adminSettings/getAdminSettings';
+    const submitAdminSettingsRequest = 'adminSettings/submit';
+
     const [isLoading, setIsLoading] = useState(true);
-    const [adminSettingData,setAdminSettingData] = useState({
+    const [adminSettingData, setAdminSettingData] = useObjectDataHolder({
+        firstDestinationForTickets: '',
+        showUsersListInSendTicketForm: true,
+    });
+
+    const [departmentList, setDepartmentList] = useState(null)
+    const [isSendingData, setIsSendingData] = useState(false)
 
 
-    })
+    const getDepartmentList = useList(getDepartmentListRequestUrl);
 
 
-
-
-
-    ////////////////////////////////////////////
-
-
+    const myPrivateAxios = useAxiosPrivate()
+    useEffect(() => {
+        setDepartmentList(getDepartmentList)
+    }, [getDepartmentList]);
 
     useEffect(() => {
-        let updatedFormConfig = [...formikFormAddDepartment]
-        setIsLoading(false);
+        const getAdminSettings = async () => {
+            const result = await myPrivateAxios.get(getAdminSettingsRequest);
+            if (result.data) {
+                setAdminSettingData(result.data.adminSettingData)
+                setIsLoading(false);
+            }
+        }
 
-    }, []); // Depend on user's role list to re-evaluate form config on change
+        void getAdminSettings()
+    }, []);
 
+
+    const submitHandler = async () => {
+
+        setIsSendingData(true)
+        const response = await myPrivateAxios.post(submitAdminSettingsRequest, adminSettingData);
+        setIsSendingData(false)
+        if (response?.data) {
+            toast.success(response?.data?.message)
+        } else {
+            toast.error(response?.data?.message)
+        }
+    }
 
     try {
 
         return (<div className={'flex flex-wrap'}>
             <div className="w-full text-center bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"
                  role="alert">
-                <p className="font-bold">{text.title}</p>
-                <p className="text-sm">{text.subTitle}</p>
+                <p className="font-bold">{'تنظیمات مدیریتی'}</p>
+
             </div>
 
             {isLoading ? <Loader type={1}/> :
                 <>
-                    <MyFormik
-                        formikForm={myFormikFormAddUser}
-                        initialValues={myInitialValuesAddUser}
-                        validationSchema={validationSchemaAddUser}
-                        afterSubmit={afterSubmit}
-                        requestUrl={requestUrl}
-                    />
+
+                    <div>
+                        <div className='div__group__input_select'>
+                            <label htmlFor={'firstDestinationOfTickets'}>{'اولین مقصد سفارشات'}</label>
+                            <select
+                                value={adminSettingData.firstDestinationForTickets}
+                                onChange={event => setAdminSettingData({firstDestinationForTickets: event.target.value})}
+                                name="firstDestinationOfTickets" id="firstDestinationOfTickets">
+                                <option value="">انتخاب کنید</option>
+                                {departmentList.map(row => <option value={row.value}>{row?.key}</option>)}
+                            </select>
+                        </div>
+                        {/**/}
+                        <div className='div__group__input_select border__gray gap-4 flex flex-col px-2 py-3'>
+                            سفارشات هنگام ارسال؟
+                            <div>
+                                <label htmlFor='SULISTF1'>ارسال به <b>کاربر</b> دپارتمان</label>
+                                <input
+                                    id='SULISTF1'
+                                    type="radio"
+                                    checked={adminSettingData.showUsersListInSendTicketForm === true}
+                                    onChange={() => setAdminSettingData({showUsersListInSendTicketForm: true})}
+                                    name='SULISTF'
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor='SULISTF2'>ارسال به <b>مدیر</b> دپارتمان</label>
+                                <input
+                                    id='SULISTF2'
+                                    type="radio"
+                                    checked={adminSettingData.showUsersListInSendTicketForm === false}
+                                    onChange={() => setAdminSettingData({showUsersListInSendTicketForm: false})}
+                                    name='SULISTF'
+                                />
+                            </div>
+                        </div>
+                        {/**/}
+
+                        <div
+                            className={'w-full text-center'}
+                        >
+                            <button className={'btn-submit-mir mt-2'}
+                                    onClick={submitHandler}
+                                    disabled={isSendingData}
+                            >
+                                ثبت اطلاعات
+                            </button>
+                        </div>
+
+
+                    </div>
 
 
                 </>
