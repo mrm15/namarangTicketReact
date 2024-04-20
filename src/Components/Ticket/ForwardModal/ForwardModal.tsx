@@ -23,6 +23,10 @@ function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
         department: '',
         user: '',
     });
+    useEffect(() => {
+        setSelectedData({tickets: [...selectedItems]})
+    }, [selectedItems]);
+
     const [userList, setUserList] = useState([])
 
 
@@ -33,12 +37,16 @@ function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
 
     const onSubmit = async () => {
 
-        if (selectedData.department === '' && selectedData.user === '') {
+        const tempSelectedData = {...selectedData}
+        tempSelectedData.tickets = [...selectedItems]
+
+
+        if (tempSelectedData.department === '' && tempSelectedData.user === '') {
             toast.error('حداقل یک مورد را انتخاب کنید.')
             return;
         }
 
-        if (selectedData.tickets.length === 0) {
+        if (tempSelectedData.tickets.length === 0) {
             toast.error('حداقل یک تیکت را انتخاب کنید.')
             return;
         }
@@ -75,12 +83,9 @@ function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
 
     }, [selectedData]);
 
-    useEffect(() => {
-        setSelectedData({tickets: [...selectedItems]})
-    }, [selectedItems]);
 
     useEffect(() => {
-        setSelectedData({user: ''})
+        setSelectedData({...selectedData, user: ''})
     }, [selectedData.department]);
 
 
