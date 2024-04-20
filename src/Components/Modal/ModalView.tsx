@@ -4,7 +4,7 @@ const MyComponent = (props) => {
             <div className={'flex justify-between p-3 border-b-2 '}>
                 <div className={'font-bold'}>{props.title}</div>
                 <div
-                    className={'cursor-pointer   rounded text-red-500 scale-150'}
+                    className={'cursor-pointer   rounded text-red-500 scale-150 pr-3'}
                     onClick={props.closeModal}
                 > &#215;
                 </div>
