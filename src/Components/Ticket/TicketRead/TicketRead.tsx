@@ -269,7 +269,7 @@ export function TicketRead({view}) {
         staleTime: 86400000,  // === 60*60*24*1000
         enabled: isEnableForwarding,
     })
-    console.log(query)
+
 
     useEffect(() => {
 
@@ -308,7 +308,6 @@ export function TicketRead({view}) {
         const selectedRows = params.api.getSelectedRows();
         console.log("Selected Rows:", selectedRows);
         setSelectedItems(selectedRows)
-        console.log(selectedItems)
         console.log("selectedItems")
         console.log(selectedItems)
 
