@@ -4,6 +4,7 @@ import {FaUserCircle} from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import Modal from "../../Modal/Modal.tsx";
+import {toast} from "react-toastify";
 
 const STATUS = {
     ONLINE: 'online',
@@ -40,16 +41,13 @@ function UserStatus() {
         void getStatus()
     }, []);
 
-    // @ts-ignore
-    const {auth} = useAuth();
-
-    const userNameToShow = auth?.userInfo?.userData?.name || 'کاربر'
-    console.log(auth);
 
     const changeUserStatusHandler = async (newStatus) => {
         try {
 
-            const result = await myAxios.post(setNewStatusUrl, {userStatus:newStatus});
+            const tId = toast.loading('در حال آپدیت استاتوس')
+            const result = await myAxios.post(setNewStatusUrl, {userStatus: newStatus});
+            toast.dismiss(tId)
             console.log(result.data)
             if (result.data) {
                 setUserStatus(result?.data?.userStatus);
@@ -109,14 +107,10 @@ function UserStatus() {
                   </>
 
                 </Modal>}
-                <div className={'flex cursor-pointer'}
+                <div className={'flex cursor-pointer px-3'}
                      onClick={() => setIsOpenModal(true)}
                 >
-                    <div>
-                        {userNameToShow}
-                        &nbsp;
-                        عزیز
-                    </div>
+
                     <>
                         {userStatus === STATUS.ONLINE && <div>
                           <div title={'آنلاین'}>
