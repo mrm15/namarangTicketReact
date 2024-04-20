@@ -1,11 +1,12 @@
 import './DashboardBody.scss';
 import {useLocation} from "react-router-dom";
-import { FaBars,FaTimes } from 'react-icons/fa';
+import {FaBars, FaTimes} from 'react-icons/fa';
 
 import useAuth from "../../../hooks/useAuth.tsx";
 import {useDispatch, useSelector} from "react-redux";
 import {sidebarActions} from "../../../store/sidebarReducer/sidebarReducer.tsx";
 import ProfileInHeader from "./ProfileInHeader.tsx";
+import UserStatus from "./UserStatus.tsx";
 
 
 const HeaderDashboard = () => {
@@ -13,6 +14,7 @@ const HeaderDashboard = () => {
     // @ts-ignore
     const {auth} = useAuth();
 
+    const showUserStatus = auth?.userInfo?.roleAccessList?.includes('userStatusInDashboard')
     const location = useLocation();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     const title = location.state?.title !== undefined ? location.state.title : "پیشخوان";
@@ -30,6 +32,7 @@ const HeaderDashboard = () => {
         // @ts-ignore
         dispatch(sidebarActions.fillInput({isOpen:!isOpenSidebar}));
     };
+    const userNameToShow = auth?.userInfo?.userData?.name || 'کاربر';
     try {
         return (
 
@@ -69,7 +72,16 @@ const HeaderDashboard = () => {
                     </div>
 
 
-                    <ProfileInHeader />
+                    <div className={'flex gap-2'}>
+                        <div>
+                            {userNameToShow}
+                            &nbsp;
+                            عزیز
+                        </div>
+                        {showUserStatus && <UserStatus/>}
+
+                    </div>
+                    <ProfileInHeader/>
 
                 </div>
 
