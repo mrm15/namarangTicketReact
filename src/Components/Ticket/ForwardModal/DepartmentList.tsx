@@ -44,7 +44,7 @@ const customStyles = {
 const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
     const [selectedOption, setSelectedOption] = useState({value: '', label: 'انتخاب کنید'}); // State to store the selected option
 
-    console.log(myOptions)
+
 
     let options  = [{label: '', value: ''}]
     options = myOptions?.map((item: { name: any; id: any; }) => {
