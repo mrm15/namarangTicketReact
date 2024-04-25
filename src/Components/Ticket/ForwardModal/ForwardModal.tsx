@@ -46,6 +46,7 @@ function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
             return;
         }
 
+        console.log(tempSelectedData)
         if (tempSelectedData.tickets.length === 0) {
             toast.error('حداقل یک تیکت را انتخاب کنید.')
             return;
@@ -53,7 +54,7 @@ function ForwardModal({currentParams, selectedItems, setReload, ...rest}) {
 
 
         try {
-            const myResult = await axiosPrivate.post(requestUrl, selectedData);
+            const myResult = await axiosPrivate.post(requestUrl, tempSelectedData);
             toast.success(myResult?.data?.message);
             setReload(randomNumberGenerator())
             rest?.closeModal()
