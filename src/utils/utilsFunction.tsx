@@ -119,5 +119,8 @@ export const getCurrentDate = () => {
 export const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 }
+export  const bytesToMegabytes = (bytes)=> {
+    return bytes / (1024 * 1024);
+}
 
 
