@@ -11,6 +11,7 @@ import {toast} from "react-toastify";
 const MyComponent = props => {
 
     const getDepartmentListRequestUrl = "department/departmentList"
+    const getStatusListRequestUrl = "status/statusList"
     const getAdminSettingsRequest = 'adminSettings/getAdminSettings';
     const submitAdminSettingsRequest = 'adminSettings/submit';
 
@@ -18,19 +19,28 @@ const MyComponent = props => {
     const [adminSettingData, setAdminSettingData] = useObjectDataHolder({
         firstDestinationForTickets: '',
         showUsersListInSendTicketForm: true,
+        firstStatusTicket: '', // وضعیت اولیه تیکت ها
+        maxFileSize:'',
     });
 
+    const [statusList, setStatusList] = useState(null)
     const [departmentList, setDepartmentList] = useState(null)
     const [isSendingData, setIsSendingData] = useState(false)
 
 
     const getDepartmentList = useList(getDepartmentListRequestUrl);
+    const getStatusList = useList(getStatusListRequestUrl);
 
 
     const myPrivateAxios = useAxiosPrivate()
     useEffect(() => {
         setDepartmentList(getDepartmentList)
     }, [getDepartmentList]);
+
+    useEffect(() => {
+        setStatusList(getStatusList)
+    }, [getStatusList]);
+
 
     useEffect(() => {
         const getAdminSettings = async () => {
@@ -47,6 +57,11 @@ const MyComponent = props => {
 
     const submitHandler = async () => {
 
+
+        if(isNaN(parseFloat(adminSettingData.maxFileSize))){
+            toast.error('مقدار ماکزیمم فایل سایز رو به درستی وارد کنید.')
+            return
+        }
         setIsSendingData(true)
         const response = await myPrivateAxios.post(submitAdminSettingsRequest, adminSettingData);
         setIsSendingData(false)
@@ -105,6 +120,39 @@ const MyComponent = props => {
                             </div>
                         </div>
                         {/**/}
+                        <div className='div__group__input_select '>
+                            <>
+                                <label htmlFor='statusForTickets'>اولین وضعیت تیکت ها هنگام ارسال؟</label>
+                                <select
+                                    value={adminSettingData.firstStatusTicket}
+                                    onChange={event => setAdminSettingData({firstStatusTicket: event.target.value})}
+                                    name="statusForTickets" id="statusForTickets">
+                                    <option value="">انتخاب کنید</option>
+                                    {statusList.map(row => <option value={row.value}>{row?.key}</option>)}
+                                </select>
+
+                            </>
+
+                        </div>
+                        {/**/}
+                        <div className='div__group__input_select '>
+                            <>
+                                <label htmlFor='statusForTickets'>ماکزیمم حجم آپلو تک فایل؟ (مگا بایت)</label>
+                                <input type="text"
+                                       onChange={(event) => {
+                                           const value = event.target.value
+                                           if (/^\d*\.?\d*$/.test(value) || value === "") {
+                                               setAdminSettingData({maxFileSize: event.target.value })
+                                           }
+
+
+                                       }}
+                                       value={adminSettingData.maxFileSize+""}
+                                />
+
+                            </>
+
+                        </div>
 
                         <div
                             className={'w-full text-center'}
