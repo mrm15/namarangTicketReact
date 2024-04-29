@@ -1,6 +1,6 @@
 import {PAGES} from "../../../Pages/Route-string";
 import {useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import {toast} from "react-toastify";
 import EditButton from "../../../assets/icons/EditButton";
@@ -39,6 +39,7 @@ const title = {
 }
 
 export function TicketRead({view}) {
+    const { pathname } = useLocation();
 
 
     const requestUrl = `ticket/${view}`
@@ -275,7 +276,7 @@ export function TicketRead({view}) {
 
 
         const getList = async () => {
-
+            setIsLoading(true)
             const res = await myAxiosPrivate.get(requestUrl)
             if (res.data) {
 
@@ -299,7 +300,7 @@ export function TicketRead({view}) {
         void getList()
 
 
-    }, [reload]);
+    }, [reload , pathname]);
 
 
     const [myGridRefState, setMyGridRefState] = useState<MyStateType>()
