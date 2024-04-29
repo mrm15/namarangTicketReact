@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import './style.scss';
 import {FaPlus, FaTrash} from 'react-icons/fa';
 import {toast} from 'react-toastify';
@@ -7,14 +7,22 @@ import {uploadFileUtil} from "../../../utils/upload.tsx";
 import useAxiosPrivateFormData from "../../../hooks/useAxiosPrivateFormData.tsx";
 import {AxiosResponse} from "axios";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
-import {handleDragOver} from "../../../utils/utilsFunction.tsx";
+import {bytesToMegabytes, handleDragOver} from "../../../utils/utilsFunction.tsx";
+import {useQuery} from "@tanstack/react-query";
+import userList from "../ForwardModal/UserList.tsx";
 
 interface TicketData {
     title: string;
     description: string;
     files: (string | File)[];
+    destinationDepartmentId: string;
+    destinationUserId: string;
+    userList: any[];
+    maxFileSize: number;
 }
 
+const getSettingsRequestUrl = 'adminSettings/getAdminSettings';
+const getDestinationRequestUrl = '/department/userList';
 const MyComponent: React.FC = () => {
     const submitTicketUrl = '/ticket/create'
     const emptyFile = new File([], 'کلیک کنید +   بکشید و رها کنید')
@@ -23,8 +31,12 @@ const MyComponent: React.FC = () => {
         title: '',
         description: '',
         files: [emptyFile],
+        destinationDepartmentId: '',
+        destinationUserId: '',
+        userList: [],
+        maxFileSize: 0,
+    });
 
-    })
 
     const resetSendTicketForm = () => {
         setTicketData({
@@ -52,9 +64,17 @@ const MyComponent: React.FC = () => {
     }
 
     const assignFileToState = (singleFile: File, index: number) => {
+        // جچم فایل رو چک کنیم اگه از ماکزیمم زیاد تر بود بگم شرمنده آپلود نمیشه
+        if (singleFile) {
+            const fileSizeInMb = bytesToMegabytes(singleFile.size)
+            if (fileSizeInMb > ticketData.maxFileSize) {
+                toast.error(`حجم فایل نمیتواند بیشتر از ${ticketData.maxFileSize} مگابایت باشد`);
+                return
+            }
+        }
         const files = [...ticketData.files];
 
-        files[index] = singleFile
+        files[index] = singleFile;
         setTicketData({...ticketData, files});
     }
     const handleDrop = (event: React.DragEvent<HTMLDivElement>, index: number) => {
@@ -70,8 +90,6 @@ const MyComponent: React.FC = () => {
         assignFileToState(singleFile, index)
 
     };
-
-
 
 
     const myAxiosPrivateFormData = useAxiosPrivateFormData()
@@ -101,6 +119,13 @@ const MyComponent: React.FC = () => {
         if (uploadFiles.length === 0) {
             toast.error('لطفا حداقل یک فایل بارگزاری کنید')
             return
+        }
+
+        if (isShowSendTicketToUserSection) {
+            if (!myTicketData.destinationDepartmentId || !myTicketData.destinationUserId) {
+                toast.error('لطفا یک فروشنده انتخاب کنید.')
+                return
+            }
         }
 
 
@@ -163,88 +188,147 @@ const MyComponent: React.FC = () => {
         setTicketData({...ticketData, [myKey]: myValue});
     };
 
+    const getSettingsQueryFn = () => {
+        return myAxiosPrivate.get(getSettingsRequestUrl)
+    }
+    const adminSettingsQuery = useQuery({
+        queryKey: ['getSettings'],
+        queryFn: getSettingsQueryFn,
+        staleTime: 86400000,  // === 60*60*24*1000
+        enabled: true,
+    })
 
-    return (
-        <div className="flex justify-center ">
-            <div className="sm:w-100 md:w-96 ">
-                <div className="div__group__input_select w-full">
-                    <label htmlFor="ticketTitle">عنوان تیکت</label>
-                    <input
-                        name={'title'}
-                        onChange={handleChange}
-                        value={ticketData.title}
-                        id="ticketTitle" type="text" className="w-100 rounded border-2"
-                        placeholder="تابلو نئون دکتر محمدی"/>
-                </div>
-                <div className="div__group__input_select w-full">
-                    <label htmlFor="ticketDescription">توضیحات</label>
-                    <textarea
+    const isShowSendTicketToUserSection = adminSettingsQuery?.data?.data?.adminSettingData?.showUsersListInSendTicketForm;
 
-                        value={ticketData.description}
-                        name={'description'}
-                        onChange={handleChange}
-                        id="ticketDescription" className="w-100 rounded border-2"
-                        placeholder="مثلا: فایل چلنیوم تک لبه رینگ به رنگ سبز زیمنسی"/>
-                </div>
-                {ticketData?.files?.map((file: File, index) => (
-                    <>
-                        <div key={index} className="div__group__input_select w-full">
-                            <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
-                            <input
-                                onChange={(e) => {
-                                    assignFileToState(e.target.files[0], index)
-                                }}
-                                id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+    // Update the state when data is fetched successfully
+    useEffect(() => {
+        if (!adminSettingsQuery.isLoading && !adminSettingsQuery.error) {
+            const destinationDepartmentId = adminSettingsQuery?.data?.data?.adminSettingData?.firstDestinationForTickets;
+            const maxFileSize = adminSettingsQuery?.data?.data?.adminSettingData?.maxFileSize;
 
-                            <div className={'flex items-center'}>
-                                <label htmlFor={`file${index + 1}`}
-                                       className={'customFileLabel cursor-pointer w-full'}
-                                >
-                                    <div
-                                        id={`file${index + 1}`}
-                                        className="same__input w-full"
-                                        onDrop={e => handleDrop(e, index)}
-                                        onDragOver={handleDragOver}>
-                                        <div>
-                                            {file?.name}
+
+            //setTicketData({...ticketData, destinationDepartmentId: destinationDepartmentId});
+            //const result = await myAxiosPrivate.get(getDestinationRequestUrl + `/${destinationDepartmentId}`)
+            const isShowSendTicketToUserSection = adminSettingsQuery?.data?.data?.adminSettingData?.showUsersListInSendTicketForm;
+            if (isShowSendTicketToUserSection) {
+                void myAxiosPrivate.get(getDestinationRequestUrl + `/${destinationDepartmentId}`).then(res => {
+                    const userList = res?.data?.userList || [];
+                    setTicketData({...ticketData, userList, destinationDepartmentId, maxFileSize})
+                })
+            } else {
+                setTicketData({...ticketData, destinationDepartmentId, maxFileSize})
+            }
+
+
+        }
+    }, [adminSettingsQuery.isLoading, adminSettingsQuery.error, adminSettingsQuery?.data?.data?.adminSettingData?.firstDestinationForTickets]);
+
+
+    try {
+        return (
+            <div className="flex justify-center ">
+                <div className="sm:w-100 md:w-96 ">
+                    <div className="div__group__input_select w-full">
+                        <label htmlFor="ticketTitle">عنوان تیکت</label>
+                        <input
+                            name={'title'}
+                            onChange={handleChange}
+                            value={ticketData.title}
+                            id="ticketTitle" type="text" className="w-100 rounded border-2"
+                            placeholder="تابلو نئون دکتر محمدی"/>
+                    </div>
+                    <div className="div__group__input_select w-full">
+                        <label htmlFor="ticketDescription">توضیحات</label>
+                        <textarea
+
+                            value={ticketData.description}
+                            name={'description'}
+                            onChange={handleChange}
+                            id="ticketDescription" className="w-100 rounded border-2"
+                            placeholder="مثلا: فایل چلنیوم تک لبه رینگ به رنگ سبز زیمنسی"/>
+                    </div>
+                    {ticketData?.files?.map((file: File, index) => (
+                        <>
+                            <div key={index} className="div__group__input_select w-full">
+                                <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
+                                <input
+                                    onChange={(e) => {
+                                        assignFileToState(e.target.files[0], index)
+                                    }}
+                                    id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+
+                                <div className={'flex items-center'}>
+                                    <label htmlFor={`file${index + 1}`}
+                                           className={'customFileLabel cursor-pointer w-full'}
+                                    >
+                                        <div
+                                            id={`file${index + 1}`}
+                                            className="same__input w-full"
+                                            onDrop={e => handleDrop(e, index)}
+                                            onDragOver={handleDragOver}>
+                                            <div>
+                                                {file?.name}
+                                            </div>
                                         </div>
-                                    </div>
-                                </label>
-                                <FaTrash
-                                    onClick={() => handleRemoveFile(index)}
-                                    className={'text-red-600 ms-2'}/>
+                                    </label>
+                                    <FaTrash
+                                        onClick={() => handleRemoveFile(index)}
+                                        className={'text-red-600 ms-2'}/>
+                                </div>
                             </div>
-                        </div>
-                    </>
-                ))}
-                <div onClick={addNewFileHandler}
-                     className="flex items-center rounded border-2 my-2 w-32 p-2 cursor-pointer select-none">
-                    <div className="mx-1">افزودن فایل</div>
-                    <FaPlus/>
-                </div>
-                <MoreSetting title={'تنظیمات بیشتر'}>
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،
-                    چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد
-                    نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
-                    حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان
-                    رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید
-                    داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل
-                    حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
-                    گیرد.
+                        </>
+                    ))}
+                    <div onClick={addNewFileHandler}
+                         className="flex  items-center rounded border-2 my-2 w-32 p-2 cursor-pointer select-none">
+                        <div className="mx-1">افزودن فایل</div>
+                        <FaPlus/>
+                    </div>
 
-                </MoreSetting>
 
-                <div className="div__group__input_select w-full">
-                    <label htmlFor="ticketTitle"> </label>
-                    <input
-                        onClick={clickHandler}
-                        id="ticketTitle" type="button" className="btn-submit-mir"
-                        value={'ارسال'}/>
+                    {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
+                        {ticketData?.userList.map((singleUser, index) => {
+
+                            return <button key={index}
+                                           className={` flex  justify-center cursor-pointer w-full border p-3 rounded   ${singleUser._id === ticketData.destinationUserId && 'bg-blue-200'} 
+                                           `}
+
+                                           onClick={() => setTicketData({
+                                               ...ticketData,
+                                               destinationUserId: singleUser._id
+                                           })}
+
+                            >
+                                {singleUser.name}
+                                {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
+                                  🟢
+                                </div>}
+                            </button>
+
+                        })}
+                    </div>}
+
+                    {/*<MoreSetting title={'تنظیمات بیشتر'}>*/}
+                    {/*    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،*/}
+                    {/*    چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی*/}
+                    {/*    مورد*/}
+
+
+                    {/*</MoreSetting>*/}
+
+                    <div className="div__group__input_select w-full">
+                        <label htmlFor="ticketTitle"> </label>
+                        <input
+                            onClick={clickHandler}
+                            id="ticketTitle" type="button" className="btn-submit-mir"
+                            value={'ارسال'}/>
+                    </div>
                 </div>
+
             </div>
-
-        </div>
-    );
+        );
+    } catch (error) {
+        return <>{error.toString()}</>
+    }
 };
 
 export default MyComponent;
