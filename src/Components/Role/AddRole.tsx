@@ -47,7 +47,7 @@ const MyComponent = props => {
                 const row = {...v}
 
                 if (row.name === 'name') {
-                    row['disabled'] = true
+                    //row['disabled'] = true
                 }
                 return row
 
