@@ -20,8 +20,8 @@ const MyComponent = props => {
     const formUniqId = myLocation?.state?.data?.id
 
     const text = {
-        title: editMode ? 'ویرایش وضعیت تیکت  ' : 'افزودن وضعیت تیکت جدید',
-        subTitle: editMode ? `ویرایش وضعیت تیکت با شناسه ${formUniqId}_ ${myLocation?.state?.data?.name}` : `افزودن وضعیت تیکت جدید به سایت`
+        title: editMode ? 'ویرایش فایل  ' : 'افزودن فایل جدید',
+        subTitle: editMode ? `ویرایش فایل با شناسه ${formUniqId}_ ${myLocation?.state?.data?.name}` : `افزودن فایل جدید به سایت`
     }
 
     const requestUrl = editMode ? `status/update` : 'status/create'
