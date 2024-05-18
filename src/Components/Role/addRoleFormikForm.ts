@@ -83,6 +83,7 @@ const dropdownOptions = [
     {value:'howManyTicketsThereAreInEveryDepartment', key: "تعداد تیکت هایی که توی هر دپارتمان هست." },
     {value:'howManyTicketsHasDoneStatus', key: "تیکت هایی که انجام شدن" },
     {value:'howManyTicketsHasDoneStatusIn12Month', key: "تعداد تیکت هایی که توی 12 ماهه گذشته انجام شدن" },
+    {value:'sendHiddenMessage', key: "بتونه توی سازمان بین کارمندا تیکت مخفی بفرسته، و باید پیامک هم ارسال نشه" },
 
 ]
 
