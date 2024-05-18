@@ -10,6 +10,7 @@ import {toast} from "react-toastify";
 import {PAGES} from "../Pages/Route-string.tsx";
 import useRefreshToken from "../hooks/useRefreshToken.tsx";
 import Loader from "./Loader";
+import {MdEdit} from "react-icons/md";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
@@ -27,7 +28,8 @@ const LoginSMS = () => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
     const [isLoading, setIsLoading] = useState(true);
-
+    // بخش ورود شماره نشون داده بشه یا بخش ورود کدپیامکی
+    const [sectionView, setSectionView] = useState('number') // number | code
     /*
      مقدار
      persist
@@ -62,6 +64,7 @@ const LoginSMS = () => {
             if (response.data.status) {
                 toast.success(response?.data?.message)
                 response?.data?.text && toast.info(response?.data?.text)
+                setSectionView('code')
             } else {
                 toast.error(response?.data?.message)
             }
@@ -94,7 +97,7 @@ const LoginSMS = () => {
                 }
             );
 
-            debugger
+
             const accessToken = response?.data?.accessToken;
             const userInfo = response?.data?.userInfo;
 
@@ -135,51 +138,86 @@ const LoginSMS = () => {
     return (<>
         <LoginRegisterParent>
             <section>
-                <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
                 <h1>ورود به پنل نمارنگ</h1>
-                <form>
+                {sectionView === 'number' && <>
+                  <form>
                     <label htmlFor="username">شماره موبایل:</label>
                     <input
-                        type="text"
-                        id="username"
-                        ref={userRef}
-                        autoComplete="off"
-                        {...userAttribs}
-                        required
+                      type="text"
+                      id="username"
+                      ref={userRef}
+                      autoComplete="off"
+                      {...userAttribs}
+                      required
                     />
 
                     <button
-                        onClick={sendLoginCode}
-                        className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
+                      onClick={sendLoginCode}
+                      className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
                     >
-                        ارسال کد
+                      ارسال کد
                     </button>
+
+
+                    <div className="persistCheck">
+                      <input
+
+                        type="checkbox"
+                        id="persist"
+                        onChange={toggleCheck}
+                        checked={check}
+                      />
+                      <label htmlFor="persist">اعتماد به این دستگاه</label>
+                    </div>
+                  </form>
+                </>}
+
+                {sectionView === 'code' && <>
+                  <form>
+                    <div className={'flex'}>
+                      <div>
+                        کد ورود به شماره
+                         <span>&nbsp;{user}&nbsp;</span>
+                        پیامک شد
+                      </div>
+                      <div className={'flex '}
+                           onClick={() => setSectionView('number')}
+                      >
+                        <MdEdit size={24} color="black"/>
+                        <div>ویرایش </div>
+                      </div>
+                    </div>
+
 
                     <label htmlFor="password">کد ورود:</label>
                     <input
-                        type="number"
-                        id="password"
-                        onChange={(e) => setPwd(e.target.value)}
-                        value={pwd}
-                        required
+                      type="number"
+                      id="password"
+                      onChange={(e) => setPwd(e.target.value)}
+                      value={pwd}
+                      required
                     />
                     <button
-                        onClick={handleSubmit}
-                        className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
+                      onClick={handleSubmit}
+                      className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
                     >ورود به سایت
                     </button>
                     <div className="persistCheck">
-                        <input
+                      <input
 
-                            type="checkbox"
-                            id="persist"
-                            onChange={toggleCheck}
-                            checked={check}
-                        />
-                        <label htmlFor="persist">اعتماد به این دستگاه</label>
+                        type="checkbox"
+                        id="persist"
+                        onChange={toggleCheck}
+                        checked={check}
+                      />
+                      <label htmlFor="persist">اعتماد به این دستگاه</label>
                     </div>
-                </form>
-                <p>
+                  </form>
+                </>}
+
+
+                <div>
                     اگر حساب کاربری ندارید<br/>
                     <span className="line">
                     <Link to="/register">
@@ -188,7 +226,7 @@ const LoginSMS = () => {
                         </div>
                     </Link>
                 </span>
-                </p>
+                </div>
             </section>
         </LoginRegisterParent>
     </>)
