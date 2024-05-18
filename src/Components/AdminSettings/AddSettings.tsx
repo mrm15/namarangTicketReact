@@ -7,6 +7,7 @@ import useList from "../../hooks/useList.tsx";
 import TextError from "../MyFormik/TextError.tsx";
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import {toast} from "react-toastify";
+import RegisterInPanel from "./Sections/RegisterInPanel.tsx";
 
 const MyComponent = props => {
 
@@ -20,7 +21,9 @@ const MyComponent = props => {
         firstDestinationForTickets: '',
         showUsersListInSendTicketForm: true,
         firstStatusTicket: '', // وضعیت اولیه تیکت ها
-        maxFileSize:'',
+        maxFileSize: '',
+        registerInPanel: '', // 0 | 1
+        registerDepartment: '',
     });
 
     const [statusList, setStatusList] = useState(null)
@@ -58,10 +61,16 @@ const MyComponent = props => {
     const submitHandler = async () => {
 
 
-        if(isNaN(parseFloat(adminSettingData.maxFileSize))){
+        if (isNaN(parseFloat(adminSettingData.maxFileSize))) {
             toast.error('مقدار ماکزیمم فایل سایز رو به درستی وارد کنید.')
             return
         }
+        if (adminSettingData.registerInPanel === "active" && adminSettingData.registerDepartment === '') {
+            toast.error('دپارتمان مقصد را وارد کنید.')
+            return
+        }
+
+
         setIsSendingData(true)
         const response = await myPrivateAxios.post(submitAdminSettingsRequest, adminSettingData);
         setIsSendingData(false)
@@ -70,6 +79,7 @@ const MyComponent = props => {
         } else {
             toast.error(response?.data?.message)
         }
+
     }
 
     try {
@@ -92,7 +102,7 @@ const MyComponent = props => {
                                 onChange={event => setAdminSettingData({firstDestinationForTickets: event.target.value})}
                                 name="firstDestinationOfTickets" id="firstDestinationOfTickets">
                                 <option value="">انتخاب کنید</option>
-                                {departmentList.map(row => <option value={row.value}>{row?.key}</option>)}
+                                {departmentList.map((row: { value: string | number | readonly string[]; key: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal; }, index: React.Key) => <option key={index} value={row.value}>{row?.key}</option>)}
                             </select>
                         </div>
                         {/**/}
@@ -128,7 +138,7 @@ const MyComponent = props => {
                                     onChange={event => setAdminSettingData({firstStatusTicket: event.target.value})}
                                     name="statusForTickets" id="statusForTickets">
                                     <option value="">انتخاب کنید</option>
-                                    {statusList.map(row => <option value={row.value}>{row?.key}</option>)}
+                                    {statusList.map((row, index) => <option key={index} value={row.value}>{row?.key}</option>)}
                                 </select>
 
                             </>
@@ -142,17 +152,20 @@ const MyComponent = props => {
                                        onChange={(event) => {
                                            const value = event.target.value
                                            if (/^\d*\.?\d*$/.test(value) || value === "") {
-                                               setAdminSettingData({maxFileSize: event.target.value })
+                                               setAdminSettingData({maxFileSize: event.target.value})
                                            }
-
-
                                        }}
-                                       value={adminSettingData.maxFileSize+""}
+                                       value={adminSettingData.maxFileSize + ""}
                                 />
-
                             </>
 
                         </div>
+
+                        <RegisterInPanel
+                            adminSettingData={adminSettingData}
+                            setAdminSettingData={setAdminSettingData}
+                            departmentList={getDepartmentList}
+                        />
 
                         <div
                             className={'w-full text-center'}
