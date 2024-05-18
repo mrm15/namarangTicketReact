@@ -4,7 +4,7 @@ import notFoundPhoto from "../../assets/images/403-error.png"
 
 const Unauthorized = () => {
 
-    const [counter, setCounter] = useState(4)
+    const [counter, setCounter] = useState(10)
     const navigateTo = useNavigate();
 
     const handleFunction = useCallback(() => {
