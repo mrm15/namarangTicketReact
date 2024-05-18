@@ -1,4 +1,4 @@
-.panel-sidebar:hover{
+.panel-sidebar:hover {
   width: 230px;
 }
 
@@ -28,7 +28,7 @@
     color: white;
   }
 
-  ul{
+  ul {
     padding-right: 10px;
   }
 
@@ -130,4 +130,16 @@
 .swal2-confirm {
   font-weight: 500;
   font-size: 20px;
+}
+
+.side__bar__styles {
+
+
+
+    ::-webkit-scrollbar {
+      display: none; /* Hide scrollbar */
+    }
+
+
+
 }
