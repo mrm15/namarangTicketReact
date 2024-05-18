@@ -47,60 +47,57 @@ const Home = () => {
     ]
 
 
-    return (
-        <section>
-            <div className={'flex w-full justify-between mt-8'}>
+    try{
+        return (
+            <section>
+                <div className={'flex w-full justify-between mt-8'}>
 
-                {/*<Link to="/editor">صفحه ی ویرایش</Link>*/}
-                {/*<Link to="/admin">صفحه ویژه ادمین</Link>*/}
-                {/*<Link to="/lounge">صفحه گپ الکی</Link>*/}
-                {/*<Link to="/linkpage">صفحه ی لینک های مفید سایت</Link>*/}
-            </div>
-
-
-            <div className={'flex flex-wrap'}>
-
-                {shortcuts.map((row,index)=>{
+                    {/*<Link to="/editor">صفحه ی ویرایش</Link>*/}
+                    {/*<Link to="/admin">صفحه ویژه ادمین</Link>*/}
+                    {/*<Link to="/lounge">صفحه گپ الکی</Link>*/}
+                    {/*<Link to="/linkpage">صفحه ی لینک های مفید سایت</Link>*/}
+                </div>
 
 
-                    return <Link
-                        to={row.link}
-                                 key={index}
-                                className="max-w-sm rounded overflow-hidden shadow-lg border-4"
+                <div className={'flex flex-wrap'}>
 
-                    >
-
-                        <div className="px-6 py-4">
-
-                            <div className="font-bold text-xl mb-2"> <row.icon />
-                                {row?.title}
+                    {shortcuts.map((row,index)=>{
 
 
+                        return <Link
+                            to={row.link}
+                            key={index}
+                            className="max-w-sm rounded overflow-hidden shadow-lg border-4"
+
+                        >
+
+                            <div className="px-6 py-4">
+
+                                <div className="font-bold text-xl mb-2"> <row.icon />
+                                    {row?.title}
+
+
+                                </div>
+                                <p className="text-gray-700 text-base">
+                                    {row?.description}
+                                </p>
                             </div>
-                            <p className="text-gray-700 text-base">
-                                {row?.description}
-                            </p>
-                        </div>
 
-                    </Link>
-                })}
-
-                {/*<div className="max-w-sm rounded overflow-hidden shadow-lg">*/}
-                {/*    <div className="px-6 py-4">*/}
-                {/*        <div className="font-bold text-xl mb-2">صفحه اصلی</div>*/}
-                {/*        <p className="text-gray-700 text-base">*/}
-                {/*            توضیحات*/}
-                {/*        </p>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                        </Link>
+                    })}
 
 
 
-            </div>
 
 
-        </section>
-    )
+                </div>
+
+
+            </section>
+        )
+    }catch (error){
+        return <>{error.toString()}</>
+    }
 }
 
 export default Home
