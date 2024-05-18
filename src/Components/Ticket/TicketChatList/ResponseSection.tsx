@@ -9,6 +9,7 @@ import {toast} from "react-toastify";
 import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 import {RiAttachmentLine} from "react-icons/ri";
 import {FiPaperclip} from "react-icons/fi";
+import useAuth from "../../../hooks/useAuth.tsx";
 
 const requestUrl = '/ticketReply/create';
 
@@ -41,6 +42,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
     }, [reload]);
 
 
+    const [isHideCheckBox, setIsHideCheckBox] = useState(false)
     const [sendData, setSendData] = useObjectDataHolder({...initialSendData})
     const fileInputRef = useRef(null);
     const myAxiosPrivate = useAxiosPrivate()
@@ -75,7 +77,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                             attachments.push('');
                         }
                     } catch (error) {
-
+                        console.log(error)
                     }
 
                 }
@@ -133,6 +135,10 @@ const ResponseSection = ({chatList, setReload, reload}) => {
     }
 
     const index = 0;
+
+    // @ts-ignore
+    const {auth} = useAuth();
+    const sendHiddenMessage = auth?.userInfo?.roleAccessList?.includes('sendHiddenMessage')
     try {
 
 
@@ -182,12 +188,25 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                     </div>
                 </div>
 
-
-                <button
-                    ref={messagesEndRef}
-                    onClick={submitHandler}
-                    className={'btn-submit-mir'}> ارسال
-                </button>
+                <div className={'flex flex-col justify-center items-end'}>
+                    <div>
+                        <button
+                            ref={messagesEndRef}
+                            onClick={submitHandler}
+                            onContextMenu={(event) => {
+                                if(sendHiddenMessage){
+                                    event.preventDefault();
+                                    setIsHideCheckBox(!isHideCheckBox)
+                                }
+                            }}
+                            className={'btn-submit-mir'}> ارسال
+                        </button>
+                    </div>
+                    {isHideCheckBox && <div className={'border border-blue-200 rounded m-2 p-2'}>
+                      <input id={'hideMessageFromUser'} type={'checkbox'}/>
+                      <label htmlFor="hideMessageFromUser" className={'fontSize10'}> ارسال پیام در حالت ویسپر</label>
+                    </div>}
+                </div>
             </div>
         </div>
     } catch (error) {
