@@ -1,28 +1,25 @@
 import React, {useContext, useEffect} from "react";
 import {HiMenuAlt3} from "react-icons/hi";
-import {MdOutlineDashboard} from "react-icons/md";
+import {MdAssignment, MdAssignmentAdd, MdLocalFireDepartment, MdOutlineDashboard} from "react-icons/md";
 // import { RiSettings4Line } from "react-icons/ri";
 // import { TbReportAnalytics } from "react-icons/tb";
-import {
-    AiOutlineHeart,
-    AiOutlineUser
-    /*, AiOutlineHeart*/
-} from "react-icons/ai";
-import {
-    FiFolder,
-    FiMessageSquare, FiShoppingCart
-    // , FiFolder
-    // , FiShoppingCart
-} from "react-icons/fi";
+
 import {Link} from "react-router-dom";
 import {IconType} from "react-icons";
 import {PAGES} from "../../Pages/Route-string.tsx";
+import "./SideBar.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {sidebarActions} from "../../store/sidebarReducer/sidebarReducer.tsx";
 import {RiSettings4Line} from "react-icons/ri";
 import {TbReportAnalytics} from "react-icons/tb";
 import useAuth from "../../hooks/useAuth.tsx";
 import {ROLES} from "../../Pages/ROLES.tsx";
+import {IoPersonAddSharp, IoShapes} from "react-icons/io5";
+import {BsBuildingAdd, BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "react-icons/bs";
+import {FaBarsStaggered, FaFileCirclePlus, FaShapes} from "react-icons/fa6";
+import {FaBackspace, FaFileAlt} from "react-icons/fa";
+import {AiFillSetting} from "react-icons/ai";
+
 
 
 type CustomIconType = {
@@ -67,51 +64,47 @@ const Home = () => {
     // @ts-ignore
     const {auth} = useAuth();
 
-    const {roleAccessList} = auth.userInfo;
 
-
-    const showUserCreateItem = roleAccessList?.includes('userCreate');
-
-    const userCreateLink = PAGES.USER_ADD_EDIT
-
-
-
+    const roleAccessList = auth.userInfo?.roleAccessList;
 
 
 
     const menus: MenuType = [
         {name: "داشبورد", link: '/', icon: MdOutlineDashboard, margin: false, showItem: true,},
-        {name: "افزودن کاربر", link: PAGES.USER_ADD_EDIT, icon: TbReportAnalytics, showItem: roleAccessList?.includes('userCreate'),},
-        {name: "مشاهده کاربر", link: PAGES.USER_LIST, icon: TbReportAnalytics, showItem: roleAccessList?.includes('userReadAll'),},
+        {name: "افزودن کاربر", link: PAGES.USER_ADD_EDIT, icon: IoPersonAddSharp, showItem: roleAccessList?.includes('userCreate'),},
+        {name: "مشاهده کاربر", link: PAGES.USER_LIST, icon: BsPersonVideo2 , showItem: roleAccessList?.includes('userReadAll'),},
         //
-        {name: "افزودن نقش", link: PAGES.ROLE_ADD_EDIT, icon: TbReportAnalytics, showItem: roleAccessList?.includes('rolesCreate'),},
-        {name: "لیست نقش", link: PAGES.ROLE_LIST, icon: TbReportAnalytics, showItem: roleAccessList?.includes('rolesRead'),},
+        {name: "افزودن نقش", link: PAGES.ROLE_ADD_EDIT, icon:IoShapes , showItem: roleAccessList?.includes('rolesCreate'),},
+        {name: "لیست نقش", link: PAGES.ROLE_LIST, icon: FaShapes, showItem: roleAccessList?.includes('rolesRead'),},
         //
-        {name: "افزودن دپارتمان", link: PAGES.DEPARTMENT_ADD_EDIT, icon: TbReportAnalytics, showItem: roleAccessList?.includes('departmentCreate'),},
-        {name: "لیست دپارتمان", link: PAGES.DEPARTMENT_LIST, icon: TbReportAnalytics, showItem: roleAccessList?.includes('departmentRead'),},
+        {name: "افزودن دپارتمان", link: PAGES.DEPARTMENT_ADD_EDIT, icon: BsBuildingAdd, showItem: roleAccessList?.includes('departmentCreate'),}, //BsBuildingAdd
+        {name: "لیست دپارتمان", link: PAGES.DEPARTMENT_LIST, icon: BsBuildingFill, showItem: roleAccessList?.includes('departmentRead'),},//BsBuildingFill
         //
-        {name: "افزودن استاتوس", link: PAGES.STATUS_ADD_EDIT, icon: TbReportAnalytics, showItem: roleAccessList?.includes('statusListCreate'),},
-        {name: "لیست استاتوس", link: PAGES.STATUS_LIST, icon: TbReportAnalytics, showItem: roleAccessList?.includes('statusListRead'),},
+        {name: "افزودن استاتوس", link: PAGES.STATUS_ADD_EDIT, icon: BsFillModemFill, showItem: roleAccessList?.includes('statusListCreate'),},//BsFillModemFill
+        {name: "لیست استاتوس", link: PAGES.STATUS_LIST, icon: BsFillModemFill, showItem: roleAccessList?.includes('statusListRead'),},
         //
-        {name: "افزودن فایل", link: PAGES.FILE_ADD_EDIT, icon: TbReportAnalytics, showItem: roleAccessList?.includes('fileCreate'),},
-        {name: "لیست فایل", link: PAGES.FILE_LIST, icon: TbReportAnalytics, showItem: roleAccessList?.includes('fileRead'),},
+        {name: "افزودن فایل", link: PAGES.FILE_ADD_EDIT, icon: FaFileCirclePlus, showItem: roleAccessList?.includes('fileCreate'),},//FaFileCirclePlus
+        {name: "لیست فایل", link: PAGES.FILE_LIST, icon: FaFileAlt, showItem: roleAccessList?.includes('fileRead'),},
         //
-        {name: "ثبت سفارش", link: PAGES.ticket_Create, icon: TbReportAnalytics, showItem: roleAccessList?.includes('ticketCreate'),},
-        {name: "پیگیری سفارش", link: PAGES.ticket_own_sent, icon: TbReportAnalytics, showItem: roleAccessList?.includes('fileRead'),},
-        {name: "کل سفارشات", link: PAGES.ticket_read_my_all_tickets, icon: TbReportAnalytics, showItem: roleAccessList?.includes('ticketReadOwnReceived'),},
-        {name: "ورودی دپارتمان", link: PAGES.ticketInbox, icon: TbReportAnalytics, showItem: roleAccessList?.includes('ticketInput'),},
-        {name: "سفارشات کل", link: PAGES.ticket_Read_All, icon: TbReportAnalytics, showItem: roleAccessList?.includes('ticketReadAll'),},
+        {name: "ثبت سفارش", link: PAGES.ticket_Create, icon: MdAssignmentAdd, showItem: roleAccessList?.includes('ticketCreate'),},
+        {name: "پیگیری سفارش", link: PAGES.ticket_own_sent, icon: MdAssignment, showItem: roleAccessList?.includes('fileRead'),},
+        {name: "کل سفارشات", link: PAGES.ticket_read_my_all_tickets, icon: FaBarsStaggered, showItem: roleAccessList?.includes('ticketReadOwnReceived'),},
+        {name: "ورودی دپارتمان", link: PAGES.ticketInbox, icon: FaBackspace, showItem: roleAccessList?.includes('ticketInput'),},
+        {name: "سفارشات کل", link: PAGES.ticket_Read_All, icon: MdLocalFireDepartment, showItem: roleAccessList?.includes('ticketReadAll'),},
         //
-        {name: "تنظیمات مدیر", link: PAGES.admin_settings, icon: TbReportAnalytics, showItem: roleAccessList?.includes('adminSettings'),},
+        {name: "تنظیمات مدیر", link: PAGES.admin_settings, icon: AiFillSetting, showItem: roleAccessList?.includes('adminSettings'),},
         //
 
 
 
     ];
+
+
+
     return (
-        <section className={``}>
+        <section className={`side__bar__styles`}>
             <div
-                className={`bg-[#334667] min-h-screen 
+                className={`bg-[#334667] h-screen overflow-auto
                 ${isOpen ? "w-44 px-4 " : isMobile ? "width__0" : "w-16 px-4"}
                
                  duration-500 text-gray-100 `}
