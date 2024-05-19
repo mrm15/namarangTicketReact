@@ -24,6 +24,7 @@ const MyComponent = props => {
         maxFileSize: '',
         registerInPanel: '', // 0 | 1
         registerDepartment: '',
+        registerRole: '',
     });
 
     const [statusList, setStatusList] = useState(null)
@@ -59,17 +60,14 @@ const MyComponent = props => {
 
 
     const submitHandler = async () => {
-
-
         if (isNaN(parseFloat(adminSettingData.maxFileSize))) {
             toast.error('مقدار ماکزیمم فایل سایز رو به درستی وارد کنید.')
             return
         }
-        if (adminSettingData.registerInPanel === "active" && adminSettingData.registerDepartment === '') {
-            toast.error('دپارتمان مقصد را وارد کنید.')
+        if (adminSettingData.registerInPanel === "active" && (adminSettingData.registerDepartment === '' || adminSettingData.registerRole === '')) {
+            toast.error('دپارتمان و نقش مقصد را وارد کنید.')
             return
         }
-
 
         setIsSendingData(true)
         const response = await myPrivateAxios.post(submitAdminSettingsRequest, adminSettingData);
@@ -102,7 +100,10 @@ const MyComponent = props => {
                                 onChange={event => setAdminSettingData({firstDestinationForTickets: event.target.value})}
                                 name="firstDestinationOfTickets" id="firstDestinationOfTickets">
                                 <option value="">انتخاب کنید</option>
-                                {departmentList.map((row: { value: string | number | readonly string[]; key: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal; }, index: React.Key) => <option key={index} value={row.value}>{row?.key}</option>)}
+                                {departmentList.map((row: {
+                                    value: string | number | readonly string[];
+                                    key: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal;
+                                }, index: React.Key) => <option key={index} value={row.value}>{row?.key}</option>)}
                             </select>
                         </div>
                         {/**/}
@@ -138,7 +139,8 @@ const MyComponent = props => {
                                     onChange={event => setAdminSettingData({firstStatusTicket: event.target.value})}
                                     name="statusForTickets" id="statusForTickets">
                                     <option value="">انتخاب کنید</option>
-                                    {statusList.map((row, index) => <option key={index} value={row.value}>{row?.key}</option>)}
+                                    {statusList.map((row, index) => <option key={index}
+                                                                            value={row.value}>{row?.key}</option>)}
                                 </select>
 
                             </>
