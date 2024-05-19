@@ -78,6 +78,8 @@ const LoginSMS = () => {
                 setErrMsg('اطلاعات ورود صحیح نیست');
             } else {
                 setErrMsg('ورود ناموفق!');
+                console.log(err)
+                toast.error(err.response.data.message)
             }
             // @ts-ignore
             errRef.current.focus();
