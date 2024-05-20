@@ -162,7 +162,17 @@ const MyComponent = props => {
                             </>
 
                         </div>
-
+                        <div className='div__group__input_select'>
+                            <label htmlFor={'customerDepartment'}>{'دپارتمان مشتریان'}</label>
+                            <select
+                                value={adminSettingData.customerDepartment}
+                                onChange={event => setAdminSettingData({customerDepartment: event.target.value})}
+                                name="customerDepartment" id="customerDepartment">
+                                <option value="">انتخاب کنید</option>
+                                {departmentList.map((row, index) => <option key={index}
+                                                                            value={row.value}>{row.key}</option>)}
+                            </select>
+                        </div>
                         <RegisterInPanel
                             adminSettingData={adminSettingData}
                             setAdminSettingData={setAdminSettingData}
