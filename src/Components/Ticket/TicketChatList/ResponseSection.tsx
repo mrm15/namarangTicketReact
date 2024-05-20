@@ -194,7 +194,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                             ref={messagesEndRef}
                             onClick={submitHandler}
                             onContextMenu={(event) => {
-                                if(sendHiddenMessage){
+                                if (sendHiddenMessage) {
                                     event.preventDefault();
                                     setIsHideCheckBox(!isHideCheckBox)
                                 }
@@ -203,7 +203,12 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                         </button>
                     </div>
                     {isHideCheckBox && <div className={'border border-blue-200 rounded m-2 p-2'}>
-                      <input id={'hideMessageFromUser'} type={'checkbox'}/>
+                      <input checked={!sendData.visibleToUser}
+                             onChange={(e) => {
+                                 const checked = e.target.checked
+                                 setSendData({visibleToUser: !checked})
+                             }}
+                             id={'hideMessageFromUser'} type={'checkbox'}/>
                       <label htmlFor="hideMessageFromUser" className={'fontSize10'}> ارسال پیام در حالت ویسپر</label>
                     </div>}
                 </div>
