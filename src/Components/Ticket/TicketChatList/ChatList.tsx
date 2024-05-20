@@ -24,13 +24,18 @@ const ChatList = ({chatList, setReload, reload}) => {
                 <div className={'rounded  justify-between p-3 my-3 '}>
 
                     {data?.data?.map((item, index) => {
-                        const isTicketSender = item.isTicketSender
+                        const isTicketSender = item.isTicketSender;
+                        const isVisibleToUser = item.visibleToUser
 
                         try {
                             return (
                                 <div key={index}
-                                     className={isTicketSender ? 'rtl' : 'ltr'}
+                                     className={(isTicketSender ? 'rtl' : 'ltr') + ' '
+                                         +`${isVisibleToUser===false ? 'opacity-30  rounded' : ''}`
+                                }
+
                                 >
+                                    {isVisibleToUser===false && <div className={'fontSize10'}>پیام مخفی</div>}
                                     <div className={'sm:w-full md:w-10/12 lg:w-1/2 rounded mt-2 p-2   chat__box rtl'}>
                                         <div className={'flex'}>
                                             <div>دپارتمان:</div>
