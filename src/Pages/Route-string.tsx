@@ -35,6 +35,9 @@ export const PAGES = {
     ticket_Read_Own: '/ticket-read-own', // read ticket with ticket replies
     ticket_Update: '/ticket-new', // change ticket text file description ( just Admin)
     admin_settings: '/admin-settings', // admin settings  just For admin
+    sms_archive: '/sms-archive', //
+    sms_pending: '/sms-pending', //
+    sms_send: '/sms-send', //
 
 
 };
