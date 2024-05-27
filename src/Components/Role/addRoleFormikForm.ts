@@ -84,6 +84,9 @@ const dropdownOptions = [
     {value:'howManyTicketsHasDoneStatus', key: "تیکت هایی که انجام شدن" },
     {value:'howManyTicketsHasDoneStatusIn12Month', key: "تعداد تیکت هایی که توی 12 ماهه گذشته انجام شدن" },
     {value:'sendHiddenMessage', key: "بتونه توی سازمان بین کارمندا تیکت مخفی بفرسته، و باید پیامک هم ارسال نشه" },
+    {value:'smsArchive', key: "دسترسی به آرشیو پیامک ها" },
+    {value:'smsPending', key: "پیامک های در انتظار" },
+    {value:'smsSend', key: "ارسال دستی پیامک" },
 
 ]
 
