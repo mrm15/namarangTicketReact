@@ -89,7 +89,11 @@ export const ROLES = {
         'howManyTicketsThereAreInEveryDepartment',
         'howManyTicketsHasDoneStatus',
         'howManyTicketsHasDoneStatusIn12Month',
-    ]
+    ],
+    smsSend:['smsSend'],
+    smsPending:['smsPending'],
+    smsArchive:['smsArchive'],
+
 
 
     // report: 'report',
