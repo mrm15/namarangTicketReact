@@ -16,7 +16,7 @@ import useAuth from "../../hooks/useAuth.tsx";
 import {ROLES} from "../../Pages/ROLES.tsx";
 import {IoPersonAddSharp, IoShapes} from "react-icons/io5";
 import {BsBuildingAdd, BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "react-icons/bs";
-import {FaBarsStaggered, FaFileCirclePlus, FaShapes} from "react-icons/fa6";
+import {FaBarsStaggered, FaFileCirclePlus, FaMessage, FaShapes} from "react-icons/fa6";
 import {FaBackspace, FaFileAlt} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
 
@@ -93,6 +93,10 @@ const Home = () => {
         {name: "سفارشات کل", link: PAGES.ticket_Read_All, icon: MdLocalFireDepartment, showItem: roleAccessList?.includes('ticketReadAll'),},
         //
         {name: "تنظیمات مدیر", link: PAGES.admin_settings, icon: AiFillSetting, showItem: roleAccessList?.includes('adminSettings'),},
+        //
+        {name: "آرشیو پیام", link: PAGES.sms_archive, icon: FaMessage, showItem: roleAccessList?.includes('smsArchive'),},
+        {name: "پیامک های در انتظار", link: PAGES.sms_pending, icon: FaMessage, showItem: roleAccessList?.includes('smsPending'),},
+        {name: "ارسال پیام", link: PAGES.sms_send, icon: FaMessage, showItem: roleAccessList?.includes('smsSend'),},
         //
 
 
