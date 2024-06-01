@@ -25,6 +25,9 @@ import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
 import {TicketRead} from "../Components/Ticket/TicketRead/TicketRead.tsx";
 import TicketChatList from "../Components/Ticket/TicketChatList/TicketChatList.tsx";
 import AddSettings from "../Components/AdminSettings/AddSettings.tsx";
+import SendSmsForm from "../SMS/SendSmsForm/SendSmsForm.tsx";
+import SendSms from "../SendSms/SendSms.tsx";
+import SmsArchive from "../SMS/SmsArchive/SmsArchive.tsx";
 
 
 
@@ -41,6 +44,7 @@ const Pages = () => {
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
+                <Route path={PAGES.SMS} element={<SendSms/>}/>
 
 
 
@@ -130,6 +134,16 @@ const Pages = () => {
 
                         <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
                             <Route path={PAGES.admin_settings} element={<AddSettings />}/>
+                        </Route>
+
+                        <Route element={<RequireAuth allowedRoles={ROLES.smsArchive}/>}>
+                            <Route path={PAGES.sms_archive} element={<SmsArchive />}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.smsPending}/>}>
+                            <Route path={PAGES.sms_pending} element={<AddSettings />}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
+                            <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
