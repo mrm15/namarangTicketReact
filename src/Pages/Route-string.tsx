@@ -1,4 +1,5 @@
 export const PAGES = {
+    SMS: '/sms',
     LOGIN: '/login',
     DASHBOARD: '/',
 
