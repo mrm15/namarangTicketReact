@@ -8,7 +8,7 @@ const AgGridDataShow = (props) => {
 
     const {columnDefs, rowData,onCellClicked ,onSelectionChanged,setMyGridRefState} = props
     const [myColumnDefs, setMyColumnDefs] = useState(columnDefs);
-
+    console.log(props)
     const [myRowData, setMyRowData] = useState(rowData);
 
     // این افکت برای وقتهی که محتوای جدول عوض بشه باید دوباره یه رندر بشه تا آپدیت بشه
@@ -59,11 +59,11 @@ const AgGridDataShow = (props) => {
     const onGridReady = (params:any) => {
         (!!setMyGridRefState) && setMyGridRefState(params)
         const allColumnIds = [];
-        params.columnApi.getAllColumns().forEach((column) => {
-            allColumnIds.push(column.colId);
+        params?.columnApi?.getAllColumns()?.forEach((column) => {
+            allColumnIds?.push(column.colId);
         });
 
-        params.columnApi.autoSizeColumns(allColumnIds, false);
+        params?.columnApi?.autoSizeColumns(allColumnIds, false);
     };
 
     useEffect(() => {
