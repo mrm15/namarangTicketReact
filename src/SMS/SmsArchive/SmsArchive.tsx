@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import AggridDataShow from "../../Components/AgGridDataShow/AgGridDataShow.tsx";
+import Loader from "../../Components/Loader";
 
 const SmsArchive = () => {
 
@@ -18,8 +19,10 @@ const SmsArchive = () => {
         const getList = async () => {
             setIsLoading(true)
             const res = await myAxiosPrivate.get(requestUrl)
-            if (res.data) {
+            if (res?.data?.list) {
                 const tableData = res.data.list;
+
+
                 setMyTableData(tableData)
                 setIsLoading(false)
             }
@@ -33,7 +36,6 @@ const SmsArchive = () => {
         [key: string]: any;
     };
     const [myGridRefState, setMyGridRefState] = useState<MyStateType>()
-
 
 
     return (
@@ -51,13 +53,14 @@ const SmsArchive = () => {
             </div>
 
             <div>
-                <AggridDataShow
+                {isLoading  && <Loader />}
+                {!isLoading &&  <AggridDataShow
                     // setMyGridRefState={setMyGridRefState}
                     columnDefs={myTableData?.columnDefs}
                     rowData={myTableData?.rowData}
                     // onCellClicked={onCellClicked}
                     // onSelectionChanged={handleOnSelectionChanged}
-                />
+                />}
             </div>
         </div>
     );
