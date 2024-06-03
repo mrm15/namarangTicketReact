@@ -27,7 +27,7 @@ import TicketChatList from "../Components/Ticket/TicketChatList/TicketChatList.t
 import AddSettings from "../Components/AdminSettings/AddSettings.tsx";
 import SendSmsForm from "../SMS/SendSmsForm/SendSmsForm.tsx";
 import SendSms from "../SendSms/SendSms.tsx";
-import SmsArchive from "../SMS/SmsArchive/SmsArchive.tsx";
+import ShowSmsList from "../SMS/ShowSmsList/ShowSmsList.tsx";
 
 
 
@@ -137,7 +137,7 @@ const Pages = () => {
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.smsArchive}/>}>
-                            <Route path={PAGES.sms_archive} element={<SmsArchive />}/>
+                            <Route path={PAGES.sms_archive} element={<ShowSmsList />}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.smsPending}/>}>
                             <Route path={PAGES.sms_pending} element={<AddSettings />}/>

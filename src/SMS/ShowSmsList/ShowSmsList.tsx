@@ -3,7 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import AggridDataShow from "../../Components/AgGridDataShow/AgGridDataShow.tsx";
 import Loader from "../../Components/Loader";
 
-const SmsArchive = () => {
+const ShowSmsList = () => {
 
     const requestUrl = '/sms/getArchive';
     const [isLoading, setIsLoading] = useState(true)
@@ -66,4 +66,4 @@ const SmsArchive = () => {
     );
 };
 
-export default SmsArchive;
+export default ShowSmsList;
