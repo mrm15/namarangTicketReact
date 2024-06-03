@@ -10,7 +10,6 @@ const SendSmsForm = () => {
 
     const userList = useList(requestUSerList);
 
-    console.log(userList)
 
     const [myData, setMyData] = useState({
         smsText: '',

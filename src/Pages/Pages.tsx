@@ -137,10 +137,10 @@ const Pages = () => {
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.smsArchive}/>}>
-                            <Route path={PAGES.sms_archive} element={<ShowSmsList />}/>
+                            <Route path={PAGES.sms_archive} element={<ShowSmsList type={"archive"} />}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.smsPending}/>}>
-                            <Route path={PAGES.sms_pending} element={<AddSettings />}/>
+                            <Route path={PAGES.sms_pending} element={<ShowSmsList type={"pending"} />}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
                             <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
