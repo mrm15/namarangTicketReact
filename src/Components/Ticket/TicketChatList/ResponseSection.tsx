@@ -95,11 +95,13 @@ const ResponseSection = ({chatList, setReload, reload}) => {
         }
 
         try {
-            const respose = await myAxiosPrivate.post(requestUrl, temp);
-            const {data} = respose;
-            toast.success(data?.message)
-            setSendData({...initialSendData})
-            setReload({value: randomNumberGenerator()})
+            const response1 = await myAxiosPrivate.post(requestUrl, temp);
+
+            if(response1.data){
+                toast.success(response1.data?.message)
+                setSendData({...initialSendData})
+                setReload({value: randomNumberGenerator()})
+            }
         } catch (error) {
             toast.error(error.toString())
         }
