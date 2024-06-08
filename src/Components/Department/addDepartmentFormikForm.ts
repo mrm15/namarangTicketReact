@@ -43,7 +43,7 @@ const formikFormAddDepartment = [
     {control: 'radio' , name:'accessToSameDepartmentToAssignTask', label: 'ایجاد تسک برای همدپارتمانی ها' , options: isActiveRadioOptions},
     {control: 'radio' , name:'accessToOtherUsersToAssignTask', label: 'ایجاد تسک برای همه' , options: isActiveRadioOptions},
     {control: 'radio' , name:'sendSmsAfterSubmitResponse', label: 'ارسال پیامک بعد از تیکت ریپلای' , options: isActiveRadioOptions},
-    {control: 'textarea' , name:'smsText', label: 'متن اس ام اس' , options: null},
+    {control: 'textarea' , name:'smsText', label: 'متن پیامک' , options: null},
 
 
 ]
