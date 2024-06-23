@@ -18,8 +18,8 @@ const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, dest
                 <div className={'flex'}>
                     <div className={' flex gap-2  border border-2 p-2 rounded cursor-pointer'}>
 
-                        <div className={whichView===0 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(0)}>ارسال به دپارتمان</div>
-                        <div className={whichView===1 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(1)}>ارسال به کاربران</div>
+                        <div className={whichView===1 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(1)}>ارسال به دپارتمان</div>
+                        <div className={whichView===0 ? 'bg-amber-500 p-1 rounded' : 'p-1 rounded'} onClick={() => handleChange(0)}>ارسال به کاربران</div>
 
                     </div>
                 </div>
