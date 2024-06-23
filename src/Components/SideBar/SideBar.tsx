@@ -88,9 +88,10 @@ const Home = () => {
         //
         {name: "ثبت سفارش", link: PAGES.ticket_Create, icon: MdAssignmentAdd, showItem: roleAccessList?.includes('ticketCreate'),},
         {name: "پیگیری سفارش", link: PAGES.ticket_own_sent, icon: MdAssignment, showItem: roleAccessList?.includes('fileRead'),},
-        {name: "کل سفارشات", link: PAGES.ticket_read_my_all_tickets, icon: FaBarsStaggered, showItem: roleAccessList?.includes('ticketReadOwnReceived'),},
-        {name: "ورودی دپارتمان", link: PAGES.ticketInbox, icon: FaBackspace, showItem: roleAccessList?.includes('ticketInput'),},
+        {name: "کل تیکت های من", link: PAGES.ticket_read_my_all_tickets, icon: FaBarsStaggered, showItem: roleAccessList?.includes('ticketReadOwnReceived'),},
+        {name: "صندوق ورودی", link: PAGES.ticketInbox, icon: FaBackspace, showItem: roleAccessList?.includes('ticketInput'),},
         {name: "سفارشات کل", link: PAGES.ticket_Read_All, icon: MdLocalFireDepartment, showItem: roleAccessList?.includes('ticketReadAll'),},
+        {name: "ورودی دپارتمان", link: PAGES.ticket_read_department_tickets, icon: MdLocalFireDepartment, showItem: roleAccessList?.includes('ticketReadAll'),},
         //
         {name: "تنظیمات مدیر", link: PAGES.admin_settings, icon: AiFillSetting, showItem: roleAccessList?.includes('adminSettings'),},
         //
