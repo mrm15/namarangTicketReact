@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const BASE_URL = 'http://localhost:3001';
+export const PREFIX_URL = 'http://localhost:3001';
 // export const BASE_URL = 'https://nodejs-6mbttd.chbk.run';
 
 
