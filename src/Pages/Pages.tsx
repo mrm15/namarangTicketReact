@@ -28,6 +28,8 @@ import AddSettings from "../Components/AdminSettings/AddSettings.tsx";
 import SendSmsForm from "../SMS/SendSmsForm/SendSmsForm.tsx";
 import SendSms from "../SendSms/SendSms.tsx";
 import ShowSmsList from "../SMS/ShowSmsList/ShowSmsList.tsx";
+import HesabfaTest from "../Components/Test/HesabfaTest.tsx";
+import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
 
 
 
@@ -43,6 +45,7 @@ const Pages = () => {
             <Routes>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
+                <Route path={'hesabfaTest'} element={<HesabfaTest/>}/>
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
                 <Route path={PAGES.SMS} element={<SendSms/>}/>
 
@@ -144,6 +147,9 @@ const Pages = () => {
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
                             <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.showBillAccess}/>}>
+                            <Route path={PAGES.showBill} element={<ShowBill />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
