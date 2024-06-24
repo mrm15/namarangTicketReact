@@ -1,2 +1,5 @@
 export const getProductList = '/hesabfa/getAllProducts'
 export const getProjectList = '/hesabfa/getAllProjects'
+export const getBillData = '/hesabfa/getBillData/'
+export const getBillDataOpen = '/hesabfaOpen/getBillData/'
+export const getCustomerList = '/hesabfa/getCustomerList/'
