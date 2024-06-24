@@ -93,6 +93,17 @@ export const ROLES = {
     smsSend:['smsSend'],
     smsPending:['smsPending'],
     smsArchive:['smsArchive'],
+    // hesabfa
+    showBillAccess:['showBillAccess'],
+    downloadBillAsPdf:['downloadBillAsPdf'],
+    downloadBillAsCsv:['downloadBillAsCsv'],
+    submitBillInSubmitOrderForm:['submitBillInSubmitOrderForm'],
+    submitBillInChatList:['submitBillInChatList'],
+    saveBillAsDraft:['saveBillAsDraft'],
+    saveBillAsDone:['saveBillAsDone'],
+    deleteBill:['deleteBill'],
+    allContactsWhenSubmitBill:['allContactsWhenSubmitBill'],
+
 
 
 
