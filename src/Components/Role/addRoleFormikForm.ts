@@ -87,6 +87,19 @@ const dropdownOptions = [
     {value:'smsArchive', key: "دسترسی به آرشیو پیامک ها" },
     {value:'smsPending', key: "پیامک های در انتظار" },
     {value:'smsSend', key: "ارسال دستی پیامک" },
+    // دسترسی های فاکتور برای حسابفا
+    {value:'showBillAccess', key: "مشاهده فاکتور" },
+    {value:'downloadBillAsPdf', key: "دانلود به صورت پی دی اف" },
+    {value:'downloadBillAsCsv', key: "دانلود به صورت csv" },
+    {value:'submitBillInSubmitOrderForm', key: "ثبت فاکتور در فرم ثبت سفارش" },
+    {value:'submitBillInChatList', key: "ثبت فاکتور در چت لیست" },
+    {value:'saveBillAsDraft', key: "ذخیره فاکتور به صورت پیش نویس؟" },
+    {value:'saveBillAsDone', key: "ذخیره فاکتور به صورت تایید شده" },
+    {value:'deleteBill', key: "حذف یک فاکتور" },
+    {value:'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور" },
+
+
+
 
 ]
 
