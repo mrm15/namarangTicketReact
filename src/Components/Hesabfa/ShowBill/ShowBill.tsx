@@ -2,15 +2,22 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import axios from "axios";
 import {getBillData, getBillDataOpen} from "../../../config/api.tsx";
 import {PREFIX_URL} from "../../../api/axios.tsx";
+import Loader1 from "../../Loader/Loader1.tsx";
+import Loader from "../../Loader";
+import BillTable from "./BillTable.tsx";
+import {FaExclamationTriangle} from "react-icons/fa";
 
 const ShowBill = () => {
     // @ts-ignore
     const {auth} = useAuth();
+    const {factorNumber} = useParams()
 
+    const [hesabfaBillData, setHesabfaBillData] = useState({})
+    const [isLoading, setIsLoading] = useState(true);
 
     const roleAccessList = auth.userInfo?.roleAccessList;
     const hasAccessToShowBill = roleAccessList?.includes(ROLES.showBillAccess[0])
@@ -20,53 +27,67 @@ const ShowBill = () => {
     const orderCode = myLocation.state?.data?.orderCode;
 
 
-    const [hesabfaBillData, setHesabfaBillData] = useState({})
     useEffect(() => {
-
-        const getDataSetState = async() => {
-            const result = await axios.get( PREFIX_URL +getBillDataOpen + 1003);
-            setHesabfaBillData(result.data.data)
+        const getDataSetState = async () => {
+            const result = await axios.get(PREFIX_URL + getBillDataOpen + factorNumber);
+            setHesabfaBillData(result.data.data);
+            setIsLoading(false)
         }
 
-        void getDataSetState()
+        void getDataSetState();
+    }, []);
 
-    }, [orderCode]);
 
-
-    if (!hasAccessToShowBill) {
+    if(!factorNumber){
         return <div>
-            ظاهرا شما اشتباهی به این صفحه هدایت شده اید.
-            <br/>
-            شما مجوز دسترسی به صفحه نمایش فاکتور را ندارید.
+            <hr/>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                color: '#d32f2f',
+                backgroundColor: '#fdecea',
+                border: '1px solid #f44336',
+                borderRadius: '4px',
+                padding: '10px',
+                margin: '10px 0'
+            }}>
+                <FaExclamationTriangle size={24} style={{marginRight: '10px'}}/>
+                <span>            اخطار شما مجوز دسترسی به این صفحه را ندارید
+</span>
+            </div>
+            <hr/>
+
         </div>
     }
+
     try {
         return (
-            <div>
+            <>
+                {isLoading ? <Loader/> :
+                    <div>
 
-                <div className={"bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"}>
-                    اینجا قراره یه فاکتور با استایل جدید نمایش داده بشه.
-                    <hr/>
-                    معرکه نیست؟
-                    <hr/>
-                    خلق یک اثر جدید
-                    <hr/>
-                </div>
-                <pre dir={'ltr'}>
-                  ✅      hasAccessToDownloadPdf is {hasAccessToDownloadPdf ? "Active" : "inActive"}
-                    <hr/>
-                  ✅      hasAccessToDownloadCSV is {hasAccessToDownloadCSV ? "Active" : "inActive"}
-                    <hr/>
-                  ✅      orderCode is {orderCode || 'کد سفارش مشخص نیست'}
-                    <hr/>
-                    <hr/>
-
-            </pre>
-                <div>
-                    {JSON.stringify(hesabfaBillData)}
-                </div>
-
-            </div>
+                        <div className={"bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"}>
+                            اینجا قراره یه فاکتور با استایل جدید نمایش داده بشه.
+                            <hr/>
+                            معرکه نیست؟
+                            <hr/>
+                            خلق یک اثر جدید
+                            <hr/>
+                        </div>
+                        <pre dir={'ltr'}>
+                              ✅      hasAccessToDownloadPdf is {hasAccessToDownloadPdf ? "Active" : "inActive"}
+                            <hr/>
+                              ✅      hasAccessToDownloadCSV is {hasAccessToDownloadCSV ? "Active" : "inActive"}
+                            <hr/>
+                              ✅      orderCode is {orderCode || 'کد سفارش مشخص نیست'}
+                            <hr/>
+                        </pre>
+                        <div>
+                            <BillTable hesabfaBillData={hesabfaBillData}/>
+                        </div>
+                    </div>
+                }
+            </>
         );
     } catch (error) {
         return <pre>{error.toString()}</pre>
