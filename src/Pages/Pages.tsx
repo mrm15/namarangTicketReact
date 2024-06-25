@@ -49,6 +49,9 @@ const Pages = () => {
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
                 <Route path={PAGES.SMS} element={<SendSms/>}/>
 
+                <Route path={`${PAGES.showBill}/`} element={<ShowBill />}/>
+                <Route path={`${PAGES.showBill}/:factorNumber`} element={<ShowBill />}/>
+
 
 
                 {/* pages all people can see and need sidebar */}
@@ -148,9 +151,11 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
                             <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
                         </Route>
-                        <Route element={<RequireAuth allowedRoles={ROLES.showBillAccess}/>}>
-                            <Route path={PAGES.showBill} element={<ShowBill />}/>
-                        </Route>
+
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.showBillAccess}/>}>*/}
+                        {/*    <Route path={`${PAGES.showBill}/`} element={<ShowBill />}/>*/}
+                        {/*    <Route path={`${PAGES.showBill}/:factorNumber`} element={<ShowBill />}/>*/}
+                        {/*</Route>*/}
 
                         {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
                         {/*    <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>*/}
