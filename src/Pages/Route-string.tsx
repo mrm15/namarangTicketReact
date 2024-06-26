@@ -39,6 +39,8 @@ export const PAGES = {
     sms_archive: '/sms-archive', //
     sms_pending: '/sms-pending', //
     sms_send: '/sms-send', //
+    // hesabfa
+    showBill:"showBill"
 
 
 };
