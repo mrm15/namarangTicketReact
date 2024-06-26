@@ -1,0 +1,31 @@
+.bill__table__css {
+
+  //background: rgba(139, 139, 231, 0.13);
+  //border-radius: 5px;
+  //padding: 5px;
+
+  .bill__info{
+    //padding: .5rem;
+    border-top: 4px solid #b2f5d6;
+    background-color: #14ea730a;
+    border-radius: 10px;
+  }
+
+  .bill__info__item{
+    margin: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    .bill__info__item_title{
+      font-size: 14px;
+      font-weight: bold;
+    }
+    .bill__info__item__description{
+      color: #4e4edd;
+      font-size: 12px;
+    }
+
+
+  }
+
+
+}
