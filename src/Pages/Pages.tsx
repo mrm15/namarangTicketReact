@@ -30,6 +30,7 @@ import SendSms from "../SendSms/SendSms.tsx";
 import ShowSmsList from "../SMS/ShowSmsList/ShowSmsList.tsx";
 import HesabfaTest from "../Components/Test/HesabfaTest.tsx";
 import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
+import SubmitBill from "../Components/Hesabfa/SubmitBill/SubmitBill.tsx";
 
 
 
@@ -150,6 +151,9 @@ const Pages = () => {
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
                             <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={[...ROLES.submitBillInSubmitOrderForm , ...ROLES.submitBillInChatList]}/>}>
+                            <Route path={PAGES.submit_bill} element={<SubmitBill />}/>
                         </Route>
 
                         {/*<Route element={<RequireAuth allowedRoles={ROLES.showBillAccess}/>}>*/}
