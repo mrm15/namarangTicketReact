@@ -10,6 +10,8 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {bytesToMegabytes, handleDragOver} from "../../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
 import userList from "../ForwardModal/UserList.tsx";
+import useAuth from "../../../hooks/useAuth.tsx";
+import {ROLES} from "../../../Pages/ROLES.tsx";
 
 interface TicketData {
     title: string;
@@ -223,7 +225,9 @@ const MyComponent: React.FC = () => {
         }
     }, [adminSettingsQuery.isLoading, adminSettingsQuery.error, adminSettingsQuery?.data?.data?.adminSettingData?.firstDestinationForTickets]);
 
-
+    // @ts-ignore
+    const {auth} = useAuth();
+    const hasAccessToSubmitFactorInSubmitOrderForm = auth?.userInfo?.roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
     try {
         return (
             <div className="flex justify-center ">
@@ -322,6 +326,14 @@ const MyComponent: React.FC = () => {
                             id="ticketTitle" type="button" className="btn-submit-mir"
                             value={'ارسال'}/>
                     </div>
+                    {hasAccessToSubmitFactorInSubmitOrderForm && <div className="div__group__input_select w-full">
+                        <label htmlFor="ticketTitle"> </label>
+                        <input
+                            onClick={clickHandler}
+                            id="ticketTitle" type="button" className="btn-submit-mir"
+                            value={'ارسال و ثبت فاکتور'}/>
+                    </div>}
+                    {}
                 </div>
 
             </div>
