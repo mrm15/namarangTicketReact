@@ -53,9 +53,6 @@ export const addRowIdtoTable = (t) => {
 }
 
 
-
-
-
 const downloadBlob = (content, filename, contentType) => {
     // Create a blob
     let blob = new Blob([content], {type: contentType});
@@ -119,7 +116,7 @@ export const getCurrentDate = () => {
 export const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 }
-export  const bytesToMegabytes = (bytes)=> {
+export const bytesToMegabytes = (bytes) => {
     return bytes / (1024 * 1024);
 }
 export const timestampToTimeFromHesabfa = (TimeStampDate: number | Date | string | undefined): string => {
@@ -158,7 +155,25 @@ export const timestampToTimeFromHesabfa = (TimeStampDate: number | Date | string
         return `Error: ${error?.toString()}`;
     }
 };
-export const formattedNumber =(number: { toLocaleString: () => any; })=> number.toLocaleString(); // "1,234,567,890"
+export const formattedNumber = (number: { toLocaleString: () => any; }) => number.toLocaleString(); // "1,234,567,890"
+
+export const formatNumber = (value) => {
+    if (typeof value !== 'number') {
+        value = +value
+    }
+    if(isNaN(value)){
+        return 0
+    }
+    const newValueNumber = +value
+    const newValueNumberSeperated = newValueNumber.toLocaleString()
+    // const persianFormat = numeric.e2p(newValueNumberSeperated) + ""
+
+    // const temp = newValueNumberSeperated.replaceAll(".","/")
+
+
+    return newValueNumberSeperated
+}
+
 
 
 
