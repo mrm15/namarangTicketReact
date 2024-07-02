@@ -1,10 +1,16 @@
-import {useState} from "react";
+import {useState, useCallback} from 'react';
 
-const UseObjectDataHolder = (initialObject) => {
-    const [data, setData] = useState(initialObject !== undefined ? initialObject : {})
-    const dataSetter = (keyValuePairs: any) => {
-        setData({...data, ...keyValuePairs})
-    }
+// Define the type for the custom hook
+type DataSetter<T> = (keyValuePairs: Partial<T>) => void;
+
+const useObjectDataHolder = <T extends object>(initialObject: T): [T, DataSetter<T>] => {
+    const [data, setData] = useState<T>(initialObject);
+
+    const dataSetter = useCallback((keyValuePairs: Partial<T>) => {
+        setData(prevData => ({...prevData, ...keyValuePairs}));
+    }, []);
+
     return [data, dataSetter];
 }
-export default UseObjectDataHolder;
+
+export default useObjectDataHolder;
