@@ -25,6 +25,7 @@
     "formik": "^2.4.5",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^3.1.2",
+    "moment-jalaali": "^0.10.1",
     "num2persian": "^3.2.2",
     "react": "^18.2.0",
     "react-date-object": "^2.1.8",
