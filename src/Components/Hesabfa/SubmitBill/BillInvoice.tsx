@@ -1,9 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import InvoiceTableItems from "./InvoiceTableItems.tsx";
-import {addRowIdtoTable, formatNumber} from "../../../utils/utilsFunction.tsx";
+import {
+    addRowIdtoTable,
+    formatNumber, getCurrentDate,
+    persianDateToTimestamp,
+    timestampToTimeFromHesabfa
+} from "../../../utils/utilsFunction.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import OtherCostsInBill from "./OtherCostsInBill.tsx";
+import Num2persian from 'num2persian';
+import MyDatePicker from "../../MyDatePicker";
+import numeric from "../../../utils/NumericFunction.tsx";
 
 
 const BillInvoice = ({
@@ -23,6 +31,72 @@ const BillInvoice = ({
     }
 
 
+    const factorSum = {
+        totalSum: 0,
+    }
+
+    // اول بریم سام های هر ردیف رو رتوی فاکتور جمع کنیم
+    factorSum.totalSum = invoice.InvoiceItems.reduce((a, b) => {
+        return a + b.sum
+    }, 0);
+
+    //بعدش بریم بخش آدرز رو چک کنیم ببینیم مقادیری که باید جمع بشه یا کم بشه کدوما هستن و روی جمع کل لحاظ کنیم
+    factorSum.totalSum = invoice.Others.reduce((a, other) => {
+
+        if (other.Add) {
+            return a + other.Amount
+        } else if (other.Add === false) {
+            return a - other.Amount
+        } else {
+            return a;
+        }
+
+    }, factorSum.totalSum)
+
+    {
+        try {
+            factorSum.totalSum = +factorSum?.totalSum?.toFixed(0)
+        } catch (error) {
+            console.log(error.toString())
+            factorSum.totalSum = +factorSum?.totalSum
+        }
+    }
+    const changeDateHandler = (myDate: string, myKey: string) => {
+        const newDate = persianDateToTimestamp(myDate)
+
+        setInvoice({[myKey]: newDate})
+
+    }
+    useEffect(() => {
+
+        // اگه مقدار های تاریخ خالی بودند ینی داره فاکتور صادر میشه و ما باید مقدار تاریخ امروز رو بزاریم
+        if (!invoice.Date && !invoice.DueDate) {
+            // Get current date in timestamp format
+            const formattedCurrentDate = numeric.p2e(new Date().toLocaleDateString('fa-ir'))
+            const saveFormatDate = persianDateToTimestamp(formattedCurrentDate)
+            const tempData: {
+                Date: string | number;
+                DueDate: string | number;
+            } = {
+                Date: '',
+                DueDate: '',
+            }
+
+            tempData.Date = saveFormatDate;
+            tempData.DueDate = saveFormatDate;
+
+            setInvoice({
+                Date: tempData.Date,
+                DueDate: tempData.DueDate
+            })
+        }
+
+    }, []);
+
+    const handleInputChange = (value: string, myKey: any) => {
+        setInvoice({[myKey]: value})
+    }
+
     try {
         return (
             <div>
@@ -38,15 +112,39 @@ const BillInvoice = ({
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> نام مشتری </label>
-                        <input type="text" value={invoice.ContactCode} disabled={true}/>
+                        <input
+
+                            type="text" value={invoice.ContactTitle} disabled={true}/>
+                    </div>
+                    <div className={'div__group__input_select'}>
+                        <label htmlFor="">عنوان مشتری </label>
+                        <input
+                            onChange={(e) => handleInputChange(e.target.value, 'ContactTitle')}
+                            type="text"
+                            value={invoice.ContactTitle}
+                        />
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> تاریخ </label>
-                        <input type="text" value={invoice.ContactCode} disabled={true}/>
+                        {/*<input className={'ltr'} type="text" value={timestampToTimeFromHesabfa(invoice.Date)} disabled={true}/>*/}
+
+                        <MyDatePicker value={timestampToTimeFromHesabfa(invoice.Date)}
+                                      onChange={(selectedDate) => changeDateHandler(selectedDate, 'Date')}/>
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> تاریخ سر رسید </label>
-                        <input type="text" value={invoice.ContactCode} disabled={true}/>
+                        {/*<input className={'ltr'} type="text" value={timestampToTimeFromHesabfa(invoice.DueDate)}*/}
+                        {/*       disabled={true}/>*/}
+                        <MyDatePicker value={timestampToTimeFromHesabfa(invoice.DueDate)}
+                                      onChange={(selectedDate) => changeDateHandler(selectedDate, 'DueDate')}/>
+
+                    </div>
+
+                    <div className={'div__group__input_select'}>
+                        <select name="" id="">
+                            {initialBillData.projectList.map((row, index: number) => <option key={index}
+                                                         value={row.value}>{row.value}</option>)}
+                        </select>
                     </div>
 
                 </div>
@@ -64,9 +162,25 @@ const BillInvoice = ({
                 </div>
                 <div className={'flex flex-col items-end'}>
                     {invoice.Others.map((row: any, index: any) => {
-                        return <div key={index}>{row?.Title} : {formatNumber(row?.Amount)}</div>
+
+                        const addClassName = (row.Add ? ' ' : ' text-red-700 ')
+                        return <div key={index}
+                                    className={addClassName}>{row?.Title} : {formatNumber(row?.Amount)}</div>
                     })}
+
+                    <div className={'font-bold ltr'}>
+                        <div>
+
+                            جمع کل فاکتور:
+                            <span className={'p-2'}>{formatNumber(factorSum.totalSum)} تومان</span>
+                        </div>
+                        <div>
+                            مبلغ به حروف:
+                            <span className={'p-2'}>{Num2persian(factorSum.totalSum)} تومان </span>
+                        </div>
+                    </div>
                 </div>
+
 
             </div>
         );
