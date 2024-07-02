@@ -13,8 +13,7 @@ const OtherCostsInBill = ({setInvoice, invoice}) => {
         transferValue: "",
     })
 
-    const handleOthers = (myObject) => {
-
+    const handleOthers = (myObject: { Title: any; Amount?: any; Add?: boolean; }) => {
         let currentOtherItems = [...invoice.Others];
         let didYouFileATitleLikeThat = false
 
