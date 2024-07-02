@@ -1,4 +1,5 @@
 import numeric from "./NumericFunction.tsx";
+import moment from 'moment-jalaali';
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -155,6 +156,23 @@ export const timestampToTimeFromHesabfa = (TimeStampDate: number | Date | string
         return `Error: ${error?.toString()}`;
     }
 };
+export const persianDateToTimestamp = (persianDate: string): number | string => {
+    try {
+        // Parse the Persian date
+        const gregorianDate = moment(persianDate, 'jYYYY/jMM/jDD').toDate();
+
+        // Check if the date object is valid
+        if (isNaN(gregorianDate.getTime())) {
+            throw new Error("Invalid Persian date");
+        }
+
+        // Return timestamp
+        return gregorianDate.getTime();
+    } catch (error) {
+        return `Error: ${error?.toString()}`;
+    }
+};
+
 export const formattedNumber = (number: { toLocaleString: () => any; }) => number.toLocaleString(); // "1,234,567,890"
 
 export const formatNumber = (value) => {
