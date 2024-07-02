@@ -20,7 +20,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
     const [myOptions, setMyOptions] = useState([]);
     useEffect(() => {
         const temp = productList.map((row: any) => {
-            const label = row.Name + " " + row.ItemCode + " "
+            const label = row.Description + " " + row.Name + " " + row.ItemCode + " ";
             const value = row.Id;
             return {value, label, ...row};
         });
