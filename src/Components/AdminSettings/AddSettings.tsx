@@ -8,6 +8,8 @@ import TextError from "../MyFormik/TextError.tsx";
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import {toast} from "react-toastify";
 import RegisterInPanel from "./Sections/RegisterInPanel.tsx";
+import ForwardTicketsAfterVerify from "./Sections/ForwardTicketsAfterVerify.tsx";
+import {IAdminSettingData} from "./Initial.tsx";
 
 const AddSettings = props => {
 
@@ -17,15 +19,17 @@ const AddSettings = props => {
     const submitAdminSettingsRequest = 'adminSettings/submit';
 
     const [isLoading, setIsLoading] = useState(true);
-    const [adminSettingData, setAdminSettingData] = useObjectDataHolder({
+    const [adminSettingData, setAdminSettingData] = useObjectDataHolder<IAdminSettingData>({
         firstDestinationForTickets: '',
         showUsersListInSendTicketForm: true,
         firstStatusTicket: '', // وضعیت اولیه تیکت ها
         maxFileSize: '',
-        registerInPanel: '', // 0 | 1
+        registerInPanel: '',
         registerDepartment: '',
         registerRole: '',
-        customerDepartment: ''
+        customerDepartment: '',
+        forwardTicketsAfterVerify: '',
+
     });
 
     const [statusList, setStatusList] = useState(null)
@@ -175,6 +179,11 @@ const AddSettings = props => {
                             </select>
                         </div>
                         <RegisterInPanel
+                            adminSettingData={adminSettingData}
+                            setAdminSettingData={setAdminSettingData}
+                            departmentList={getDepartmentList}
+                        />
+                        <ForwardTicketsAfterVerify
                             adminSettingData={adminSettingData}
                             setAdminSettingData={setAdminSettingData}
                             departmentList={getDepartmentList}
