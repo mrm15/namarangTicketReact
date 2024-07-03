@@ -10,6 +10,7 @@ import {toast} from "react-toastify";
 import RegisterInPanel from "./Sections/RegisterInPanel.tsx";
 import ForwardTicketsAfterVerify from "./Sections/ForwardTicketsAfterVerify.tsx";
 import {IAdminSettingData} from "./Initial.tsx";
+import SendSMSAfterVerifyBill from "./Sections/SendSMSAfterVerifyBill.tsx";
 
 const AddSettings = props => {
 
@@ -29,6 +30,7 @@ const AddSettings = props => {
         registerRole: '',
         customerDepartment: '',
         forwardTicketsAfterVerify: '',
+        sendSMSAfterVerifyBill: 'notActive',
 
     });
 
@@ -97,7 +99,7 @@ const AddSettings = props => {
             {isLoading ? <Loader type={1}/> :
                 <>
 
-                    <div>
+                    <div className={''}>
                         <div className='div__group__input_select'>
                             <label htmlFor={'firstDestinationOfTickets'}>{'اولین مقصد سفارشات'}</label>
                             <select
@@ -187,6 +189,12 @@ const AddSettings = props => {
                             adminSettingData={adminSettingData}
                             setAdminSettingData={setAdminSettingData}
                             departmentList={getDepartmentList}
+                        />
+                        <SendSMSAfterVerifyBill
+                            adminSettingData={adminSettingData}
+                            setAdminSettingData={setAdminSettingData}
+                            departmentList={getDepartmentList}
+
                         />
 
                         <div
