@@ -10,7 +10,7 @@ import {addRowIdtoTable} from "../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow, makeInvoiceBaseOnHesabfaData,} from "./functions.tsx";
 import {useLocation} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
-import {IInvoice, IInvoiceItem, initialBillData, IUnit} from "./initialData.tsx";
+import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx";
 
 
 const SubmitBill = () => {
@@ -40,7 +40,7 @@ const SubmitBill = () => {
             formType: myStateData?.formType, // it is in ticket Or in the ticketReply
             ticketId: myStateData?.ticketId,
             // billNumber: myStateData?.billNumber, // if its empty  it is on Edit Mode
-            billNumber: 3761, // if its empty  it is on Edit Mode
+            billNumber: '', // if its empty  it is on Edit Mode
             ContactCode: myStateData?.ContactCode, // if its empty  it is on Edit Mode
             tag: auth?.userInfo?.userData?.name, // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
             backUrl: -1,
@@ -57,7 +57,7 @@ const SubmitBill = () => {
             Note: '',
             InvoiceType: 0,
             Status: 0, // پیش نویس
-            Tag: 'componentInfo.tag', // تگ تستی
+            Tag: 'componentInfo tag', // تگ تستی
             InvoiceItems: [],
             Others: [],
             Currency: "IRR",
@@ -67,7 +67,7 @@ const SubmitBill = () => {
             Sum: 0
         });
         const [isLoading, setIsLoading] = useState(true)
-        const [initialBillData, setInitialBillData] = useObjectDataHolder<initialBillData>({
+        const [initialBillData, setInitialBillData] = useObjectDataHolder<IInitialBillData>({
             productList: [],
             projectList: [],
             customerList: [],
