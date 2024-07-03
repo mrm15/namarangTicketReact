@@ -12,6 +12,7 @@ import OtherCostsInBill from "./OtherCostsInBill.tsx";
 import Num2persian from 'num2persian';
 import MyDatePicker from "../../MyDatePicker";
 import numeric from "../../../utils/NumericFunction.tsx";
+import {IProjectList} from "./initialData.tsx";
 
 
 const BillInvoice = ({
@@ -141,9 +142,15 @@ const BillInvoice = ({
                     </div>
 
                     <div className={'div__group__input_select'}>
-                        <select name="" id="">
-                            {initialBillData.projectList.map((row, index: number) => <option key={index}
-                                                         value={row.value}>{row.value}</option>)}
+                        <label htmlFor="">پروژه</label>
+                        <select
+                            onChange={(e) => handleInputChange(e.target.value, 'Project')}
+                            value={invoice.Project}
+                            name="" id="">
+                            {initialBillData.projectList.filter((row: IProjectList) => row.Active === true)
+                                .map((row: IProjectList, index: React.Key) =>
+                                    <option key={index}
+                                            value={row.Title}>{row.Title}</option>)}
                         </select>
                     </div>
 
