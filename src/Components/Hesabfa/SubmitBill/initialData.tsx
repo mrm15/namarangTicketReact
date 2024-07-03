@@ -52,13 +52,15 @@ export interface IInvoice {
     Sum: number;
 }
 
-export interface initialBillData {
+export interface IProjectList {
+    Id: number;
+    Title: string;
+    Active: boolean;
+}
+
+export interface IInitialBillData {
     productList?: any[],
-    projectList?: {
-        Id: number;
-        Title: string;
-        Active: boolean;
-    }[] | [],
+    projectList?: IProjectList[] | [],
     customerList?: any[],
 
 }
