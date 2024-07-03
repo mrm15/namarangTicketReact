@@ -124,3 +124,9 @@ html {
 .width__20_Percent{
     width: 20% !important;
 }
+.z__index1{
+    z-index: 1;
+}
+.z__index2{
+    z-index: 2;
+}
