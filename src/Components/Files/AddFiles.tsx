@@ -7,7 +7,7 @@ import MyFormik from "../MyFormik";
 import {BASE_URL} from "../../api/axios.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
-const MyComponent = props => {
+const AddFiles = props => {
     let prefixDownloadUrl = BASE_URL
     prefixDownloadUrl = 'http://localhost:3001/download/'
 
@@ -128,6 +128,6 @@ const MyComponent = props => {
 
 };
 
-MyComponent.propTypes = {};
+AddFiles.propTypes = {};
 
-export default MyComponent;
+export default AddFiles;

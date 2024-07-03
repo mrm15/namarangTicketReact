@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import MyFormik from "../MyFormik";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
-const MyComponent = props => {
+const AddStatus = props => {
     const [isLoading, setIsLoading] = useState(true)
 
     const myLocation = useLocation()
@@ -127,6 +127,6 @@ const MyComponent = props => {
 
 };
 
-MyComponent.propTypes = {};
+AddStatus.propTypes = {};
 
-export default MyComponent;
+export default AddStatus;

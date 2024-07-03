@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import MyFormik from "../MyFormik";
 import useList from "../../hooks/useList.tsx";
 
-const MyComponent = props => {
+const AddRole = props => {
     const [isLoading, setIsLoading] = useState(true)
 
     const myLocation = useLocation()
@@ -134,6 +134,6 @@ const MyComponent = props => {
 
 };
 
-MyComponent.propTypes = {};
+AddRole.propTypes = {};
 
-export default MyComponent;
+export default AddRole;

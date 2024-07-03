@@ -6,7 +6,7 @@ import Loader from "../Loader";
 import MyFormik from "../MyFormik";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 
-const MyComponent = props => {
+const AddRole = props => {
     const [isLoading, setIsLoading] = useState(true)
 
     const myLocation = useLocation()
@@ -53,7 +53,7 @@ const MyComponent = props => {
         }
 
 
-        const temp:any = {};
+        const temp: any = {};
         if (editMode) {
             temp.id = formUniqId
         }
@@ -131,6 +131,6 @@ const MyComponent = props => {
 
 };
 
-MyComponent.propTypes = {};
+AddRole.propTypes = {};
 
-export default MyComponent;
+export default AddRole;

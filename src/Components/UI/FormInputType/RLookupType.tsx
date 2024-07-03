@@ -1,4 +1,4 @@
-const MyComponent = () => {
+const RLookupType = () => {
     return (
         <div>
             
@@ -6,4 +6,4 @@ const MyComponent = () => {
     );
 };
 
-export default MyComponent;
+export default RLookupType;

@@ -25,7 +25,7 @@ interface TicketData {
 
 const getSettingsRequestUrl = 'adminSettings/getAdminSettings';
 const getDestinationRequestUrl = '/department/userList';
-const MyComponent: React.FC = () => {
+const TicketCreate: React.FC = () => {
     const submitTicketUrl = '/ticket/create'
     const emptyFile = new File([], 'کلیک کنید +   بکشید و رها کنید')
     const maxNumberOfFiles = 3
@@ -252,7 +252,7 @@ const MyComponent: React.FC = () => {
                             placeholder="مثلا: فایل چلنیوم تک لبه رینگ به رنگ سبز زیمنسی"/>
                     </div>
                     {ticketData?.files?.map((file: File, index) => (
-                        <>
+
                             <div key={index} className="div__group__input_select w-full">
                                 <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
                                 <input
@@ -280,7 +280,7 @@ const MyComponent: React.FC = () => {
                                         className={'text-red-600 ms-2'}/>
                                 </div>
                             </div>
-                        </>
+
                     ))}
                     <div onClick={addNewFileHandler}
                          className="flex  items-center rounded border-2 my-2 w-32 p-2 cursor-pointer select-none">
@@ -343,4 +343,4 @@ const MyComponent: React.FC = () => {
     }
 };
 
-export default MyComponent;
+export default TicketCreate;

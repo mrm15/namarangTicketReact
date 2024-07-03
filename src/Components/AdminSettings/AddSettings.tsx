@@ -9,7 +9,7 @@ import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import {toast} from "react-toastify";
 import RegisterInPanel from "./Sections/RegisterInPanel.tsx";
 
-const MyComponent = props => {
+const AddSettings = props => {
 
     const getDepartmentListRequestUrl = "department/departmentList"
     const getStatusListRequestUrl = "status/statusList"
@@ -25,6 +25,7 @@ const MyComponent = props => {
         registerInPanel: '', // 0 | 1
         registerDepartment: '',
         registerRole: '',
+        customerDepartment: ''
     });
 
     const [statusList, setStatusList] = useState(null)
@@ -165,7 +166,7 @@ const MyComponent = props => {
                         <div className='div__group__input_select'>
                             <label htmlFor={'customerDepartment'}>{'دپارتمان مشتریان'}</label>
                             <select
-                                value={adminSettingData.customerDepartment}
+                                value={adminSettingData?.customerDepartment}
                                 onChange={event => setAdminSettingData({customerDepartment: event.target.value})}
                                 name="customerDepartment" id="customerDepartment">
                                 <option value="">انتخاب کنید</option>
@@ -204,6 +205,6 @@ const MyComponent = props => {
 
 };
 
-MyComponent.propTypes = {};
+AddSettings.propTypes = {};
 
-export default MyComponent;
+export default AddSettings;
