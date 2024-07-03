@@ -47,14 +47,14 @@ const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
 
     try {
         return (
-            <div>
+            <div className={''}>
                 <div className="w-96">
                     <label htmlFor={"name"}>نام کالا</label>
                     <Select
                         onChange={onSelect}
                         options={myOptions}
                         placeholder={'انتخاب کالا'}
-                        className="select-box-style"
+                        className="z__index2"
                         isDisabled={false}
                         isLoading={false}
                         isClearable={true}
