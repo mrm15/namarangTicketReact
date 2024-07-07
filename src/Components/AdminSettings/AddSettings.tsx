@@ -176,7 +176,7 @@ const AddSettings = props => {
                                 onChange={event => setAdminSettingData({customerDepartment: event.target.value})}
                                 name="customerDepartment" id="customerDepartment">
                                 <option value="">انتخاب کنید</option>
-                                {departmentList.map((row, index) => <option key={index}
+                                {departmentList.map((row:any, index: React.Key) => <option key={index}
                                                                             value={row.value}>{row.key}</option>)}
                             </select>
                         </div>
