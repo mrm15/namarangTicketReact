@@ -10,6 +10,9 @@ import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 import {RiAttachmentLine} from "react-icons/ri";
 import {FiPaperclip} from "react-icons/fi";
 import useAuth from "../../../hooks/useAuth.tsx";
+import {ROLES} from "../../../Pages/ROLES.tsx";
+import {PAGES} from "../../../Pages/Route-string.tsx";
+import {useNavigate} from "react-router-dom";
 
 const requestUrl = '/ticketReply/create';
 
@@ -26,6 +29,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
         visibleToUser: true,
         attachments: []
     }
+    const navigateTo = useNavigate()
 
     const messagesEndRef = useRef(null);
     // Function to scroll to the bottom of the container
@@ -47,7 +51,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
     const fileInputRef = useRef(null);
     const myAxiosPrivate = useAxiosPrivate()
     const myAxiosPrivateFormData = useAxiosPrivateFormData()
-    const submitHandler = async () => {
+    const submitHandler = async (inputNumber: 0 | 1) => {
 
         if (sendData.description === '') {
             toast.error('مقدار توضیحات نباید خالی باشد');
@@ -97,10 +101,24 @@ const ResponseSection = ({chatList, setReload, reload}) => {
         try {
             const response1 = await myAxiosPrivate.post(requestUrl, temp);
 
-            if(response1.data){
+
+            // یعنی شما صرفا ثبت سفارش کردید و قرار نیست فاکتور بزنید
+            if (response1.data && inputNumber === 0) {
                 toast.success(response1.data?.message)
                 setSendData({...initialSendData})
                 setReload({value: randomNumberGenerator()})
+            }
+            // اینجا میخوایم بعد از ثبت سفارش فاکتور بزنیم
+            if (response1.data && inputNumber === 1) {
+                toast.success(response1.data?.message)
+                setSendData({...initialSendData})
+                try {
+                    const data = response1.data.data
+                    navigateTo(PAGES.submit_bill, {state: {data: {...data, backUrl: PAGES.ticket_own_sent}}})
+                } catch (error) {
+                    console.log(error.toString())
+                    toast.info('امکان صدور فاکتور وجود ندارد');
+                }
             }
         } catch (error) {
             toast.error(error.toString())
@@ -140,7 +158,8 @@ const ResponseSection = ({chatList, setReload, reload}) => {
 
     // @ts-ignore
     const {auth} = useAuth();
-    const sendHiddenMessage = auth?.userInfo?.roleAccessList?.includes('sendHiddenMessage')
+    const sendHiddenMessage = auth?.userInfo?.roleAccessList?.includes('sendHiddenMessage');
+    const hasAccessToSubmitFactorInChatList = auth?.userInfo?.roleAccessList?.includes(ROLES.submitBillInChatList[0])
     try {
 
 
@@ -191,10 +210,10 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                 </div>
 
                 <div className={'flex flex-col justify-center items-end'}>
-                    <div>
+                    <div className={'flex gap-2'}>
                         <button
                             ref={messagesEndRef}
-                            onClick={submitHandler}
+                            onClick={() => submitHandler(0)}
                             onContextMenu={(event) => {
                                 if (sendHiddenMessage) {
                                     event.preventDefault();
@@ -203,7 +222,25 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                             }}
                             className={'btn-submit-mir'}> ارسال
                         </button>
+                        {
+                            hasAccessToSubmitFactorInChatList && <>
+
+                            <button
+                              ref={messagesEndRef}
+                              onClick={() => submitHandler(1)}
+                              onContextMenu={(event) => {
+                                  if (sendHiddenMessage) {
+                                      event.preventDefault();
+                                      setIsHideCheckBox(!isHideCheckBox)
+                                  }
+                              }}
+                              className={'btn-submit-mir'}> ارسال و ثبت فاکتور
+                            </button>
+
+                          </>
+                        }
                     </div>
+
                     {isHideCheckBox && <div className={'border border-blue-200 rounded m-2 p-2'}>
                       <input checked={!sendData.visibleToUser}
                              onChange={(e) => {
