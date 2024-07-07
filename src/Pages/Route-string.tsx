@@ -40,8 +40,8 @@ export const PAGES = {
     sms_pending: '/sms-pending', //
     sms_send: '/sms-send', //
     // hesabfa
-    showBill:"showBill",
-    submit_bill:"submit-bill",
+    showBill:"/showBill",
+    submit_bill:"/submit-bill",
 
 
 };
