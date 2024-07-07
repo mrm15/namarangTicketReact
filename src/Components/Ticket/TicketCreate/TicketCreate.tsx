@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import './style.scss';
 import {FaPlus, FaTrash} from 'react-icons/fa';
 import {toast} from 'react-toastify';
@@ -12,6 +12,9 @@ import {useQuery} from "@tanstack/react-query";
 import userList from "../ForwardModal/UserList.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
+import {useNavigate} from "react-router-dom";
+import {data} from "autoprefixer";
+import {PAGES} from "../../../Pages/Route-string.tsx";
 
 interface TicketData {
     title: string;
@@ -39,7 +42,7 @@ const TicketCreate: React.FC = () => {
         maxFileSize: 0,
     });
 
-
+    const navigateTo = useNavigate()
     const resetSendTicketForm = () => {
         setTicketData({
             ...ticketData,
@@ -97,7 +100,7 @@ const TicketCreate: React.FC = () => {
     const myAxiosPrivateFormData = useAxiosPrivateFormData()
 
     const myAxiosPrivate = useAxiosPrivate()
-    const clickHandler = async () => {
+    const clickHandler = async (inputNumber: number) => {
         const myTicketData = {...ticketData};
 
         // فایل ها رو جدا میکنیم
@@ -169,10 +172,32 @@ const TicketCreate: React.FC = () => {
 
                 const response: AxiosResponse = await myAxiosPrivate.post(submitTicketUrl, myTicketData);
 
-                if (response.status === 200) {
+                if (response.status === 200 && inputNumber === 0) {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
                     toast.success(response.data.message)
                     resetSendTicketForm()
+                }
+                if (response.status === 200 && inputNumber === 1) {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
+                    toast.success(response.data.message)
+                    // اینجا ما میخوایم کاربر رو بفرستیم به سمت صدور فاکتور
+                    // که اطلاعاتی که از بک میاد رو مستقیم میفرستیم توی کامپوننت صدور فاکتور
+                    try {
+                        const data = response.data.data
+                        navigateTo(PAGES.submit_bill, {
+                            state: {
+                                data: {
+                                    ...data,
+                                    backUrl: PAGES.ticket_own_sent,
+                                }
+                            }
+                        })
+                    } catch (error) {
+                        console.log(error.toString())
+                        toast.info('امکان صدور فاکتور وجود ندارد');
+                    }
+
+
                 }
             } else {
                 // do som|e task here
@@ -253,33 +278,33 @@ const TicketCreate: React.FC = () => {
                     </div>
                     {ticketData?.files?.map((file: File, index) => (
 
-                            <div key={index} className="div__group__input_select w-full">
-                                <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
-                                <input
-                                    onChange={(e) => {
-                                        assignFileToState(e.target.files[0], index)
-                                    }}
-                                    id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+                        <div key={index} className="div__group__input_select w-full">
+                            <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
+                            <input
+                                onChange={(e) => {
+                                    assignFileToState(e.target.files[0], index)
+                                }}
+                                id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
 
-                                <div className={'flex items-center'}>
-                                    <label htmlFor={`file${index + 1}`}
-                                           className={'customFileLabel cursor-pointer w-full'}
-                                    >
-                                        <div
-                                            id={`file${index + 1}`}
-                                            className="same__input w-full"
-                                            onDrop={e => handleDrop(e, index)}
-                                            onDragOver={handleDragOver}>
-                                            <div>
-                                                {file?.name}
-                                            </div>
+                            <div className={'flex items-center'}>
+                                <label htmlFor={`file${index + 1}`}
+                                       className={'customFileLabel cursor-pointer w-full'}
+                                >
+                                    <div
+                                        id={`file${index + 1}`}
+                                        className="same__input w-full"
+                                        onDrop={e => handleDrop(e, index)}
+                                        onDragOver={handleDragOver}>
+                                        <div>
+                                            {file?.name}
                                         </div>
-                                    </label>
-                                    <FaTrash
-                                        onClick={() => handleRemoveFile(index)}
-                                        className={'text-red-600 ms-2'}/>
-                                </div>
+                                    </div>
+                                </label>
+                                <FaTrash
+                                    onClick={() => handleRemoveFile(index)}
+                                    className={'text-red-600 ms-2'}/>
                             </div>
+                        </div>
 
                     ))}
                     <div onClick={addNewFileHandler}
@@ -322,16 +347,16 @@ const TicketCreate: React.FC = () => {
                     <div className="div__group__input_select w-full">
                         <label htmlFor="ticketTitle"> </label>
                         <input
-                            onClick={clickHandler}
+                            onClick={() => clickHandler(0)}
                             id="ticketTitle" type="button" className="btn-submit-mir"
                             value={'ارسال'}/>
                     </div>
                     {hasAccessToSubmitFactorInSubmitOrderForm && <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketTitle"> </label>
-                        <input
-                            onClick={clickHandler}
-                            id="ticketTitle" type="button" className="btn-submit-mir"
-                            value={'ارسال و ثبت فاکتور'}/>
+                      <label htmlFor="ticketTitle"> </label>
+                      <input
+                        onClick={() => clickHandler(1)}
+                        id="ticketTitle" type="button" className="btn-submit-mir"
+                        value={'ارسال و ثبت فاکتور'}/>
                     </div>}
                     {}
                 </div>
