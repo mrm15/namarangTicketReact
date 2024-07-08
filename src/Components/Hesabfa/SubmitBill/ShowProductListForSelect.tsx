@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
 
 
-const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
+const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
     // @ts-ignore
     const {auth} = useAuth();
 
@@ -35,6 +35,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
         const DueDate = timestampToFormattedDateToSendHesabfa(invoice.DueDate)
         const customInvoice = {...invoice, Date, DueDate,}
         const data = {
+            billData,
             invoice: {
                 ...customInvoice,
                 Status: newStatus
