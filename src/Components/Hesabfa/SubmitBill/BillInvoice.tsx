@@ -147,11 +147,21 @@ const BillInvoice = ({
                             onChange={(e) => handleInputChange(e.target.value, 'Project')}
                             value={invoice.Project}
                             name="" id="">
+                            <option value={''}>انتخاب کنید</option>
                             {initialBillData.projectList.filter((row: IProjectList) => row.Active === true)
                                 .map((row: IProjectList, index: React.Key) =>
                                     <option key={index}
                                             value={row.Title}>{row.Title}</option>)}
                         </select>
+                    </div>
+                    <div className={'div__group__input_select'}>
+                    <label htmlFor="">تگ  </label>
+                        <input
+                            onChange={(e) => handleInputChange(e.target.value, 'Tag')}
+                            type="text"
+                            value={invoice.Tag}
+                            disabled={true}
+                        />
                     </div>
 
                 </div>
