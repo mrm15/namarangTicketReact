@@ -113,8 +113,15 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                 toast.success(response1.data?.message)
                 setSendData({...initialSendData})
                 try {
-                    const data = response1.data.data
-                    navigateTo(PAGES.submit_bill, {state: {data: {...data, backUrl: PAGES.ticket_own_sent}}})
+                    const data111 = response1.data.data
+                    navigateTo(PAGES.submit_bill, {
+                        state: {
+                            data: {
+                                ...data111,
+                                backUrl: PAGES.ticket_own_sent,
+                            }
+                        }
+                    })
                 } catch (error) {
                     console.log(error.toString())
                     toast.info('امکان صدور فاکتور وجود ندارد');
