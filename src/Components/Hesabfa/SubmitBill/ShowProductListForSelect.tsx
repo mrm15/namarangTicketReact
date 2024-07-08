@@ -6,6 +6,7 @@ import {ROLES} from "../../../Pages/ROLES.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {submitBill} from "../../../config/api.tsx";
 import {toast} from "react-toastify";
+import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
 
 
 const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
@@ -30,10 +31,12 @@ const ShowProductListForSelect = ({productList, onSelect, invoice}) => {
     const myAxiosPrivate = useAxiosPrivate()
 
     const sendFactorForSave = async (newStatus: 0 | 1) => {
-
+        const Date = timestampToFormattedDateToSendHesabfa(invoice.Date)
+        const DueDate = timestampToFormattedDateToSendHesabfa(invoice.DueDate)
+        const customInvoice = {...invoice, Date, DueDate,}
         const data = {
             invoice: {
-                ...invoice,
+                ...customInvoice,
                 Status: newStatus
             }
         }
