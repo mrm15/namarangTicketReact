@@ -2,6 +2,8 @@ import React from 'react';
 import {BASE_URL} from "../../../api/axios.tsx";
 import ResponseSection from "./ResponseSection.tsx";
 import {FaFile} from 'react-icons/fa';
+import {PAGES} from "../../../Pages/Route-string.tsx";
+import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
 
 const ChatList = ({chatList, setReload, reload}) => {
 
@@ -26,16 +28,21 @@ const ChatList = ({chatList, setReload, reload}) => {
                     {data?.data?.map((item, index) => {
                         const isTicketSender = item.isTicketSender;
                         const isVisibleToUser = item.visibleToUser
+                        const billNumber = item?.billNumber
+                        const billStatus = item?.billStatus
+                        const tempBillData = {
+                            billNumber, billStatus
+                        }
 
                         try {
                             return (
                                 <div key={index}
                                      className={(isTicketSender ? 'rtl' : 'ltr') + ' '
-                                         +`${isVisibleToUser===false ? 'opacity-30  rounded' : ''}`
-                                }
+                                         + `${isVisibleToUser === false ? 'opacity-30  rounded' : ''}`
+                                     }
 
                                 >
-                                    {isVisibleToUser===false && <div className={'fontSize10'}>پیام مخفی</div>}
+                                    {isVisibleToUser === false && <div className={'fontSize10'}>پیام مخفی</div>}
                                     <div className={'sm:w-full md:w-10/12 lg:w-1/2 rounded mt-2 p-2   chat__box rtl'}>
                                         <div className={'flex'}>
                                             <div>دپارتمان:</div>
@@ -56,9 +63,11 @@ const ChatList = ({chatList, setReload, reload}) => {
                                             <div> {item?.description}</div>
                                         </div>
                                         <div className={'flex'}>
-                                            {item?.files?.map((row, index) => {
+                                            {item?.files?.map((row:any, index: React.Key) => {
                                                 const temp = ((row.fileSize) / 1024)
-                                                const fileSize = temp.toFixed()
+                                                const fileSize = temp.toFixed();
+
+
 
 
                                                 let href = '';
@@ -76,6 +85,10 @@ const ChatList = ({chatList, setReload, reload}) => {
 
                                                 </a>
                                             })}
+                                        </div>
+                                        <div>
+                                            {billNumber && <BillDataButtonInChatList billData={tempBillData}/>}
+
                                         </div>
                                         <div className={'mx-2 ltr fontSize10'}> {item.createAt} </div>
                                     </div>
