@@ -1,4 +1,5 @@
 import {IInvoice, IInvoiceItem, IOther} from "./initialData.tsx";
+import {dateFromHesabfaToTimeStamp} from "../../../utils/utilsFunction.tsx";
 
 export const calculateSumOfEachRow = (newInvoiceItems) => {
 
@@ -52,8 +53,8 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData) => {
         Project: incomingData.Project,//
         ContactTitle: incomingData.ContactTitle,
         Reference: incomingData.Reference, // نمیدونم رفرنس چیه اون میفرسته منم اینجا میزارم شاید یه روزی لازم شد
-        Date: incomingData.Date,
-        DueDate: incomingData.DueDate,
+        Date: dateFromHesabfaToTimeStamp(incomingData.Date),
+        DueDate: dateFromHesabfaToTimeStamp(incomingData.DueDate),
         ContactCode: incomingData.ContactCode,
         Note: '',
         InvoiceType: 0,
