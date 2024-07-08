@@ -35,13 +35,13 @@ const SubmitBill = () => {
 
         const myLocation = useLocation();
         const myStateData = myLocation?.state?.data;
-
         const componentInfo = {
             formType: myStateData?.formType, // it is in ticket Or in the ticketReply
             ticketId: myStateData?.ticketId,
             // billNumber: myStateData?.billNumber, // if its empty  it is on Edit Mode
             billNumber: '', // if its empty  it is on Edit Mode
-            ContactCode: myStateData?.ContactCode, // if its empty  it is on Edit Mode
+            ContactCode: myStateData?.contactCode, // if its empty  it is on Edit Mode
+            ContactName: myStateData?.contactName, // if its empty  it is on Edit Mode
             tag: auth?.userInfo?.userData?.name, // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
             backUrl: -1,
         }
@@ -49,7 +49,7 @@ const SubmitBill = () => {
 
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Number: componentInfo.billNumber + "",
-            ContactTitle: "", // عنوان مشتری در فرم ثبت سفارش
+            ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
             Reference: '',
             Date: '',//
             DueDate: '',//
@@ -57,7 +57,7 @@ const SubmitBill = () => {
             Note: '',
             InvoiceType: 0,
             Status: 0, // پیش نویس
-            Tag: 'componentInfo tag', // تگ تستی
+            Tag: componentInfo.tag, // تگ تستی
             InvoiceItems: [],
             Others: [],
             Currency: "IRR",
@@ -74,70 +74,64 @@ const SubmitBill = () => {
         });
         const myAxios = useAxiosPrivate();
         useEffect(() => {
-                const getData = async () => {
-                    const temp = {
-                        productList: [],
-                        projectList: [],
-                        customerList: [],
-                    }
-                    const res1_project = await myAxios.get(getProjectList);
-                    const res2_product = await myAxios.get(getProductList);
-                    const res3_customers = await myAxios.get(getCustomerList);
-
-                    if (res1_project.data) {
-                        temp.projectList = res1_project.data.data;
-                    }
-                    if (res2_product.data) {
-                        const temp222 = res2_product.data?.data?.List.map((row: any) => {
-                            return {
-                                Id: row.Id,
-                                Description: row.Description || row.SalesTitle,
-                                ItemCode: row.Code,
-                                Unit: row.Unit,
-                                Quantity: 1,
-                                UnitPrice: row.SellPrice,
-                                Discount: 0,
-                                Tax: 0,
-                                SubUnit: row.SubUnit,
-                                ///////////////////////////
-                                Name: row.Name,
-                                fixedPrice: row.SellPrice,
-                                dividedBy: 1,
-                                selectedUnit: "1",
-                                Units: [
-                                    {id: 1, value: row.Unit, divideNumber: 1},
-                                    {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
-                                ],
-                                sum: 0,
-                            }
-                        })
-                        console.log(temp222)
-                        temp.productList = temp222;
-                    }
-                    if (res3_customers.data) {
-                        temp.customerList = res3_customers.data?.data?.List
-                    }
-
-
-                    // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
-                    if (componentInfo.billNumber) {
-                        const result = await myAxios.get(getBillData + componentInfo.billNumber);
-                        const incomingData = result.data.data;
-
-                        const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
-
-                        setInvoice(myInvoice)
-                        setIsLoading(false);
-
-                    }
-                    setInitialBillData({...temp});
-                    setIsLoading(false);
-
+            const getData = async () => {
+                const temp = {
+                    productList: [],
+                    projectList: [],
+                    customerList: [],
                 }
-                void getData()
+                const res1_project = await myAxios.get(getProjectList);
+                const res2_product = await myAxios.get(getProductList);
+                const res3_customers = await myAxios.get(getCustomerList);
 
-            }, []
-        )
+                if (res1_project.data) {
+                    temp.projectList = res1_project.data.data;
+                }
+                if (res2_product.data) {
+                    const temp222 = res2_product.data?.data?.List.map((row: any) => {
+                        return {
+                            Id: row.Id,
+                            Description: row.Description || row.SalesTitle,
+                            ItemCode: row.Code,
+                            Unit: row.Unit,
+                            Quantity: 1,
+                            UnitPrice: row.SellPrice,
+                            Discount: 0,
+                            Tax: 0,
+                            SubUnit: row.SubUnit,
+                            ///////////////////////////
+                            Name: row.Name,
+                            fixedPrice: row.SellPrice,
+                            dividedBy: 1,
+                            selectedUnit: "1",
+                            Units: [
+                                {id: 1, value: row.Unit, divideNumber: 1},
+                                {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
+                            ],
+                            sum: 0,
+                        }
+                    })
+                    console.log(temp222)
+                    temp.productList = temp222;
+                }
+                if (res3_customers.data) {
+                    temp.customerList = res3_customers.data?.data?.List
+                }
+
+
+                // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
+                if (componentInfo.billNumber) {
+                    const result = await myAxios.get(getBillData + componentInfo.billNumber);
+                    const incomingData = result.data.data;
+                    const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
+                    setInvoice(myInvoice)
+                    setIsLoading(false);
+                }
+                setInitialBillData({...temp});
+                setIsLoading(false);
+            }
+            void getData()
+        }, [])
 
 
         const addProductToTable = (row: any) => {
@@ -153,6 +147,7 @@ const SubmitBill = () => {
             }
 
         }
+        console.log(invoice)
         try {
             return (
                 <FullWidthPage>
