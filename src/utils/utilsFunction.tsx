@@ -193,13 +193,13 @@ export const timestampToFormattedDateToSendHesabfa = (timestamp: string | number
 }
 export const dateFromHesabfaToTimeStamp = (dateString: string) => {
     // Split the date and time components
-    const [datePart, timePart] = dateString.split(' ');
+    const [datePart, timePart] = dateString.split('T');
     const [year, month, day] = datePart.split('-').map(Number);
     const [hours, minutes, seconds] = timePart.split(':').map(Number);
     // Create a new Date object using the parsed components
     const date = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds));
     // Get the timestamp in milliseconds
-    return date.getTime() + "";
+    return (date.getTime()/1000) + "";
 }
 export const formattedNumber = (number: { toLocaleString: () => any; }) => number.toLocaleString(); // "1,234,567,890"
 
