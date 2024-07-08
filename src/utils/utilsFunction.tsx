@@ -172,14 +172,42 @@ export const persianDateToTimestamp = (persianDate: string): number | string => 
         return `Error: ${error?.toString()}`;
     }
 };
+export const timestampToFormattedDateToSendHesabfa = (timestamp: string | number | Date) => {
+    const date = new Date(timestamp);
 
+    // IRST is UTC + 3:30
+    const offsetMinutes = 3 * 60 + 30;
+
+    // Get the time in milliseconds and adjust for IRST
+    const localTime = date.getTime() + offsetMinutes * 60 * 1000;
+    const irDate = new Date(localTime);
+
+    const year = irDate.getUTCFullYear();
+    const month = String(irDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(irDate.getUTCDate()).padStart(2, '0');
+
+    const hours = String(irDate.getUTCHours()).padStart(2, '0');
+    const minutes = String(irDate.getUTCMinutes()).padStart(2, '0');
+    const seconds = String(irDate.getUTCSeconds()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+export const dateFromHesabfaToTimeStamp = (dateString: string) => {
+    // Split the date and time components
+    const [datePart, timePart] = dateString.split(' ');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hours, minutes, seconds] = timePart.split(':').map(Number);
+    // Create a new Date object using the parsed components
+    const date = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds));
+    // Get the timestamp in milliseconds
+    return date.getTime() + "";
+}
 export const formattedNumber = (number: { toLocaleString: () => any; }) => number.toLocaleString(); // "1,234,567,890"
 
 export const formatNumber = (value) => {
     if (typeof value !== 'number') {
         value = +value
     }
-    if(isNaN(value)){
+    if (isNaN(value)) {
         return 0
     }
     const newValueNumber = +value
