@@ -95,6 +95,7 @@ const dropdownOptions = [
     {value:'submitBillInChatList', key: "ثبت فاکتور در چت لیست" },
     {value:'saveBillAsDraft', key: "ذخیره فاکتور به صورت پیش نویس؟" },
     {value:'saveBillAsDone', key: "ذخیره فاکتور به صورت تایید شده" },
+    {value:'editBillInChatList', key: " ویرایش فاکتور در چت لیست  " },
     {value:'deleteBill', key: "حذف یک فاکتور" },
     {value:'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور" },
 
