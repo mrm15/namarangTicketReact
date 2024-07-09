@@ -26,12 +26,15 @@ const ChatList = ({chatList, setReload, reload}) => {
                 <div className={'rounded  justify-between p-3 my-3 '}>
 
                     {data?.data?.map((item, index) => {
+                        console.log(item)
                         const isTicketSender = item.isTicketSender;
                         const isVisibleToUser = item.visibleToUser
                         const billNumber = item?.billNumber
                         const billStatus = item?.billStatus
+                        const type = item?.type // تایپ رو گرفتم تا بدونم  این تیکت هست یا توی تیکت ریپلای که حذف کردنش آسون تر باشه
+                        const id = item.id // آیدی رو گرفتم که بتونم موقع حذف بدونم چیو حذف کنم
                         const tempBillData = {
-                            billNumber, billStatus
+                            billNumber, billStatus, type, id
                         }
 
                         try {
@@ -63,11 +66,9 @@ const ChatList = ({chatList, setReload, reload}) => {
                                             <div> {item?.description}</div>
                                         </div>
                                         <div className={'flex'}>
-                                            {item?.files?.map((row:any, index: React.Key) => {
+                                            {item?.files?.map((row: any, index: React.Key) => {
                                                 const temp = ((row.fileSize) / 1024)
                                                 const fileSize = temp.toFixed();
-
-
 
 
                                                 let href = '';
