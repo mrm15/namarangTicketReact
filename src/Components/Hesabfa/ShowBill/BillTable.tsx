@@ -10,7 +10,7 @@ const BillTable = ({hesabfaBillData}) => {
     const dateShow = timestampToTimeFromHesabfa(hesabfaBillData?.Date)?.split(',')[0]
     const dueDateShow = timestampToTimeFromHesabfa(hesabfaBillData?.DueDate)?.split(',')[0]
     try {
-        return <div className={'bill__table__css'}>
+        return <div className={'bill__table__css container mx-auto'}>
             <div className={'flex flex-wrap my-3 justify-between bill__info'}>
                 <div className={'bill__info__item'}>
                     <div className={'bill__info__item_title'}>عنوان مشتری</div>
@@ -25,10 +25,11 @@ const BillTable = ({hesabfaBillData}) => {
                     <div className={'bill__info__item__description'}>{dateShow}</div>
                 </div>
 
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> تاریخ سر رسید</div>
-                    <div className={'bill__info__item__description'}>{dueDateShow}</div>
-                </div>
+                {/*<div className={'bill__info__item'}>*/}
+                {/*    <div className={'bill__info__item_title'}> تاریخ سر رسید</div>*/}
+                {/*    <div className={'bill__info__item__description'}>{dueDateShow}</div>*/}
+                {/*</div>*/}
+
                 <div className={'bill__info__item'}>
                     <div className={'bill__info__item_title'}> کد مشتری</div>
                     <div className={'bill__info__item__description'}>{Number(hesabfaBillData?.ContactCode)}</div>
@@ -48,14 +49,17 @@ const BillTable = ({hesabfaBillData}) => {
                 {/*<div> شهر مشتری:*/}
                 {/*    {hesabfaBillData?.Contact?.City}*/}
                 {/*</div>*/}
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> عنوان پروژه</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.Project}</div>
-                </div>
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> برچسب</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.Tag}</div>
-                </div>
+
+                {/*<div className={'bill__info__item'}>*/}
+                {/*    <div className={'bill__info__item_title'}> عنوان پروژه</div>*/}
+                {/*    <div className={'bill__info__item__description'}>{hesabfaBillData?.Project}</div>*/}
+                {/*</div>*/}
+
+                {/*<div className={'bill__info__item'}>*/}
+                {/*    <div className={'bill__info__item_title'}> برچسب</div>*/}
+                {/*    <div className={'bill__info__item__description'}>{hesabfaBillData?.Tag}</div>*/}
+                {/*</div>*/}
+
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -99,7 +103,7 @@ const BillTable = ({hesabfaBillData}) => {
                         <tr className={'font-bold'}>
                             <td className="border border-t-2 border-gray-300 px-4 py-2 text-center">جمع</td>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"></th>
-                            <th className="border border-t-2 border-gray-300 px-4 py-2">{sumOfNumbers}</th>
+                            <th className="border border-t-2 border-gray-300 px-4 py-2">{sumOfNumbers.toFixed(2)}</th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"></th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"> </th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"></th>
