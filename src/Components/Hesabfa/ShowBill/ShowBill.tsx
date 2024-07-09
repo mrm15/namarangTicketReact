@@ -10,6 +10,7 @@ import Loader1 from "../../Loader/Loader1.tsx";
 import Loader from "../../Loader";
 import BillTable from "./BillTable.tsx";
 import {FaExclamationTriangle} from "react-icons/fa";
+import ErrorInBill from "./ErrorInBill.tsx";
 
 const ShowBill = () => {
     // @ts-ignore
@@ -18,6 +19,10 @@ const ShowBill = () => {
 
     const [hesabfaBillData, setHesabfaBillData] = useState({})
     const [isLoading, setIsLoading] = useState(true);
+    const [hasError, setHasError] = useState({
+        factorStatus: false,
+        errorMessage: ""
+    });
 
     const roleAccessList = auth.userInfo?.roleAccessList;
     const hasAccessToShowBill = roleAccessList?.includes(ROLES.showBillAccess[0])
@@ -29,16 +34,27 @@ const ShowBill = () => {
 
     useEffect(() => {
         const getDataSetState = async () => {
-            const result = await axios.get(PREFIX_URL + getBillDataOpen + factorNumber);
-            setHesabfaBillData(result.data.data);
-            setIsLoading(false)
+            try {
+                const result = await axios.get(PREFIX_URL + getBillDataOpen + factorNumber);
+                setHesabfaBillData(result.data.data);
+                setIsLoading(false);
+            } catch (error: any) {
+                setHasError({
+                    factorStatus: true,
+                    errorMessage: error.toString()
+                })
+            }
+
         }
 
         void getDataSetState();
     }, []);
 
 
-    if(!factorNumber){
+    if (hasError.factorStatus) {
+        return <ErrorInBill errorMessage={hasError.errorMessage}/>
+    }
+    if (!factorNumber) {
         return <div>
             <hr/>
             <div style={{
