@@ -102,6 +102,7 @@ export const ROLES = {
     saveBillAsDraft:['saveBillAsDraft'],
     saveBillAsDone:['saveBillAsDone'],
     deleteBill:['deleteBill'],
+    editBillInChatList:['editBillInChatList'],
     allContactsWhenSubmitBill:['allContactsWhenSubmitBill'],
 
 
