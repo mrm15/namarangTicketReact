@@ -10,7 +10,7 @@ const BillTable = ({hesabfaBillData}) => {
     const dateShow = timestampToTimeFromHesabfa(hesabfaBillData?.Date)?.split(',')[0]
     const dueDateShow = timestampToTimeFromHesabfa(hesabfaBillData?.DueDate)?.split(',')[0]
     try {
-        return <div className={'bill__table__css container mx-auto'}>
+        return <div className={'bill__table__css '}>
             <div className={'flex flex-wrap my-3 justify-between bill__info'}>
                 <div className={'bill__info__item'}>
                     <div className={'bill__info__item_title'}>عنوان مشتری</div>
