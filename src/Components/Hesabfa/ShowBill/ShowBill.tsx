@@ -1,23 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import {useLocation, useParams} from "react-router-dom";
 import axios from "axios";
-import {getBillData, getBillDataOpen} from "../../../config/api.tsx";
+import {getBillDataOpen} from "../../../config/api.tsx";
 import {PREFIX_URL} from "../../../api/axios.tsx";
-import Loader1 from "../../Loader/Loader1.tsx";
 import Loader from "../../Loader";
 import BillTable from "./BillTable.tsx";
 import {FaExclamationTriangle} from "react-icons/fa";
 import ErrorInBill from "./ErrorInBill.tsx";
+import DownloadPDF from "../../PrintComponent/DownloadPdf/DownloadPDF.tsx";
 
 const ShowBill = () => {
     // @ts-ignore
     const {auth} = useAuth();
     const {factorNumber} = useParams()
 
-    const [hesabfaBillData, setHesabfaBillData] = useState({})
+    const [hesabfaBillData, setHesabfaBillData] = useState({
+        Number: '',
+    })
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState({
         factorStatus: false,
@@ -79,34 +80,34 @@ const ShowBill = () => {
     try {
         return (
             <>
-                {isLoading ? <Loader/> :
-                    <div className={'m-3'}>
-
-                        <div className={'font-bold text-center '}>
-                            کارخانه حروف سازی نمارنگ
+                <DownloadPDF fileName={hesabfaBillData?.Number + "" || "billNamarang"}>
+                    {isLoading ? <Loader/> :
+                        <div className={'m-3'}>
+                            <div className={'font-bold text-center '}>
+                                کارخانه حروف سازی نمارنگ
+                            </div>
+                            {/*<div className={"bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"}>*/}
+                            {/*    اینجا قراره یه فاکتور با استایل جدید نمایش داده بشه.*/}
+                            {/*    <hr/>*/}
+                            {/*    معرکه نیست؟*/}
+                            {/*    <hr/>*/}
+                            {/*    خلق یک اثر جدید*/}
+                            {/*    <hr/>*/}
+                            {/*</div>*/}
+                            {/*<pre dir={'ltr'}>*/}
+                            {/*      ✅      hasAccessToDownloadPdf is {hasAccessToDownloadPdf ? "Active" : "inActive"}*/}
+                            {/*    <hr/>*/}
+                            {/*      ✅      hasAccessToDownloadCSV is {hasAccessToDownloadCSV ? "Active" : "inActive"}*/}
+                            {/*    <hr/>*/}
+                            {/*      ✅      orderCode is {orderCode || 'کد سفارش مشخص نیست'}*/}
+                            {/*    <hr/>*/}
+                            {/*</pre>*/}
+                            <div>
+                                <BillTable hesabfaBillData={hesabfaBillData}/>
+                            </div>
                         </div>
-
-                        {/*<div className={"bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"}>*/}
-                        {/*    اینجا قراره یه فاکتور با استایل جدید نمایش داده بشه.*/}
-                        {/*    <hr/>*/}
-                        {/*    معرکه نیست؟*/}
-                        {/*    <hr/>*/}
-                        {/*    خلق یک اثر جدید*/}
-                        {/*    <hr/>*/}
-                        {/*</div>*/}
-                        {/*<pre dir={'ltr'}>*/}
-                        {/*      ✅      hasAccessToDownloadPdf is {hasAccessToDownloadPdf ? "Active" : "inActive"}*/}
-                        {/*    <hr/>*/}
-                        {/*      ✅      hasAccessToDownloadCSV is {hasAccessToDownloadCSV ? "Active" : "inActive"}*/}
-                        {/*    <hr/>*/}
-                        {/*      ✅      orderCode is {orderCode || 'کد سفارش مشخص نیست'}*/}
-                        {/*    <hr/>*/}
-                        {/*</pre>*/}
-                        <div>
-                            <BillTable hesabfaBillData={hesabfaBillData}/>
-                        </div>
-                    </div>
-                }
+                    }
+                </DownloadPDF>
             </>
         );
     } catch (error) {
