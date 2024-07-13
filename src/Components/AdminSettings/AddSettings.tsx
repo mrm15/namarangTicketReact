@@ -11,6 +11,7 @@ import RegisterInPanel from "./Sections/RegisterInPanel.tsx";
 import ForwardTicketsAfterVerify from "./Sections/ForwardTicketsAfterVerify.tsx";
 import {IAdminSettingData} from "./Initial.tsx";
 import SendSMSAfterVerifyBill from "./Sections/SendSMSAfterVerifyBill.tsx";
+import ExceptionListDepartments from "./Sections/ExceptionListDepartments/ExceptionListDepartments.tsx";
 
 const AddSettings = props => {
 
@@ -30,7 +31,9 @@ const AddSettings = props => {
         registerRole: '',
         customerDepartment: '',
         forwardTicketsAfterVerify: '',
-        sendSMSAfterVerifyBill: 'notActive',
+        sendSMSAfterSubmitBill: false,
+        sendSMSAfterVerifyBill: false,
+        exceptionFromChangeFactorTagList:"",
 
     });
 
@@ -176,8 +179,8 @@ const AddSettings = props => {
                                 onChange={event => setAdminSettingData({customerDepartment: event.target.value})}
                                 name="customerDepartment" id="customerDepartment">
                                 <option value="">انتخاب کنید</option>
-                                {departmentList.map((row:any, index: React.Key) => <option key={index}
-                                                                            value={row.value}>{row.key}</option>)}
+                                {departmentList.map((row: any, index: React.Key) => <option key={index}
+                                                                                            value={row.value}>{row.key}</option>)}
                             </select>
                         </div>
                         <RegisterInPanel
@@ -195,6 +198,11 @@ const AddSettings = props => {
                             setAdminSettingData={setAdminSettingData}
                             departmentList={getDepartmentList}
 
+                        />
+                        <ExceptionListDepartments
+                            adminSettingData={adminSettingData}
+                            setAdminSettingData={setAdminSettingData}
+                            departmentList={getDepartmentList}
                         />
 
                         <div
