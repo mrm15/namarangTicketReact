@@ -7,7 +7,6 @@ import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
 
 const ChatList = ({chatList, setReload, reload}) => {
 
-
     const data = chatList?.chatList
     try {
         return (<div className={'w-full flex justify-center'}>
@@ -26,7 +25,6 @@ const ChatList = ({chatList, setReload, reload}) => {
                 <div className={'rounded  justify-between p-3 my-3 '}>
 
                     {data?.data?.map((item, index) => {
-                        console.log(item)
                         const isTicketSender = item.isTicketSender;
                         const isVisibleToUser = item.visibleToUser
                         const billNumber = item?.billNumber
@@ -34,7 +32,8 @@ const ChatList = ({chatList, setReload, reload}) => {
                         const type = item?.type // تایپ رو گرفتم تا بدونم  این تیکت هست یا توی تیکت ریپلای که حذف کردنش آسون تر باشه
                         const id = item.id // آیدی رو گرفتم که بتونم موقع حذف بدونم چیو حذف کنم
                         const tempBillData = {
-                            billNumber, billStatus, type, id
+                            billNumber, billStatus, type, id ,
+                            ticketId:id,
                         }
 
                         try {
