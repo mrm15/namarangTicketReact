@@ -135,9 +135,10 @@ const Home = () => {
                                 style={{
                                     transitionDelay: `${i + 3}00ms`,
                                 }}
-                                className={`whitespace-pre duration-500 ${
-                                    !isOpen && "opacity-0 translate-x-28 overflow-hidden"
-                                }`}
+                                // className={`whitespace-pre duration-500 ${
+                                //     !isOpen && "opacity-0 translate-x-28 overflow-hidden"
+                                // }`}
+                                className={`whitespace-pre `}
                             >
                                 {menu?.name}
                             </h2>
