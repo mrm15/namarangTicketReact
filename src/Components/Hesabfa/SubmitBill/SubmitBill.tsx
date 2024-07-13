@@ -46,7 +46,6 @@ const SubmitBill = () => {
             backUrl: myStateData.backUrl,
         }
 
-
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Number: componentInfo.billNumber + "",
             ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
