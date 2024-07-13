@@ -3,7 +3,8 @@ import React from 'react';
 const SelectedTicketsInModal = ({selectedItems}) => {
     try{
         return (
-            <div className={'ticket__show__in__modal'}>
+
+            <div className={'ticket__show__in__modal max-h-96 overflow-auto'}>
                 {/*{JSON.stringify(selectedItems)}*/}
 
                 <ul>
