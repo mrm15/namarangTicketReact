@@ -23,7 +23,6 @@ interface IInitialSendData {
 }
 
 const ResponseSection = ({chatList, setReload, reload}) => {
-
     const initialSendData: IInitialSendData = {
         description: '',
         visibleToUser: true,
@@ -113,7 +112,7 @@ const ResponseSection = ({chatList, setReload, reload}) => {
                 toast.success(response1.data?.message)
                 setSendData({...initialSendData})
                 try {
-                    const data111 = response1.data.data
+                    const data111 = response1.data.data // there is contactCode Here Yes
                     navigateTo(PAGES.submit_bill, {
                         state: {
                             data: {
