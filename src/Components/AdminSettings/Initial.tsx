@@ -8,6 +8,8 @@ export interface IAdminSettingData {
     registerRole: string;
     customerDepartment: string;
     forwardTicketsAfterVerify: string;
-    sendSMSAfterVerifyBill: 'notActive' | 'Active',
+    sendSMSAfterSubmitBill: boolean,
+    sendSMSAfterVerifyBill: boolean,
+    exceptionFromChangeFactorTagList: string;
 
 }
