@@ -74,8 +74,18 @@ const HesabfaTest = () => {
 
     const syncContactsFromHesabfa = async () => {
 
-        const result111= confirm("این کار خیلی خطر ناکه مطمئنی میخوای انجام بدی؟")
-        const result = await myAxiosPrivate.get('hesabfaOpen/saveAllContactsWithPhoneNumber')
+        const result111 = confirm("این کار خیلی خطر ناکه مطمئنی میخوای انجام بدی؟")
+        if (result111) {
+            const result = await myAxiosPrivate.get('hesabfaOpen/saveAllContactsWithPhoneNumber')
+        }
+
+    }
+    const updateProductsFromHesabfaToSite = async () => {
+
+        const result112 = confirm("این کار یه فایلو جا به جا میکنه حواست هست؟")
+        if (result112) {
+            const result = await myAxiosPrivate.get('hesabfa/saveProductsAsFile')
+        }
 
 
     }
@@ -161,6 +171,16 @@ const HesabfaTest = () => {
 
                 >
                     همگام سازی مخاطبین
+                </button>
+            </div>
+            <hr/>
+            <div>
+                <button
+                    onClick={updateProductsFromHesabfaToSite}
+                    className={'btn-submit-mir bg-red-900'}
+
+                >
+                    به روز رسانی کالاهای حسابفا و سایت
                 </button>
             </div>
             <hr/>
