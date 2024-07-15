@@ -4,6 +4,8 @@ import ResponseSection from "./ResponseSection.tsx";
 import {FaFile} from 'react-icons/fa';
 import {PAGES} from "../../../Pages/Route-string.tsx";
 import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
+import ManPerson from "../../../assets/Svg/ManPerson.tsx";
+import {isAPhoto} from "./function.tsx";
 
 const ChatList = ({chatList, setReload, reload}) => {
 
@@ -32,8 +34,8 @@ const ChatList = ({chatList, setReload, reload}) => {
                         const type = item?.type // تایپ رو گرفتم تا بدونم  این تیکت هست یا توی تیکت ریپلای که حذف کردنش آسون تر باشه
                         const id = item.id // آیدی رو گرفتم که بتونم موقع حذف بدونم چیو حذف کنم
                         const tempBillData = {
-                            billNumber, billStatus, type, id ,
-                            ticketId:data?.ticketId,
+                            billNumber, billStatus, type, id,
+                            ticketId: data?.ticketId,
                         }
                         console.log(tempBillData)
 
@@ -47,13 +49,15 @@ const ChatList = ({chatList, setReload, reload}) => {
                                 >
                                     {isVisibleToUser === false && <div className={'fontSize10'}>پیام مخفی</div>}
                                     <div className={'sm:w-full md:w-10/12 lg:w-1/2 rounded mt-2 p-2   chat__box rtl'}>
-                                        <div className={'flex'} >
-                                            <div>دپارتمان:</div>
-                                            <div> {item?.department_name}</div>
-                                        </div>
-                                        <div className={'flex'}>
-                                            <div>فرستنده:</div>
-                                            <div> {item?.user_name}</div>
+                                        <div className={'flex flex-wrap gap-2 fontSize10'}>
+                                            <div className={'flex'}>
+                                                <div>دپارتمان:</div>
+                                                <div> {item?.department_name}</div>
+                                            </div>
+                                            <div className={'flex'}>
+                                                <div>فرستنده:</div>
+                                                <div> {item?.user_name}</div>
+                                            </div>
                                         </div>
 
                                         {/*<div className={'flex'}>*/}
@@ -76,11 +80,13 @@ const ChatList = ({chatList, setReload, reload}) => {
                                                     href = `${BASE_URL}/download/${row.filePath as string}`;
                                                 }
 
+                                                const isPhoto = isAPhoto(href);
                                                 return <a key={index} target={'_blank'}
                                                           href={href}
-                                                          className={'rounded fontSize10 flex flex-wrap p-1 border__gray mx-1 '}
+                                                          className={`rounded fontSize10 flex p-1 border__gray mx-1  ${isPhoto ? 'flex-col items-start' : 'flex-wrap'}  `}
                                                 >
-                                                    <div><FaFile/></div>
+                                                    {isPhoto ? <><img src={href} alt={row.fileName}/></> :
+                                                        <div><FaFile/></div>}
                                                     <div className={'break-all'}>{row.fileName}</div>
                                                     <div className={'mx-2 ltr'}> {fileSize} KB</div>
 
@@ -95,15 +101,17 @@ const ChatList = ({chatList, setReload, reload}) => {
                                     </div>
                                     <div style={{
                                         width: '35px',
-                                        borderRadius: '50%',
-                                        border: '1px solid #3c3c3c',
+                                        // borderRadius: '50%',
+                                        borderRadius: '5px',
+                                        // border: '1px solid #3c3c3c',
                                         padding: '5px'
                                     }}>
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                             viewBox="0 0 512 512">
-                                            <path
-                                                d="M256 288A144 144 0 1 0 256 0a144 144 0 1 0 0 288zm-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7H481.3c17 0 30.7-13.8 30.7-30.7C512 392.2 439.8 320 350.7 320H161.3z"/>
-                                        </svg>
+                                        {/*<svg xmlns="http://www.w3.org/2000/svg"*/}
+                                        {/*     viewBox="0 0 512 512">*/}
+                                        {/*    <path*/}
+                                        {/*        d="M256 288A144 144 0 1 0 256 0a144 144 0 1 0 0 288zm-94.7 32C72.2 320 0 392.2 0 481.3c0 17 13.8 30.7 30.7 30.7H481.3c17 0 30.7-13.8 30.7-30.7C512 392.2 439.8 320 350.7 320H161.3z"/>*/}
+                                        {/*</svg>*/}
+                                        <ManPerson/>
                                     </div>
 
                                 </div>
