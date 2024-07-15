@@ -22,7 +22,10 @@ const BillDataButtonInChatList = ({billData}) => {
         navigateTo(PAGES.submit_bill, {
             state: {
                 data: {
+                    billType: billData?.type,
+                    id:billData.id,
                     billNumber,
+                    ticketId: billData.ticketId,
                     backUrl: PAGES.ticket_own_sent,
                 }
             }
