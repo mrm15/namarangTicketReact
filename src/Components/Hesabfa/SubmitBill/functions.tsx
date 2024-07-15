@@ -73,3 +73,16 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
     return myData
 
 }
+export const detectTag = ({ exceptionArray = [], auth = {}, lastTag = "" }) => {
+    // @ts-ignore
+    const { userInfo } = auth || {};
+    const { userData } = userInfo || {};
+    const { name = "نام مشتری", departmentId } = userData || {};
+
+
+    if (exceptionArray.length === 0) {
+        return name;
+    }
+
+    return exceptionArray.includes(departmentId) ? lastTag : name;
+};
