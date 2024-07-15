@@ -21,7 +21,7 @@ const DownloadPDF = ({children, fileName = 'document.pdf'}) => {
                     <FaFilePdf />
                 </div>
             </button>
-            <div ref={componentRef} style={{ width: '100%', height: '100%' }}>
+            <div ref={componentRef} style={{ width: '100%', height: '100%' , minHeight:'98vh' }}>
                 {children}
             </div>
         </div>
