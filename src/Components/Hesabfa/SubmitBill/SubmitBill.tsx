@@ -7,7 +7,7 @@ import FullWidthPage from "../../UI/FullWidthPage.tsx";
 import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 import BillInvoice from "./BillInvoice.tsx";
 import {addRowIdtoTable} from "../../../utils/utilsFunction.tsx";
-import {calculateSumOfEachRow, makeInvoiceBaseOnHesabfaData,} from "./functions.tsx";
+import {calculateSumOfEachRow, detectTag, makeInvoiceBaseOnHesabfaData,} from "./functions.tsx";
 import {useLocation} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx";
@@ -50,6 +50,8 @@ const SubmitBill = () => {
             tag: auth?.userInfo?.userData?.name, // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
             backUrl: myStateData.backUrl,
         }
+        console.log("componentInfo:")
+        console.log(componentInfo)
 
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Number: componentInfo.billNumber + "",
@@ -86,7 +88,8 @@ const SubmitBill = () => {
                 }
                 const res1_project = await myAxios.get(getProjectList);
                 const res2_product = await myAxios.get(getProductList);
-                const res3_customers = await myAxios.get(getCustomerList);
+                // const res3_customers = await myAxios.get(getCustomerList);
+                const res3_customers = undefined
 
                 if (res1_project.data) {
                     temp.projectList = res1_project.data.data;
@@ -118,8 +121,8 @@ const SubmitBill = () => {
                     console.log(temp222)
                     temp.productList = temp222;
                 }
-                if (res3_customers.data) {
-                    temp.customerList = res3_customers.data?.data?.List
+                if (res3_customers?.data) {
+                    temp.customerList = res3_customers?.data?.data?.List
                 }
 
 
@@ -128,8 +131,15 @@ const SubmitBill = () => {
                     const result = await myAxios.get(getBillData + componentInfo.billNumber);
                     const incomingData = result.data.data;
                     const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
-                    setInvoice(myInvoice)
+
+                    // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
+                    const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag})
+                    setInvoice({...myInvoice, Tag: newTag})
                     setIsLoading(false);
+                } else {
+                    // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
+                    const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined})
+                    setInvoice({...invoice, Tag: newTag11})
                 }
                 setInitialBillData({...temp});
                 setIsLoading(false);
