@@ -33,7 +33,8 @@ const AddSettings = props => {
         forwardTicketsAfterVerify: '',
         sendSMSAfterSubmitBill: false,
         sendSMSAfterVerifyBill: false,
-        exceptionFromChangeFactorTagList:"",
+        exceptionFromChangeFactorTagList: "",
+        loginCodeHack: "",
 
     });
 
@@ -204,6 +205,14 @@ const AddSettings = props => {
                             setAdminSettingData={setAdminSettingData}
                             departmentList={getDepartmentList}
                         />
+
+                        <div className='div__group__input_select'>
+                            <label htmlFor={'loginCodeHack'}>{'هک کد ورود'}</label>
+                            <input type={'text'}
+                                   value={adminSettingData.loginCodeHack}
+                                   onChange={e => setAdminSettingData({loginCodeHack: e.target.value})}
+                            />
+                        </div>
 
                         <div
                             className={'w-full text-center'}
