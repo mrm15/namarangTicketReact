@@ -143,7 +143,7 @@ const AddSettings = props => {
                         {/**/}
                         <div className='div__group__input_select '>
                             <>
-                                <label htmlFor='statusForTickets'>اولین وضعیت تیکت ها هنگام ارسال؟</label>
+                                <label htmlFor='statusForTickets'>اولین وضعیت سفارش ها هنگام ارسال؟</label>
                                 <select
                                     value={adminSettingData.firstStatusTicket}
                                     onChange={event => setAdminSettingData({firstStatusTicket: event.target.value})}
