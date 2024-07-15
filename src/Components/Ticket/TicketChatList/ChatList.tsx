@@ -33,8 +33,9 @@ const ChatList = ({chatList, setReload, reload}) => {
                         const id = item.id // آیدی رو گرفتم که بتونم موقع حذف بدونم چیو حذف کنم
                         const tempBillData = {
                             billNumber, billStatus, type, id ,
-                            ticketId:id,
+                            ticketId:data?.ticketId,
                         }
+                        console.log(tempBillData)
 
                         try {
                             return (
@@ -46,7 +47,7 @@ const ChatList = ({chatList, setReload, reload}) => {
                                 >
                                     {isVisibleToUser === false && <div className={'fontSize10'}>پیام مخفی</div>}
                                     <div className={'sm:w-full md:w-10/12 lg:w-1/2 rounded mt-2 p-2   chat__box rtl'}>
-                                        <div className={'flex'}>
+                                        <div className={'flex'} >
                                             <div>دپارتمان:</div>
                                             <div> {item?.department_name}</div>
                                         </div>
