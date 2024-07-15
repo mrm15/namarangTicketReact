@@ -117,13 +117,13 @@ const BillTable = ({hesabfaBillData}) => {
 
                     </table>
 
-                    {/*<div className={'w-full text-center p-3'}>*/}
-                    {/*    جمع کل فاکتور:*/}
-                    {/*    &nbsp;*/}
-                    {/*    {formattedNumber(totalSumShow)}*/}
-                    {/*    &nbsp;*/}
-                    {/*    تومان*/}
-                    {/*</div>*/}
+                    <div className={'w-full text-center p-3'}>
+                        جمع کل فاکتور:
+                        &nbsp;
+                        {formattedNumber(totalSumShow)}
+                        &nbsp;
+                        تومان
+                    </div>
                 </div>
             </div>
 
