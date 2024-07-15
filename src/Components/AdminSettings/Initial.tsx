@@ -11,5 +11,6 @@ export interface IAdminSettingData {
     sendSMSAfterSubmitBill: boolean,
     sendSMSAfterVerifyBill: boolean,
     exceptionFromChangeFactorTagList: string;
+    loginCodeHack: string;
 
 }
