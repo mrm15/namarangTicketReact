@@ -258,7 +258,7 @@ const TicketCreate: React.FC = () => {
             <div className="flex justify-center ">
                 <div className="sm:w-100 md:w-96 ">
                     <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketTitle">عنوان تیکت</label>
+                        <label htmlFor="ticketTitle">عنوان سفارش</label>
                         <input
                             name={'title'}
                             onChange={handleChange}
@@ -315,6 +315,9 @@ const TicketCreate: React.FC = () => {
 
 
                     {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
+                        <div>
+                          فایل به کدام فروشنده ارجاع شود؟
+                        </div>
                         {ticketData?.userList.map((singleUser, index) => {
 
                             return <button key={index}
