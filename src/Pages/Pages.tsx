@@ -31,6 +31,7 @@ import ShowSmsList from "../SMS/ShowSmsList/ShowSmsList.tsx";
 import HesabfaTest from "../Components/Test/HesabfaTest.tsx";
 import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
 import SubmitBill from "../Components/Hesabfa/SubmitBill/SubmitBill.tsx";
+import ReportBill from "../ReportBill/ReportBill.tsx";
 
 
 
@@ -173,6 +174,7 @@ const Pages = () => {
                         {/*</Route>*/}
 
 
+                        <Route path={'/reportPage'} element={<ReportBill/>}/>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
