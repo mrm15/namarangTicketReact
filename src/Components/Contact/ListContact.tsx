@@ -25,7 +25,7 @@ function ListContact() {
     const editButtonHandler = (params) => {
 
         const data = params.data
-        navigateTo(PAGES.ADD_CONTACT, {state: {data}})
+        navigateTo(PAGES.USER_ADD_EDIT, {state: {data}})
     }
 
     const myAxiosPrivate = useAxiosPrivate()
