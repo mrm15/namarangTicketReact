@@ -1,5 +1,6 @@
 import numeric from "./NumericFunction.tsx";
 import moment from 'moment-jalaali';
+import {excelExport} from "./excelExport.tsx";
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -56,11 +57,11 @@ export const addRowIdtoTable = (t) => {
 
 const downloadBlob = (content, filename, contentType) => {
     // Create a blob
-    let blob = new Blob([content], {type: contentType});
-    let url = URL.createObjectURL(blob);
+    const blob = new Blob([content], {type: contentType});
+    const url = URL.createObjectURL(blob);
 
     // Create a link to download it
-    let pom = document.createElement('a');
+    const pom = document.createElement('a');
     pom.href = url;
     pom.setAttribute('download', filename);
     pom.click();
@@ -189,7 +190,8 @@ export const timestampToFormattedDateToSendHesabfa = (timestamp: string | number
     const hours = String(irDate.getUTCHours()).padStart(2, '0');
     const minutes = String(irDate.getUTCMinutes()).padStart(2, '0');
     const seconds = String(irDate.getUTCSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    // return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${year}-${month}-${day} ${"00"}:${"00"}:${"00"}`;
 }
 export const dateFromHesabfaToTimeStamp = (dateString: string) => {
     // Split the date and time components
@@ -219,6 +221,7 @@ export const formatNumber = (value) => {
 
     return newValueNumberSeperated
 }
+
 
 
 
