@@ -174,7 +174,7 @@ const Pages = () => {
                         {/*</Route>*/}
 
 
-                        <Route path={'/reportPage'} element={<ReportBill/>}/>
+                        <Route path={'/reportBill'} element={<ReportBill/>}/>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
