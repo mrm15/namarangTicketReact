@@ -35,6 +35,7 @@ const RegisterSMS = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
+        // @ts-ignore
         userRef.current.focus();
     }, [])
 
@@ -112,6 +113,7 @@ const RegisterSMS = () => {
             } else {
                 setErrMsg('ثبت نام انجام نشد!!')
             }
+            // @ts-ignore
             errRef.current.focus();
         }
     }
@@ -150,6 +152,7 @@ const RegisterSMS = () => {
                                 aria-describedby="uidnote"
                                 onFocus={() => setUserFocus(true)}
                                 onBlur={() => setUserFocus(false)}
+
                             />
                             <p id="uidnote"
                                className={userFocus && phoneNumber && !validPhoneNumber ? "instructions" : "offscreen"}>
