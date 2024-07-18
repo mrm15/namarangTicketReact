@@ -20,7 +20,7 @@ const LoginSMS = () => {
     const {setAuth} = useAuth();
     const navigateTo = useNavigate();
     const tryToRefresh = useRefreshToken()
-    // const from = location.state?.from?.pathname || PAGES.ADD_CONTACT;
+    // const from = location.state?.from?.pathname || PAGES.USER_ADD_EDIT;
     const from = PAGES.DASHBOARD;
     const userRef = useRef();
     const errRef = useRef();
@@ -30,6 +30,7 @@ const LoginSMS = () => {
     const [isLoading, setIsLoading] = useState(true);
     // بخش ورود شماره نشون داده بشه یا بخش ورود کدپیامکی
     const [sectionView, setSectionView] = useState('number') // number | code
+    const [secretMode,setSecretMode] = useState(false)
     /*
      مقدار
      persist
@@ -54,7 +55,7 @@ const LoginSMS = () => {
         try {
 
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({phoneNumber: user}),
+                JSON.stringify({phoneNumber: user ,secretMode}),
                 {
                     headers: {'Content-Type': 'application/json'},
                     // withCredentials: true
@@ -91,7 +92,7 @@ const LoginSMS = () => {
 
         try {
             const response = await axios.post(LOGIN_URL_verify,
-                JSON.stringify({phoneNumber: user, loginCode: pwd}),
+                JSON.stringify({phoneNumber: user, loginCode: pwd , secretMode}),
                 {
                     headers: {'Content-Type': 'application/json'},
                     withCredentials: true,
@@ -137,11 +138,23 @@ const LoginSMS = () => {
     if (isLoading) {
         return <Loader/>
     }
+    const handleSecretMode = e => {
+        if (e.detail === 20) {
+            setSecretMode(true)
+            toast("حالت مخفی فعال شد")
+        }
+        if(secretMode && e.detail===4){
+            setSecretMode(false)
+            toast("حالت مخفی غیر فعال شد")
+        }
+    }
     return (<>
         <LoginRegisterParent>
             <section>
                 <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
-                <h1>ورود به پنل نمارنگ</h1>
+                <h1
+                    onClick={handleSecretMode}
+                >ورود به پنل نمارنگ</h1>
                 {sectionView === 'number' && <>
                   <form>
                     <label htmlFor="username">شماره موبایل:</label>
@@ -180,14 +193,14 @@ const LoginSMS = () => {
                     <div className={'flex'}>
                       <div>
                         کد ورود به شماره
-                         <span>&nbsp;{user}&nbsp;</span>
+                        <span>&nbsp;{user}&nbsp;</span>
                         پیامک شد
                       </div>
                       <div className={'flex '}
                            onClick={() => setSectionView('number')}
                       >
                         <MdEdit size={24} color="black"/>
-                        <div>ویرایش </div>
+                        <div>ویرایش</div>
                       </div>
                     </div>
 
