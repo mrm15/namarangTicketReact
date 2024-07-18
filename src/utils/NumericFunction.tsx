@@ -1,4 +1,4 @@
-const e2p = (s: string | undefined): string | undefined => {
+export const e2p = (s: string | undefined): string | undefined => {
     if (s === undefined || s === 'undefined') {
         return undefined;
     }
@@ -8,7 +8,7 @@ const e2p = (s: string | undefined): string | undefined => {
 
 const e2a = (s: string): string => s.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[parseInt(d, 10)]);
 
-const p2e = (s: string): string => s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString());
+export const p2e = (s: string): string => s.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d).toString());
 
 const a2e = (s: string): string => s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d).toString());
 
