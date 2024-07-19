@@ -155,7 +155,7 @@ const BillInvoice = ({
                         </select>
                     </div>
                     <div className={'div__group__input_select'}>
-                    <label htmlFor="">تگ  </label>
+                        <label htmlFor="">تگ </label>
                         <input
                             onChange={(e) => handleInputChange(e.target.value, 'Tag')}
                             type="text"
@@ -165,35 +165,43 @@ const BillInvoice = ({
                     </div>
 
                 </div>
-                <InvoiceTableItems
-                    invoice={invoice}
-                    setInvoice={setInvoice}
-                    invoiceItems={invoice.InvoiceItems}
-                    onDeleteRow={onDeleteRow}
-                />
                 <div>
-                    <OtherCostsInBill
-                        setInvoice={setInvoice}
-                        invoice={invoice}
-                    />
-                </div>
-                <div className={'flex flex-col items-end'}>
-                    {invoice.Others.map((row: any, index: any) => {
-
-                        const addClassName = (row.Add ? ' ' : ' text-red-700 ')
-                        return <div key={index}
-                                    className={addClassName}>{row?.Title} : {formatNumber(row?.Amount)}</div>
-                    })}
-
-                    <div className={'font-bold ltr'}>
+                    <div className={'flex flex-col items-center my-3'}>
                         <div>
-
-                            جمع کل فاکتور:
-                            <span className={'p-2'}>{formatNumber(factorSum.totalSum)} تومان</span>
+                            <InvoiceTableItems
+                                invoice={invoice}
+                                setInvoice={setInvoice}
+                                invoiceItems={invoice.InvoiceItems}
+                                onDeleteRow={onDeleteRow}
+                            />
                         </div>
+                    </div>
+                    <div className={'mx-5'}>
                         <div>
-                            مبلغ به حروف:
-                            <span className={'p-2'}>{Num2persian(factorSum.totalSum)} تومان </span>
+                            <OtherCostsInBill
+                                setInvoice={setInvoice}
+                                invoice={invoice}
+                            />
+                        </div>
+                        <div className={'flex flex-col items-end'}>
+                            {invoice.Others.map((row: any, index: any) => {
+
+                                const addClassName = (row.Add ? ' ' : ' text-red-700 ')
+                                return <div key={index}
+                                            className={addClassName}>{row?.Title} : {formatNumber(row?.Amount)}</div>
+                            })}
+
+                            <div className={'font-bold ltr'}>
+                                <div>
+
+                                    جمع کل فاکتور:
+                                    <span className={'p-2'}>{formatNumber(factorSum.totalSum)} تومان</span>
+                                </div>
+                                <div>
+                                    مبلغ به حروف:
+                                    <span className={'p-2'}>{Num2persian(factorSum.totalSum)} تومان </span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
