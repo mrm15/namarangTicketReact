@@ -5,6 +5,7 @@ import {formatNumber} from "../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow} from "./functions.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
+import EmptyRow from "./EmptyRow.tsx";
 
 
 const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => {
@@ -66,6 +67,8 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
                     <li>مبلغ کل</li>
                     <li>حذف</li>
                 </ul>
+                {invoiceItems.length === 0 && <EmptyRow/>}
+
                 {
                     invoiceItems.map((row, index) => {
                         totalSum.totalSumNumber += row.sum;
