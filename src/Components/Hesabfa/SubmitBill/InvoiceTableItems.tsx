@@ -14,22 +14,17 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
     const changeHandler = (invoiceItemsRowId, value) => {
         // بضعی از آیتم ها هستن که  باید نحوه محاسبه قیمتشون باید اینجوری باشه که قیمت تقسیم به یه عدد بشه و محاسبه بشه
         // ینی اینجا اگه تغییری داد باید برم قیمت واحد رو عوض کنم
-        const currentInvoice = [...invoice.InvoiceItems];
-        const newInvoiceItems = currentInvoice.map(row => {
-
-            const temp = {...row};
-            if (temp.Id === invoiceItemsRowId) {
-
-                temp.selectedUnit = value;
-                row.dividedBy = value;
-                row.UnitPrice = Number((row.fixedPrice / row.dividedBy).toFixed(0));
-
-            }
-
-            return temp
-        });
-        const newInvoiceItemsWithRowSum = calculateSumOfEachRow(newInvoiceItems)
-        setInvoice({invoiceItems: newInvoiceItemsWithRowSum})
+        setInvoice({
+            InvoiceItems: calculateSumOfEachRow(invoice.InvoiceItems.map(row => {
+                const temp = {...row};
+                if (temp.Id === invoiceItemsRowId) {
+                    // temp.selectedUnit = value;
+                    temp.dividedBy = value;
+                    temp.UnitPrice = Number((row.fixedPrice / value).toFixed(0));
+                }
+                return temp
+            }))
+        })
     }
     const totalSum = {
         totalSumNumber: 0,
@@ -42,7 +37,7 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
         if (!(/^[0-9]*\.?[0-9]*$/.test(valueHolder))) {
             return
         }
-            setInvoice({
+        setInvoice({
             InvoiceItems: calculateSumOfEachRow(invoice.InvoiceItems.map((t: any) => {
                 const row = {...t}
                 if (row.Id === id) {
@@ -67,10 +62,10 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
                     <li>مبلغ کل</li>
                     <li>حذف</li>
                 </ul>
-                {invoiceItems.length === 0 && <EmptyRow/>}
+                {invoice?.InvoiceItems?.length === 0 && <EmptyRow/>}
 
                 {
-                    invoiceItems.map((row, index) => {
+                    invoice?.InvoiceItems?.map((row, index) => {
                         totalSum.totalSumNumber += row.sum;
                         totalSum.totalQuantity += +row.Quantity;
 
