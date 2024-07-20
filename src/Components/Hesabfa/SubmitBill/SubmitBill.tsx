@@ -110,7 +110,7 @@ const SubmitBill = () => {
                             Name: row.Name,
                             fixedPrice: row.SellPrice,
                             dividedBy: 1,
-                            selectedUnit: "1",
+                            // selectedUnit: "1",
                             Units: [
                                 {id: 1, value: row.Unit, divideNumber: 1},
                                 {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
