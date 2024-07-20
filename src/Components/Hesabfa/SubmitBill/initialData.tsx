@@ -26,7 +26,7 @@ export interface IInvoiceItem {
     Name?: string;
     fixedPrice?: number;
     dividedBy?: number;
-    selectedUnit?: string;
+    // selectedUnit?: string;
     Units?: IUnit[];
     sum?: number;
 }
