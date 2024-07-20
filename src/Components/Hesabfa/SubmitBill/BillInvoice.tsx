@@ -98,6 +98,8 @@ const BillInvoice = ({
         setInvoice({[myKey]: value})
     }
 
+    const showTagName = JSON.parse(invoice.Tag).n
+    const showTicketNumber = JSON.parse(invoice.Tag).tn
     try {
         return (
             <div>
@@ -157,9 +159,16 @@ const BillInvoice = ({
                     <div className={'div__group__input_select'}>
                         <label htmlFor="">تگ </label>
                         <input
-                            onChange={(e) => handleInputChange(e.target.value, 'Tag')}
                             type="text"
-                            value={invoice.Tag}
+                            value={showTagName}
+                            disabled={true}
+                        />
+                    </div>
+                    <div className={'div__group__input_select'}>
+                        <label htmlFor="">شماره سفارش </label>
+                        <input
+                            type="text"
+                            value={showTicketNumber}
                             disabled={true}
                         />
                     </div>
