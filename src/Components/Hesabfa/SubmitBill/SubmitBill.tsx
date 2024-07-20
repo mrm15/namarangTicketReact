@@ -40,6 +40,11 @@ const SubmitBill = () => {
 
         const myLocation = useLocation();
         const myStateData = myLocation?.state?.data;
+        const myTag = {
+            tn: myStateData.ticketNumber,
+            n: auth?.userInfo?.userData?.name // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
+        }
+
         const componentInfo = {
             billType: myStateData?.billType, // it is in ticket Or in the ticketReply
             ticketId: myStateData?.ticketId,
@@ -47,11 +52,10 @@ const SubmitBill = () => {
             billNumber: myStateData.billNumber, // if its empty  it is on Edit Mode
             ContactCode: myStateData?.contactCode, // if its empty  it is on Edit Mode
             ContactName: myStateData?.contactName, // if its empty  it is on Edit Mode
-            tag: auth?.userInfo?.userData?.name, // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
+            tag: JSON.stringify(myTag), //
             backUrl: myStateData.backUrl,
         }
-        console.log("componentInfo:")
-        console.log(componentInfo)
+
 
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Number: componentInfo.billNumber + "",
@@ -63,7 +67,7 @@ const SubmitBill = () => {
             Note: '',
             InvoiceType: 0,
             Status: 0, // پیش نویس
-            Tag: componentInfo.tag, // تگ تستی
+            Tag: componentInfo.tag, // تگ
             InvoiceItems: [],
             Others: [],
             Currency: "IRR",
@@ -72,6 +76,8 @@ const SubmitBill = () => {
             Project: "",
             Sum: 0
         });
+        console.log("invoice:")
+        console.log(invoice)
         const [isLoading, setIsLoading] = useState(true)
         const [initialBillData, setInitialBillData] = useObjectDataHolder<IInitialBillData>({
             productList: [],
@@ -133,12 +139,12 @@ const SubmitBill = () => {
                     const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
 
                     // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                    const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag})
+                    const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag , ticketNumber:myStateData.ticketNumber})
                     setInvoice({...myInvoice, Tag: newTag})
                     setIsLoading(false);
                 } else {
                     // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                    const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined})
+                    const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined , ticketNumber:myStateData.ticketNumber})
                     setInvoice({...invoice, Tag: newTag11})
                 }
                 setInitialBillData({...temp});
