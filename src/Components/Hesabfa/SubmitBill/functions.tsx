@@ -1,5 +1,5 @@
 import {IInvoice, IInvoiceItem, IOther} from "./initialData.tsx";
-import {dateFromHesabfaToTimeStamp} from "../../../utils/utilsFunction.tsx";
+import {addRowIdtoTable, dateFromHesabfaToTimeStamp} from "../../../utils/utilsFunction.tsx";
 
 export const calculateSumOfEachRow = (newInvoiceItems) => {
 
@@ -46,7 +46,8 @@ const makeInvoiceItemBasedOnHesabfaData = (myInvoiceItems: any[]) => {
 export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
 
 
-    const InvoiceItems = makeInvoiceItemBasedOnHesabfaData(incomingData.InvoiceItems);
+    const InvoiceItemsTemp = makeInvoiceItemBasedOnHesabfaData(incomingData.InvoiceItems);
+    const InvoiceItems = addRowIdtoTable(InvoiceItemsTemp)
 
     const myData: IInvoice = {
         Number: incomingData.Number,//
@@ -73,16 +74,24 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
     return myData
 
 }
-export const detectTag = ({ exceptionArray = [], auth = {}, lastTag = "" }) => {
+export const detectTag = ({exceptionArray = [], auth = {}, lastTag = `{}` , ticketNumber}) => {
     // @ts-ignore
-    const { userInfo } = auth || {};
-    const { userData } = userInfo || {};
-    const { name = "نام مشتری", departmentId } = userData || {};
+    const {userInfo} = auth || {};
+    const {userData} = userInfo || {};
+    const {name = "نام مشتری", departmentId} = userData || {};
+    if (lastTag === "") {
+        lastTag = `{}`
+    }
+    const myNewTag = JSON.parse(lastTag);
+    myNewTag.n = name
+    myNewTag.tn = ticketNumber
 
+    const resultAfter = JSON.stringify(myNewTag)
 
     if (exceptionArray.length === 0) {
-        return name;
+        return resultAfter;
     }
 
-    return exceptionArray.includes(departmentId) ? lastTag : name;
+    return exceptionArray.includes(departmentId) ? lastTag : resultAfter;
+
 };
