@@ -5,8 +5,10 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {deleteBill} from "../../../config/api.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
+import {toast} from "react-toastify";
+import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 
-const BillDataButtonInChatList = ({billData}) => {
+const BillDataButtonInChatList = ({billData,setReload}) => {
     console.log(billData);
     const {billNumber, billStatus, id, type} = billData;
     const navigateTo = useNavigate()
@@ -22,8 +24,9 @@ const BillDataButtonInChatList = ({billData}) => {
         navigateTo(PAGES.submit_bill, {
             state: {
                 data: {
+                    ticketNumber: billData.ticketNumber,
                     billType: billData?.type,
-                    id:billData.id,
+                    id: billData.id,
                     billNumber,
                     ticketId: billData.ticketId,
                     backUrl: PAGES.ticket_own_sent,
@@ -38,6 +41,10 @@ const BillDataButtonInChatList = ({billData}) => {
             const isItOk2 = confirm(`از حذف   فاکتور  ${billNumber}  مطمئنی؟`);
             if (isItOk2) {
                 const res = await myAxios.get(deleteBill + billNumber + "/" + type + "/" + id)
+                if (res.status===200) {
+                    toast.success(res.data?.message)
+                    setReload({value: randomNumberGenerator()})
+                }
             }
         }
     }
