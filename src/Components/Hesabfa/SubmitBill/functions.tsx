@@ -32,10 +32,10 @@ const makeInvoiceItemBasedOnHesabfaData = (myInvoiceItems: any[]) => {
             Name: row?.Item?.Name, // نام کالا از توی آیتم میاد حسابفا اینجا نمیفرسته ولی بجاش داره مقدار آیتم رو میده و دستش درد نکنه. راه مناسبی رو گذاشته بنظرم
             fixedPrice: row.Item.SellPrice, //
             dividedBy: (row.Unit === row.Item.Unit) ? 1 : row.Item.ConversionFactor, // اینم جالب هست با توجه به اینکه من خودم این آبجکت این مقدار رو بر اساس چیزی که کاربر تغییر داده تعیین میکنم. پس اگه مقدار یونیت با مقدار یونیت اصلی توی آیتم یکی بود پس اوکیه ولی اگه مقدار یونیت برابر با ساب-یونیت بود پس توی محاسبه از مقدار کانورشن فاکتور استفاده کرده و اینجا قرارش میدم
-            selectedUnit: (row.Unit === row.Item.Unit) ? "1" : "2",// اگه مقدار یونیت انتخابی با یونیت توی آیتم برابر بود ینی اولی رو انتخاب کرده در غیر اینصورت دومی رو انتخاب کرده
+            // selectedUnit: (row.Unit === row.Item.Unit) ? "1" : "2",// اگه مقدار یونیت انتخابی با یونیت توی آیتم برابر بود ینی اولی رو انتخاب کرده در غیر اینصورت دومی رو انتخاب کرده
             Units: [
                 {id: 1, value: row.Item.Unit, divideNumber: 1},
-                {id: 2, value: row.Item.SubUnit, divideNumber: row.ConversionFactor},
+                {id: 2, value: row.Item.SubUnit, divideNumber: row.Item.ConversionFactor},
             ], // این مقادیر هم از توی آیتم باید بگیریم و قرار بدیم
             sum: row.TotalAmount, // حسابفا اینجا دوتا مقدار میده یکی سام با اس بزرگ و مقدار توتال امونت که من فک میکنم اوتال امونت کاملتره احتمالا تخفیف و مالیات رو لحاظ کرده
         }
