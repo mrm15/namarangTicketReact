@@ -35,9 +35,10 @@ const ChatList = ({chatList, setReload, reload}) => {
                         const id = item.id // آیدی رو گرفتم که بتونم موقع حذف بدونم چیو حذف کنم
                         const tempBillData = {
                             billNumber, billStatus, type, id,
-                            ticketId: data?.ticketId,
+                            ticketId: data?.ticketId, // این از توی دیتا میاد
+                            ticketNumber: data.ticketNumber, // اینم از توی دیتا میاد
                         }
-                        console.log(tempBillData)
+                        //console.log(tempBillData)
 
                         try {
                             return (
@@ -94,7 +95,10 @@ const ChatList = ({chatList, setReload, reload}) => {
                                             })}
                                         </div>
                                         <div>
-                                            {billNumber && <BillDataButtonInChatList billData={tempBillData}/>}
+                                            {billNumber && <BillDataButtonInChatList billData={tempBillData}
+                                                                                     setReload={setReload}
+
+                                            />}
 
                                         </div>
                                         <div className={'mx-2 ltr fontSize10'}> {item.createAt} </div>
