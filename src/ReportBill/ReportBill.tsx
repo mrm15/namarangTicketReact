@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
 import {getBillList} from "../config/api.tsx";
 import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../utils/utilsFunction.tsx";
 import {excelExport, excelExportForHesabfa} from "../utils/excelExport.tsx";
 import {toast} from "react-toastify";
 import {p2e} from "../utils/NumericFunction.tsx";
+import FilterSection from "./FilterSection.tsx";
+import TableSection from "./TableSection.tsx";
+import {ReportBillContext} from "./ReportBillContext.tsx"
+import useObjectDataHolder from "../hooks/UseObjectDataHolder.tsx";
+import {IAwesomeData} from "./myTypes.tsx";
 
 type times = "today" | "thisMonth" | "all"
 const ReportBill = () => {
 
 
-    const myAxios = useAxiosPrivate()
+    const myAxios = useAxiosPrivate();
     const getFactorList = async (times: times) => {
 
         let queryInfo = {}
@@ -140,31 +145,88 @@ const ReportBill = () => {
 
 
     }
+
+
+    const [awesomeData, setAwesomeData] = useObjectDataHolder<IAwesomeData>({
+        numberOfRowsShowInTable: 5,
+        currentPage: 1,
+        totalPages: 0,
+        tableHeaders: [],
+        tableData: [],
+        totalData: [],
+        reload: "",
+        TotalCount:504,
+        FilteredCount:135,
+        currentSelectedPage:1,
+
+
+
+    });
+
+    useEffect(() => {
+
+        const UpdateTableData = async () => {
+            const queryInfo = {
+                SortBy: 'Date',
+                SortDesc: true,
+                Take: 500,
+                Skip: 0,
+                "filters": [
+                    {
+                        "property": "Date",
+                        "operator": "=",
+                        "value": timestampToFormattedDateToSendHesabfa(new Date())
+                    }
+                ]
+            }
+
+
+            const data = {queryInfo}
+            const tId = toast.loading("در حال به روز رسانی جدول")
+            const resultOfGetFactorList = await myAxios.post(getBillList, data)
+            toast.dismiss(tId)
+            if (resultOfGetFactorList.status === 200) {
+
+                debugger
+
+                setAwesomeData({totalData: []})
+
+            }
+
+
+        }
+
+
+        void UpdateTableData();
+    }, []);
+
+
     try {
         return (
             <div>
-                <div className={'text-center bg-gray-300 block rounded p-5 m-1'}> خروجی اکسل از فایل ها</div>
+                <ReportBillContext.Provider value={{awesomeData, setAwesomeData}}>
+                    <div className={'flex flex-wrap gap-2 m-5'}>
+                        <button
+                            onClick={() => getFactorList("today")}
+                            className={'btn-submit-mir'}>
+                            دریافت اکسل فاکتور های امروز
+                        </button>
+                        <button
+                            onClick={() => getFactorList("thisMonth")}
 
-                <div className={'flex flex-wrap gap-2 m-5'}>
-                    <button
-                        onClick={() => getFactorList("today")}
-                        className={'btn-submit-mir'}>
-                        دریافت اکسل فاکتور های امروز
-                    </button>
-                    <button
-                        onClick={() => getFactorList("thisMonth")}
+                            className={'btn-gay-mir'}>
+                            دریافت اکسل فاکتور های این ماه
+                        </button>
+                        <button
+                            onClick={() => getFactorList("all")}
 
-                        className={'btn-gay-mir'}>
-                        دریافت اکسل فاکتور های این ماه
-                    </button>
-                    <button
-                        onClick={() => getFactorList("all")}
-
-                        className={'btn-submit-mir'}>
-                        دریافت اکسل کل فاکتورهای امسال
-                    </button>
-                </div>
-
+                            className={'btn-submit-mir'}>
+                            دریافت اکسل کل فاکتورهای امسال
+                        </button>
+                    </div>
+                    <FilterSection/>
+                    <TableSection/>
+                </ReportBillContext.Provider>
             </div>
         );
     } catch (error) {
