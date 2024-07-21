@@ -7,6 +7,7 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {submitBill} from "../../../config/api.tsx";
 import {toast} from "react-toastify";
 import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
@@ -14,6 +15,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
     const {auth} = useAuth();
 
 
+    const navigateTo = useNavigate()
     const roleAccessList = auth.userInfo?.roleAccessList;
     const canSaveFactorAsDraft = roleAccessList.includes(ROLES.saveBillAsDraft[0])
     const canSaveFactorAsDone = roleAccessList.includes(ROLES.saveBillAsDone[0])
@@ -46,6 +48,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
         if (result.status === 200) {
             toast.success('فاکتور ثبت شد')
+            navigateTo(-1)
         }
     }
 
