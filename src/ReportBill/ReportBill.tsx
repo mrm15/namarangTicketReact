@@ -1,8 +1,12 @@
 import React, {useEffect} from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
 import {getBillList} from "../config/api.tsx";
-import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../utils/utilsFunction.tsx";
-import {excelExport, excelExportForHesabfa} from "../utils/excelExport.tsx";
+import {
+    addRowIdtoTable,
+    timestampToFormattedDateToSendHesabfa,
+    timestampToTimeFromHesabfa
+} from "../utils/utilsFunction.tsx";
+import {excelExportForHesabfa} from "../utils/excelExport.tsx";
 import {toast} from "react-toastify";
 import {p2e} from "../utils/NumericFunction.tsx";
 import FilterSection from "./FilterSection.tsx";
@@ -10,6 +14,11 @@ import TableSection from "./TableSection.tsx";
 import {ReportBillContext} from "./ReportBillContext.tsx"
 import useObjectDataHolder from "../hooks/UseObjectDataHolder.tsx";
 import {IAwesomeData} from "./myTypes.tsx";
+import {columns, data as tableDataForTest} from "../Components/ReactTableDataShow/SampleTableData.tsx"
+import Num2persian from 'num2persian';
+import ToggleSwitch from "../Components/UI/ToggleSwitch/ToggleSwitch.tsx";
+import {makeRowIdBasedOnPageNumber} from "./functions.tsx";
+
 
 type times = "today" | "thisMonth" | "all"
 const ReportBill = () => {
@@ -31,6 +40,11 @@ const ReportBill = () => {
                         "property": "Date",
                         "operator": "=",
                         "value": timestampToFormattedDateToSendHesabfa(new Date())
+                    },
+                    {
+                        "property": "Status",
+                        "operator": "=",
+                        "value": "1"
                     }
                 ]
             }
@@ -147,64 +161,151 @@ const ReportBill = () => {
     }
 
 
+    const filterStatus = [
+        {
+            "property": "Date",
+            "operator": "=",
+            "value": timestampToFormattedDateToSendHesabfa(new Date())
+        },
+        {
+            "property": "Status",
+            "operator": "=",
+            "value": "0"
+        }
+
+    ]
     const [awesomeData, setAwesomeData] = useObjectDataHolder<IAwesomeData>({
+        filterStatus,
+        columns: columns,
         numberOfRowsShowInTable: 5,
-        currentPage: 1,
         totalPages: 0,
         tableHeaders: [],
         tableData: [],
         totalData: [],
         reload: "",
-        TotalCount:504,
-        FilteredCount:135,
-        currentSelectedPage:1,
-
-
-
+        TotalCount: 504,
+        FilteredCount: 135,
+        currentSelectedPage: 1,
     });
 
-    useEffect(() => {
-
-        const UpdateTableData = async () => {
-            const queryInfo = {
-                SortBy: 'Date',
-                SortDesc: true,
-                Take: 500,
-                Skip: 0,
-                "filters": [
-                    {
-                        "property": "Date",
-                        "operator": "=",
-                        "value": timestampToFormattedDateToSendHesabfa(new Date())
-                    }
-                ]
-            }
-
-
-            const data = {queryInfo}
-            const tId = toast.loading("در حال به روز رسانی جدول")
-            const resultOfGetFactorList = await myAxios.post(getBillList, data)
-            toast.dismiss(tId)
-            if (resultOfGetFactorList.status === 200) {
-
-                debugger
-
-                setAwesomeData({totalData: []})
-
-            }
-
-
+    // useEffect(() => {
+    //     void UpdateTableData();
+    // }, []);
+    const UpdateTableData = async () => {
+        const skipFromTheFirst = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
+        const TakeNumberOfData = awesomeData.numberOfRowsShowInTable
+        const queryInfo = {
+            SortBy: 'Date',
+            SortDesc: true,
+            Take: TakeNumberOfData,
+            Skip: skipFromTheFirst,
+            filters: awesomeData.filterStatus
         }
 
 
-        void UpdateTableData();
-    }, []);
+        const data = {queryInfo}
+        const tId = toast.loading("در حال به روز رسانی جدول")
+        const resultOfGetFactorList = await myAxios.post(getBillList, data)
+        toast.dismiss(tId)
+        if (resultOfGetFactorList.status === 200) {
+            console.log("hi");
+            setAwesomeData({totalData: tableDataForTest})
 
 
+            const List: [{ Sum: number }] = resultOfGetFactorList.data.data.List;
+            const totalSum = List.reduce(((accumulator, currentValue) => accumulator + currentValue.Sum), 0)
+            console.log("totalSum: ")
+            console.log(totalSum.toLocaleString())
+            console.log(Num2persian(totalSum));
+            // setAwesomeData({totalData:resultOfGetFactorList.data.data.List})
+            const listOfData = resultOfGetFactorList.data.data.List
+            const temp = listOfData.map(row => {
+                try {
+                    const myTag = JSON.parse(row.Tag)
+                    if (myTag) {
+                        return {
+                            ...row,
+                            sellerName: myTag.n,
+                            orderNumber: myTag.tn
+                        }
+                    }
+                } catch (error) {
+                    return row
+                }
+
+
+            })
+            return {
+                totalData: temp,
+                tableData: temp,
+            }
+        } else {
+            return undefined
+        }
+    }
+
+    useEffect(() => {
+
+
+        // toast.info("افکت در حال بارگزاری...")
+        //
+        //
+        // // Calculate the start and end indices for the current page
+        // const startIndex = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
+        // const endIndex = startIndex + awesomeData.numberOfRowsShowInTable;
+        // const tableData = awesomeData.totalData.slice(startIndex, endIndex);
+        // if (tableData.length >= endIndex - startIndex) {
+        //     setAwesomeData({tableData})
+        // } else {
+        //     void UpdateTableData()
+        // }
+
+
+        void UpdateTableData().then(result => {
+
+            if (!result) {
+                return
+            }
+
+            setAwesomeData({tableData: makeRowIdBasedOnPageNumber({
+                    tableData:result.tableData,
+                    currentPageNumber:awesomeData.currentSelectedPage,
+                    totalRowsInPage:awesomeData.numberOfRowsShowInTable,
+                })})
+
+            // Calculate the start and end indices for the current page
+            const startIndex = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
+            // const endIndex = startIndex + awesomeData.numberOfRowsShowInTable;
+            // const tableData = result.slice(startIndex, endIndex);
+            // if (tableData.length >= endIndex - startIndex) {
+            //     setAwesomeData({tableData})
+            // }
+
+        })
+    }, [awesomeData.numberOfRowsShowInTable, awesomeData.currentSelectedPage, setAwesomeData, awesomeData.filterStatus, myAxios]);
+
+
+    const handleCheckToggle = (checkStatus: boolean) => {
+        // {
+        //     "property": "Status",
+        //     "operator": "=",
+        //     "value": 1
+        // }
+        const newValue = checkStatus ? 1 : 0;
+        const newFilter = awesomeData.filterStatus.map((filter: any) =>
+            filter.property === "Status" ? {...filter, value: newValue} : filter
+        );
+        setAwesomeData({filterStatus: newFilter})
+
+    }
     try {
         return (
             <div>
                 <ReportBillContext.Provider value={{awesomeData, setAwesomeData}}>
+                    <ToggleSwitch checkedText={"      تایید"}
+                                  unCheckedText={"پیش"}
+                                  onChange={handleCheckToggle}
+                    />
                     <div className={'flex flex-wrap gap-2 m-5'}>
                         <button
                             onClick={() => getFactorList("today")}
