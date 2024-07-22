@@ -6,10 +6,15 @@ import {
     getCoreRowModel,
     flexRender,
 } from '@tanstack/react-table';
-import { data, columns } from './SampleTableData.tsx';
 import useWindowSize from "../../hooks/useWindowSize.tsx";
+import {string} from "yup";
 
-const MyTable: React.FC = () => {
+interface MyProps {
+    data: { [key: string]: any }[],
+    columns: ColumnDef<{ [key: string]: any }>[] // Correctly typing columns as an array of ColumnDef
+}
+
+const ReactTableDataShow: React.FC<MyProps> = ({data, columns}) => {
     const table = useReactTable({
         data,
         columns,
@@ -18,12 +23,13 @@ const MyTable: React.FC = () => {
 
     const myWindowsSize = useWindowSize()
     return (
-        <div  style={{
-            width: myWindowsSize.widthWindowSize-100,
-            overflowX:"scroll",
+        <div style={{
+            width: myWindowsSize.widthWindowSize - 250,
+            overflowX: "scroll",
+            opacity:"hidden",
 
         }}
-        className={'border-2 border-black'}
+             className={' shadow shadow-black '}
         >
             <table style={{width: '100%', borderCollapse: 'collapse'}} className={'m-1'}>
                 <thead>
@@ -62,4 +68,4 @@ const MyTable: React.FC = () => {
     );
 };
 
-export default MyTable;
+export default ReactTableDataShow;
