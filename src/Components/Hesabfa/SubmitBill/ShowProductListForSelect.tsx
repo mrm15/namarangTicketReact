@@ -43,8 +43,10 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
                 Status: newStatus
             }
         }
+        const tId = toast.loading("در حال ارسال اطلاعات...")
         const result = await myAxiosPrivate.post(submitBill, data);
         // هر کاری بعد از ذخیره فاکتور میخوای انجام بدی اینجا انجام بده
+        toast.dismiss(tId)
 
         if (result.status === 200) {
             toast.success('فاکتور ثبت شد')
