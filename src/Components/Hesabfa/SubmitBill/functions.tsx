@@ -74,7 +74,7 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
     return myData
 
 }
-export const detectTag = ({exceptionArray = [], auth = {}, lastTag = `{}` , ticketNumber}) => {
+export const detectTag = ({exceptionArray = [], auth = {}, lastTag = `{}`, ticketNumber}) => {
     // @ts-ignore
     const {userInfo} = auth || {};
     const {userData} = userInfo || {};
@@ -82,7 +82,12 @@ export const detectTag = ({exceptionArray = [], auth = {}, lastTag = `{}` , tick
     if (lastTag === "") {
         lastTag = `{}`
     }
-    const myNewTag = JSON.parse(lastTag);
+    let myNewTag = {n: "", tn: ""};
+    try {
+        myNewTag = JSON.parse(lastTag)
+    } catch (error) {
+        console.log(error.toString())
+    }
     myNewTag.n = name
     myNewTag.tn = ticketNumber
 
