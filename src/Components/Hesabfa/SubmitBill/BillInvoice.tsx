@@ -98,8 +98,14 @@ const BillInvoice = ({
         setInvoice({[myKey]: value})
     }
 
-    const showTagName = JSON.parse(invoice.Tag).n
-    const showTicketNumber = JSON.parse(invoice.Tag).tn
+    let showTagName = ""
+    let showTicketNumber = ""
+    try {
+        showTagName = JSON?.parse(invoice?.Tag)?.n
+        showTicketNumber = JSON?.parse(invoice?.Tag)?.tn
+    } catch (error) {
+        console.log(error)
+    }
     try {
         return (
             <div>
