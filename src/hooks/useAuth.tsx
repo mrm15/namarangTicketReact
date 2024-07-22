@@ -9,12 +9,15 @@ interface authInterFace {
     province?: string;
     city?: string;
     address?: string;
+    user?: any;
+    [key: string]: any; // Index signature
+
+
 }
 
 const useAuth = () => {
 
-    // @ts-ignore
-    const {auth}: authInterFace = useContext(AuthContext);
+    const {auth} =  useContext(AuthContext) as { auth: authInterFace }
     useDebugValue(auth, auth => auth?.user ? "Logged In" : "Logged Out")
     return useContext(AuthContext);
 }
