@@ -1,6 +1,7 @@
 export interface IAwesomeData {
+    filterStatus:any[];
+    columns:{[key:string]:any}[];
     numberOfRowsShowInTable: number;
-    currentPage: number;
     totalPages: number;
     tableHeaders: any[]; // Specify a more precise type if you know the exact structure
     tableData: any[]; // Specify a more precise type if you know the exact structure
