@@ -1,7 +1,14 @@
 import {createContext, useState} from "react";
 
+interface AuthContextType {
+    auth: {
+        user?: any;
+        [key: string]: any;
+    };
+    setAuth: (auth: AuthContextType['auth']) => void;
+}
 
-const AuthContext = createContext({});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 interface UserInfo {
@@ -13,12 +20,17 @@ interface UserInfo {
     province?: string;
     city?: string;
     address?: string;
+
+    [key: string]: any; // Index signature
+
     // add other properties as needed
 }
 
 interface AuthState {
     userInfo: UserInfo | null;
     accessToken: string | null;
+
+    [key: string]: any; // Index signature
 }
 
 // If you have a default state, define it
