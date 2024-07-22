@@ -42,7 +42,7 @@ const Pagination = () => {
 
     return (
         <div>
-            <div className="pagination-container">
+            <div className="flex flex-wrap gap-2">
                 {/* Previous Page Button */}
                 <button
                     className={`mx-3  ${currentPage === 1 ? 'btn-disabled' : 'btn-enabled'}`}
