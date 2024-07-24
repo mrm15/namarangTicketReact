@@ -1,12 +1,18 @@
 import React, { useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
 
-const PrintComponent = ({ children, printButtonLabel = "Print" }) => {
+const PrintComponent = ({ children, printButtonLabel = "Print" , orientation = "a4" }) => {
     const componentRef = useRef();
 
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
+    // Define the print styles, including orientation
+    const myStyle = `
+        @page {
+            size: ${orientation};
+        }
+    `;
 
     return (
         <div>
@@ -16,7 +22,12 @@ const PrintComponent = ({ children, printButtonLabel = "Print" }) => {
             >
                 {printButtonLabel}
             </button>
-            <div ref={componentRef}>
+            <style>
+                {myStyle}
+            </style>
+            <div
+
+                ref={componentRef}>
                 {children}
             </div>
         </div>
