@@ -42,6 +42,9 @@ export const PAGES = {
     // hesabfa
     showBill:"/s",
     submit_bill:"/submit-bill",
+    ////////////////////////////////////
+    reportBill:"/reportBill",
+    ////////////////////////////////
 
 
 };
