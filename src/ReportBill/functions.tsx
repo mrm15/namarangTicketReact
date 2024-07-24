@@ -1,5 +1,7 @@
+import {randomNumberGenerator} from "../utils/utilsFunction.tsx";
+
 interface inputTypes {
-    tableData: {}[];
+    tableData: any[];
     currentPageNumber: number;
     totalRowsInPage: number;
 }
