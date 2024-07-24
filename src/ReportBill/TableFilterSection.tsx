@@ -61,6 +61,8 @@ const TableFilterSection = () => {
                 <TdInput
                     myKey={"Sum"}
                     placeholder={"جمع فاکتور"}
+                    operator={"="}
+
                 />
             </td>
             <td className={'border-2 border-black   '}>
@@ -69,14 +71,12 @@ const TableFilterSection = () => {
                 <TdInput
                     myKey={"Status"}
                     placeholder={"وضعیت فاکتور"}
+                    operator={"="}
                 />
             </td>
             <td className={'border-2 border-black   '}>
                 {/*کد مشتری*/}
-                <TdInput
-                    myKey={"ContactCode"}
-                    placeholder={"کد مشتری"}
-                /></td>
+               </td>
 
         </tr>
     );
