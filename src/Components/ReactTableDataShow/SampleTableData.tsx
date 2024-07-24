@@ -49,7 +49,6 @@ export type Person = {
     additionalField25?: string;
 };
 
-const test = <TestComponent/>;
 
 export const data: Person[] = [
     {
@@ -754,11 +753,8 @@ export const data: Person[] = [
 
 
 
-export const columns: {
-    [key: string]: any;
-    id: any
-}[] = [
-    {accessorKey: 'RowId', header: 'ردیف', id: 'RowId',},
+export const columns:any = [
+    {accessorKey: 'RowId', header: 'ردیف', id: 'RowId',  },
     {accessorKey: 'Id', header: 'Id', id: 'Id', size: 80},
     {
         accessorKey: 'Date', header: 'تاریخ', id: 'Date',
