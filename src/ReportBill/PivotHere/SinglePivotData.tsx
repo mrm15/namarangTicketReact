@@ -18,15 +18,15 @@ const SinglePivotData = ({filterTextForPivot , totalData, myKey , sumKey,countKe
     return (
         <div>
             <table className={"border mt-2"}>
-                <caption className={"font-bold border p-2"}>
-                    {filterTextForPivot}
+                <caption className={"font-bold border fontSize12 "}>
+                    {filterTextForPivot[0]}
                 </caption>
                 <thead>
                 <tr>
-                    <th scope="col">ردیف</th>
-                    <th scope="col">نام</th>
-                    <th scope="col">جمع </th>
-                    <th scope="col"> تعداد </th>
+                    <th scope="col" className={"fontSize10 border "}>ردیف</th>
+                    <th scope="col" className={"fontSize10 border "}>نام</th>
+                    <th scope="col" className={"fontSize10 border "}>جمع </th>
+                    <th scope="col" className={"fontSize10 border "}> تعداد </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,10 +37,10 @@ const SinglePivotData = ({filterTextForPivot , totalData, myKey , sumKey,countKe
 
                     return <tr key={index}>
 
-                        <td className={' border px-6  whitespace-nowrap text-sm font-medium text-gray-900'}>{index+1}</td>
-                        <td className={' border px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'}>{row[myKey]}</td>
-                        <td className={' border px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'}>{formatNumber(row[sumKey])}</td>
-                        <td className={' border px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'}>{row[countKey].toFixed(2)}</td>
+                        <td className={' border px-1   whitespace-nowrap  fontSize10 font-medium text-gray-900'}>{index+1}</td>
+                        <td className={' border px-1   whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row[myKey]}</td>
+                        <td className={' border px-1   whitespace-nowrap fontSize10 font-medium text-gray-900'}>{formatNumber(row[sumKey])}</td>
+                        <td className={' border px-1   whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row[countKey].toFixed(2)}</td>
 
                     </tr>
                 })}
@@ -48,10 +48,10 @@ const SinglePivotData = ({filterTextForPivot , totalData, myKey , sumKey,countKe
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td  className={' border px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900'} ></td>
-                    <td  className={' border px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900'} >جمع</td>
-                    <td  className={' border px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900'} >{formatNumber( mySum.sumKey)}</td>
-                    <td  className={' border px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900'} >{formatNumber(mySum.countKey)}</td>
+                    <td  className={' border px-6   whitespace-nowrap fontSize10 font-bold text-gray-900'} ></td>
+                    <td  className={' border px-6   whitespace-nowrap fontSize10 font-bold text-gray-900'} >جمع</td>
+                    <td  className={' border px-6   whitespace-nowrap fontSize10 font-bold text-gray-900'} >{formatNumber( mySum.sumKey)}</td>
+                    <td  className={' border px-6   whitespace-nowrap fontSize10 font-bold text-gray-900'} >{formatNumber(mySum.countKey)}</td>
                 </tr>
                 </tfoot>
             </table>
