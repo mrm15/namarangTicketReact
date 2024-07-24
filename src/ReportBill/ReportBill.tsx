@@ -2,14 +2,12 @@ import React, {useEffect} from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
 import {getBillList} from "../config/api.tsx";
 import {
-    addRowIdtoTable,
     timestampToFormattedDateToSendHesabfa,
     timestampToTimeFromHesabfa
 } from "../utils/utilsFunction.tsx";
 import {excelExportForHesabfa} from "../utils/excelExport.tsx";
 import {toast} from "react-toastify";
 import {p2e} from "../utils/NumericFunction.tsx";
-import FilterSection from "./FilterSection.tsx";
 import TableSection from "./TableSection.tsx";
 import {ReportBillContext} from "./ReportBillContext.tsx"
 import useObjectDataHolder from "../hooks/UseObjectDataHolder.tsx";
@@ -17,7 +15,7 @@ import {IAwesomeData} from "./myTypes.tsx";
 import {columns, data as tableDataForTest} from "../Components/ReactTableDataShow/SampleTableData.tsx"
 import Num2persian from 'num2persian';
 import ToggleSwitch from "../Components/UI/ToggleSwitch/ToggleSwitch.tsx";
-import {makeRowIdBasedOnPageNumber} from "./functions.tsx";
+import { makeRowIdBasedOnPageNumber} from "./functions.tsx";
 
 
 type times = "today" | "thisMonth" | "all"
@@ -161,21 +159,8 @@ const ReportBill = () => {
     }
 
 
-    const filterStatus = [
-        {
-            "property": "Date",
-            "operator": "=",
-            "value": timestampToFormattedDateToSendHesabfa(new Date())
-        },
-        {
-            "property": "Status",
-            "operator": "=",
-            "value": "0"
-        }
 
-    ]
     const [awesomeData, setAwesomeData] = useObjectDataHolder<IAwesomeData>({
-        filterStatus,
         columns: columns,
         numberOfRowsShowInTable: 5,
         totalPages: 0,
@@ -183,15 +168,17 @@ const ReportBill = () => {
         tableData: [],
         totalData: [],
         reload: "",
-        TotalCount: 504,
-        FilteredCount: 135,
+        TotalCount: 10000000,
+        FilteredCount: 10000,
         currentSelectedPage: 1,
+        filterItems:[],
     });
 
     // useEffect(() => {
-    //     void UpdateTableData();
+    //     void updateTableData();
     // }, []);
-    const UpdateTableData = async () => {
+
+    const updateTableData = async () => {
         const skipFromTheFirst = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
         const TakeNumberOfData = awesomeData.numberOfRowsShowInTable
         const queryInfo = {
@@ -199,7 +186,7 @@ const ReportBill = () => {
             SortDesc: true,
             Take: TakeNumberOfData,
             Skip: skipFromTheFirst,
-            filters: awesomeData.filterStatus
+            filters: awesomeData.filterItems
         }
 
 
@@ -219,7 +206,9 @@ const ReportBill = () => {
             console.log(Num2persian(totalSum));
             // setAwesomeData({totalData:resultOfGetFactorList.data.data.List})
             const listOfData = resultOfGetFactorList.data.data.List
-            const temp = listOfData.map(row => {
+            const TotalCount = resultOfGetFactorList.data.data.TotalCount
+            const FilteredCount = resultOfGetFactorList.data.data.FilteredCount
+            const temp = listOfData.map((row:any) => {
                 try {
                     const myTag = JSON.parse(row.Tag)
                     if (myTag) {
@@ -236,74 +225,82 @@ const ReportBill = () => {
 
             })
             return {
-                totalData: temp,
+                // totalData: temp,
                 tableData: temp,
+                TotalCount,
+                FilteredCount
             }
         } else {
             return undefined
         }
     }
 
+
+
+
     useEffect(() => {
 
-
-        // toast.info("افکت در حال بارگزاری...")
-        //
-        //
-        // // Calculate the start and end indices for the current page
-        // const startIndex = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
-        // const endIndex = startIndex + awesomeData.numberOfRowsShowInTable;
-        // const tableData = awesomeData.totalData.slice(startIndex, endIndex);
-        // if (tableData.length >= endIndex - startIndex) {
-        //     setAwesomeData({tableData})
-        // } else {
-        //     void UpdateTableData()
-        // }
-
-
-        void UpdateTableData().then(result => {
+        void updateTableData().then(result => {
 
             if (!result) {
                 return
             }
 
-            setAwesomeData({tableData: makeRowIdBasedOnPageNumber({
-                    tableData:result.tableData,
-                    currentPageNumber:awesomeData.currentSelectedPage,
-                    totalRowsInPage:awesomeData.numberOfRowsShowInTable,
-                })})
+            setAwesomeData({
+                tableData: makeRowIdBasedOnPageNumber({
+                    tableData: result.tableData,
+                    currentPageNumber: awesomeData.currentSelectedPage,
+                    totalRowsInPage: awesomeData.numberOfRowsShowInTable,
+                }),
+                TotalCount: result.TotalCount,
+                FilteredCount: result.FilteredCount,
+            })
 
             // Calculate the start and end indices for the current page
-            const startIndex = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
+            // const startIndex = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
             // const endIndex = startIndex + awesomeData.numberOfRowsShowInTable;
             // const tableData = result.slice(startIndex, endIndex);
             // if (tableData.length >= endIndex - startIndex) {
             //     setAwesomeData({tableData})
             // }
 
+
         })
-    }, [awesomeData.numberOfRowsShowInTable, awesomeData.currentSelectedPage, setAwesomeData, awesomeData.filterStatus, myAxios]);
+    }, [ awesomeData.numberOfRowsShowInTable, awesomeData.currentSelectedPage, awesomeData.reload,
+    awesomeData.filterItems]);
 
 
     const handleCheckToggle = (checkStatus: boolean) => {
-        // {
-        //     "property": "Status",
-        //     "operator": "=",
-        //     "value": 1
-        // }
-        const newValue = checkStatus ? 1 : 0;
-        const newFilter = awesomeData.filterStatus.map((filter: any) =>
-            filter.property === "Status" ? {...filter, value: newValue} : filter
-        );
-        setAwesomeData({filterStatus: newFilter})
+        let newFilter: any[];
 
-    }
+        if (checkStatus) {
+            // Add the "Status" filter with value "1"
+            newFilter = [
+                ...awesomeData.filterItems,
+                {
+                    "property": "Status",
+                    "operator": "=",
+                    "value": 1
+                }
+            ];
+        } else {
+            // Remove the "Status" filter
+            newFilter = awesomeData.filterItems.filter((filter: any) => filter.property !== "Status");
+        }
+
+        setAwesomeData({
+            filterItems: newFilter,
+            currentSelectedPage: 1,
+        });
+    };
+
+
     try {
         return (
             <div>
                 <ReportBillContext.Provider value={{awesomeData, setAwesomeData}}>
                     <ToggleSwitch checkedText={"      تایید"}
-                                  unCheckedText={"پیش"}
+                                  unCheckedText={"همه"}
                                   onChange={handleCheckToggle}
                     />
                     <div className={'flex flex-wrap gap-2 m-5'}>
@@ -325,7 +322,6 @@ const ReportBill = () => {
                             دریافت اکسل کل فاکتورهای امسال
                         </button>
                     </div>
-                    <FilterSection/>
                     <TableSection/>
                 </ReportBillContext.Provider>
             </div>
