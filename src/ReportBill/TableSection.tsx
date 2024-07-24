@@ -6,11 +6,13 @@ import {ReportBillContext} from "./ReportBillContext.tsx";
 import {tempData} from "./tempData.tsx";
 import ReactTableDataShow from "../Components/ReactTableDataShow/ReactTableDataShow.tsx";
 import Pagination from "./Pagination.tsx";
+import TableFilterSection from "./TableFilterSection.tsx";
 
 
 const TableSection = () => {
     const t = useContext(ReportBillContext);
     const {awesomeData, setAwesomeData} = t
+
 
 
     try {
@@ -20,6 +22,7 @@ const TableSection = () => {
                     <ReactTableDataShow
                         columns={awesomeData.columns}
                         data={awesomeData.tableData}
+                        TableFilterSection={TableFilterSection}
                     />
                 </div>
 
