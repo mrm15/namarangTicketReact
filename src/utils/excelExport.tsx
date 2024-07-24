@@ -38,7 +38,7 @@ export const excelExportForHesabfa = ( {dataSheet1, headersSheet1, fileName , da
 
     const formattedDataSheet2 = dataSheet2.map((item) => {
         const newItem: { [key: string]: any } = {};
-        headersSheet1.forEach((header) => {
+        headersSheet2.forEach((header) => {
             newItem[header.title] = header.task ? header.task((item)[header.key]) : (item)[header.key]
         })
         return newItem;
