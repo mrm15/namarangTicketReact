@@ -7,14 +7,15 @@ import {
     flexRender,
 } from '@tanstack/react-table';
 import useWindowSize from "../../hooks/useWindowSize.tsx";
-import {string} from "yup";
+import TableFilterSection from "../../ReportBill/TableFilterSection.tsx";
 
 interface MyProps {
     data: { [key: string]: any }[],
     columns: ColumnDef<{ [key: string]: any }>[] // Correctly typing columns as an array of ColumnDef
+    TableFilterSection?:any
 }
 
-const ReactTableDataShow: React.FC<MyProps> = ({data, columns}) => {
+const ReactTableDataShow: React.FC<MyProps> = ({data, columns , TableFilterSection}) => {
     const table = useReactTable({
         data,
         columns,
@@ -50,6 +51,7 @@ const ReactTableDataShow: React.FC<MyProps> = ({data, columns}) => {
                 ))}
                 </thead>
                 <tbody>
+                {TableFilterSection && <TableFilterSection />}
                 {table.getRowModel().rows.map(row => (
                     <tr key={row.id}>
                         {row.getVisibleCells().map(cell => (
