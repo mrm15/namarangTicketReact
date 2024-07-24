@@ -114,7 +114,7 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
                     <li className={'text-center'}> تعداد: {formatNumber(totalSum.totalQuantity)}</li>
                     <li></li>
                     <li></li>
-                    <li> تومان{formatNumber(totalSum.totalSumNumber)}</li>
+                    <li> تومان{formatNumber(totalSum.totalSumNumber?.toFixed(0))}</li>
                     <li></li>
                 </ul>
             </div>
