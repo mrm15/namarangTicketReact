@@ -19,6 +19,7 @@ import {BsBuildingAdd, BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "re
 import {FaBarsStaggered, FaFileCirclePlus, FaMessage, FaShapes} from "react-icons/fa6";
 import {FaBackspace, FaFileAlt} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
+import { RiBillLine } from "react-icons/ri";
 
 
 
@@ -98,6 +99,8 @@ const Home = () => {
         {name: "آرشیو پیام", link: PAGES.sms_archive, icon: FaMessage, showItem: roleAccessList?.includes('smsArchive'),},
         {name: "پیامک های در انتظار", link: PAGES.sms_pending, icon: FaMessage, showItem: roleAccessList?.includes('smsPending'),},
         {name: "ارسال پیام", link: PAGES.sms_send, icon: FaMessage, showItem: roleAccessList?.includes('smsSend'),},
+        //
+        {name: "لیست فاکتور", link: PAGES.reportBill, icon: RiBillLine, showItem: roleAccessList?.includes('sellBill'),},
         //
 
 
