@@ -98,6 +98,7 @@ const dropdownOptions = [
     {value:'editBillInChatList', key: " ویرایش فاکتور در چت لیست  " },
     {value:'deleteBill', key: "حذف یک فاکتور" },
     {value:'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور" },
+    {value:'sellBill', key: "دسترسی به لیست فاکتور فروش" },
 
 
 
