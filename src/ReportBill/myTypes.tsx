@@ -1,5 +1,11 @@
+export interface  IColumnsOfReactTable  {
+    [key: string]: any;
+    id: any;
+    accessorKey:any;
+}
+
 export interface IAwesomeData {
-    columns:{[key:string]:any}[];
+    columns:IColumnsOfReactTable[];
     numberOfRowsShowInTable: number;
     totalPages: number;
     tableHeaders: any[]; // Specify a more precise type if you know the exact structure
