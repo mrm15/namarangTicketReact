@@ -210,11 +210,11 @@ const BillInvoice = ({
                                 <div>
 
                                     جمع کل فاکتور:
-                                    <span className={'p-2'}>{formatNumber(factorSum.totalSum)} تومان</span>
+                                    <span className={'p-2'}>{formatNumber(factorSum.totalSum?.toFixed(0))} تومان</span>
                                 </div>
                                 <div>
                                     مبلغ به حروف:
-                                    <span className={'p-2'}>{Num2persian(factorSum.totalSum)} تومان </span>
+                                    <span className={'p-2'}>{Num2persian(factorSum.totalSum?.toFixed(0))} تومان </span>
                                 </div>
                             </div>
                         </div>
