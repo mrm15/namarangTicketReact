@@ -10,7 +10,8 @@ const Pagination = () => {
 
     const { awesomeData, setAwesomeData } = context;
 
-    const numberOfButtons = Math.ceil(awesomeData.TotalCount / awesomeData.numberOfRowsShowInTable);
+    const numberOfButtons = Math.ceil(awesomeData.FilteredCount / awesomeData.numberOfRowsShowInTable);
+
     const currentPage = awesomeData.currentSelectedPage;
 
     // Define how many pages to show before and after the current page
