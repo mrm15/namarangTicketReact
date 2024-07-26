@@ -24,6 +24,8 @@ const PivotsByData = () => {
                     myKey={row.myKey}
                     sumKey={row.sumKey}
                     countKey={row.countKey}
+                    caption={row.caption}
+                    showSubitems={row.showSubitems}
                 />)}
 
 
