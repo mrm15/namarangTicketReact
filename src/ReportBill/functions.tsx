@@ -78,23 +78,30 @@ export const getHeaderAndRows = (incomeData:any) => {
         const myContactName = row?.Contact?.Name
         const myContactCode = row.ContactCode
         const myContactTitle = row.ContactTitle
+        const myTotalAmount = row?.TotalAmount
 
         row?.InvoiceItems.forEach((rowItem: any) => {
             dataSheet2.push({
-                ...row,
-                ...rowItem,
-                myItemCode: rowItem?.Item?.Code,
-                myItemName: rowItem?.Item?.Name,
-                myTotalAmount : rowItem.TotalAmount,
-                myContactName,
+                // ...row,
+                // ...rowItem,
                 myNumber: row.Number,
                 myDate: row.Date,
+                myContactCode,
+                myContactName,
+                myContactTitle,
+                myItemCode: rowItem?.Item?.Code,
+                myItemName: rowItem?.Item?.Name,
+                myDescription: rowItem?.Description,
+                myUnit: rowItem?.Unit,
+                myQuantity: rowItem?.Quantity,
+                myUnitPrice: rowItem?.UnitPrice,
+                myDiscount: rowItem?.Discount,
+                mySeller,
+                myTicketNumber,
+                myTax: rowItem?.Tax,
+                myTotalAmount:rowItem?.TotalAmount, // اینحا ما جمع مربوط به همون آیتم رو فقط لازم داریم. نه جمع کل
                 myStatus: row.Status,
                 myCurrency: row.Currency,
-                myContactCode,
-                myContactTitle,
-                myTicketNumber,
-                mySeller,
             })
         })
     })
@@ -108,16 +115,17 @@ export const getHeaderAndRows = (incomeData:any) => {
         {title: "عنوان", key: "myContactTitle"},
         {title: "کد کالا", key: "myItemCode"},
         {title: "کالا", key: "myItemName"},
-        {title: "شرح", key: "Description"},
-        {title: "واحد", key: "Unit"},
-        {title: "تعداد", key: "Quantity"},
-        {title: "مبلغ واحد", key: "UnitPrice"},
-        {title: "تخفیف", key: "Discount"},
+        {title: "شرح", key: "myDescription"},
+        {title: "واحد", key: "myUnit"},
+        {title: "تعداد", key: "myQuantity"},
+        {title: "مبلغ واحد", key: "myUnitPrice"},
+        {title: "تخفیف", key: "myDiscount"},
         {title: "فروشنده", key: "mySeller"},
         {title: "شماره سفارش", key: "myTicketNumber"},
         {title: "مالیات", key: "Tax"},
         {title: "مبلغ کل", key: "TotalAmount"},
         {title: "واحد پول", key: "myCurrency"},
+        {title: "وضعیت", key: "myStatus"},
     ]
 
     const fileName = new Date() + "";
