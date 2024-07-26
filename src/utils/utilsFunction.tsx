@@ -23,6 +23,10 @@ const removeComma = (str: string | number): string => {
     }
 
 };
+export const isFloat = (n) => Number(n) === n && n % 1 !== 0;
+export const formatFloat = (value) => (isFloat(value) ? value?.toFixed(2) : value);
+
+
 
 export const randomNumberGenerator = (): number => Math.random() * 10000000000;
 
