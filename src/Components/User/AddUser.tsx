@@ -134,8 +134,8 @@ const AddUser = () => {
         return (<div className={'flex flex-wrap'}>
             <div className="w-full text-center bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"
                  role="alert">
-                <p className="font-bold">{text.title}</p>
-                <p className="text-sm">{text.subTitle}</p>
+                <p className="font-bold">{text?.title}</p>
+                <p className="text-sm">{text?.subTitle}</p>
             </div>
 
             {isLoading ? <Loader type={1}/> :
