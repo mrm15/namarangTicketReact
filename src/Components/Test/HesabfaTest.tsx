@@ -9,67 +9,46 @@ import {
     submitBill
 } from "../../config/api.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
+import {toast} from "react-toastify";
 
 const HesabfaTest = () => {
 
 
     const myAxiosPrivate = useAxiosPrivate()
 
+    const showToast = (result) => {
+        if (result?.data?.message) {
+            toast.success(result?.data?.message)
+        }else {
+            toast.info("نتیجه بازگشت!")
 
+        }
+    }
     const handleGetProduct = async () => {
         const result = await myAxiosPrivate.get(getProductList)
+        showToast(result)
     }
 
     const handleGetProjects = async () => {
         const result = await myAxiosPrivate.get(getProjectList)
+        showToast(result)
     }
     const handleGetBillData = async (billNumber: string) => {
         const result = await myAxiosPrivate.get(getBillData + billNumber)
+        showToast(result)
     }
     const handleGetCustomerList = async () => {
         const result = await myAxiosPrivate.get(getCustomerList)
+        showToast(result)
     }
     const testSubmitFactor = async () => {
         const data = {}
         const result = await myAxiosPrivate.post(submitBill, data)
+        showToast(result)
     }
     const testGetContactData = async () => {
         const result = await myAxiosPrivate.get(getContactData + 1003)
-    }
-    const testSaveNewUserToDataHesabfa = async () => {
-
-        const contact = {
-            // Code: myContact.contactCode,
-            Name: "09157863770",
-            Company: "09157863770",
-            FirstName: "09157863770",
-            LastName: "09157863770",
-            ContactType: 1, // اشخاص رو حقیقی در نظر میگیریم
-            NationalCode: "09157863770",
-            EconomicCode: "09157863770",
-            RegistrationNumber: "09157863770",
-            Address: "09157863770",
-            City: "09157863770",
-            State: "09157863770",
-            PostalCode: "09157863770",
-            Phone: "09157863770",
-            Fax: "09157863770",
-            Mobile: "09157863770",
-            Email: "09157863770",
-            Website: "09157863770",
-            Note: "09157863770",
-            Tag: "از سایت",
-            Active: "فعال",
-        }
-
-        const data = {
-            apiKey: 'Snr0mPXZCmFoRzzqQG5Dv8C1kPJKf4J8',
-            loginToken: '387d64b1ff9052d6ceb3d39c4df8eb27f87ebbb0a535a23931ec800b03304bc56de3eba0b94569ab15508a4c1ad19a9c',
-            contact
-        }
-        const result = await axios.post(" https://api.hesabfa.com/v1/contact/save", data)
-        console.log(result);
-
+        showToast(result)
     }
 
     const syncContactsFromHesabfa = async () => {
@@ -77,6 +56,7 @@ const HesabfaTest = () => {
         const result111 = confirm("این کار خیلی خطر ناکه مطمئنی میخوای انجام بدی؟")
         if (result111) {
             const result = await myAxiosPrivate.get('hesabfaOpen/saveAllContactsWithPhoneNumber')
+            showToast(result)
         }
 
     }
@@ -85,6 +65,7 @@ const HesabfaTest = () => {
         const result112 = confirm("این کار یه فایلو جا به جا میکنه حواست هست؟")
         if (result112) {
             const result = await myAxiosPrivate.get('hesabfa/saveProductsAsFile')
+            showToast(result)
         }
 
 
@@ -154,15 +135,7 @@ const HesabfaTest = () => {
             </div>
             <hr/>
             <hr/>
-            <div>
-                <button
-                    onClick={testSaveNewUserToDataHesabfa}
-                    className={'btn-submit-mir'}
 
-                >
-                    ذخیره یک کاربر در سایت حسابفا
-                </button>
-            </div>
             <hr/>
             <div>
                 <button
