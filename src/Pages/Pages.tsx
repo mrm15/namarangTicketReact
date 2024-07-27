@@ -47,7 +47,7 @@ const Pages = () => {
             <Routes>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
-                <Route path={'hesabfaTest'} element={<HesabfaTest/>}/>
+
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
                 <Route path={PAGES.SMS} element={<SendSms/>}/>
 
@@ -141,6 +141,7 @@ const Pages = () => {
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
+                            <Route path={'hesabfaTest'} element={<HesabfaTest/>}/>
                             <Route path={PAGES.admin_settings} element={<AddSettings />}/>
                         </Route>
 
