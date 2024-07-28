@@ -26,7 +26,7 @@ interface TicketData {
     maxFileSize: number;
 }
 
-const getSettingsRequestUrl = 'adminSettings/getAdminSettings';
+const getSettingsRequestUrl = 'adminSettings/getSafeAdminSettings';
 const getDestinationRequestUrl = '/department/userList';
 const TicketCreate: React.FC = () => {
     const submitTicketUrl = '/ticket/create'
@@ -219,7 +219,7 @@ const TicketCreate: React.FC = () => {
         return myAxiosPrivate.get(getSettingsRequestUrl)
     }
     const adminSettingsQuery = useQuery({
-        queryKey: ['getSettings'],
+        queryKey: ['getSettingsCreateTicket'],
         queryFn: getSettingsQueryFn,
         staleTime: 86400000,  // === 60*60*24*1000
         enabled: true,
