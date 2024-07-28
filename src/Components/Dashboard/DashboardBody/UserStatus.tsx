@@ -43,9 +43,10 @@ function UserStatus() {
 
 
     const changeUserStatusHandler = async (newStatus) => {
+        let tId
         try {
 
-            const tId = toast.loading('در حال آپدیت استاتوس')
+            tId = toast.loading('در حال آپدیت استاتوس')
             const result = await myAxios.post(setNewStatusUrl, {userStatus: newStatus});
             toast.dismiss(tId)
             console.log(result.data)
@@ -54,6 +55,7 @@ function UserStatus() {
                 closeModal()
             }
         } catch (error) {
+            toast.dismiss(tId)
             console.log(error.toString())
         }
     }
