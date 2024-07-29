@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {PAGES} from "../Pages/Route-string.tsx";
+import {PAGES} from "../../Pages/Route-string.tsx";
 import {
     FaUserPlus,
     FaUsers,
@@ -11,11 +11,13 @@ import {
     FaFile,
     FaTicketAlt
 } from 'react-icons/fa';
-import {randomNumberGenerator} from "../utils/utilsFunction.tsx";
+import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
-import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {RiRefreshLine} from "react-icons/ri";
-import LoadingSvg1 from "../assets/Svg/LoadingSvg1.tsx";
+import LoadingSvg1 from "../../assets/Svg/LoadingSvg1.tsx";
+import MyLineChart from "../Rechart/LineChart/MyLineChart.tsx";
+import ShowSingleReport from "./ShowSingleReport.tsx";
 
 
 const Home = () => {
@@ -110,6 +112,8 @@ const Home = () => {
 
                 <div className={'flex flex-wrap gap-4'}>
 
+                    {reportArrayQuery?.data?.data?.reportData?.map(rowData=><ShowSingleReport {...rowData} />)}
+                    {/*<MyLineChart />*/}
                     {whichShow === 1 && <>
                         {shortcuts.map((row, index) => {
                             return <div
