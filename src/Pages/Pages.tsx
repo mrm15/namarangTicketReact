@@ -3,7 +3,7 @@ import {Route, Routes} from "react-router-dom";
 import Layout from "../Components/Layout";
 import PersistLogin from "../Components/PersistLogin"
 import RequireAuth from "../Components/RequireAuth"
-import Home from "../Components/Home"
+import Home from "../Components/Home/Home.tsx"
 import Missing from "../Components/Missing"
 import LoginSMS from "../Components/LoginSMS.tsx";
 
