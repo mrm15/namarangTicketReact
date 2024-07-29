@@ -70,6 +70,17 @@ const HesabfaTest = () => {
 
 
     }
+    const sendSmsCurrentReport = async () => {
+
+        const result112 = confirm("این کار یه پیامک میده اوکی؟؟؟")
+        if (result112) {
+            const result = await myAxiosPrivate.get('reports/todayReportSms')
+            debugger
+            showToast(result)
+        }
+
+
+    }
 
 
     return (
@@ -156,6 +167,19 @@ const HesabfaTest = () => {
                     به روز رسانی کالاهای حسابفا و سایت
                 </button>
             </div>
+
+
+            <hr/>
+            <hr/>
+            <div>
+                <button
+                    onClick={sendSmsCurrentReport}
+                    className={'btn-submit-mir bg-red-900'}
+                >
+                    ارسال گزارش مدیریتی
+                </button>
+            </div>
+            <hr/>
             <hr/>
 
         </div>
