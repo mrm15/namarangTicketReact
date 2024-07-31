@@ -1,4 +1,3 @@
-import React from 'react';
 import {calculatePivot} from "./pivotFunction.tsx";
 import {formatFloat, formatNumber} from "../../utils/utilsFunction.tsx";
 
