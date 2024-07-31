@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import {ReportBillContext} from "../ReportBillContext.tsx";
-import singlePivotData from "./singlePivotData.tsx";
-import SinglePivotData from "./singlePivotData.tsx";
+import SinglePivotData from "./SinglePivotData.tsx";
 import PrintComponent from "../../Components/PrintComponent/PrintComponent.tsx";
 import {pivotArray} from "./pivotArray.tsx";
 
