@@ -1,11 +1,18 @@
 import axios from 'axios';
 
+
 // export const BASE_URL = 'http://localhost:3001';
-export const PREFIX_URL = 'http://localhost:3001';
-export const BASE_URL = 'https://namarang-nodejs.chbk.run/';
+export const PREFIX_URL = process.env.REACT_APP_PREFIX_URL || 'http://localhost:3001';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 
-
+try {
+    const test = process?.env?.REACT_APP_URL
+    console.log(test)
+} catch (error) {
+    console.log(error)
+    debugger
+}
 export default axios.create({
     baseURL: BASE_URL
 });
