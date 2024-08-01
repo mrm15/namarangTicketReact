@@ -2,14 +2,15 @@ export  const pivotArray = [
     {
         caption: "اجرت ساخت",
         filterTextForPivot: [
-            "اجرت ساخت استیل حروف عادی",
-            "اجرت ساخت استیل حروف های سخت",
-            "اجرت ساخت چلنیوم حروف عادی",
-            "اجرت ساخت حروف سوئدی  آسان",
-            "اجرت ساخت نئون پلاستیک ( حروف استاندارد ) لبه 3 تا 8 سانت",
-            "اجرت ساخت نئون فلکس ( حروف آسان )",
-            "اجرت ساخت نئون فلکس ( حروف سخت )",
-            "اجرت ساخت نئون فلکس ( لوگو و طرح آسان )",
+            "اجرت ساخت",
+            // "اجرت ساخت استیل حروف عادی",
+            // "اجرت ساخت استیل حروف های سخت",
+            // "اجرت ساخت چلنیوم حروف عادی",
+            // "اجرت ساخت حروف سوئدی  آسان",
+            // "اجرت ساخت نئون پلاستیک ( حروف استاندارد ) لبه 3 تا 8 سانت",
+            // "اجرت ساخت نئون فلکس ( حروف آسان )",
+            // "اجرت ساخت نئون فلکس ( حروف سخت )",
+            // "اجرت ساخت نئون فلکس ( لوگو و طرح آسان )",
         ] ,
         myKey:"myItemName",
         sumKey:"myTotalAmount",
@@ -69,6 +70,7 @@ export  const pivotArray = [
         countKey:"myQuantity",
     },
     {
+        caption:"چلنیوم",
         filterTextForPivot:[
             "چلنیوم  مشکی 9 سانت ساده",
             "چلنیوم  مشکی سوپر ساید",
@@ -88,13 +90,123 @@ export  const pivotArray = [
         myKey:"myItemName",
         sumKey:"myTotalAmount",
         countKey:"myQuantity",
-        caption:"چلنیوم",
     },
     {
+        caption:"ورق",
         filterTextForPivot:["ورق استیل",],
         myKey:"myItemName",
         sumKey:"myTotalAmount",
         countKey:"myQuantity",
-        caption:"ورق",
+    },
+]
+
+
+export const ttt = [
+    {
+        caption: "پلکسی 2.8",
+        filterTextForPivot: [
+            "اجرت برش لیزر ورق 2.8 میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "پانچ ساده",
+        filterTextForPivot: [
+            "اجرت پانچی کردن ( حالت ساده ) طلق 2.8 میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "پانچ طرح دار",
+        filterTextForPivot: [
+            "اجرت پانچی کردن ( حالت طرحدار ) طلق 2.8 میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "دوبل",
+        filterTextForPivot: [
+            "اجرت دوبل همراه با مبلغ کلر فرم"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+
+    {
+        caption: "دوغی 10 میل",
+        filterTextForPivot: [
+            "اجرت برش لیزر پلکسی 10 میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "دوغی 5 میل",
+        filterTextForPivot: [
+            "اجرت برش لیزر پلکسی 5 میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "استیل و فلز",
+        filterTextForPivot: [
+            "استیل و فلز",
+            "اجرت ساخت استیل حروف های سخت",
+            "اجرت ساخت جوش فایبر",
+            "اجرت ساخت لبه یک تیکه ( دوطرفه ) جوش فایبر",
+            "اجرت ساخت حروف آهن",
+            "اجرت ساخت استیل حروف عادی"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+
+    {
+        caption: "چلنیوم و سوئدی",
+        filterTextForPivot: [
+            "اجرت ساخت چلنیوم",
+            "اجرت ساخت حروف سوئدی",
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+
+    {
+        caption: " نئون پلاستیک",
+        filterTextForPivot: [
+            "اجرت ساخت نئون پلاستیک ( حروف استاندارد ) لبه ۳ تا ۸ سانت",
+            "اجرت ساخت نئون پلاستیک ( حروف سخت) لبه ۳ تا ۸ سانت",
+            "اجرت ساخت نئون پلاستیک ( حروف استاندارد ) لبه 3 تا 8 سانت",
+            "اجرت ساخت نئون پلاستیک ( حروف سخت) لبه 3 تا 8 سانت",
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+
+    {
+        caption: "نئون فلکسی",
+        filterTextForPivot: [
+            // "اجرت ساخت نئون فلکس ( حروف آسان )",
+            // "اجرت ساخت نئون فلکس ( حروف سخت )",
+            // "اجرت ساخت نئون فلکس ( لوگو و طرح آسان )",
+            // "اجرت ساخت نئون فلکس ( لوگو و طرح سخت )",
+            "اجرت ساخت نئون فلکس ",
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
 ]
