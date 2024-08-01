@@ -88,7 +88,7 @@ const ResponseSection = ({ chatList, setReload, reload }) => {
                 for (const myFile of sendData.attachments) {
                     try {
                         const responseOfRequest: AxiosResponse<any> | null = await uploadFileUtil(myFile, "replyTicket", myAxiosPrivateFormData);
-
+                        debugger
                         if (responseOfRequest && responseOfRequest.status === 200) {
                             const fileId: string | undefined = responseOfRequest?.data?.id;
                             if (fileId) {
@@ -100,12 +100,14 @@ const ResponseSection = ({ chatList, setReload, reload }) => {
                             attachments.push('');
                         }
                     } catch (error) {
+                        debugger
                         console.log(error)
                     }
                 }
                 toast.dismiss(tId)
             }
         } catch (error) {
+            debugger
             attachments.push('');
         }
 
@@ -143,6 +145,7 @@ const ResponseSection = ({ chatList, setReload, reload }) => {
                 }
             }
         } catch (error) {
+            debugger
             toast.error(error.toString());
         }
     }
