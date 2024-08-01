@@ -18,8 +18,10 @@ export const upload = async ({
                                  key,
                              }: UploadOptions): Promise<UploadResponse> => {
     try {
+        debugger
         const response = await axiosPrivateFormData.post(url, myFormData);
 
+        debugger
         if (response.status === 200) {
             console.log(`${key} upload successful`, response.data);
             return response; // Assuming the backend returns data including an ID or file reference
@@ -28,6 +30,7 @@ export const upload = async ({
             return null;
         }
     } catch (error) {
+        toast("خطا در بارگزاری فایل")
         console.error(`Error uploading ${key}:`, error);
         return null;
     }
@@ -35,16 +38,16 @@ export const upload = async ({
 
 
 export async function uploadFileUtil(file: string | Blob, key: string, axiosPrivateFormData: AxiosInstance) {
-
+    debugger
     const myFormData = new FormData();
     // myFormData.append(key, file);
     myFormData.append("singleFile", file);
 
     myFormData.append("tag", key);
 
-
-    return await upload({axiosPrivateFormData, url: "/upload", myFormData, key})
-
+    const resultOfHere = await upload({axiosPrivateFormData, url: "/upload", myFormData, key})
+    debugger
+    return resultOfHere
     try {
         const response = await axiosPrivateFormData.post("/upload", myFormData,);
 
