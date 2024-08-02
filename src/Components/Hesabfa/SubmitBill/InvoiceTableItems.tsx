@@ -6,6 +6,7 @@ import {calculateSumOfEachRow} from "./functions.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import EmptyRow from "./EmptyRow.tsx";
+import InputDotToSlash from "./InputDotToSlash.tsx";
 
 
 const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => {
@@ -34,9 +35,9 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
     const handleQuantityChange = (id: number, valueHolder: string) => {
 
         // just let enter numbers and dot and numbers after dot
-        if (!(/^[0-9]*\.?[0-9]*$/.test(valueHolder))) {
-            return
-        }
+        // if (!(/^[0-9]*\.?[0-9]*$/.test(valueHolder))) {
+        //     return
+        // }
         setInvoice({
             InvoiceItems: calculateSumOfEachRow(invoice.InvoiceItems.map((t: any) => {
                 const row = {...t}
@@ -85,13 +86,21 @@ const InvoiceTableItems = ({invoiceItems, onDeleteRow, setInvoice, invoice}) => 
                                 </select> : row.Unit}
                             </li>
                             <li>
-                                <input
+                                <InputDotToSlash
                                     onClick={(e) => (e.target as HTMLInputElement).select()}
-                                    onChange={(e) => handleQuantityChange(row.Id, e.target.value)}
+                                    onChange={(myNewString) => handleQuantityChange(row.Id, myNewString)}
                                     className={'input__text__full'}
                                     type={'text'}
                                     value={(row.Quantity)}
-                                /></li>
+                                />
+                                {/*<input*/}
+                                {/*    onClick={(e) => (e.target as HTMLInputElement).select()}*/}
+                                {/*    onChange={(e) => handleQuantityChange(row.Id, e.target.value)}*/}
+                                {/*    className={'input__text__full'}*/}
+                                {/*    type={'text'}*/}
+                                {/*    value={(row.Quantity)}*/}
+                                {/*/>*/}
+                            </li>
                             <li>{formatNumber(row.UnitPrice)}</li>
                             <li>{formatNumber(row.Discount)}</li>
                             <li>{formatNumber(row.sum)}</li>
