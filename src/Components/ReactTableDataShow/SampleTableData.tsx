@@ -765,7 +765,7 @@ export const columns:any = [
 
     },
     // {accessorKey: 'DueDate', header: 'تاریخ سر رسید', id: 'DueDate', size: 150},
-    {accessorKey: 'ContactTitle', header: 'عنوان مشتری ', id: 'ContactTitle', size: 150},
+    {accessorKey: 'ContactTitle', header: 'عنوان مشتری ', id: 'ContactTitle', size: 250 , minSize:250, maxSize:'auto'},
     {
         accessorKey: 'orderNumber', header: 'کد سفارش', id: 'orderNumber', size: 250,
         cell: (value) => <ForwardOnClick
@@ -798,7 +798,7 @@ export const columns:any = [
             </span>
         </div>
     },
-    {accessorKey: 'Project', header: 'پروژه', id: 'Project', size: 150},
+    {accessorKey: 'Project', header: 'پروژه', id: 'Project', minSize: 150},
     {accessorKey: 'Sum', header: 'جمع فاکتور', id: 'Sum', size: 100},
     // {accessorKey: 'occupation', header: 'Occupation', id: 'occupation', size: 150},
     // {accessorKey: 'company', header: 'Company', id: 'company', size: 150},
