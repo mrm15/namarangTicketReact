@@ -11,7 +11,7 @@ const PrintComponent = ({ children, printButtonLabel = "Print", orientation = "p
     const myStyle = `
         @page {
             size: ${orientation};
-            margin: 20mm;
+            margin: 10mm;
         }
 
         @media print {
@@ -43,8 +43,8 @@ const PrintComponent = ({ children, printButtonLabel = "Print", orientation = "p
             }
 
             .printable-content {
-                margin-top: 25mm; /* space for header */
-                margin-bottom: 25mm; /* space for footer */
+                margin-top: 15mm; /* space for header */
+                margin-bottom: 15mm; /* space for footer */
             }
         }
     `;
