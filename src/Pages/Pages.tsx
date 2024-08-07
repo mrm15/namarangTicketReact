@@ -32,6 +32,8 @@ import HesabfaTest from "../Components/Test/HesabfaTest.tsx";
 import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
 import SubmitBill from "../Components/Hesabfa/SubmitBill/SubmitBill.tsx";
 import ReportBill from "../ReportBill/ReportBill.tsx";
+import TableG from "../Components/TableG/TableG.tsx";
+
 
 
 
@@ -176,6 +178,7 @@ const Pages = () => {
 
 
                         <Route path={'/reportBill'} element={<ReportBill/>}/>
+                        <Route path={'/sampleTable'} element={<TableG url={"/user/read"}/>}/>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
