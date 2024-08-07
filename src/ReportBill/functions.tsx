@@ -145,7 +145,7 @@ export const getDataFromHesabfaBasedOnFilterState = async (filterItems,myAxios)=
     const queryInfo = {
         SortBy: 'Date',
         SortDesc: true,
-        Take: 1000,
+        Take: 1500,
         Skip: 0,
         filters: filterItems
     }
