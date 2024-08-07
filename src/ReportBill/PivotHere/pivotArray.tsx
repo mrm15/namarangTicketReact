@@ -1,4 +1,4 @@
-export  const pivotArray = [
+export const pivotArray = [
     {
         caption: "اجرت ساخت",
         filterTextForPivot: [
@@ -11,29 +11,29 @@ export  const pivotArray = [
             // "اجرت ساخت نئون فلکس ( حروف آسان )",
             // "اجرت ساخت نئون فلکس ( حروف سخت )",
             // "اجرت ساخت نئون فلکس ( لوگو و طرح آسان )",
-        ] ,
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
     {
         caption: "ترانس",
-        filterTextForPivot:[
+        filterTextForPivot: [
             "ترانس 200وات",
             "ترانس 300وات",
             "ترانس 400وات",
 
         ],
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
-        showSubitems:true,
-        subRowKey : "myContactTitle",
-        subRowValue : "myQuantity"
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+        showSubitems: true,
+        subRowKey: "myContactTitle",
+        subRowValue: "myQuantity"
     },
     {
-        caption:"SMD",
-        filterTextForPivot:[
+        caption: "SMD",
+        filterTextForPivot: [
             "SMD آفتابی با سیم کشی و منگنه",
             "SMD سفید با سیم کشی و منگنه",
             "SMD قرمز با سیم کشی و منگنه",
@@ -43,13 +43,13 @@ export  const pivotArray = [
             "اینجکشن قرمز با سیم کشی و منگنه",
             "اینجکشن انبه ای با سیم کشی و منگنه",
         ],
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
     {
-        caption:"پلکسی",
-        filterTextForPivot:[
+        caption: "پلکسی",
+        filterTextForPivot: [
             "پلکسی آبی آسمانی 2.8 میل کد 835",
             "پلکسی آبی کاربنی 2.8 میل کد 327",
             "پلکسی پیلاری 2.8 میل کد 238",
@@ -68,13 +68,13 @@ export  const pivotArray = [
             "پی وی سی ده میل",
 
         ],
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
     {
-        caption:"چلنیوم",
-        filterTextForPivot:[
+        caption: "چلنیوم",
+        filterTextForPivot: [
             "چلنیوم  مشکی 9 سانت ساده",
             "چلنیوم  مشکی سوپر ساید",
             "چلنیوم سفید 9 سانت ساده",
@@ -90,17 +90,96 @@ export  const pivotArray = [
             "لبه سوئدی طلایی خشدار  7 سانت",
             "لبه سوئدی مشکی 7 سانت",
         ],
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
     {
-        caption:"ورق",
-        filterTextForPivot:["ورق استیل",],
-        myKey:"myItemName",
-        sumKey:"myTotalAmount",
-        countKey:"myQuantity",
+        caption: "لبه پلاستیک",
+        filterTextForPivot: [
+            "لبه پلاستیک"
+        ],
+        myKey: "myItemName",
+        showSubitems: true,
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
     },
+    {
+        caption: "ورق",
+        filterTextForPivot: [
+            // "ورق استیل طلایی",
+            // "ورق آهن",
+            // "ورق استیل نقره ای",
+            // "ورق استیل دودی",
+            // "ورق استیل مسی",
+            // "ورق مشکی 2.5 میل",
+            // "ورق مشکی ۲/۵ میل",
+            // "ورق دودی آینه ای 1 میل",
+            // "ورق دودی آینه ای ۱ میل",
+            // "ورق",
+            // "ورق",
+            'ورق آهن 1 یک میل ابعاد 120 * 240',
+            'ورق استیل طلایی آینه ای 7 دهم میل  کد 304 ابعاد 120*240',
+            'ورق استیل طلایی اینه ای 1 میل کد 304 ابعاد 120*240',
+            'ورق استیل طلایی خشدار 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل طلایی خشدار 1 میل کد 304 ابعاد 120*240',
+            'ورق استیل نقره ای آینه ای  7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل نقره ای اینه ای 1 میل کد 304 ابعاد 120*240',
+            'ورق استیل نقره ای خشدار 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل نقره ای خشدار  1 میل کد 304 ابعاد 120*240',
+            'ورق استیل دودی اینه ای 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل دودی اینه ای 1 میل کد 304 ابعاد 120*240',
+            'ورق استیل دودی خشدار 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل دودی خشدار  1 میل کد 304 ابعاد 120*240',
+            'ورق استیل مسی ( رزگلد ) اینه ای 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل مسی ( رزگلد ) اینه ای 1 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل مسی ( رزگلد ) خشدار 7 دهم میل کد 304 ابعاد 120*240',
+            'ورق استیل مسی ( رزگلد ) خشدار 1 میل کد 304 ابعاد 120*240',
+            'ورق آهن 1/5 یک و نیم میل ابعاد 120 * 240',
+            'ورق آهن 0/8 میل ابعاد 120*240',
+            'ورق 1 میل کالوانیزه',
+            'ورق 1.2 میل روغنی',
+            'ورق استیل طلایی آینه ای 0/5',
+            'ورق استیل طلایی خشدار 0/5',
+            'ورق استیل طلایی خشدار 0/6',
+            'ورق استیل دودی آینه ای 0/5',
+            'ورق مشکی 2/5 میل',
+            'ورق استیل نقره ای خشدار 0/5 دهم',
+            'ورق استیل عرض 1 cm',
+            'ورق استیل عرض 2 cm',
+            'ورق استیل عرض 3 cm',
+            'ورق استیل عرض 5 و 7 cm',
+            'ورق استیل عرض 7 cm',
+            'ورق استیل نقره ای آینه ای 0/5 میل',
+            'ورق استیل مسی خشدار /06 میل',
+            '000167 - ورق استیل دودی خشدار 5 دهم میل کد 304 ابعاد 120*240',
+            'ورق دودی آینه ای 1 میل',
+            'ورق آهن 1/25 یک و بیست و پنج میل ابعاد 120 * 240 -',
+            'ورق استیل مسی 0/6 دهم',
+            'ورق استیل مسی 0/6 دهم خشدار',
+            'ورق استیل طلایی 0/5 دهم',
+            'ورق استیل دودی خشدار 0/6 دهم',
+            'ورق آهن 2 دو میل ابعاد 120 * 240',
+            'ورق آهن 0.5  میل ابعاد 120 * 240',
+            'ورق استیل نقره ای خشدار 0/8 دهم',
+            'ورق استیل نقره ای آینه ای  6 دهم میل کد 304 ابعاد 120*240',
+
+        ],
+        myKey: "myItemName",
+        // showSubitems: true,
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "پی وی سی",
+        filterTextForPivot: [
+            "پی وی سی ده میل"
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+
 ]
 
 
@@ -207,6 +286,15 @@ export const ttt = [
             // "اجرت ساخت نئون فلکس ( لوگو و طرح آسان )",
             // "اجرت ساخت نئون فلکس ( لوگو و طرح سخت )",
             "اجرت ساخت نئون فلکس ",
+        ],
+        myKey: "myItemName",
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
+    {
+        caption: "لبه پلاستیک",
+        filterTextForPivot: [
+            "لبه پلاستیک"
         ],
         myKey: "myItemName",
         sumKey: "myTotalAmount",
