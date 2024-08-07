@@ -17,7 +17,7 @@ const LoadInTable = ({
                 <tr
                     className={"bg-gray-100 border-gray-700"}
                 >
-                    {singleRow.getVisibleCells().map((cell: any, index: React.Key) => (
+                    {singleRow?.getVisibleCells()?.map((cell: any, index: React.Key) => (
                         <td
                             key={index}
 
@@ -29,15 +29,16 @@ const LoadInTable = ({
                             {/*{flexRender(cell.column.columnDef.cell, cell.getContext())}*/}
                             <div
                                 style={{
-                                    padding: '0 3px',
-                                    // textAlign: "center",
+                                    // border: '1px solid #ededed',
+                                    padding: '8px',
                                     width: cell.column.getSize(), // Use column size
-                                    minWidth: cell?.column?.columnDef?.minSize+""  , // Use column minSize
-                                    maxWidth: cell?.column?.columnDef?.maxSize+""  , // Use column maxSize
+                                    minWidth: cell.column.columnDef.minSize+"", // Use column minSize
+                                    maxWidth: cell.column.columnDef.maxSize+"", // Use column maxSize
+                                    textAlign: "center",
                                     overflow:"hidden",
                                 }}
                             >
-                                111111111111111111111111111111111111111111111111111111
+                                ...
                             </div>
                             {/*&nbsp;&nbsp;*/}
 
