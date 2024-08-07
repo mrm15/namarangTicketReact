@@ -58,7 +58,7 @@ const ReactTableDataShow: React.FC<MyProps> = ({ data, columns, TableFilterSecti
                 {TableFilterSection && <TableFilterSection />}
                 {data.length!==0 && table.getRowModel().rows.map(row => (
                     <tr key={row.id}>
-                        {row.getVisibleCells().map(cell => (
+                        {row?.getVisibleCells()?.map(cell => (
                             <td
                                 key={cell.id}
                                 style={{
