@@ -14,12 +14,13 @@ const TableHeader = ({table}) => {
                         <th
                             key={index}
                             style={{
-                                padding: '0 3px',
+                                padding: '5px 3px',
                                 textAlign: "center",
-                                width: header.column.getSize(), // Use column size
-                                minWidth: header.column.columnDef.minSize, // Use column minSize
-                                maxWidth: header.column.columnDef.maxSize, // Use column maxSize
+                                width: header.column.getSize()+"", // Use column size
+                                minWidth: header.column.columnDef.minSize+"", // Use column minSize
+                                maxWidth: header.column.columnDef.maxSize+"", // Use column maxSize
                             }}
+                            className={"whitespace-nowrap"}
                         >
                             {flexRender(
                                 header.column.columnDef.header,
