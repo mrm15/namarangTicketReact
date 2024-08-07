@@ -8,7 +8,7 @@ const TableBody = ({table}) => {
         return <tr key={row.id}
                    className={`${isEven ? " bg-gray-50 border-b " : " bg-gray-100 border-gray-700"}`}
         >
-            {row.getVisibleCells().map((cell) => {
+            {row?.getVisibleCells()?.map((cell) => {
 
 
                     return <td
@@ -20,9 +20,11 @@ const TableBody = ({table}) => {
                             minWidth: cell.column.columnDef.minSize+"", // Use column minSize
                             maxWidth: cell.column.columnDef.maxSize+"", // Use column maxSize
                             textAlign: "center",
+                            overflow:"hidden",
+
                         }}
                     >
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        {flexRender(cell?.column?.columnDef?.cell, cell?.getContext())}
                     </td>
                 }
             )}
