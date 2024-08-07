@@ -15,7 +15,7 @@ const PivotsByData = () => {
             printButtonLabel={"چاپ"}
             orientation={"A4 landscape"}
         >
-                <div className={"flex flex-wrap gap-2 justify-center"}>
+                <div className={"flex flex-wrap gap-2 justify-start"}>
                     {pivotArray.map((row, index) => <SinglePivotData
                         key={index}
                         filterTextForPivot={row.filterTextForPivot}
@@ -26,8 +26,6 @@ const PivotsByData = () => {
                         caption={row.caption}
                         showSubitems={row.showSubitems}
                     />)}
-
-
                 </div>
         </PrintComponent>
     );
