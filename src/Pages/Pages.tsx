@@ -33,6 +33,8 @@ import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
 import SubmitBill from "../Components/Hesabfa/SubmitBill/SubmitBill.tsx";
 import ReportBill from "../ReportBill/ReportBill.tsx";
 import TableG from "../Components/TableG/TableG.tsx";
+import ListUsersG from "../Components/User/ListUsersG.tsx";
+import ListRolesG from "../Components/Role/ListRolesG.tsx";
 
 
 
@@ -82,13 +84,13 @@ const Pages = () => {
 
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={<AddUser/>}/>
-                            <Route path={PAGES.USER_LIST} element={<ListUsers/>}/>
+                            <Route path={PAGES.USER_LIST} element={<ListUsersG/>}/>
 
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.role}/>}>
                             <Route path={PAGES.ROLE_ADD_EDIT} element={<AddRole/>}/>
-                            <Route path={PAGES.ROLE_LIST} element={<ListRoles/>}/>
+                            <Route path={PAGES.ROLE_LIST} element={<ListRolesG/>}/>
 
                         </Route>
 
