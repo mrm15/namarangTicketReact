@@ -7,18 +7,22 @@ import TableBody from "./TableBody.tsx";
 import LoadInTable from "./LoadInTable.tsx";
 import { useNavigate } from "react-router-dom";
 import { findTableColumns } from "../findTableColumns/findTableColumns.tsx";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 
 const TableShowData = () => {
     const context = useContext(TableGContext);
-    const { myData } = context;
+    const { myData ,setMyData } = context;
 
     const navigateTo = useNavigate();
 
+    const myAxios = useAxiosPrivate()
     // Memoize columns to only change when URL changes
     const columns = useMemo(() => {
         return findTableColumns({
             url: myData.url,
             navigateTo,
+            myAxios,
+            setMyData,
         });
     }, [myData.url]);
 
