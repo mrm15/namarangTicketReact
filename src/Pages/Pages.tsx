@@ -35,6 +35,7 @@ import ReportBill from "../ReportBill/ReportBill.tsx";
 import TableG from "../Components/TableG/TableG.tsx";
 import ListUsersG from "../Components/User/ListUsersG.tsx";
 import ListRolesG from "../Components/Role/ListRolesG.tsx";
+import ListDepartmentG from "../Components/Department/ListDepartmentG.tsx";
 
 
 
@@ -96,7 +97,7 @@ const Pages = () => {
 
                         <Route element={<RequireAuth allowedRoles={ROLES.department}/>}>
                             <Route path={PAGES.DEPARTMENT_ADD_EDIT} element={<AddDepartment/>}/>
-                            <Route path={PAGES.DEPARTMENT_LIST} element={<ListDepartment/>}/>
+                            <Route path={PAGES.DEPARTMENT_LIST} element={<ListDepartmentG/>}/>
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.status}/>}>
