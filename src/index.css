@@ -10,19 +10,31 @@
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .btn-submit-mir {
     @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded hover:cursor-pointer;
 }
+
 .btn-gay-mir {
     @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
 }
+
 .btn-white-border-mir {
     @apply bg-white  text-black font-bold py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
 }
+
 .btn-into-aggrid {
     @apply bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold px-1 rounded inline-flex items-center;
 }
+
+.btn-blue-secondary {
+    @apply py-1 px-2 rounded-lg text-sm font-medium bg-teal-200 text-teal-800;
+}
+.btn-blue-secondary-delete {
+    @apply py-1 px-2 rounded-lg text-sm font-medium bg-red-200 text-teal-800;
+}
+
+
