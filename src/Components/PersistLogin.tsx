@@ -1,4 +1,4 @@
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useState, useEffect} from "react";
 import useRefreshToken from '../hooks/useRefreshToken';
 import useAuth from '../hooks/useAuth';
@@ -8,6 +8,7 @@ import {PAGES} from "../Pages/Route-string.tsx";
 
 const PersistLogin = () => {
 
+    const myLocation = useLocation()
     const navigateTo = useNavigate()
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
@@ -27,7 +28,7 @@ const PersistLogin = () => {
                 await refresh();
             } catch (err) {
                 console.log("رفرش توکن مورد تایید نیست.");
-                navigateTo(PAGES.LOGIN)
+                navigateTo(PAGES.LOGIN, {state:{from:myLocation}})
                 console.error(err);
             } finally {
                 isMounted && setIsLoading(false);
