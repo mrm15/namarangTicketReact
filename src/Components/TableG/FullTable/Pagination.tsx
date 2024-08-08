@@ -8,7 +8,6 @@ const Pagination = () => {
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
 
-    console.log(myData.reload)
 
     if (!context) {
         return <div>Error: Context is undefined</div>;
