@@ -11,7 +11,7 @@ try {
     console.log(test)
 } catch (error) {
     console.log(error)
-    debugger
+
 }
 export default axios.create({
     baseURL: BASE_URL
