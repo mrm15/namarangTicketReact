@@ -8,26 +8,24 @@ const TableBody = ({table}) => {
         return <tr key={row.id}
                    className={`${isEven ? " bg-gray-50 border-b " : " bg-gray-100 border-gray-700"}`}
         >
-            {row?.getVisibleCells()?.map((cell) => {
-
-
-                    return <td
-                        key={cell.id}
+            {row.getVisibleCells().map((cell,index) => {
+                const { columnDef } = cell.column;
+                return (
+                    <td
+                        key={index}
                         style={{
-                            // border: '1px solid #ededed',
                             padding: '8px',
                             width: cell.column.getSize(), // Use column size
-                            minWidth: cell.column.columnDef.minSize+"", // Use column minSize
-                            maxWidth: cell.column.columnDef.maxSize+"", // Use column maxSize
-                            textAlign: "center",
-                            overflow:"hidden",
-
+                            minWidth: columnDef.minWidth, // Use column minSize
+                            maxWidth: columnDef.maxWidth, // Use column maxSize
+                            textAlign: 'center',
+                            overflow: 'hidden',
                         }}
                     >
-                        {flexRender(cell?.column?.columnDef?.cell, cell?.getContext())}
+                        {flexRender(columnDef.cell, cell.getContext())}
                     </td>
-                }
-            )}
+                );
+            })}
         </tr>
     })
 
