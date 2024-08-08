@@ -1,6 +1,6 @@
-import {useRef, useState, useEffect} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import useAuth from '../hooks/useAuth';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useToggle from '../hooks/useToggle';
 
@@ -15,13 +15,12 @@ import {MdEdit} from "react-icons/md";
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
 
-const LoginSMS = () => {
-    // @ts-ignore
+const LoginSMS :React.FC = () => {
     const {setAuth} = useAuth();
     const navigateTo = useNavigate();
     const tryToRefresh = useRefreshToken()
-    // const from = location.state?.from?.pathname || PAGES.USER_ADD_EDIT;
-    const from =   PAGES.DASHBOARD ;
+    const myLocation = useLocation()
+    const from = myLocation?.state?.from?.pathname || PAGES.DASHBOARD;
     const userRef = useRef();
     const errRef = useRef();
     const [user, resetUser, userAttribs] = useInput('user', '')
@@ -35,7 +34,7 @@ const LoginSMS = () => {
      مقدار
      persist
      فالز بود ولی من اینو از عمد ترو میزارم تا همیشه توی ورود های بعدی
-      این تیک باشه و همیشه  تا وقتی کاربر خروج دستی نزده بود از سایت با رفرش خارج نشه
+      این تیک باشه و همیشه تا وقتی کاربر خروج دستی نزده بود از سایت با رفرش خارج نشه
      */
     const [check, toggleCheck] = useToggle('persist', true);
 
@@ -54,13 +53,18 @@ const LoginSMS = () => {
 
         try {
 
-            const response = await axios.post(LOGIN_URL,
-                JSON.stringify({phoneNumber: user ,secretMode}),
-                {
-                    headers: {'Content-Type': 'application/json'},
-                    // withCredentials: true
-                }
-            );
+            const loginPayload = {
+                phoneNumber: user,
+                secretMode,
+            };
+
+            const axiosConfig = {
+                headers: { 'Content-Type': 'application/json' },
+                // withCredentials: true, // Uncomment if needed
+            };
+
+            const response = await axios.post(LOGIN_URL, JSON.stringify(loginPayload), axiosConfig);
+
             console.log(response)
             if (response.data.status) {
                 toast.success(response?.data?.message)
@@ -91,14 +95,19 @@ const LoginSMS = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL_verify,
-                JSON.stringify({phoneNumber: user, loginCode: pwd , secretMode}),
-                {
-                    headers: {'Content-Type': 'application/json'},
-                    withCredentials: true,
+            const loginPayload = {
+                phoneNumber: user,
+                loginCode: pwd,
+                secretMode,
+            };
 
-                }
-            );
+            const axiosConfig = {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true,
+            };
+
+            const response = await axios.post(LOGIN_URL_verify, JSON.stringify(loginPayload), axiosConfig);
+
 
 
             const accessToken = response?.data?.accessToken;
@@ -129,16 +138,16 @@ const LoginSMS = () => {
         void tryToRefresh().then(r => {
             console.log(r)
             navigateTo(from)
-        }).catch(err => {
+        }).catch((err:Error) => {
             console.log(err?.toString())
             setIsLoading(false)
         })
-    }, []);
+    }, [from, navigateTo, tryToRefresh]);
 
     if (isLoading) {
         return <Loader/>
     }
-    const handleSecretMode = e => {
+    const handleSecretMode = (e: { detail: number; }) => {
         console.log(e.detail)
         if (e.detail === 3) {
             setSecretMode(true)
@@ -152,7 +161,7 @@ const LoginSMS = () => {
     return (<>
         <LoginRegisterParent>
             <section>
-                <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
+                <div ref={errRef} className={errMsg ? "myErrorMessageClass" : "offscreen"} aria-live="assertive">{errMsg}</div>
                 <h1
                     onClick={handleSecretMode}
                     className={"select-none"}
