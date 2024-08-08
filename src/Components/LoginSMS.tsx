@@ -1,6 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
 import useAuth from '../hooks/useAuth';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import useInput from '../hooks/useInput';
 import useToggle from '../hooks/useToggle';
 
@@ -21,7 +21,7 @@ const LoginSMS = () => {
     const navigateTo = useNavigate();
     const tryToRefresh = useRefreshToken()
     // const from = location.state?.from?.pathname || PAGES.USER_ADD_EDIT;
-    const from = PAGES.DASHBOARD;
+    const from =   PAGES.DASHBOARD ;
     const userRef = useRef();
     const errRef = useRef();
     const [user, resetUser, userAttribs] = useInput('user', '')
@@ -133,13 +133,14 @@ const LoginSMS = () => {
             console.log(err?.toString())
             setIsLoading(false)
         })
-    }, [from, navigateTo, tryToRefresh]);
+    }, []);
 
     if (isLoading) {
         return <Loader/>
     }
     const handleSecretMode = e => {
-        if (e.detail === 20) {
+        console.log(e.detail)
+        if (e.detail === 3) {
             setSecretMode(true)
             toast("حالت مخفی فعال شد")
         }
@@ -154,6 +155,7 @@ const LoginSMS = () => {
                 <div ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</div>
                 <h1
                     onClick={handleSecretMode}
+                    className={"select-none"}
                 >ورود به پنل نمارنگ</h1>
                 {sectionView === 'number' && <>
                   <form>
