@@ -39,10 +39,10 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
             cell: ({row}) => {
                 const handleEdit = () => {
                     console.log("Editing row:", row.original);
-                    navigateTo(PAGES.ROLE_ADD_EDIT, {state: {data: row.original}});
+                    navigateTo(PAGES.DEPARTMENT_ADD_EDIT, {state: {data: row.original}});
                 }
-                const handleDeleteRole = async (id: any) => {
-                    const url = 'role/delete/' + id
+                const handleDeleteDepartment = async (id: any) => {
+                    const url = 'department/delete/' + id
 
                     try {
                         const response = await myAxios.delete(url)
@@ -57,25 +57,25 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
                 }
 
 
-                const roleDeleteHandler = async () => {
+                const departmentDeleteHandler = async () => {
 
                     const data = row.original;
 
-                    const message = `آیا مطمئنی که میخوای نقش با شماره
-        ${data?.phoneNumber}
-        به صورت کامل برای همیشه از لیست نقش ها حذف کنی؟
+                    const message = `آیا مطمئنی که میخوای دپارتمان با 
+                            ${data?.name}
+                            به صورت کامل برای همیشه از لیست نقش ها حذف کنی؟
         `
                     const confirmResult1 = confirm(message)
                     if (confirmResult1) {
                         const message = ` برای بار دوم  عرض میکنم.  این فرآیند قابل برگشت نیست.
-            آیا مطمئنی که میخوای نقش با شماره
-        ${data?.phoneNumber}
+            آیا مطمئنی که میخوای دپارتمان با شماره
+        ${data?.name}
         به صورت کامل برای همیشه از لیست نقش ها حذف کنی؟
         `
                         const confirmResult2 = confirm(message)
                         if (confirmResult2) {
 
-                            await handleDeleteRole(data._id)
+                            await handleDeleteDepartment(data._id)
                         }
                     }
                 }
@@ -88,7 +88,7 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
                     <button
 
                         className={"btn-blue-secondary-delete"}
-                        onClick={roleDeleteHandler}>حذف
+                        onClick={departmentDeleteHandler}>حذف
                     </button>
                 </div>;
             }
