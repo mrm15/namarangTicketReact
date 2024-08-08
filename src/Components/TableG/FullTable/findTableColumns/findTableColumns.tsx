@@ -1,15 +1,21 @@
 import {userListTableColumns} from "./userListTableColumns";
 import {toast} from "react-toastify";
+import {roleListTableColumns} from "./roleListTableColumns.tsx";
+import {departmentListTableColumns} from "./departmentListTableColumns.tsx";
 
 // Define the interface for the input object
 export interface IInputObject {
     url: string;
     navigateTo: any; // Replace 'any' with the actual type if known
+    myAxios:any;
+    setMyData:any
 }
 
 // Update the mapping of URLs to functions that accept IInputObject
 const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     "/user/read": userListTableColumns,
+    "/role/read": roleListTableColumns,
+    "/department/read": departmentListTableColumns,
 
 }
 
