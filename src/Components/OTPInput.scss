@@ -1,0 +1,15 @@
+.otp-input {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  caret-color: transparent; // Hide the blinking curso;
+}
+
+.otp-input:focus {
+  border-color: #000000 !important; /* Change border color on focus */
+  //box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Add a subtle shadow on focus */
+}
+
