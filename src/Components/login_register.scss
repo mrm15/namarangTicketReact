@@ -1,44 +1,74 @@
 .register__page {
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  //background-color: #f0f4f8;
 
   section {
     width: 100%;
-    max-width: 420px;
-    min-height: 400px;
+    max-width: 450px;
+    min-height: 450px;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 1rem;
-    background-color: rgb(68, 156, 230);
-    border-radius: 10px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     flex-grow: 1;
     padding-bottom: 1rem;
   }
-
 
   input,
   input[type="text"],
   input[type="password"],
   button,
   textarea {
-    font-size: 22px;
-    padding: 0.25rem;
+    font-size: 18px;
+    padding: 0.75rem;
     border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease;
   }
 
-  label,
-  button {
-    margin-top: 1rem;
+  input:focus,
+  input[type="text"]:focus,
+  input[type="password"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+  }
+
+
+
+  label {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 0.5rem;
   }
 
   button {
-    padding: 0.5rem;
+    padding: 0.75rem;
+    background-color: #0073e6;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #005bb5;
   }
 
   li {
@@ -46,17 +76,18 @@
   }
 
   .instructions {
-    font-size: 0.75rem;
+    font-size: 14px;
     border-radius: 0.5rem;
-    background: #000;
-    color: #fff;
-    padding: 0.25rem;
-    position: relative;
-    bottom: -10px;
+    background: #000000;
+    color: #000;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
   }
 
   .instructions > svg {
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
   }
 
   .offscreen {
@@ -80,15 +111,31 @@
   }
 
   .myErrorMessageClass {
-    background-color: lightpink;
-    color: firebrick;
+    background-color: #ffccd5;
+    color: #b22222;
     font-weight: bold;
-    padding: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
   }
 
   .line {
     display: inline-block;
+    margin-top: 1rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .line a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+
+  .line a:hover {
+    color: #ffd700;
   }
 
   .flexGrow {
@@ -98,23 +145,23 @@
     align-items: flex-end;
   }
 
-
   .persistCheck {
-    font-size: 0.75rem;
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
+    font-size: 14px;
+    //margin-top: 10px;
+    //display: flex;
+    //justify-content: flex-start;
+    //align-items: flex-end;
   }
 
   .persistCheck label {
-    margin: 0;
+    color: #000;
+    margin-right:5px ;
   }
 
   [type="checkbox"] {
-    height: 20px;
-    width: 20px;
-    margin: 0 5px 2px 2px;
+    height: 15px;
+    width: 15px;
+    //margin: 0 5px 2px 2px;
   }
 
 
