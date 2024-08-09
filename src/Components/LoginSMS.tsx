@@ -11,25 +11,28 @@ import {PAGES} from "../Pages/Route-string.tsx";
 import useRefreshToken from "../hooks/useRefreshToken.tsx";
 import Loader from "./Loader";
 import {MdEdit} from "react-icons/md";
+import OTPInput from "./OTPInput.tsx";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
 
-const LoginSMS :React.FC = () => {
+const LoginSMS: React.FC = () => {
     const {setAuth} = useAuth();
     const navigateTo = useNavigate();
     const tryToRefresh = useRefreshToken()
     const myLocation = useLocation()
     const from = myLocation?.state?.from?.pathname || PAGES.DASHBOARD;
     const userRef = useRef();
+    const enterLoginCodeRef = useRef();
     const errRef = useRef();
     const [user, resetUser, userAttribs] = useInput('user', '')
     const [pwd, setPwd] = useState('');
+    const [OTPInputLength, setOTPInputLength] = useState(4);
     const [errMsg, setErrMsg] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     // بخش ورود شماره نشون داده بشه یا بخش ورود کدپیامکی
     const [sectionView, setSectionView] = useState('number') // number | code
-    const [secretMode,setSecretMode] = useState(false)
+    const [secretMode, setSecretMode] = useState(false)
     /*
      مقدار
      persist
@@ -47,10 +50,27 @@ const LoginSMS :React.FC = () => {
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
+    useEffect(() => {
+        if (sectionView === 'code') {
+            if (enterLoginCodeRef?.current)
+                { // @ts-ignore
+                    enterLoginCodeRef?.current?.focus();
+                }
+            if (userRef.current)
+                { // @ts-ignore
+                    userRef?.current?.focus();
+                }
+
+        }
+    }, [sectionView]);
 
     const sendLoginCode = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
+        if(user.length!==11){
+            setErrMsg("شماره تماس باید 11 رقم باشد")
+            return
+        }
         try {
 
             const loginPayload = {
@@ -59,13 +79,13 @@ const LoginSMS :React.FC = () => {
             };
 
             const axiosConfig = {
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 // withCredentials: true, // Uncomment if needed
             };
 
             const response = await axios.post(LOGIN_URL, JSON.stringify(loginPayload), axiosConfig);
 
-            console.log(response)
+
             if (response.data.status) {
                 toast.success(response?.data?.message)
                 response?.data?.text && toast.info(response?.data?.text)
@@ -102,12 +122,11 @@ const LoginSMS :React.FC = () => {
             };
 
             const axiosConfig = {
-                headers: { 'Content-Type': 'application/json' },
+                headers: {'Content-Type': 'application/json'},
                 withCredentials: true,
             };
 
             const response = await axios.post(LOGIN_URL_verify, JSON.stringify(loginPayload), axiosConfig);
-
 
 
             const accessToken = response?.data?.accessToken;
@@ -138,11 +157,11 @@ const LoginSMS :React.FC = () => {
         void tryToRefresh().then(r => {
             console.log(r)
             navigateTo(from)
-        }).catch((err:Error) => {
+        }).catch((err: Error) => {
             console.log(err?.toString())
             setIsLoading(false)
         })
-    }, [from, navigateTo, tryToRefresh]);
+    }, []);
 
     if (isLoading) {
         return <Loader/>
@@ -151,21 +170,28 @@ const LoginSMS :React.FC = () => {
         console.log(e.detail)
         if (e.detail === 3) {
             setSecretMode(true)
+            setOTPInputLength(8)
             toast("حالت مخفی فعال شد")
         }
-        if(secretMode && e.detail===4){
+        if (secretMode && e.detail === 4) {
             setSecretMode(false)
+            setOTPInputLength(4)
             toast("حالت مخفی غیر فعال شد")
         }
     }
+
+    const handleOtpChange = (value: string) => {
+        setPwd(value);
+    };
     return (<>
         <LoginRegisterParent>
             <section>
-                <div ref={errRef} className={errMsg ? "myErrorMessageClass" : "offscreen"} aria-live="assertive">{errMsg}</div>
+                <div ref={errRef} className={errMsg ? "myErrorMessageClass" : "offscreen"}
+                     aria-live="assertive">{errMsg}</div>
                 <h1
                     onClick={handleSecretMode}
-                    className={"select-none"}
-                >ورود به پنل نمارنگ</h1>
+                    className={"select-none font-bold my-2"}
+                >ورود به پنل کاربری نمارنگ</h1>
                 {sectionView === 'number' && <>
                   <form>
                     <label htmlFor="username">شماره موبایل:</label>
@@ -186,16 +212,6 @@ const LoginSMS :React.FC = () => {
                     </button>
 
 
-                    <div className="persistCheck">
-                      <input
-
-                        type="checkbox"
-                        id="persist"
-                        onChange={toggleCheck}
-                        checked={check}
-                      />
-                      <label htmlFor="persist">اعتماد به این دستگاه</label>
-                    </div>
                   </form>
                 </>}
 
@@ -217,37 +233,40 @@ const LoginSMS :React.FC = () => {
 
 
                     <label htmlFor="password">کد ورود:</label>
-                    <input
-                      type="number"
-                      id="password"
-                      onChange={(e) => setPwd(e.target.value)}
-                      value={pwd}
-                      required
-                    />
+                    {/*<input*/}
+                    {/*  type="number"*/}
+                    {/*  id="password"*/}
+                    {/*  onChange={(e) => setPwd(e.target.value)}*/}
+                    {/*  value={pwd}*/}
+                    {/*  ref={enterLoginCodeRef}*/}
+                    {/*  required*/}
+                    {/*/>*/}
+                    <OTPInput length={OTPInputLength} onChange={handleOtpChange} />
                     <button
                       onClick={handleSubmit}
                       className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
                     >ورود به سایت
                     </button>
-                    <div className="persistCheck">
-                      <input
 
+                  </form>
+
+                </>}
+                <div className="persistCheck select-none">
+                    <input
                         type="checkbox"
                         id="persist"
                         onChange={toggleCheck}
                         checked={check}
-                      />
-                      <label htmlFor="persist">اعتماد به این دستگاه</label>
-                    </div>
-                  </form>
-                </>}
+                    />
+                    <label htmlFor="persist">اعتماد به این دستگاه</label>
+                </div>
 
 
                 <div>
                     اگر حساب کاربری ندارید<br/>
                     <span className="line">
                     <Link to="/register">
-                        <div className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}>
+                        <div className={'text-black font-bold py-2 px-4 rounded-full'}>
                             ثبت نام در سایت
                         </div>
                     </Link>
