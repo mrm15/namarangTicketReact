@@ -1,5 +1,6 @@
-import React, {useEffect, useRef, useState} from 'react';
-import "./OTPInput.scss"
+import React, { useEffect, useRef, useState } from 'react';
+import "./OTPInput.scss";
+
 interface OTPInputProps {
     length: number;
     onChange: (otp: string) => void;
@@ -8,11 +9,13 @@ interface OTPInputProps {
 const OTPInput: React.FC<OTPInputProps> = ({ length, onChange }) => {
     const [otp, setOtp] = useState<string[]>(Array(length).fill(''));
     const inputsRef = useRef<HTMLInputElement[]>([]);
+
     useEffect(() => {
         if (inputsRef.current[0]) {
             inputsRef.current[0].focus(); // Focus on the first input field when the component mounts
         }
     }, []);
+
     const handleChange = (value: string, index: number) => {
         if (/^[0-9]$/.test(value) || value === '') {
             const newOtp = [...otp];
@@ -34,14 +37,19 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, onChange }) => {
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (e.key === 'Backspace' && otp[index] === '' && index > 0) {
+            const newOtp = [...otp];
+            newOtp[index - 1] = ''; // Clear the value of the previous input
+            setOtp(newOtp);
             inputsRef.current[index - 1].focus();
+            onChange(newOtp.join(''));
         }
+
+        
     };
 
     return (
         <div className={"ltr flex justify-center"}>
-            <div style={{display: 'flex', gap: '10px'}}
-            >
+            <div style={{ display: 'flex', gap: '10px' }}>
                 {Array(length)
                     .fill(0)
                     .map((_, index) => (
@@ -55,12 +63,10 @@ const OTPInput: React.FC<OTPInputProps> = ({ length, onChange }) => {
                             onChange={(e) => handleChange(e.target.value, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
                             ref={(el) => (inputsRef.current[index] = el!)}
-
                         />
                     ))}
             </div>
         </div>
-
     );
 };
 
