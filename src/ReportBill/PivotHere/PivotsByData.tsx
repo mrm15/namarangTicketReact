@@ -3,7 +3,6 @@ import {ReportBillContext} from "../ReportBillContext.tsx";
 import SinglePivotData from "./SinglePivotData.tsx";
 import PrintComponent from "../../Components/PrintComponent/PrintComponent.tsx";
 import {pivotArray} from "./pivotArray.tsx";
-import DownloadPDF from "../../Components/PrintComponent/DownloadPdf/DownloadPDF.tsx";
 
 const PivotsByData = () => {
 
