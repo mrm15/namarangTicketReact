@@ -36,6 +36,8 @@ import TableG from "../Components/TableG/TableG.tsx";
 import ListUsersG from "../Components/User/ListUsersG.tsx";
 import ListRolesG from "../Components/Role/ListRolesG.tsx";
 import ListDepartmentG from "../Components/Department/ListDepartmentG.tsx";
+import AdminReport from "../Components/AdminReport/AdminReport.tsx";
+import AdminReportCP from "../Components/AdminReport/AdminReportCP.tsx";
 
 
 
@@ -181,6 +183,7 @@ const Pages = () => {
 
 
                         <Route path={'/reportBill'} element={<ReportBill/>}/>
+                        <Route path={'/adminReport'} element={<AdminReportCP/>}/>
                         <Route path={'/sampleTable'} element={<TableG url={"/user/read"}/>}/>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
