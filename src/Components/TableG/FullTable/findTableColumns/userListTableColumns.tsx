@@ -1,14 +1,91 @@
 import React from "react";
 import {IInputObject} from "./findTableColumns.tsx";
+import {toast} from "react-toastify";
+import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
+import {PAGES} from "../../../../Pages/Route-string.tsx";
+import EditButton from "../../../../assets/icons/EditButton.tsx";
+import DeleteButton from "../../../../assets/icons/DeleteButton.tsx";
+
 
 export const userListTableColumns = (inputs: IInputObject) => {
-    const {url, navigateTo} = inputs
+    const {url, navigateTo, myAxios, setMyData} = inputs
     return [
         // {accessorKey: '_id', header: 'ID'},
         // {accessorKey: 'userName', header: 'User Name'},
         // {accessorKey: 'departmentId', header: 'Department ID'},
         // {accessorKey: 'role', header: 'Role'},
-        {accessorKey: 'rowNumber', header:   'ردیف' , minWidth: 50, maxWidth:50 ,size: 50},
+        {accessorKey: 'rowNumber', header: 'ردیف', minWidth: 50, maxWidth: 50, size: 50},
+        {
+            accessorKey: 'edit', header: 'عملیات',
+            // size: 60,
+            minWidth: 100,
+            cell: ({row}) => {
+
+                const handleDeleteUser = async (id: any) => {
+                    const url = 'user/delete/' + id
+
+                    try {
+
+                        const response = await myAxios.delete(url)
+                        if (response?.data) {
+
+                            toast.success(response?.data?.message)
+                            setMyData({reload:randomNumberGenerator()})
+                        }
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+                const deleteButtonHandler = async () => {
+
+                    const data = row.original;
+
+                    const message = `آیا مطمئنی که میخوای کاربر با شماره
+        ${data?.phoneNumber}
+        به صورت کامل برای همیشه از لیست کاربر ها حذف کنی؟
+        `
+                    const confirmResult1 = confirm(message)
+                    if (confirmResult1) {
+                        const message = ` برای بار دوم  عرض میکنم.  این فرآیند قابل برگشت نیست.
+            آیا مطمئنی که میخوای کاربر با شماره
+        ${data?.phoneNumber}
+        به صورت کامل برای همیشه از لیست کاربر ها حذف کنی؟
+        `
+                        const confirmResult2 = confirm(message)
+                        if (confirmResult2) {
+
+                            await handleDeleteUser(data._id)
+                        }
+                    }
+                }
+
+                const editButtonHandler = () => {
+
+                    const data = row.original
+                    navigateTo(PAGES.USER_ADD_EDIT, {state: {data}})
+                }
+
+
+                return <>
+
+                    <div className={'flex flex-wrap gap-1 items-center justify-center'}>
+                        <button
+                            onClick={() => editButtonHandler()}
+                        >
+                            <EditButton/>
+                        </button>
+                        <button
+                            onClick={() => deleteButtonHandler()}
+
+                            className={'text-red-600'}>
+
+                            <DeleteButton/>
+                        </button>
+                    </div>
+
+                </>
+            }
+        },
         {accessorKey: 'accountingCode', header: 'کدحسابداری'},
         {accessorKey: 'company', header: 'شرکت'},
         {accessorKey: 'title', header: 'عنوان'},
