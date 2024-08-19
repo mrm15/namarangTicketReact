@@ -1,5 +1,5 @@
-import {IInvoice, IInvoiceItem, IOther} from "./initialData.tsx";
-import {addRowIdtoTable, dateFromHesabfaToTimeStamp} from "../../../utils/utilsFunction.tsx";
+import {IInvoice, IInvoiceItem} from "./initialData.tsx";
+import {addRowIdtoTable} from "../../../utils/utilsFunction.tsx";
 
 export const calculateSumOfEachRow = (newInvoiceItems) => {
 
@@ -74,29 +74,77 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
     return myData
 
 }
-export const detectTag = ({exceptionArray = [], auth = {}, lastTag = `{}`, ticketNumber}) => {
+export type myTagObjectType = {
+    n: string; // نام مشتری
+    tn: string;// شماره تیکت مشتری
+    bs: string;// وضعیت بسته بندی
+    ss: string; // وضعیت ارسال
+
+}
+
+export const makeEmptyTagObject = () => {
+
+    const tagObject: myTagObjectType = {
+        n: "",
+        tn: "",
+        bs: "",
+        ss: "",
+    };
+    return tagObject
+}
+export const detectTag = ({exceptionArray = [], auth = {}, lastTag = undefined, ticketNumber}) => {
+
     // @ts-ignore
     const {userInfo} = auth || {};
     const {userData} = userInfo || {};
-    const {name = "نام مشتری", departmentId} = userData || {};
-    if (lastTag === "") {
-        lastTag = `{}`
-    }
-    let myNewTag = {n: "", tn: ""};
-    try {
-        myNewTag = JSON.parse(lastTag)
-    } catch (error) {
-        console.log(error.toString())
-    }
-    myNewTag.n = name
-    myNewTag.tn = ticketNumber
+    const {name = "نام مشتری", departmentId} = userData;
+    // اول یک تگ خالی ایجاد میکنم و بعدش پرش میکنم با اطلاعات تگ قبلی
+    const myNewTag = makeEmptyTagObject();
 
-    const resultAfter = JSON.stringify(myNewTag)
+    if (lastTag) {
 
-    if (exceptionArray.length === 0) {
-        return resultAfter;
+        let tempTag;
+        try {
+            tempTag = JSON.parse(lastTag);
+        } catch (error) {
+            console.log(error)
+        }
+
+        myNewTag.n = exceptionArray.includes(departmentId) ? (tempTag?.n || "ندارد") : name;
+        myNewTag.tn = ticketNumber;
+        return JSON.stringify(myNewTag)
+
+
+    } else {
+        myNewTag.n = name;
+        myNewTag.tn = ticketNumber || "ندارد";
+        return JSON.stringify(myNewTag)
     }
 
-    return exceptionArray.includes(departmentId) ? lastTag : resultAfter;
+
+    // Check the conditions related to exceptionArray first
+    // if (exceptionArray.length && exceptionArray.includes(departmentId)) {
+    //     return lastTag || `{}`;
+    // }
+    //
+    // if (lastTag === "") {
+    //     lastTag = `{}`
+    // }
+    // let myNewTag = {n: "", tn: ""};
+    // try {
+    //     myNewTag = JSON.parse(lastTag)
+    // } catch (error) {
+    //     console.log(error.toString())
+    // }
+    // myNewTag.n = name
+    // myNewTag.tn = ticketNumber
+    //
+    // const resultAfter = JSON.stringify(myNewTag)
+    //
+    // if (exceptionArray.length === 0) {
+    //     return resultAfter;
+    // }
+    //
+    // return exceptionArray.includes(departmentId) ? lastTag : resultAfter;
 
 };
