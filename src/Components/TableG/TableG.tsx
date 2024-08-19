@@ -66,7 +66,7 @@ const TableG = ({ url = "/user/read" }) => {
     return (
         <TableGContext.Provider value={{ myData, setMyData }}>
             <div>
-                <button onClick={loaderHandle}>loader</button>
+                {/*<button onClick={loaderHandle}>loader</button>*/}
                 <FullTable />
             </div>
         </TableGContext.Provider>
