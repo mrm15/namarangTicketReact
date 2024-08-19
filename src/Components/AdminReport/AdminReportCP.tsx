@@ -5,15 +5,24 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {getDataFromHesabfaBasedOnFilterState} from "../../ReportBill/functions.tsx";
 import AdminReport from "./AdminReport.tsx";
 import {AdminReportContextType, ImyDataAdminReport} from "./myTypes.tsx";
+import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
 
 const AdminReportCP = () => {
-
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todayFormatted = formatDateForBackend(today);
 
     const [myData, setMyData] = useObjectDataHolder<ImyDataAdminReport>({
         titleData: [],
-        detailsData:[],
+        detailsData: [],
         reload: "",
-        filterItems: undefined,
+        filterItems: [
+            {
+                Property: 'Date',
+                Operator: '=',
+                Value: todayFormatted,
+            },
+        ],
         isLoading: true,
     })
 
