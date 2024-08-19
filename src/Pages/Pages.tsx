@@ -184,7 +184,6 @@ const Pages = () => {
 
                         <Route path={'/reportBill'} element={<ReportBill/>}/>
                         <Route path={'/adminReport'} element={<AdminReportCP/>}/>
-                        <Route path={'/sampleTable'} element={<TableG url={"/user/read"}/>}/>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
