@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
 import MyDatePicker from "../MyDatePicker";
 import {
-    formatDateForBackend, getCurrentDate, persianDateToTimestamp,
+    convertPersianDateToTimestamp,
+    formatDateForBackend, getCurrentDate,
     randomNumberGenerator,
     timestampToFormattedDateToSendHesabfa,
-    timestampToTimeFromHesabfa
 } from "../../utils/utilsFunction.tsx";
 import {AdminReportContext} from "./AdminReportContext.tsx";
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
@@ -12,51 +12,32 @@ import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 const AdminReportFilter = () => {
 
     const context = useContext(AdminReportContext);
-    const {myData, setMyData} = context;
-    const getTodayReport = () => {
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const todayFormatted = formatDateForBackend(today);
-        setMyData({
-            filterItems:
-                [
-                    {
-                        Property: 'Date',
-                        Operator: '=',
-                        Value: todayFormatted,
-                    },
-                ],
-            reload: randomNumberGenerator(),
-        })
-    }
+    const { setMyData} = context;
     const [filterDateDate, setFilterDateDate] = useObjectDataHolder({
         singleDate: getCurrentDate(),
         startDate: "",
         endDate: "",
     })
-    const changeSingleDate = (selectedDate) => {
 
-        console.log(timestampToTimeFromHesabfa)
-        console.log(timestampToFormattedDateToSendHesabfa)
-        console.log(persianDateToTimestamp)
-        // changeDateHandler(selectedDate, 'Date')
-        debugger
+    const handleChaneDate =(selectedDate) => {
+
         setFilterDateDate({singleDate: selectedDate})
 
-        const todayFormatted = formatDateForBackend(selectedDate);
+        const backEnfFormat = convertPersianDateToTimestamp(selectedDate);
+
+        const temp22= timestampToFormattedDateToSendHesabfa(backEnfFormat)
+
         setMyData({
             filterItems:
                 [
                     {
                         Property: 'Date',
                         Operator: '=',
-                        Value: selectedDate,
+                        Value: temp22,
                     },
                 ],
             reload: randomNumberGenerator(),
         })
-
-
     }
 
 
@@ -64,25 +45,20 @@ const AdminReportFilter = () => {
         return (
             <div className={"flex flex-wrap gap-1"}>
 
-                <button
+                {/*<button*/}
 
-                    onClick={getTodayReport}
-                > امروز
-                </button>
+                {/*    onClick={getTodayReport}*/}
+                {/*> امروز*/}
+                {/*</button>*/}
 
 
                 <div className={'div__group__input_select'}>
-                    <label htmlFor=""> تاریخ </label>
+                    <label htmlFor=""> انتخاب تاریخ </label>
                     {/*<input className={'ltr'} type="text" value={timestampToTimeFromHesabfa(invoice.Date)} disabled={true}/>*/}
 
                     <MyDatePicker
                         value={(filterDateDate.singleDate)}
-                        onChange={(selectedDate) => {
-
-                            setFilterDateDate({singleDate: selectedDate})
-
-                            // changeDateHandler(selectedDate, 'singleDate')
-                        }}
+                        onChange={handleChaneDate}
 
                     />
                 </div>
