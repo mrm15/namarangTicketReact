@@ -1,6 +1,6 @@
 import numeric from "./NumericFunction.tsx";
 import moment from 'moment-jalaali';
-import {excelExport} from "./excelExport.tsx";
+import jalaali from 'jalaali-js';
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -293,6 +293,20 @@ export const formatDateForBackend = (date: Date) => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}T00:00:00`;
 };
+
+export const convertPersianDateToTimestamp=(persianDate) => {
+    // Split the date string into parts
+    const [year, month, day] = persianDate.split('/').map(Number);
+
+    // Convert the Persian date to Gregorian
+    const { gy, gm, gd } = jalaali.toGregorian(year, month, day);
+
+    // Create a new Date object using the Gregorian date
+    const gregorianDate = new Date(gy, gm - 1, gd);
+
+    // Get the timestamp
+    return gregorianDate.getTime();
+}
 
 
 
