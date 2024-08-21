@@ -40,8 +40,6 @@ import AdminReport from "../Components/AdminReport/AdminReport.tsx";
 import AdminReportCP from "../Components/AdminReport/AdminReportCP.tsx";
 
 
-
-
 const Pages = () => {
 
 
@@ -58,9 +56,8 @@ const Pages = () => {
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
                 <Route path={PAGES.SMS} element={<SendSms/>}/>
 
-                <Route path={`${PAGES.showBill}/`} element={<ShowBill />}/>
-                <Route path={`${PAGES.showBill}/:factorNumber`} element={<ShowBill />}/>
-
+                <Route path={`${PAGES.showBill}/`} element={<ShowBill/>}/>
+                <Route path={`${PAGES.showBill}/:factorNumber`} element={<ShowBill/>}/>
 
 
                 {/* pages all people can see and need sidebar */}
@@ -117,73 +114,64 @@ const Pages = () => {
                             <Route path={PAGES.ticket_Create} element={<TicketCreate/>}/>
                             {/* ticketReadOwn تیکت هایی که خودم فرستادم رو ببینم */}
 
-                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readSentTickets'}  />}/>
+                            <Route path={PAGES.ticket_own_sent} element={<TicketRead view={'readSentTickets'}/>}/>
                         </Route>
 
 
                         {/* ticket readAll for Admin */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
-                            <Route path={PAGES.ticket_Read_All} element={<TicketRead view={'read'} />} />
+                            <Route path={PAGES.ticket_Read_All} element={<TicketRead view={'read'}/>}/>
                         </Route>
                         {/* - که هم در پارتمان من هستند و هم من بهشون دسترسی دارم -   آخرین تیکت های دریافتی */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketInput}/>}>
-                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTickets'}  />}/>
+                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTickets'}/>}/>
                         </Route>
 
                         {/* -تمام تیکت هایی که من بهشون دسترسی دارم */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwnReceived}/>}>
-                            <Route path={PAGES.ticket_read_my_all_tickets} element={<TicketRead view={'readMyAllTickets'}  />}/>
+                            <Route path={PAGES.ticket_read_my_all_tickets}
+                                   element={<TicketRead view={'readMyAllTickets'}/>}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}>
-                            <Route path={PAGES.ticket_read_department_tickets} element={<TicketRead view={'readDepartmentTickets'}  />}/>
+                            <Route path={PAGES.ticket_read_department_tickets}
+                                   element={<TicketRead view={'readDepartmentTickets'}/>}/>
                         </Route>
-
-
-
 
 
                         {/* TicketChatList */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketRepliesCreate}/>}>
-                            <Route path={PAGES.ticket_chat_list} element={<TicketChatList />}/>
+                            <Route path={PAGES.ticket_chat_list} element={<TicketChatList/>}/>
                         </Route>
 
                         <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
                             <Route path={'hesabfaTest'} element={<HesabfaTest/>}/>
-                            <Route path={PAGES.admin_settings} element={<AddSettings />}/>
+                            <Route path={PAGES.admin_settings} element={<AddSettings/>}/>
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.smsArchive}/>}>
-                            <Route path={PAGES.sms_archive} element={<ShowSmsList type={"archive"} />}/>
-                        </Route>
-                        <Route element={<RequireAuth allowedRoles={ROLES.smsPending}/>}>
-                            <Route path={PAGES.sms_pending} element={<ShowSmsList type={"pending"} />}/>
-                        </Route>
-                        <Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>
-                            <Route path={PAGES.sms_send} element={<SendSmsForm />}/>
-                        </Route>
-                        <Route element={<RequireAuth allowedRoles={[...ROLES.submitBillInSubmitOrderForm , ...ROLES.submitBillInChatList]}/>}>
-                            <Route path={PAGES.submit_bill} element={<SubmitBill />}/>
-                        </Route>
-
-                        {/*<Route element={<RequireAuth allowedRoles={ROLES.showBillAccess}/>}>*/}
-                        {/*    <Route path={`${PAGES.showBill}/`} element={<ShowBill />}/>*/}
-                        {/*    <Route path={`${PAGES.showBill}/:factorNumber`} element={<ShowBill />}/>*/}
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.smsArchive}/>}>*/}
+                        {/*    <Route path={PAGES.sms_archive} element={<ShowSmsList type={"archive"} />}/>*/}
                         {/*</Route>*/}
-
-                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.role]}/>}>*/}
-                        {/*    <Route path={PAGES.LIST_USER_PANEL} element={<ListUsers/>}/>*/}
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.smsPending}/>}>*/}
+                        {/*    <Route path={PAGES.sms_pending} element={<ShowSmsList type={"pending"} />}/>*/}
                         {/*</Route>*/}
-
-                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>*/}
-                        {/*    <Route path={PAGES.ADD_NEW_ROLE_TO_PANEL} element={<AddUser/>}/>*/}
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.smsSend}/>}>*/}
+                        {/*    <Route path={PAGES.sms_send} element={<SendSmsForm />}/>*/}
                         {/*</Route>*/}
-                        {/*<Route element={<RequireAuth allowedRoles={[ROLES.addUserAccess]}/>}>*/}
-                        {/*    <Route path={PAGES.LIST_ROLE_PANEL} element={<ListUsers/>}/>*/}
-                        {/*</Route>*/}
+                        <Route element={<RequireAuth
+                            allowedRoles={[...ROLES.submitBillInSubmitOrderForm, ...ROLES.submitBillInChatList]}/>}>
+                            <Route path={PAGES.submit_bill} element={<SubmitBill/>}/>
+                        </Route>
 
 
-                        <Route path={'/reportBill'} element={<ReportBill/>}/>
-                        <Route path={'/adminReport'} element={<AdminReportCP/>}/>
+                        <Route element={<RequireAuth allowedRoles={ROLES.showReportBillList}/>}>
+                            <Route path={'/reportBill'} element={<ReportBill/>}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.adminReport}/>}>
+                            <Route path={PAGES.adminReport} element={<AdminReportCP/>}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.basted_bandi_ersal}/>}>
+                            <Route path={PAGES.basted_bandi_ersal} element={<AdminReportCP/>}/>
+                        </Route>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
 
