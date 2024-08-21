@@ -104,6 +104,9 @@ export const ROLES = {
     deleteBill:['deleteBill'],
     editBillInChatList:['editBillInChatList'],
     allContactsWhenSubmitBill:['allContactsWhenSubmitBill'],
+    showReportBillList:["showReportBillList"],
+    adminReport:["adminReport"],
+    basted_bandi_ersal:["basteBandi","ersal"],
 
 
 
