@@ -71,6 +71,26 @@ const Home = () => {
     const menus: MenuType = [
         {name: "داشبورد", link: '/', icon: MdOutlineDashboard, margin: false, showItem: true,},
         {
+            name: "گزارش مدیر",
+            link: PAGES.adminReport,
+            icon: RiBillLine,
+            showItem: roleAccessList?.includes('adminReport'),
+        },
+        {
+            name: "لیست فاکتور",
+            link: PAGES.reportBill,
+            icon: RiBillLine,
+            showItem: roleAccessList?.includes('showReportBillList'),
+        },
+        {
+            name: "بسته بندی ارسال",
+            link: PAGES.basted_bandi_ersal,
+            icon: RiBillLine,
+            showItem: (roleAccessList?.includes('basteBandi') || roleAccessList?.includes('ersal')),
+        },
+
+
+        {
             name: "افزودن کاربر",
             link: PAGES.USER_ADD_EDIT,
             icon: IoPersonAddSharp,
@@ -169,26 +189,26 @@ const Home = () => {
             showItem: roleAccessList?.includes('adminSettings'),
         },
         //
-        {
-            name: "آرشیو پیام",
-            link: PAGES.sms_archive,
-            icon: FaMessage,
-            showItem: roleAccessList?.includes('smsArchive'),
-        },
-        {
-            name: "پیامک های در انتظار",
-            link: PAGES.sms_pending,
-            icon: FaMessage,
-            showItem: roleAccessList?.includes('smsPending'),
-        },
-        {name: "ارسال پیام", link: PAGES.sms_send, icon: FaMessage, showItem: roleAccessList?.includes('smsSend'),},
+        // {
+        //     name: "آرشیو پیام",
+        //     link: PAGES.sms_archive,
+        //     icon: FaMessage,
+        //     showItem: roleAccessList?.includes('smsArchive'),
+        // },
+        // {
+        //     name: "پیامک های در انتظار",
+        //     link: PAGES.sms_pending,
+        //     icon: FaMessage,
+        //     showItem: roleAccessList?.includes('smsPending'),
+        // },
+        // {name: "ارسال پیام",
+        //     link: PAGES.sms_send,
+        //     icon: FaMessage,
+        //     showItem: roleAccessList?.includes('smsSend'),
+        // },
         //
-        {
-            name: "لیست فاکتور",
-            link: PAGES.reportBill,
-            icon: RiBillLine,
-            showItem: roleAccessList?.includes('sellBill'),
-        },
+        //
+
         //
 
 
