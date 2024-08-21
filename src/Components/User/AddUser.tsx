@@ -15,7 +15,7 @@ const AddUser = () => {
     const myLocation = useLocation();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const editMode = !!myLocation?.state?.data;
-    const formUniqId = myLocation?.state?.data?.id
+    const formUniqId = myLocation?.state?.data?._id
 
     const text = {
         title: editMode ? 'ویرایش کاربر' : 'افزودن کاربر جدید',
