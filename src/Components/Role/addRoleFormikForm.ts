@@ -82,8 +82,8 @@ const dropdownOptions = [
     {value: 'howManyTicketsHasDoneStatus', key: "تیکت هایی که انجام شدن"},
     {value: 'howManyTicketsHasDoneStatusIn12Month', key: "تعداد تیکت هایی که توی 12 ماهه گذشته انجام شدن"},
     {value: 'sendHiddenMessage', key: "بتونه توی سازمان بین کارمندا تیکت مخفی بفرسته، و باید پیامک هم ارسال نشه"},
-    {value: 'smsArchive', key: "دسترسی به آرشیو پیامک ها"},
-    {value: 'smsPending', key: "پیامک های در انتظار"},
+    // {value: 'smsArchive', key: "دسترسی به آرشیو پیامک ها"},
+    // {value: 'smsPending', key: "پیامک های در انتظار"},
     {value: 'smsSend', key: "ارسال دستی پیامک"},
     // دسترسی های فاکتور برای حسابفا
     {value: 'showBillAccess', key: "مشاهده فاکتور"},
@@ -96,7 +96,10 @@ const dropdownOptions = [
     {value: 'editBillInChatList', key: " ویرایش فاکتور در چت لیست  "},
     {value: 'deleteBill', key: "حذف یک فاکتور"},
     {value: 'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور"},
-    {value: 'sellBill', key: "دسترسی به لیست فاکتور فروش"},
+    {value: 'showReportBillList', key: "لیست فاکتور فروش و گرفتن پیوت و اکسل"},
+    {value: 'adminReport', key: "گزارش مدیریتی"},
+    {value: 'basteBandi', key: "دسترسی به فاکتور ها برای بسته بندی"},
+    {value: 'ersal', key: "دسترسی به فاکتور ها برای ارسال"},
     // report widget
     // widgetTotalBillsLast3Days
     // widgetUserStatus
