@@ -44,6 +44,8 @@ export const PAGES = {
     submit_bill:"/submit-bill",
     ////////////////////////////////////
     reportBill:"/reportBill",
+    basted_bandi_ersal:"/pack-send",
+    adminReport:"/adminReport",
     ////////////////////////////////
 
 
