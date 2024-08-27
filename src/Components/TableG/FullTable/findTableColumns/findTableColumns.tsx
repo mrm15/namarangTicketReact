@@ -2,6 +2,7 @@ import {userListTableColumns} from "./userListTableColumns";
 import {toast} from "react-toastify";
 import {roleListTableColumns} from "./roleListTableColumns.tsx";
 import {departmentListTableColumns} from "./departmentListTableColumns.tsx";
+import {BasteBandiErsal} from "./BasteBandiErsal.tsx";
 
 // Define the interface for the input object
 export interface IInputObject {
@@ -16,6 +17,7 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     "/user/read": userListTableColumns,
     "/role/read": roleListTableColumns,
     "/department/read": departmentListTableColumns,
+    "/hesabfa/getBillListData": BasteBandiErsal,
 
 }
 
@@ -28,7 +30,7 @@ export const findTableColumns = (inputObject: IInputObject) => {
     if (getColumns) {
         return getColumns(inputObject);
     } else {
-        console.error(`No columns found for URL: ${url}`);
+        console.error(`واسه این آدرس ستون تعریف نشده هنوز!: ${url}`);
         toast.error("ستون های این جدول یافت نشد")
         return [];
     }
