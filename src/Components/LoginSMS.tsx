@@ -67,14 +67,15 @@ const LoginSMS: React.FC = () => {
     const sendLoginCode = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        if(user.length!==11){
+        const tempUser = user.replaceAll(" ","")
+        if(tempUser.length!==11){
             setErrMsg("شماره تماس باید 11 رقم باشد")
             return
         }
         try {
 
             const loginPayload = {
-                phoneNumber: user,
+                phoneNumber: tempUser,
                 secretMode,
             };
 
@@ -115,8 +116,10 @@ const LoginSMS: React.FC = () => {
         e.preventDefault();
 
         try {
+            const tempUser = user.replaceAll(" ","")
+
             const loginPayload = {
-                phoneNumber: user,
+                phoneNumber: tempUser,
                 loginCode: pwd,
                 secretMode,
             };
@@ -196,6 +199,7 @@ const LoginSMS: React.FC = () => {
                   <form>
                     <label htmlFor="username">شماره موبایل:</label>
                     <input
+                      className={"ltr"}
                       type="text"
                       id="username"
                       ref={userRef}
