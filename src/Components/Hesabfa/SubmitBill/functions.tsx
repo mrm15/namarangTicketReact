@@ -78,17 +78,24 @@ export type myTagObjectType = {
     n: string; // نام مشتری
     tn: string;// شماره تیکت مشتری
     bs: string;// وضعیت بسته بندی
-    ss: string; // وضعیت ارسال
+    db:string; // تاریخ بسته بندی
+    ss: string; // وضعیت ارسال3
+    ds:string; // تاریخ ارسال
+
+
+
 
 }
 
 export const makeEmptyTagObject = () => {
 
     const tagObject: myTagObjectType = {
+        db: "",
         n: "",
         tn: "",
         bs: "",
         ss: "",
+        ds:"",
     };
     return tagObject
 }
