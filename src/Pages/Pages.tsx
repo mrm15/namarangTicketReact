@@ -38,6 +38,7 @@ import ListRolesG from "../Components/Role/ListRolesG.tsx";
 import ListDepartmentG from "../Components/Department/ListDepartmentG.tsx";
 import AdminReport from "../Components/AdminReport/AdminReport.tsx";
 import AdminReportCP from "../Components/AdminReport/AdminReportCP.tsx";
+import PackSend from "../Components/PackSend/PackSend.tsx";
 
 
 const Pages = () => {
@@ -170,7 +171,7 @@ const Pages = () => {
                             <Route path={PAGES.adminReport} element={<AdminReportCP/>}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.basted_bandi_ersal}/>}>
-                            <Route path={PAGES.basted_bandi_ersal} element={<AdminReportCP/>}/>
+                            <Route path={PAGES.basted_bandi_ersal} element={<PackSend/>}/>
                         </Route>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
