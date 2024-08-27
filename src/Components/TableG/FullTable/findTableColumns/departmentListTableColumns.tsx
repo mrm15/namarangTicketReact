@@ -9,7 +9,7 @@ import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 
 const NameShow = ({info}) => {
 
-    return <>{info.getValue() + " 1"}</>
+    return <>{info.getValue()  }</>
 }
 // Define the columns with the appropriate structure
 export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => {
@@ -101,6 +101,8 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
 
             // cell: info => <>{info.getValue()}</>,
             cell: (info) => {
+                debugger
+
                 return <NameShow {...inputs} info={info}/>
             },
             enableColumnFilter: true, // Enable column filtering
