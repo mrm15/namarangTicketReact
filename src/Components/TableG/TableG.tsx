@@ -13,7 +13,7 @@ const TableG = ({ url = "/user/read" }) => {
         numberOfRows: 5,
         columns: [],
         tableData: [],
-        filter: [],
+        filters: [],
         totalRows: 75,
         reload: "",
         isLoading: false,
@@ -34,7 +34,7 @@ const TableG = ({ url = "/user/read" }) => {
             const data = {
                 page: myData.pageNumber,
                 pageSize: myData.numberOfRows,
-                filters: myData.filter,
+                filters: myData.filters,
             };
 
             try {
