@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {
     FaUserPlus,
@@ -89,6 +89,7 @@ const Home = () => {
     ]
 
     const whichShow = ((randomNumberGenerator() * 10 - 500) > 0) ? 1 : 0
+    const navigateTo = useNavigate()
     try {
         return (
             <section>
@@ -108,12 +109,25 @@ const Home = () => {
                     {/*<Link to="/lounge">صفحه گپ الکی</Link>*/}
                     {/*<Link to="/linkpage">صفحه ی لینک های مفید سایت</Link>*/}
                 </div>
+                <div>
+                    <button
 
+                        className={"btn-white-border-mir"}
+                        onClick={()=>{
+                            navigateTo(PAGES.adminReport)
+                        }}
+
+                    >
+                        مشاهده گزارش مدیریتی
+                    </button>
+
+                </div>
 
                 <div className={'flex flex-wrap gap-4'}>
 
-                    {reportArrayQuery?.data?.data?.reportData?.map(rowData=><ShowSingleReport {...rowData} />)}
-                    {/*<MyLineChart />*/}
+                    {/*{reportArrayQuery?.data?.data?.reportData?.map(rowData=><ShowSingleReport {...rowData} />)}*/}
+
+
                     {whichShow === 1 && <>
                         {shortcuts.map((row, index) => {
                             return <div
