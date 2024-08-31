@@ -11,7 +11,7 @@ export interface IMyData {
     currentPage: number;
     numberOfRows: number;
     tableData: any[];
-    filter: any[];
+    filters: any[];
     totalRows: number;
     reload: string;
     isLoading: boolean;
