@@ -100,6 +100,7 @@ const dropdownOptions = [
     {value: 'adminReport', key: "گزارش مدیریتی"},
     {value: 'basteBandi', key: "دسترسی به فاکتور ها برای بسته بندی"},
     {value: 'ersal', key: "دسترسی به فاکتور ها برای ارسال"},
+    {value: 'hasAccessToUnCheckedSendPackages', key: "تغییر وضعیت سفارش به ارسال نشده!!!"},
     // report widget
     // widgetTotalBillsLast3Days
     // widgetUserStatus
