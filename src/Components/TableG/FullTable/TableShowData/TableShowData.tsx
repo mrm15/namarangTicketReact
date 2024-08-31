@@ -23,6 +23,8 @@ const TableShowData = () => {
             navigateTo,
             myAxios,
             setMyData,
+            myData
+
         });
     }, [myData.url]);
 
