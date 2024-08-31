@@ -2,7 +2,7 @@ import {userListTableColumns} from "./userListTableColumns";
 import {toast} from "react-toastify";
 import {roleListTableColumns} from "./roleListTableColumns.tsx";
 import {departmentListTableColumns} from "./departmentListTableColumns.tsx";
-import {BasteBandiErsal} from "./BasteBandiErsal.tsx";
+import {BasteBandiErsal} from "./BasteBandiErsal/BasteBandiErsal.tsx";
 
 // Define the interface for the input object
 export interface IInputObject {
@@ -10,6 +10,7 @@ export interface IInputObject {
     navigateTo: any; // Replace 'any' with the actual type if known
     myAxios:any;
     setMyData:any
+    myData:any
 }
 
 // Update the mapping of URLs to functions that accept IInputObject
