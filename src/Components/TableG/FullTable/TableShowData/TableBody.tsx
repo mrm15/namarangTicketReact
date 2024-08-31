@@ -18,7 +18,8 @@ const TableBody = ({table}) => {
                             width: cell.column.getSize(), // Use column size
                             minWidth: columnDef.minWidth, // Use column minSize
                             maxWidth: columnDef.maxWidth, // Use column maxSize
-                            textAlign: 'center',
+                            // textAlign: 'center',
+                            textAlign: columnDef.textAlign,
                             overflow: 'hidden',
                         }}
                     >
