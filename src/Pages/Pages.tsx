@@ -165,7 +165,7 @@ const Pages = () => {
 
 
                         <Route element={<RequireAuth allowedRoles={ROLES.showReportBillList}/>}>
-                            <Route path={'/reportBill'} element={<ReportBill/>}/>
+                            <Route path={PAGES.reportBill} element={<ReportBill/>}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.adminReport}/>}>
                             <Route path={PAGES.adminReport} element={<AdminReportCP/>}/>
