@@ -7,7 +7,6 @@ const ShowSingleReport = (props:any) => {
     if(props?.type==="reChart"){
 
         return   <>
-            {JSON.stringify(props)}
 
 
             <MyLineChart
