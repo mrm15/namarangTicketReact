@@ -78,7 +78,7 @@ const HeaderDashboard = () => {
                             &nbsp;
                             عزیز
                         </div>
-                        {showUserStatus && <UserStatus/>}
+                        {showUserStatus ? <UserStatus/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
 
                     </div>
                     <ProfileInHeader/>
