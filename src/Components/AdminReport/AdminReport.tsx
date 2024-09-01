@@ -40,7 +40,7 @@ const AdminReport = () => {
     }
 
     return (
-        <div>
+        <div className={"fontSize075rem"}>
             <AdminReportFilter/>
             {
                 !myData.isLoading ?

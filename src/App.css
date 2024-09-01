@@ -105,6 +105,9 @@ html {
 .fontSize22 {
     font-size: 22px !important;
 }
+.fontSize075rem {
+    font-size: 0.75rem !important;
+}
 .ltr {
     direction: ltr;
 }
