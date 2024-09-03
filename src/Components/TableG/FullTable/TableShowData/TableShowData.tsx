@@ -13,7 +13,7 @@ const TableShowData = () => {
     const context = useContext(TableGContext);
     const { myData ,setMyData } = context;
 
-    const navigateTo = useNavigate();
+    const navigateTo = useNavigate()
 
     const myAxios = useAxiosPrivate()
     // Memoize columns to only change when URL changes
@@ -52,13 +52,13 @@ const TableShowData = () => {
     });
 
     const myWindowsSize = useWindowSize();
-    const parentTableWidth = myWindowsSize.widthWindowSize - 150;
+    // const parentTableWidth = myWindowsSize.widthWindowSize - 150;
 
     try {
         return (
             <div
                 style={{
-                    width: parentTableWidth,
+                    // width: parentTableWidth,
                     overflowX: "scroll",
                 }}
                 className={"relative overflow-x-auto shadow-md sm:rounded-lg my-3 fontSize8"}
@@ -72,7 +72,7 @@ const TableShowData = () => {
                         <LoadInTable
                             columnsLength={columns.length}
                             loadingSection={loadingSection}
-                            parentTableWidth={parentTableWidth}
+                            // parentTableWidth={parentTableWidth}
                             table={table}
                         />
                     )}
