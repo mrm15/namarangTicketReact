@@ -33,6 +33,7 @@ const Register = () => {
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
+        // @ts-ignore
         userRef.current.focus();
     }, [])
 
@@ -85,6 +86,7 @@ const Register = () => {
             } else {
                 setErrMsg('ثبت نام انجام نشد!!')
             }
+            // @ts-ignore
             errRef.current.focus();
         }
     }
