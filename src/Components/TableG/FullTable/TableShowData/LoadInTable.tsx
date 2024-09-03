@@ -5,7 +5,7 @@ import {flexRender} from "@tanstack/react-table";
 const LoadInTable = ({
                          columnsLength,
                          loadingSection,
-                         parentTableWidth,
+
                          table
 
                      }) => {
@@ -52,7 +52,7 @@ const LoadInTable = ({
                     >
                         <div style={{
                             height: loadingSection.height,
-                            width: parentTableWidth + 100
+                            // width: parentTableWidth + 100
                         }}
                              className={"  overflow-hidden000"}>
                             <Loader3/>
