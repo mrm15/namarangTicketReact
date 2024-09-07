@@ -1,5 +1,6 @@
 import {calculatePivot} from "./pivotFunction.tsx";
 import {formatFloat, formatNumber} from "../../utils/utilsFunction.tsx";
+import {Fragment} from "react";
 
 const SinglePivotData = ({
                              caption,
@@ -47,8 +48,8 @@ const SinglePivotData = ({
 
 
                     if (showSubitems) {
-                        return <>
-                            <tr key={index}>
+                        return <Fragment key={index}>
+                            <tr >
 
                                 {/*<td className={' border px-1  whitespace-nowrap  fontSize10 font-medium text-gray-900'}>{index + 1}</td>*/}
                                 <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row[myKey]}</td>
@@ -65,7 +66,7 @@ const SinglePivotData = ({
                                 {/*<td className={' border px-1  whitespace-nowrap fontSize8 font-medium text-gray-900'}>{formatNumber(subRow[sumKey])}</td>*/}
                                 <td className={' border px-1  whitespace-nowrap fontSize8 font-medium text-gray-900'}>{formatFloat(subRow[subRowValue])}</td>
                             </tr>)}
-                        </>
+                        </Fragment>
                     } else {
                         return <tr key={index}>
 
