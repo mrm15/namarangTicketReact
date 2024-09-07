@@ -3,6 +3,7 @@ import {ReportBillContext} from "../ReportBillContext.tsx";
 import SinglePivotData from "./SinglePivotData.tsx";
 import PrintComponent from "../../Components/PrintComponent/PrintComponent.tsx";
 import {pivotArray} from "./pivotArray.tsx";
+import {HandleExcelFile} from "./HandleExcelFile.tsx";
 
 const PivotsByData = () => {
 
@@ -10,10 +11,17 @@ const PivotsByData = () => {
     const {awesomeData, setAwesomeData} = t
 
     return (
-        <PrintComponent
-            printButtonLabel={"چاپ"}
-            orientation={"A4 landscape"}
-        >
+        <div>
+            <button
+                onClick={() => HandleExcelFile(awesomeData.totalData)}
+                className={"btn-red-border-mir"}
+            >
+                دریافت فایل اکسل خروجی
+            </button>
+            <PrintComponent
+                printButtonLabel={"چاپ"}
+                orientation={"A4 landscape"}
+            >
                 <div className={"flex flex-wrap gap-2 justify-start"}>
                     {pivotArray.map((row, index) => <SinglePivotData
                         key={index}
@@ -26,7 +34,9 @@ const PivotsByData = () => {
                         showSubitems={row.showSubitems}
                     />)}
                 </div>
-        </PrintComponent>
+            </PrintComponent>
+
+        </div>
     );
 };
 
