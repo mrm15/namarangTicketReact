@@ -33,6 +33,7 @@ export interface IInvoiceItem {
 
 // Define the Invoice interface
 export interface IInvoice {
+    Contact: any;
     Number: string;
     ContactTitle: string;
     Reference: string;
