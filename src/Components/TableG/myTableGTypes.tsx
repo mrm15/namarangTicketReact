@@ -1,12 +1,14 @@
 import { ColumnDef } from '@tanstack/react-table';
 import React from "react";
 
-// Define the column type with the appropriate generics
-export type ICustomColumn = ColumnDef<any>;
+// Use intersection to add the `hidden` property to `ColumnDef`
+export type ICustomColumn<TData = any> = ColumnDef<TData> & {
+    hidden?: boolean; // Optional hidden property
+};
 
 export interface IMyData {
     url: string;
-    columns: ICustomColumn[];
+    columns: ICustomColumn[]; // Use the updated ICustomColumn type
     pageNumber: number;
     currentPage: number;
     numberOfRows: number;
