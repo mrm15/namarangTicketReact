@@ -58,6 +58,7 @@ const SubmitBill = () => {
 
 
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
+            Contact:{},
             Number: componentInfo.billNumber + "",
             ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
             Reference: '',
