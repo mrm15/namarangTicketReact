@@ -2,7 +2,7 @@ import {userListTableColumns} from "./userListTableColumns";
 import {toast} from "react-toastify";
 import {roleListTableColumns} from "./roleListTableColumns.tsx";
 import {departmentListTableColumns} from "./departmentListTableColumns.tsx";
-import {BasteBandiErsal} from "./BasteBandiErsal/BasteBandiErsal.tsx";
+import {FullBillData} from "./BasteBandiErsal/FullBillData.tsx";
 
 // Define the interface for the input object
 export interface IInputObject {
@@ -18,7 +18,7 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     "/user/read": userListTableColumns,
     "/role/read": roleListTableColumns,
     "/department/read": departmentListTableColumns,
-    "/hesabfa/getBillListData": BasteBandiErsal,
+    "/hesabfa/getBillListData": FullBillData,
 
 }
 
