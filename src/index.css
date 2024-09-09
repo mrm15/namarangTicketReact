@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+/*@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");*/
 
 @tailwind base;
 @tailwind components;
@@ -12,6 +12,7 @@
 body {
     margin: 0;
     min-height: 100vh;
+    font-size: 0.75rem;
 }
 
 .btn-submit-mir {
@@ -19,14 +20,14 @@ body {
 }
 
 .btn-gay-mir {
-    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
+    @apply bg-gray-500 hover:bg-gray-700 text-white  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
 }
 
 .btn-white-border-mir {
-    @apply bg-white  text-black font-bold py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
+    @apply bg-white  text-black  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
 }
 .btn-red-border-mir {
-    @apply bg-red-600  text-white font-bold py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
+    @apply bg-red-600  text-white  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
 }
 
 .btn-into-aggrid {
@@ -38,6 +39,18 @@ body {
 }
 .btn-blue-secondary-delete {
     @apply py-1 px-2 rounded-lg text-sm font-medium bg-red-200 text-teal-800;
+}
+
+.btn-small-edit {
+    @apply bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 text-xs border border-yellow-600 rounded hover:cursor-pointer;
+}
+
+.btn-small-delete {
+    @apply bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 text-xs border border-red-600 rounded hover:cursor-pointer;
+}
+
+.btn-small-show {
+    @apply bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 text-xs border border-green-600 rounded hover:cursor-pointer;
 }
 
 
