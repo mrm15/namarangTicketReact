@@ -6,6 +6,9 @@ import useAuth from "../../../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
 import {toast} from "react-toastify";
 import ErsalInPackSendTable from "./ErsalInPackSendTable.tsx";
+import {PAGES} from "../../../../../Pages/Route-string.tsx";
+import ForwardOnClick from "../../../../../ReportBill/ForwardOnClick.tsx";
+import DeleteBill from "./DeleteBill.tsx";
 
 const SendStatus = ({
                         info,
@@ -29,6 +32,7 @@ const SendStatus = ({
 
     const rnd = randomNumberGenerator().toString()
 
+    const billNumber = info?.row?.original?.Number
     const handleChangePack = async (e) => {
         const orderName = info?.row?.original?.ContactTitle;
         let statusNumber: number | string = "";
@@ -47,7 +51,7 @@ const SendStatus = ({
             // اینجا حالتیه که چک رو برداشته و اگه دسترسی به حالت قبل برگرداندن داره اجاره داره از اینجا ب بعد ادامه پیدا کنه
             // اگه دسترسی نداره همینجا ریترن میکنم
             const hasAccessToUnCheckedSendPackages = auth?.userInfo?.roleAccessList?.includes(ROLES.hasAccessToUnCheckedSendPackages[0])
-            if(!hasAccessToUnCheckedSendPackages){
+            if (!hasAccessToUnCheckedSendPackages) {
                 toast.dismiss()
                 toast.error("شما مجوز تغییر سفارش به حالت ارسال نشده را ندارید.")
                 return;
@@ -75,8 +79,17 @@ const SendStatus = ({
     }
 
 
-   const hasAccessBastebandi = auth?.userInfo?.roleAccessList?.includes("basteBandi")
-   const hasAccessErsal = auth?.userInfo?.roleAccessList?.includes("ersal")
+    const hasAccessBastebandi = auth?.userInfo?.roleAccessList?.includes("basteBandi")
+    const hasAccessErsal = auth?.userInfo?.roleAccessList?.includes("ersal")
+    const hasAccessVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
+    const hasAccessDraftBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDraft[0])
+
+
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    // const accessToEditBill = roleAccessList.includes(ROLES.editBillInChatList[0])
+    const accessToDeleteBill = roleAccessList.includes(ROLES.deleteBill[0])
+
+
     return (
         <div className={" flex flex-wrap items-center gap-1 w-32"}>
             {hasAccessBastebandi && <div className={" flex items-center"}>
@@ -88,13 +101,37 @@ const SendStatus = ({
               />
               <label htmlFor={rnd}>بسته بندی</label>
             </div>}
-            {hasAccessErsal &&<div>
+            {hasAccessErsal && <div>
               <ErsalInPackSendTable
                 info={info}
                 sendStatus={sendStatus}
                 setMyData={setMyData}
               />
             </div>}
+            {(hasAccessVerifyBill || hasAccessDraftBill) &&
+              <div className={"flex flex-wrap gap-1"}>
+                <div className={"btn-small-show"}>
+                  <a target={"_blank"} href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>
+                </div>
+                <div className={"btn-small-edit"}>
+                  <ForwardOnClick
+                    value={billNumber} NewPage={PAGES.submit_bill}
+                    options={{
+                        state: {
+                            data: {billNumber: billNumber}
+                        }
+                    }}
+                  />
+                </div>
+              </div>
+            }
+            {accessToDeleteBill &&
+              <DeleteBill
+                setMyData={setMyData}
+                billNumber={billNumber}
+                info={info}
+              />
+            }
 
 
         </div>
