@@ -91,7 +91,7 @@ const SendStatus = ({
 
 
     return (
-        <div className={" flex flex-wrap items-center gap-1 w-32"}>
+        <div className={"flex flex-wrap items-center gap-1 "}>
             {hasAccessBastebandi && <div className={" flex items-center"}>
               <input
                 id={rnd}
@@ -102,11 +102,11 @@ const SendStatus = ({
               <label htmlFor={rnd}>بسته بندی</label>
             </div>}
             {hasAccessErsal && <div>
-              <ErsalInPackSendTable
-                info={info}
-                sendStatus={sendStatus}
-                setMyData={setMyData}
-              />
+              {/*<ErsalInPackSendTable*/}
+              {/*  info={info}*/}
+              {/*  sendStatus={sendStatus}*/}
+              {/*  setMyData={setMyData}*/}
+              {/*/>*/}
             </div>}
             {(hasAccessVerifyBill || hasAccessDraftBill) &&
               <div className={"flex flex-wrap gap-1"}>
