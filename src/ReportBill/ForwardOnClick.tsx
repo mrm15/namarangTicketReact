@@ -7,9 +7,9 @@ const ForwardOnClick = ({value, NewPage, options}) => {
     const navigateTo = useNavigate();
     try {
         return <div
-            className={"text-blue-600 cursor-pointer"}
             onClick={() => navigateTo(NewPage, options)}>
-            {value}
+            {/*{value}*/}
+            ویرایش
         </div>
     } catch (error) {
         return <>{error.toString()}</>
