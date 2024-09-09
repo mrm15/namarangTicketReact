@@ -1,5 +1,4 @@
 import "./loader2.scss"
-import {string} from "yup";
 
 interface Loader2Props {
     text?: string
