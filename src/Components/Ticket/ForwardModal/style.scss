@@ -1,15 +1,8 @@
 .ticket__show__in__modal {
-
-
   ul {
     display: flex;
-    &:first-child{font-weight: bold; border-top:1px solid #a3b4eb; }
-    &:last-child{border-bottom:1px solid #a3b4eb; }
-    &:nth-child(odd){background-color: #dbe0f3;}
     li {
-      &:first-child {width: 50px;}
       border-right: 1px solid #a3b4eb;
-      &:last-child{ border-left: 1px solid #a3b4eb; }
       padding-right: 5px;
       text-align: right;
       width: 150px;
@@ -17,6 +10,11 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
+      &:last-child{ border-left: 1px solid #a3b4eb; }
+      &:first-child {width: 50px;}
     }
+    &:first-child{font-weight: bold; border-top:1px solid #a3b4eb; }
+    &:last-child{border-bottom:1px solid #a3b4eb; }
+    &:nth-child(odd){background-color: #dbe0f3;}
   }
 }
