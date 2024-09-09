@@ -49,7 +49,10 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
         toast.dismiss(tId)
 
         if (result.status === 200) {
-            toast.success('فاکتور ثبت شد')
+
+            // const text = newStatus ===0 ? "پیش نویس " : "تایید"
+            // toast.success("فاکتور "+`«${text}»` + "شد ")
+            toast.success(result?.data?.message)
             navigateTo(-1)
         }
     }
