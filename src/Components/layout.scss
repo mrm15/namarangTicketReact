@@ -30,3 +30,22 @@
   //}
 
 }
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: auto 1fr; // Sidebar 250px, Main content takes remaining space
+  height: 100vh; // Full-height layout
+  overflow: hidden;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.main-dashboard {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
