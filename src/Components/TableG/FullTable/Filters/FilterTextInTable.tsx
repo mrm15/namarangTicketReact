@@ -8,7 +8,9 @@ import {
 } from "../../../../utils/utilsFunction.tsx";
 import MyDatePicker from "../../../MyDatePicker";
 
-const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filterType=""}) => {
+const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filterType="",
+                           optionsForSelectOption=[{key:"تایید شده",value:"1"}],
+                           }) => {
 
     const [query, setQuery] = useState('');
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
@@ -88,9 +90,22 @@ const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filter
         </div>
 
     }
+    if(filterType==="select") {
+        return <div className={" m-1"}>
+
+            <select
+            onChange={handleChangeFilter}
+            value={query}
+            >
+                <option value="">انتخاب کنید</option>
+                {optionsForSelectOption.map(row=><option value={row.value}>{row.key}</option>)}
+            </select>
+
+        </div>
+    }
 
     return (
-        <div className={"bg-amber-300 m-1"}>
+        <div className={" m-1"}>
             <input
                 className={" rounded p-2 outline-0 w-full"}
                 type={"text"}
