@@ -184,9 +184,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <div>عملیات</div>
             </div>,
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 250,
+            minSize: 250,
+            maxSize: 250,
             cell: (cellInfo) => {
                 return <SendStatus  {...inputs} info={cellInfo}/>
             }
