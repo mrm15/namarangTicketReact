@@ -13,6 +13,7 @@ import Num2persian from 'num2persian';
 import MyDatePicker from "../../MyDatePicker";
 import numeric from "../../../utils/NumericFunction.tsx";
 import {IProjectList} from "./initialData.tsx";
+import contactNumber from "../../TableG/FullTable/findTableColumns/BasteBandiErsal/ContactNumber.tsx";
 
 
 const BillInvoice = ({
@@ -21,7 +22,7 @@ const BillInvoice = ({
                          initialBillData,
                      }) => {
 
-
+    const ContactMobile = invoice?.Contact?.Mobile;
     const onDeleteRow = (id: any) => {
         if (!id) {
             return
@@ -178,10 +179,17 @@ const BillInvoice = ({
                             disabled={true}
                         />
                     </div>
+                    <div className={'div__group__input_select fontSize075rem'}>
+                        <a href={`tel:${ContactMobile}`} >
+                            <div>شماره تماس مشتری</div>
+                            <div>{ContactMobile}</div>
+                        </a>
+
+                    </div>
 
                 </div>
                 <div>
-                    <div className={'flex flex-col items-center my-3'}>
+                <div className={'flex flex-col items-center my-3'}>
                         <div>
                             <InvoiceTableItems
                                 invoice={invoice}
