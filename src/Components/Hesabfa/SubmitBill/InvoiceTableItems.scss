@@ -25,16 +25,18 @@
 
   ul {
     width: fit-content;
-
+    display: flex;
+    border-bottom: 1px solid gray;
     &:first-child {
       border-top: 1px solid gray;
       text-align: center;
     }
 
-    display: flex;
-    border-bottom: 1px solid gray;
-
     li {
+
+      border-left: 1px solid gray;
+      padding: 5px;
+
       &:first-child {
         border-right: 1px solid gray;
         width: 50px;
@@ -87,8 +89,7 @@
         //align-items: center;
       }
 
-      border-left: 1px solid gray;
-      padding: 5px;
+
 
       .input__text__full {
         width: 100%;
