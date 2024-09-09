@@ -50,6 +50,7 @@ export const makeInvoiceBaseOnHesabfaData = (incomingData: any) => {
     const InvoiceItems = addRowIdtoTable(InvoiceItemsTemp)
 
     const myData: IInvoice = {
+        Contact:incomingData.Contact,
         Number: incomingData.Number,//
         Project: incomingData.Project,//
         ContactTitle: incomingData.ContactTitle,
