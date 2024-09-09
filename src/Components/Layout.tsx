@@ -10,7 +10,7 @@ const Layout = () => {
 
 
     const {heightWindowSize} = useWindowSize();
-    const styles :React.CSSProperties = {
+    const styles: React.CSSProperties = {
         height: `${heightWindowSize - 80}px`,
         overflowY: 'scroll',
         padding: '0 25px',
@@ -21,19 +21,16 @@ const Layout = () => {
     if (number === 1) {
         return <main className="main-dashboard prevent__horizontal__scroll">
             {/*<HeaderDashboard/>*/}
-            <div className={'flex'}>
+            <div className={'dashboard-layout'}>
                 <SideBar/>
-                <div className="w-full">
-                    <div className="">
+                <div className="content-area">
                         <HeaderDashboard/>
                         <div style={styles} >
                             <Outlet/>
                         </div>
                         <FooterDashboard/>
-                    </div>
                 </div>
             </div>
-
         </main>
     } else {
         return (
