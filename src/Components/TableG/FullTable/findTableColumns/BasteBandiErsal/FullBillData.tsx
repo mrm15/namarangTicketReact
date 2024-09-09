@@ -27,9 +27,9 @@ const RowNumberShow = ({info,}) => {
 }
 
 // Define the columns with the appropriate structure
-export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
+export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
     const {url, navigateTo, myAxios, setMyData, myData} = inputs;
-    const temp: ColumnDef<any>[] = [
+    const temp: ICustomColumn<any>[] = [
         {
             id: "rowNumber",
             accessorKey: 'rowNumber',
@@ -42,6 +42,8 @@ export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 20,
             maxSize: 20,
             cell: (info) => <RowNumberShow info={info}/>,
+            hidden: false,
+
         },
 
         {
@@ -118,9 +120,7 @@ export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
                         filterType={"date"}
                         setMyData={setMyData}
                         operator={"="}
-
                     />
-
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
@@ -155,20 +155,23 @@ export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
         {
             id: "Number",
             accessorKey: 'Number',
-            header: "شماره فاکتور",
-            // cell: info => <>{info.getValue()}</>,
+            // header: "شماره فاکتور",
+            header: () => <div>
+                <div>شماره فاکتور</div>
+                <FilterTextInTable
+                    myData={myData}
+                    setMyData={setMyData}
+                    filterKey={"Number"}
+                />
+            </div>,
+
             cell: (info) => {
 
                 console.log(info.row.original.Status)
                 const constIsVerified = info.row.original.Status === 1
-                return <>
+                return <div className={"text-right"}>
                     <NameShow {...inputs} info={info}/>
-                    <div className={"text-center"}>{
-                        constIsVerified ?
-                            <div className={"text-white bg-green-700"}> تایید شده </div> :
-                            <div className={"text-white bg-red-500"}> تایید نشده </div>
-                    }</div>
-                </>
+                </div>
             },
             size: 10,
             minSize: 10,
@@ -177,14 +180,53 @@ export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
         {
 
             accessorKey: 'ss',
-            header: 'وضعیت ',
+            // header: 'وضعیت ',
+            header: () => <div>
+                <div>عملیات</div>
+            </div>,
             size: 50,
             minSize: 50,
             maxSize: 50,
             cell: (cellInfo) => {
-
                 return <SendStatus  {...inputs} info={cellInfo}/>
             }
+
+        },
+        {
+
+            accessorKey: 'ss',
+            // header: 'وضعیت ',
+            header: () => <div>
+                <div>وضعیت</div>
+                <FilterTextInTable
+                    myData={myData}
+                    setMyData={setMyData}
+                    filterKey={"Status"}
+                    operator={"="}
+                    filterType={"select"}
+                    optionsForSelectOption={[
+                        {key: "تایید نشده", value: "0"},
+                        {key: "تایید شده", value: "1"},
+                    ]}
+                />
+            </div>,
+
+            size: 50,
+            minSize: 50,
+            maxSize: 50,
+            cell: (info) => {
+
+                console.log(info.row.original.Status)
+                const constIsVerified = info.row.original.Status === 1
+                return <>
+                    <NameShow {...inputs} info={info}/>
+                    <div className={"text-center"}>{
+                        constIsVerified ?
+                            <div className={"text-white rounded bg-green-700"}> تایید شده </div> :
+                            <div className={"text-white rounded bg-red-500"}> تایید نشده </div>
+                    }</div>
+                </>
+            },
 
         },
         {
@@ -206,6 +248,7 @@ export const BasteBandiErsal = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 50,
             maxSize: 50,
             // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
+
 
         },
         {
