@@ -10,6 +10,9 @@ const TableBody = ({table}) => {
         >
             {row.getVisibleCells().map((cell,index) => {
                 const { columnDef } = cell.column;
+                if(columnDef.hidden){
+                    return null
+                }
                 return (
                     <td
                         key={index}
