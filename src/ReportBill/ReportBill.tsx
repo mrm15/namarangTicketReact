@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
 import {getBillList} from "../config/api.tsx";
 import {
+    getCurrentDate,
     timestampToFormattedDateToSendHesabfa,
     timestampToTimeFromHesabfa
 } from "../utils/utilsFunction.tsx";
@@ -20,6 +21,7 @@ import {BsFileEarmarkExcelFill} from "react-icons/bs";
 import {MdPivotTableChart} from "react-icons/md";
 import {HandleExportToExcel} from "./HandleExportToExcel.tsx";
 import PivotsByData from "./PivotHere/PivotsByData.tsx";
+import {getFullData} from "./tempCal/getFullData.tsx";
 
 
 const ReportBill = () => {
@@ -51,6 +53,28 @@ const ReportBill = () => {
     }
     const pivotTotalData = async () => {
         await HandleExportToExcel({myAxios, awesomeData, setAwesomeData})
+    }
+
+
+    // صحت سنجی تماس ها با تابع
+    const getFullData11 = async () => {
+
+        const dateValue = timestampToFormattedDateToSendHesabfa(1720557000000)
+
+        const filterItems = [
+            {
+                Property: 'Date',
+                Operator: '>=',
+                Value: dateValue
+            },
+            {
+                Property: 'Status',
+                Operator: '=',
+                Value: '1'
+            }
+        ]
+
+        await getFullData({myAxios, filterItems})
     }
 
 
@@ -178,6 +202,11 @@ const ReportBill = () => {
                             />
                         </div>
                         <div className={'flex gap-2'}>
+                            {/*<button*/}
+                            {/*    onClick={getFullData11}*/}
+                            {/*>*/}
+                            {/*    دریافت اکسل 20 تیر تا 20 شهریور*/}
+                            {/*</button>*/}
                             <button
                                 onClick={pivotTotalData}
                                 // className={'btn-submit-mir'}
