@@ -8,6 +8,18 @@ interface inputTypes {
     currentPageNumber: number;
     totalRowsInPage: number;
 }
+export const DateToEnglish = (inputText: any) => {
+    let result = timestampToTimeFromHesabfa(inputText)
+    result = p2e(result);
+    return result
+}
+
+ export const changeTextTo = (inputNumber: any) => {
+
+    return inputNumber === 0 ? "پیشنویس" : "تایید شده"
+}
+
+
 
 export const makeRowIdBasedOnPageNumber = ({
                                                tableData, currentPageNumber,
@@ -24,7 +36,12 @@ export const makeRowIdBasedOnPageNumber = ({
 
 export const getHeaderAndRows = (incomeData:any) => {
 
-    const dataSheet1 = incomeData.map((row: { [key: string]: string }) => {
+    const dataSheet1 = incomeData.map((rr: any) => {
+
+        const {City, State,Name,Mobile,Phone ,} = rr.Contact
+
+        const row = {...rr , City, State,Name,Mobile,Phone}
+
 
         try {
             const tag = JSON.parse(row.Tag)
@@ -37,21 +54,20 @@ export const getHeaderAndRows = (incomeData:any) => {
             return row
         }
     });
-    const DateToEnglish = (inputText: any) => {
-        let result = timestampToTimeFromHesabfa(inputText)
-        result = p2e(result);
-        return result
-    }
+
     //
 
-    const changeTextTo = (inputNumber: any) => {
-
-        return inputNumber === 0 ? "پیشنویس" : "تایید شده"
-    }
     //
 
     const headersSheet1 = [
         ////////////////////////////////
+        {title: "عنوان مشتری", key: "ContactTitle"},
+        {title: "نام مشتری", key: "Name"},
+        {title: "شهر مشتری", key: "City"},
+        {title: "استان مشتری", key: "State"},
+        {title: "شماره تماس مشتری", key: "Mobile"},
+        {title: "شماره تلفن مشتری", key: "Phone"},
+
         {title: "شماره فاکتور", key: "Number"},
         {title: "فروشنده", key: "Tag"},
         {title: "کد مشتری", key: "ContactCode"},
