@@ -12,6 +12,7 @@ import useRefreshToken from "../hooks/useRefreshToken.tsx";
 import Loader from "./Loader";
 import {MdEdit} from "react-icons/md";
 import OTPInput from "./OTPInput.tsx";
+import {FaUserSecret} from "react-icons/fa";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
@@ -52,14 +53,12 @@ const LoginSMS: React.FC = () => {
     }, [user, pwd])
     useEffect(() => {
         if (sectionView === 'code') {
-            if (enterLoginCodeRef?.current)
-                { // @ts-ignore
-                    enterLoginCodeRef?.current?.focus();
-                }
-            if (userRef.current)
-                { // @ts-ignore
-                    userRef?.current?.focus();
-                }
+            if (enterLoginCodeRef?.current) { // @ts-ignore
+                enterLoginCodeRef?.current?.focus();
+            }
+            if (userRef.current) { // @ts-ignore
+                userRef?.current?.focus();
+            }
 
         }
     }, [sectionView]);
@@ -67,8 +66,8 @@ const LoginSMS: React.FC = () => {
     const sendLoginCode = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
 
-        const tempUser = user.replaceAll(" ","")
-        if(tempUser.length!==11){
+        const tempUser = user.replaceAll(" ", "")
+        if (tempUser.length !== 11) {
             setErrMsg("شماره تماس باید 11 رقم باشد")
             return
         }
@@ -116,7 +115,7 @@ const LoginSMS: React.FC = () => {
         e.preventDefault();
 
         try {
-            const tempUser = user.replaceAll(" ","")
+            const tempUser = user.replaceAll(" ", "")
 
             const loginPayload = {
                 phoneNumber: tempUser,
@@ -169,17 +168,20 @@ const LoginSMS: React.FC = () => {
     if (isLoading) {
         return <Loader/>
     }
+    const activeSecretMode = () => {
+        setSecretMode(true)
+        setOTPInputLength(8)
+        // toast("حالت مخفی فعال شد");
+
+    }
     const handleSecretMode = (e: { detail: number; }) => {
         console.log(e.detail)
         if (e.detail === 3) {
-            setSecretMode(true)
-            setOTPInputLength(8)
-            toast("حالت مخفی فعال شد")
+            activeSecretMode()
         }
         if (secretMode && e.detail === 4) {
             setSecretMode(false)
             setOTPInputLength(4)
-            toast("حالت مخفی غیر فعال شد")
         }
     }
 
@@ -191,7 +193,22 @@ const LoginSMS: React.FC = () => {
             <section>
                 <div ref={errRef} className={errMsg ? "myErrorMessageClass" : "offscreen"}
                      aria-live="assertive">{errMsg}</div>
+                {secretMode &&
+                  <FaUserSecret
+                    style={{
+                        position: "absolute",
+                        transform: `scale(5)`,
+                        opacity: `10%`,
+                    }}
+                  />
+
+                }
+
                 <h1
+                    onContextMenu={(e) => {
+                        e.preventDefault()
+                        activeSecretMode()
+                    }}
                     onClick={handleSecretMode}
                     className={"select-none font-bold my-2"}
                 >ورود به پنل کاربری نمارنگ</h1>
@@ -237,15 +254,15 @@ const LoginSMS: React.FC = () => {
 
 
                     <label htmlFor="password">کد ورود:</label>
-                    {/*<input*/}
-                    {/*  type="number"*/}
-                    {/*  id="password"*/}
-                    {/*  onChange={(e) => setPwd(e.target.value)}*/}
-                    {/*  value={pwd}*/}
-                    {/*  ref={enterLoginCodeRef}*/}
-                    {/*  required*/}
-                    {/*/>*/}
-                    <OTPInput length={OTPInputLength} onChange={handleOtpChange} />
+                      {/*<input*/}
+                      {/*  type="number"*/}
+                      {/*  id="password"*/}
+                      {/*  onChange={(e) => setPwd(e.target.value)}*/}
+                      {/*  value={pwd}*/}
+                      {/*  ref={enterLoginCodeRef}*/}
+                      {/*  required*/}
+                      {/*/>*/}
+                    <OTPInput length={OTPInputLength} onChange={handleOtpChange}/>
                     <button
                       onClick={handleSubmit}
                       className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
