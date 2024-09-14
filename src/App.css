@@ -3,8 +3,8 @@
     --whitecolor:#ffffff;
 }
 html {
-    scrollbar-width: thin !important;
-    scrollbar-color: #c0c7d5 #48608f;
+    /*scrollbar-width: thin !important;*/
+    /*scrollbar-color: #c0c7d5 #48608f;*/
     direction: rtl;
     background-color: var(--whitecolor);
     scroll-behavior: smooth;
