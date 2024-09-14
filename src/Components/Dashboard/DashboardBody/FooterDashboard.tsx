@@ -4,7 +4,7 @@ const FooterDashboard = () => {
 
     return (
 
-            <div className="w-full  text-center thisIsFooterToKnow">
+            <div className="text-center thisIsFooterToKnow">
 
                 تمامی حقوق این وب سایت متعلق به مجموعه نمارنگ می باشد
             </div>
