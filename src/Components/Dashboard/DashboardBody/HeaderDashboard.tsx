@@ -35,18 +35,17 @@ const HeaderDashboard = () => {
     const userNameToShow = auth?.userInfo?.userData?.name || 'کاربر';
     try {
         return (
-
-            <div className="main-header">
+            <div className="w-full flex">
                 {/*<LogoImg/>*/}
 
-                {isMobile &&
-                  <div className={'p-3'}
+                {/*{isMobile &&*/}
+                  <div className={'p-3 text-white'}
 
                        onClick={toggleSidebar}
                   >
-                      {isOpenSidebar ?   <FaTimes size={24}/> : <FaBars size={24}/>  }
+                      {isOpenSidebar ?   <FaTimes  size={24}/> : <FaBars size={24}/>  }
                   </div>
-                }
+                 {/*}*/}
 
                 <div className="title-side w-full flex justify-between items-center">
                     <div className={'flex justify-between align-middle'}>
