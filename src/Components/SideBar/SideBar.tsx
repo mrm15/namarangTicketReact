@@ -48,10 +48,13 @@ const Home = () => {
     return (
         <section className={`side__bar__styles`}>
             <div
-                className={`bg-[#334667] h-screen overflow-auto
-                ${isOpen ? "w-44 px-4 " : isMobile ? "width__0" : "w-16 px-4"}
-               
-                 duration-500 text-gray-100 `}
+                // className={` min-h-screen
+                // ${isOpen ? "w-44 px-4 " : isMobile ? "width__0" : "w-16 px-4"}
+                //  duration-500 text-gray-100 `}
+
+                className={` 
+                ${isOpen ? "w-44 px-4 " :  "width__0"}
+                 duration-500  `}
             >
                 <div className="py-3 flex justify-end">
                     <HiMenuAlt3
@@ -60,14 +63,14 @@ const Home = () => {
                         onClick={toggleSidebar}
                     />
                 </div>
-                <div className="mt-4 flex flex-col gap-4 relative">
-                    {menus?.filter(row => row.showItem === true).map((menu, i) => (
-                        <Link
+                <div className="mt-4 flex flex-col gap-4 relative overflow-visible">
+                    {menus?.filter(row => row.showItem === true).map((menu, i) =>{
+
+                        const hasMargin = menu?.margin
+                        return <Link
                             to={menu?.link}
                             key={i}
-                            className={` ${
-                                menu?.margin && "mt-5"
-                            } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+                            className={` ${hasMargin ? "mt-5" : " " } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-blue-200  rounded-md`}
                         >
                             <div>{React.createElement(menu?.icon, {size: "20"})}</div>
                             <h2
@@ -89,7 +92,8 @@ const Home = () => {
                                 {menu?.name}
                             </h2>
                         </Link>
-                    ))}
+
+                    })}
                 </div>
             </div>
         </section>
