@@ -5,37 +5,47 @@ import FooterDashboard from "./Dashboard/DashboardBody/FooterDashboard.tsx";
 import './layout.scss'
 import useWindowSize from "../hooks/useWindowSize.tsx";
 import React from "react";
+import DummyData from "./DummyData.tsx";
 
 const Layout = () => {
 
 
     const {heightWindowSize} = useWindowSize();
     const styles: React.CSSProperties = {
-        height: `${heightWindowSize - 80}px`,
+        //height: `${heightWindowSize - 80}px`,
         overflowY: 'scroll',
-        padding: '0 25px',
+        // padding: '0 25px',
     }
 
 
     const number = 1;
+
     if (number === 1) {
-        return <main className="main-dashboard prevent__horizontal__scroll">
+        return <main className="main-dashboard0 prevent__horizontal__scroll000 ">
             {/*<HeaderDashboard/>*/}
             <div className={'dashboard-layout'}>
-                <SideBar/>
-                <div className="content-area">
-                        <HeaderDashboard/>
-                        <div style={styles} >
-                            <Outlet/>
-                        </div>
-                        <FooterDashboard/>
+                {/**/}
+                <div className={"layout__header"}>
+                    <HeaderDashboard/>
+
+                </div>
+                <div className="layout__body">
+                    <SideBar/>
+                    {/**/}
+                    <div style={styles} className={"main-content"}>
+                        <Outlet/>
+                        {/*<DummyData/>*/}
+                    </div>
+                </div>
+                <div className={"layout__footer"}>
+                <FooterDashboard/>
                 </div>
             </div>
         </main>
     } else {
         return (
             <main className="App">
-                <Outlet/>
+                {/*<Outlet/>*/}
             </main>
         )
     }
