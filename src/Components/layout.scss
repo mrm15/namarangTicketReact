@@ -1,51 +1,66 @@
-.prevent__horizontal__scroll{
+.layout__header {
+  background: #304967;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  width: auto;
+}
+
+.layout__body {
+  transition: all .2s ease;
+  position: fixed;
+  top: 50px;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  // its for sidebar
+  display: grid;
+  grid-template-columns: auto 1fr;
+
+}
+
+.layout__footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #304967;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 5px;
+  color: #fff;
+}
+
+
+//-------------------------------------------------------
+.prevent__horizontal__scroll {
   width: 100vw;
   overflow: hidden;
 }
-.width__0{
+
+.width__0 {
   width: 0;
   overflow: hidden;
 }
-.main-dashboard{
-  width: 100%;
-  max-height: 100vh;
-  overflow: hidden;
-  //background: red !important;
-  //display: flex;
-  //flex-direction: column;
-  //background-color: #447c94;
-  //margin: 550px;
-
-  //.main-content{
-  //  width: 100%;
-  //  //height: 82vh;
-  //  overflow: scroll;
-  //  display: inline-flex;
-  //
-  //  .main-outlet{
-  //    width: 100%;
-  //    height: 93%;
-  //    margin: 20px;
-  //  }
-  //}
-
-}
 
 .dashboard-layout {
-  display: grid;
-  grid-template-columns: auto 1fr; // Sidebar 250px, Main content takes remaining space
-  height: 100vh; // Full-height layout
-  overflow: hidden;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height if needed */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-y: auto; /* Allow vertical scroll if content overflows */
+  //background-color: #ff002b; /* Example background color */
 }
 
-.content-area {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow: hidden;
+.main-content {
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: whitesmoke;
 }
 
-.main-dashboard {
-  overflow-x: hidden;
-  overflow-y: hidden;
-}
+
