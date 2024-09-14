@@ -52,5 +52,8 @@ body {
 .btn-small-show {
     @apply bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 text-xs border border-green-600 rounded hover:cursor-pointer;
 }
+.myResponsiveWidth{
+    @apply w-640 sm:w-640 md:w-768 lg:w-1024 xl:w-1028 2xl:w-1536  mx-auto overflow-scroll
+}
 
 
