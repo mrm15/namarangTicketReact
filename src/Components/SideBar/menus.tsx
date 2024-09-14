@@ -23,7 +23,7 @@ type MenuType = {
 }[]
 
 
-export const getMenus=(roleAccessList): MenuType => [
+export const getMenus=(roleAccessList:any): MenuType => [
     {name: "داشبورد", link: '/', icon: MdOutlineDashboard, margin: false, showItem: true,},
     {
         name: "گزارش مدیر",
