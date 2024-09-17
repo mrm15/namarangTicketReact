@@ -1,12 +1,12 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { TableGContext } from '../../TableGContext';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
+import {getCoreRowModel, useReactTable} from '@tanstack/react-table';
+import {TableGContext} from '../../TableGContext';
 import useWindowSize from "../../../../hooks/useWindowSize.tsx";
 import TableHeader from "./TableHeader.tsx";
 import TableBody from "./TableBody.tsx";
 import LoadInTable from "./LoadInTable.tsx";
-import { useNavigate } from "react-router-dom";
-import { findTableColumns } from "../findTableColumns/findTableColumns.tsx";
+import {useNavigate} from "react-router-dom";
+import {findTableColumns} from "../findTableColumns/findTableColumns.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 
 const TableShowData = () => {
@@ -76,7 +76,30 @@ const TableShowData = () => {
                             table={table}
                         />
                     )}
+                    {/*{myData.isLoading && <>*/}
+                    {/*  <tr>*/}
+                    {/*    <td colSpan={5}>*/}
+                    {/*      <div className={"p-10"}>*/}
+                    {/*        در حال بارگزاری اطلاعات*/}
+                    {/*        🔃*/}
+
+                    {/*      </div>*/}
+                    {/*    </td>*/}
+                    {/*  </tr>*/}
+                    {/*</>}     */}
+
                     {!myData.isLoading && <TableBody table={table} />}
+
+                    {data.length === 0 && !myData.isLoading && <>
+                      <tr>
+                        <td colSpan={5}>
+                          <div className={"p-20"}>
+                            اطلاعاتی جهت نمایش وجود ندارد ☹️
+
+                          </div>
+                        </td>
+                      </tr>
+                    </>}
                     </tbody>
                 </table>
             </div>
