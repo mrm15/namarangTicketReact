@@ -40,7 +40,7 @@ function ProfileInHeader() {
 
 
                 <button
-                    className={'rounded bg-zinc-200 px-1 flex items-center'}
+                    className={'rounded px-1 flex items-center'}
                     //onMouseMove={() => setOpenMenu(true)}
                     onClick={() => setOpenMenu(!openMenu)}
                 >
