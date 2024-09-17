@@ -47,7 +47,7 @@ const Pagination = () => {
     return (
         <div className={'flex flex-wrap gap-2 justify-between fontSize8'}>
             <div className={'flex flex-wrap gap-2'}>
-                {[5, 10, 15, 20, 30, 50].map((singleNumber, index) => {
+                {[5, 10, 15, 20, 30, 50,100,200,500].map((singleNumber, index) => {
 
 
                     return <button
