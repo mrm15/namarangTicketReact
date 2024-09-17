@@ -34,7 +34,7 @@ const DeleteBill = ({
             return
         }
 
-        debugger
+
         const result = await myAxios.get(deleteBillFromHesabfa + billNumber);
 
         if (result.status === 200) {
@@ -55,11 +55,11 @@ const DeleteBill = ({
               title={"حذف فاکتور"}
                 // onSubmit={submitAddGroupKala}
             >
-              <div className={"px-2 rounded text-white bg-red-500"}>
+              <div className={"px-2 py-2 rounded text-white bg-red-500"}>
                 با این کار فاکتور از توی حسابفا هم حذف میشه و این عمل قابل بازگشت نیست!
               </div>
               <br/>
-              <div>
+              <div className={"border border-red-400 p-2 rounded "}>
                 مطمئنی که میخوای فاکتور شماره
                 <>
                   &nbsp;&nbsp;
