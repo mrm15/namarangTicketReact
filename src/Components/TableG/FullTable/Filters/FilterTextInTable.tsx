@@ -9,7 +9,8 @@ import {
 import MyDatePicker from "../../../MyDatePicker";
 
 const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filterType="",
-                           optionsForSelectOption=[{key:"تایید شده",value:"1"}],
+                           optionsForSelectOption=[{key:"تایید شده",value:"1",}],
+                               placeHolder="",
                            }) => {
 
     const [query, setQuery] = useState('');
@@ -107,6 +108,7 @@ const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filter
     return (
         <div className={" m-1"}>
             <input
+                placeholder={placeHolder}
                 className={" rounded p-2 outline-0 w-full"}
                 type={"text"}
                 onChange={handleChangeFilter}
