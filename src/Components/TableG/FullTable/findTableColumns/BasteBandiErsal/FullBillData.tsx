@@ -51,8 +51,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             // header: 'عنوان سفارش',
             header: () => <div>
 
-                <div>عنوان سفارش</div>
+                {/*<div>  عنوان سفارش</div>*/}
                 <FilterTextInTable
+                    placeHolder={"عنوان سفارش"}
                     myData={myData}
                     setMyData={setMyData}
                     filterKey={"ContactTitle"}
@@ -74,9 +75,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 </>
             },
-            size: 150,
-            minSize: 150,
-            maxSize: 150,
+            size: 300,
+            minSize: 300,
+            maxSize: 300,
         },
         {
             // accessorKey: 'عنوان سفارش',
@@ -111,9 +112,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'Date',
             header: (info) => {
                 return <div>
-                    <div style={{width: 50}}>
-                        تاریخ ثبت
-                    </div>
+                    {/*<div style={{width: 50}}>*/}
+                    {/*    تاریخ ثبت*/}
+                    {/*</div>*/}
                     <FilterTextInTable
                         myData={myData}
                         filterKey={"Date"}
@@ -157,8 +158,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'Number',
             // header: "شماره فاکتور",
             header: () => <div>
-                <div>شماره فاکتور</div>
+                {/*<div>شماره فاکتور</div>*/}
                 <FilterTextInTable
+                    placeHolder={"شماره فاکتور"}
                     myData={myData}
                     setMyData={setMyData}
                     filterKey={"Number"}
@@ -173,9 +175,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     <NameShow {...inputs} info={info}/>
                 </div>
             },
-            size: 10,
-            minSize: 10,
-            maxSize: 10,
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
         },
         {
 
@@ -184,9 +186,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <div>عملیات</div>
             </div>,
-            size: 250,
-            minSize: 250,
-            maxSize: 250,
+            size: 300,
+            minSize: 300,
+            maxSize: 300,
             cell: (cellInfo) => {
                 return <SendStatus  {...inputs} info={cellInfo}/>
             }
