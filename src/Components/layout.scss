@@ -1,43 +1,74 @@
-.layout__header {
-  background: #304967;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  width: auto;
+.dashboard-layout {
+  width: 90vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height if needed */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-y: auto; /* Allow vertical scroll if content overflows */
+  //background-color: #ff002b; /* Example background color */
+  .layout__header {
+    background: #304967;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: auto;
+    color: white;
+  }
+
+  .layout__body {
+    transition: all .2s ease;
+    position: fixed;
+    top: 50px;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    // its for sidebar
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+    .main-content {
+      //padding: 10px;
+      //box-sizing: border-box;
+      //background-color: #f6f6f6;
+      // background: url(images/html_table.jpg) center / cover;
+      //background: url("../../src/assets/images/main-bg.jpg") center / cover;
+
+      overflow-y: scroll; // Enable vertical scroll
+      -webkit-overflow-scrolling: touch; // Smooth scrolling for mobile devices
+
+      &::-webkit-scrollbar {
+        display: none; // Hide scrollbar in WebKit browsers
+      }
+
+      &{
+        -ms-overflow-style: none;  // Hide scrollbar for IE and Edge
+        scrollbar-width: none;  // Hide scrollbar for Firefox
+
+      }
+    }
+
+
+  }
+
+  .layout__footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #304967;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+    color: #fff;
+  }
+
 }
 
-.layout__body {
-  transition: all .2s ease;
-  position: fixed;
-  top: 50px;
-  bottom: 40px;
-  left: 0;
-  right: 0;
-  overflow: hidden;
-  // its for sidebar
-  display: grid;
-  grid-template-columns: auto 1fr;
-
-}
-
-.layout__footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #304967;
-  height: 40px;
-  line-height: 40px;
-  padding: 0 5px;
-  color: #fff;
-}
-
-
+/*************************/
 //-------------------------------------------------------
 .prevent__horizontal__scroll {
   width: 100vw;
@@ -49,18 +80,7 @@
   overflow: hidden;
 }
 
-.dashboard-layout {
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height if needed */
-  overflow-x: hidden; /* Prevent horizontal scroll */
-  overflow-y: auto; /* Allow vertical scroll if content overflows */
-  //background-color: #ff002b; /* Example background color */
-}
 
-.main-content {
-  padding: 10px;
-  box-sizing: border-box;
-  background-color: whitesmoke;
-}
+
 
 
