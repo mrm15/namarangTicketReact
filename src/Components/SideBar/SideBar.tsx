@@ -7,7 +7,7 @@ import {sidebarActions} from "../../store/sidebarReducer/sidebarReducer.tsx";
 import useAuth from "../../hooks/useAuth.tsx";
 import {getMenus} from "./menus.tsx";
 
-const Home = () => {
+const Sidebar = () => {
 
     const dispatch = useDispatch();
     // @ts-ignore
@@ -100,4 +100,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Sidebar;
