@@ -52,8 +52,18 @@ body {
 .btn-small-show {
     @apply bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-3 text-xs border border-green-600 rounded hover:cursor-pointer;
 }
-.myResponsiveWidth{
-    @apply w-640 sm:w-640 md:w-768 lg:w-1024 xl:w-1028 2xl:w-1536  mx-auto overflow-scroll box-border h-screen
+.myResponsiveWidth {
+    /*@apply w-full sm:w-640 md:w-768 lg:w-1024 xl:w-1028 2xl:w-1536 mx-auto overflow-scroll p-4 box-border;*/
+    /* Additional styles to prevent horizontal scrolling */
+    /*max-width: 100%; !* Ensures content doesn't exceed container width *!*/
+
+    @apply sm:min-w-640 md:min-w-768 lg:min-w-1024 xl:min-w-1280 2xl:min-w-1536 p-4 box-border;
+
+
+}
+
+.myResponsiveWidthMenuOpen{
+    @apply sm:min-w-432 md:min-w-560 lg:min-w-819 xl:min-w-1072 2xl:min-w-1328 p-4 box-border;
 }
 
 
