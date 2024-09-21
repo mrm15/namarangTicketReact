@@ -6,14 +6,18 @@ import './layout.scss'
 import useWindowSize from "../hooks/useWindowSize.tsx";
 import React from "react";
 import DummyData from "./DummyData.tsx";
+import {useDispatch, useSelector} from "react-redux";
 
 const Layout = () => {
 
+    // @ts-ignore
+    const isOpenMenu = useSelector(s => s.sidebarReducer.isOpen);
 
+    console.log(isOpenMenu ? "منو بازه" : "منو بسته ")
     const {heightWindowSize} = useWindowSize();
     const styles: React.CSSProperties = {
         //height: `${heightWindowSize - 80}px`,
-        overflowY: 'scroll',
+        // overflowY: 'scroll',
         // padding: '0 25px',
     }
 
@@ -21,7 +25,7 @@ const Layout = () => {
     const number = 1;
 
     if (number === 1) {
-        return <main className="main-dashboard0 prevent__horizontal__scroll000 ">
+        return <main className="main-dashboard0 prevent__horizontal__scroll000 wrapperAllSite">
             {/*<HeaderDashboard/>*/}
             <div className={'dashboard-layout'}>
                 {/**/}
@@ -33,12 +37,17 @@ const Layout = () => {
                     <SideBar/>
                     {/**/}
                     <div style={styles} className={"main-content"}>
-                        <Outlet/>
-                        {/*<DummyData/>*/}
+                        <div
+                            className={ isOpenMenu ? " myResponsiveWidthMenuOpen" : " myResponsiveWidth" }
+                        >
+                            <Outlet/>
+                            {/*<DummyData/>*/}
+
+                        </div>
                     </div>
                 </div>
                 <div className={"layout__footer"}>
-                <FooterDashboard/>
+                    <FooterDashboard/>
                 </div>
             </div>
         </main>
