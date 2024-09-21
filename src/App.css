@@ -2,6 +2,11 @@
     --bgcolor: #fafafa;
     --whitecolor:#ffffff;
 }
+
+* {
+    box-sizing: border-box;
+}
+
 html {
     /*scrollbar-width: thin !important;*/
     /*scrollbar-color: #c0c7d5 #48608f;*/
