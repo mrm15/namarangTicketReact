@@ -1,0 +1,101 @@
+.table-container-g {
+  .resizer {
+
+    position:absolute;
+    width: 0.25rem;
+    cursor: col-resize;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    //background: red;
+    left:0;
+    top:0;
+
+    &:hover {
+      background: rgba(99,102,241,0.1);
+    }
+  }
+
+  margin: 0 auto;
+  position: relative;
+  border-radius: 5px;
+  overflow-x: auto;
+  max-height: 70vh;
+  .table-g {
+    display: table;
+    //border-collapse: collapse;
+    width: 100%;
+    position: relative;
+    .table-head-g {
+      display: table-header-group;
+      background-color: #f2f2f2;
+      position: sticky;
+      top: 0;
+    }
+
+    .table-body-g {
+      display: table-row-group;
+    }
+
+    .table-foot-g {
+      display: table-footer-group;
+      background-color: #f2f2f2;
+    }
+
+    .table__row__hover{
+
+      &:hover {
+        background-color: rgba(0, 0, 255, 0.09);
+      }
+    }
+
+    .table-row-g {
+      display: table-row;
+      text-overflow: ellipsis;
+      height: 40px;
+      overflow: hidden;
+
+      .table-cell-g {
+        height: 40px;
+        text-wrap: nowrap;
+        text-overflow: ellipsis;
+        text-align: justify;
+        overflow: hidden;
+        border-right: 1px solid whitesmoke;
+        display: table-cell;
+        //padding: 12px;
+        ///* Allow the content to automatically define width */
+        &:not(:last-child) {
+          //border-right: 1px solid #ccc;
+        }
+      }
+    }
+
+
+
+
+    ///* Simulate colSpan */
+    .table-cell-colspan-g {
+      display: table-cell;
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+      border-right: none;
+
+      ///* Span across multiple columns */
+      width: 100%;
+    }
+
+    ///* Optional: alternating row colors */
+    //.table-body-g .table-row-g:nth-child(odd) {
+    //  background-color: #fafafa;
+    //}
+  }
+
+}
+
+
+
+
+
+
