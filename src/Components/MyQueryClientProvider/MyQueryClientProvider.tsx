@@ -13,7 +13,9 @@ export default function MyQueryClientProvider({children}) {
     return (
         <QueryClientProvider client={queryClient}>
             {children}
-            {/*<ReactQueryDevtools initialIsOpen={false} />*/}
+            <div className={"ltr"}>
+                {/*<ReactQueryDevtools initialIsOpen={false} />*/}
+            </div>
         </QueryClientProvider>
     )
 }
