@@ -101,14 +101,27 @@ END:VCARD
     downloadBlob(str, fileName, 'text/csv;charset=utf-8;')
 }
 
-export const getCurrentDate = () => {
+export const getCurrentDate = (timeString=false) => {
     const currentDate = new Date();
-    const formatter = new Intl.DateTimeFormat('fa-IR', {
+    let formatter = new Intl.DateTimeFormat('fa-IR', {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit'
         // The 'calendar' option is not included here as it's not standard in all environments
     });
+
+    if(timeString){
+        formatter = new Intl.DateTimeFormat('fa-IR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        });
+    }
+
+
 
     let formattedDate = formatter.format(currentDate);
 
