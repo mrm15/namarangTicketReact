@@ -66,4 +66,16 @@ body {
     @apply sm:min-w-432 md:min-w-560 lg:min-w-819 xl:min-w-1072 2xl:min-w-1328 p-4 box-border;
 }
 
+.badge-bg-blue-text-white {
+    @apply inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+}
+
+.badge-bg-green-text-white {
+    @apply inline-block bg-green-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+}
+
+.badge-bg-red-text-red {
+    @apply inline-block bg-red-400 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+}
+
 
