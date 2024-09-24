@@ -13,6 +13,7 @@ import Loader from "./Loader";
 import {MdEdit} from "react-icons/md";
 import OTPInput from "./OTPInput.tsx";
 import {FaUserSecret} from "react-icons/fa";
+import FullLoader from "./Loader/FullLoader.tsx";
 
 const LOGIN_URL = '/login/new';
 const LOGIN_URL_verify = '/login/verify';
@@ -166,7 +167,7 @@ const LoginSMS: React.FC = () => {
     }, []);
 
     if (isLoading) {
-        return <Loader/>
+        return <FullLoader />
     }
     const activeSecretMode = () => {
         setSecretMode(true)
