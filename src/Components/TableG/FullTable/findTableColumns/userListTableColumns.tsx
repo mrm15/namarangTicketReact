@@ -5,10 +5,11 @@ import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 import {PAGES} from "../../../../Pages/Route-string.tsx";
 import EditButton from "../../../../assets/icons/EditButton.tsx";
 import DeleteButton from "../../../../assets/icons/DeleteButton.tsx";
+import FilterTextInTable from "../Filters/FilterTextInTable.tsx";
 
 
 export const userListTableColumns = (inputs: IInputObject) => {
-    const {url, navigateTo, myAxios, setMyData} = inputs
+    const {url, navigateTo, myAxios, setMyData , myData} = inputs
     return [
         // {accessorKey: '_id', header: 'ID'},
         // {accessorKey: 'userName', header: 'User Name'},
@@ -16,9 +17,11 @@ export const userListTableColumns = (inputs: IInputObject) => {
         // {accessorKey: 'role', header: 'Role'},
         {accessorKey: 'rowNumber', header: 'ردیف', minWidth: 50, maxWidth: 50, size: 50},
         {
-            accessorKey: 'edit', header: 'عملیات',
-            // size: 60,
-            minWidth: 100,
+            accessorKey: 'edit',
+            header: 'عملیات',
+            size: 200,
+            minSize: 200,
+            maxSize: 200,
             cell: ({row}) => {
 
                 const handleDeleteUser = async (id: any) => {
@@ -90,9 +93,20 @@ export const userListTableColumns = (inputs: IInputObject) => {
         {accessorKey: 'company', header: 'شرکت'},
         {accessorKey: 'title', header: 'عنوان'},
         {
-            accessorKey: 'name', header: 'نام',
+            accessorKey: 'name',
+            header: ()=>{
+
+                return <><FilterTextInTable
+                    placeHolder={"نام"}
+                    filterKey={"name"}
+                    setMyData={setMyData}
+                    myData={myData}
+
+
+                    /></>
+            },
             size: 350,
-            minWidth: 350,
+            minSize: 350,
             cell: (value: any) => <div
                 style={{
                     minWidth: 350
