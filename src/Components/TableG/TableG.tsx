@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
-import { TableGContext } from "./TableGContext.tsx";
+import {TableGContext} from "./TableGContext.tsx";
 import FullTable from "./FullTable/FullTable.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {IMyData} from "./myTableGTypes.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
+
 import {toast} from "react-toastify";
 
-const TableG = ({ url = "/user/read" }) => {
+const TableG = ({url = "/user/read"}) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
         pageNumber: 1,
@@ -21,11 +22,12 @@ const TableG = ({ url = "/user/read" }) => {
         reload: "",
         isLoading: false,
         errorMessage: "",
+        queryData: "",
     });
 
     const myAxios = useAxiosPrivate();
 
-    const {data, isLoading, error, refetch} =
+    const resultOfUseQuery =
         useQuery({
             queryKey: [url, myData.pageNumber, myData.numberOfRows, myData.filters],
             // url: string, myAxios: any, page: number, pageSize: number, filters: any
@@ -33,15 +35,15 @@ const TableG = ({ url = "/user/read" }) => {
             staleTime: 86400000,  // === 60*60*24*1000
             enabled: true,
         })
-
-
+    const {data, error, refetch} = resultOfUseQuery;
     useEffect(() => {
-        setMyData({isLoading})
-    }, [isLoading, setMyData]);
+        setMyData({queryData: resultOfUseQuery})
+    }, [resultOfUseQuery.isLoading, resultOfUseQuery.data, resultOfUseQuery.isFetching, resultOfUseQuery.isFetched, resultOfUseQuery.error]);
 
     useEffect(() => {
         if (error) {
-            setMyData({errorMessage: "Error Data Try Again!!!", isLoading: false});
+            console.log(error)
+            setMyData({errorMessage: "Error Data Try Again!!!" + " - " + (error?.toString()), isLoading: false});
         }
     }, [error]);
 
@@ -54,7 +56,7 @@ const TableG = ({ url = "/user/read" }) => {
         const updateData = async () => {
             if (myData.isLoading) return;
 
-            setMyData({ isLoading: true });
+            setMyData({isLoading: true});
             const data = {
                 page: myData.pageNumber,
                 pageSize: myData.numberOfRows,
@@ -87,38 +89,51 @@ const TableG = ({ url = "/user/read" }) => {
         if (data) {
             setMyData({
                 errorMessage: "",
-                totalRows: data.totalDocuments,
-                tableData: data.results,
+                totalRows: data.totalDocuments || 0,
+                tableData: data?.results || [],
                 pageNumber: data.currentPage,
-                isLoading: false,
             });
         }
-    }, [data]);
+    }, [data, myData.reload, setMyData]);
 
     useEffect(() => {
         void refetch()
-    }, [myAxios, myData.filters, myData.isLoading, myData.numberOfRows, myData.pageNumber, myData.reload, setMyData, url]);
+    }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url]);
 
 
-    const loaderHandle = () => {
-        setMyData({ isLoading: !myData.isLoading });
-    };
+    try {
 
-    return (
-        <TableGContext.Provider value={{ myData, setMyData }}>
-            <div>
-                <button onClick={loaderHandle}>loader</button>
-                {myData.errorMessage ? <>
-                    <button
-                        onClick={() => refetch()}
-                    >{myData.errorMessage}</button>
-                    {isLoading ? "در حال دریافت اطلاعات" : ""}
-                </> : ""}
+        return (
+            <TableGContext.Provider value={{myData, setMyData}}>
+                {/*<br/>*/}
+                {/*{resultOfUseQuery.isLoading && "در حال بارگزاری داده ها"}*/}
+                {/*<br/>*/}
+                {/*{resultOfUseQuery.isFetching && "در حال فچ کردن داده ها"}*/}
+                {/*<br/>*/}
+                {/*{resultOfUseQuery.isFetched && "فچ شدن و تمام"}*/}
+                {/*<br/>*/}
+                <div>
+                    {/*<div>{"عنوان"}</div>*/}
 
-                <FullTable />
-            </div>
-        </TableGContext.Provider>
-    );
+                    <FullTable/>
+                </div>
+                <div className={"m-5"}>
+                    {myData.queryData.isLoading ?
+                        <span
+                            className={"badge-bg-blue-text-white"}
+                        >
+                            در حال دریافت اطلاعات
+                        </span> : ""}
+                    {myData.queryData.error ?
+                        <span className={"badge-bg-red-text-red cursor-pointer "}>
+                        تلاش مجدد
+                    </span> : ""}
+                </div>
+            </TableGContext.Provider>
+        );
+    } catch (error) {
+        return <>{error?.toString()}</>
+    }
 };
 
 export default TableG;
