@@ -8,13 +8,14 @@ const FullTable = () => {
     const context = useContext(TableGContext);
     const { myData, setMyData } = context;
     if (!context) {
-        return <div>Error: Context is undefined</div>;
+        return <div>{"Error: Context is undefined"}</div>;
     }
 
 
     return (
         <div>
             <TableShowData />
+            <br/>
             <Pagination />
         </div>
     );
