@@ -2,65 +2,21 @@ import React from 'react';
 import Loader3 from "../../../Loader/Loader3.tsx";
 import {flexRender} from "@tanstack/react-table";
 
-const LoadInTable = ({
-                         columnsLength,
-                         loadingSection,
+const LoadInTable = () => {
 
-                         table
 
-                     }) => {
-
-    const singleRow = table.getRowModel().rows[0]
 
     try {
-        return (<>
-                <tr
-                    className={"bg-gray-100 border-gray-700"}
-                >
-                    {singleRow?.getVisibleCells()?.map((cell: any, index: React.Key) => (
-                        <td
-                            key={index}
 
-                        >
-                            {/*{flexRender(*/}
-                            {/*    header.column.columnDef.header,*/}
-                            {/*    header?.getContext()*/}
-                            {/*)}*/}
-                            {/*{flexRender(cell.column.columnDef.cell, cell.getContext())}*/}
-                            <div
-                                style={{
-                                    // border: '1px solid #ededed',
-                                    padding: '8px',
-                                    width: cell.column.getSize(), // Use column size
-                                    minWidth: cell.column.columnDef.minSize+"", // Use column minSize
-                                    maxWidth: cell.column.columnDef.maxSize+"", // Use column maxSize
-                                    textAlign: "center",
-                                    overflow:"hidden",
-                                }}
-                            >
-                                ...
-                            </div>
-                            {/*&nbsp;&nbsp;*/}
 
-                        </td>
-                    ))}
-                </tr>
+        return <div className={""}>
+            <div
+                className={" center__absolut bg-white min-h-40 h-full w-full opacity-80"}
+            >
+                <Loader3/>
+            </div>
+        </div>
 
-                <tr>
-                    <td colSpan={columnsLength}
-                        className={"border-b"}
-                    >
-                        <div style={{
-                            height: loadingSection.height,
-                            // width: parentTableWidth + 100
-                        }}
-                             className={"  overflow-hidden000"}>
-                            <Loader3/>
-                        </div>
-                    </td>
-                </tr>
-            </>
-        )
     } catch (error) {
         return <tr>
             <td>{error.toString()}</td>
