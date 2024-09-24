@@ -99,7 +99,7 @@ const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filter
             value={query}
             >
                 <option value="">انتخاب کنید</option>
-                {optionsForSelectOption.map(row=><option value={row.value}>{row.key}</option>)}
+                {optionsForSelectOption.map((row,index)=><option key={index} value={row.value}>{row.key}</option>)}
             </select>
 
         </div>
