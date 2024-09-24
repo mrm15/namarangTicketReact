@@ -5,6 +5,7 @@ import useAuth from '../hooks/useAuth';
 import useLocalStorage from "../hooks/useLocalStorage";
 import Loader from "./Loader";
 import {PAGES} from "../Pages/Route-string.tsx";
+import FullLoader from "./Loader/FullLoader.tsx";
 
 const PersistLogin = () => {
 
@@ -54,7 +55,7 @@ const PersistLogin = () => {
             {!persist
                 ? <Outlet/>
                 : isLoading
-                    ? <Loader/>
+                    ? <FullLoader/>
                     : <Outlet/>
             }
         </>
