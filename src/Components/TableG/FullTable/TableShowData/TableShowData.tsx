@@ -8,10 +8,11 @@ import LoadInTable from "./LoadInTable.tsx";
 import {useNavigate} from "react-router-dom";
 import {findTableColumns} from "../findTableColumns/findTableColumns.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
+import "./tableGStyle.scss"
 
 const TableShowData = () => {
     const context = useContext(TableGContext);
-    const { myData ,setMyData } = context;
+    const {myData, setMyData} = context;
 
     const navigateTo = useNavigate()
 
@@ -28,21 +29,10 @@ const TableShowData = () => {
         });
     }, [myData.url]);
 
-    const tbodyRef = useRef(null);
-    const [loadingSection, setLoadingSection] = useState({
-        width: 0,
-        height: 0,
-    });
 
-    useEffect(() => {
-        if (tbodyRef.current) {
-            const { height, width } = tbodyRef.current.getBoundingClientRect();
-            setLoadingSection({ height, width });
-        }
-    }, [tbodyRef, myData.tableData]);
 
     // Memoize data to only change when tableData changes
-    const data = useMemo(() => myData?.tableData || [], [myData?.tableData]);
+    const data = useMemo(() => myData?.tableData || [], [myData?.tableData,myData.reload]);
 
     // Define the table instance
     const table = useReactTable({
@@ -54,54 +44,44 @@ const TableShowData = () => {
     const myWindowsSize = useWindowSize();
     // const parentTableWidth = myWindowsSize.widthWindowSize - 150;
 
+
     try {
+
+
         return (
             <div
-                style={{
-                    // width: parentTableWidth,
-                    overflowX: "scroll",
-                }}
-                className={"relative overflow-x-auto shadow-md sm:rounded-lg my-3 fontSize8"}
+                className={"shadow-md table-container-g"}
             >
-                <table className={"w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"}>
-                    <thead className={"text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"}>
-                    <TableHeader table={table} />
-                    </thead>
-                    <tbody ref={tbodyRef}>
-                    {myData.isLoading && (
-                        <LoadInTable
-                            columnsLength={columns.length}
-                            loadingSection={loadingSection}
-                            // parentTableWidth={parentTableWidth}
-                            table={table}
-                        />
-                    )}
-                    {/*{myData.isLoading && <>*/}
-                    {/*  <tr>*/}
-                    {/*    <td colSpan={5}>*/}
-                    {/*      <div className={"p-10"}>*/}
-                    {/*        در حال بارگزاری اطلاعات*/}
-                    {/*        🔃*/}
+                <div className={"text-left rtl:text-right text-gray-500 dark:text-gray-400 table-g"}>
+                    <div
 
-                    {/*      </div>*/}
-                    {/*    </td>*/}
-                    {/*  </tr>*/}
-                    {/*</>}     */}
+                        className={" text-xs text-gray-700 uppercase bg-gray-50 table-head-g"}>
+                        <TableHeader table={table}/>
+                    </div>
+                    <div
+                        className={"table-body-g"}
+                    >
 
-                    {!myData.isLoading && <TableBody table={table} />}
+                            {myData?.queryData?.isLoading && (
+                                <LoadInTable/>
+                            )}
 
-                    {data.length === 0 && !myData.isLoading && <>
-                      <tr>
-                        <td colSpan={5}>
-                          <div className={"p-20"}>
-                            اطلاعاتی جهت نمایش وجود ندارد ☹️
+                        {data.length === 0 && <>
+                          <div className={" h-full min-h-40"}>
+                            <div className={"center__absolut min-h-20 flex items-center  justify-center"}>
+                              <div className={""}>
+                                اطلاعاتی جهت نمایش وجود ندارد ☹️
 
+                              </div>
+                            </div>
                           </div>
-                        </td>
-                      </tr>
-                    </>}
-                    </tbody>
-                </table>
+                        </>}
+
+                        {<TableBody table={table}/>}
+
+
+                    </div>
+                </div>
             </div>
         );
     } catch (e) {
