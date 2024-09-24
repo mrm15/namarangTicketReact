@@ -18,6 +18,7 @@ export interface IMyData {
     reload: string;
     isLoading: boolean;
     errorMessage: string;
+    queryData:any
 }
 
 export interface myTableGContext {
