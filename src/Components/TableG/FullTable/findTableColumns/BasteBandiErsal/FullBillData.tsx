@@ -19,11 +19,12 @@ const NameShow = ({info}) => {
 const RowNumberShow = ({info,}) => {
 
 
-    return <div
+    return <span
         style={{
-            textAlign: "right",
+            textOverflow: "ellipsis",
+            textWrap: "nowrap"
         }}
-    >{info.getValue()}</div>
+    >{info.getValue()}</span>
 }
 
 // Define the columns with the appropriate structure
@@ -35,12 +36,12 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'rowNumber',
             header: (info) => {
                 return <>
-                    ردیف
+
                 </>
             },
-            size: 20,
-            minSize: 20,
-            maxSize: 20,
+            size: 30,
+            minSize: 30,
+            maxSize: 30,
             cell: (info) => <RowNumberShow info={info}/>,
             hidden: false,
 
@@ -75,9 +76,10 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 </>
             },
-            size: 300,
-            minSize: 300,
-            maxSize: 300,
+            size: 200,
+            minSize: 200,
+            maxSize: 200,
+
         },
         {
             // accessorKey: 'عنوان سفارش',
@@ -125,9 +127,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 200,
+            minSize: 200,
+            maxSize: 200,
         },
 
         {
@@ -148,9 +150,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return <>{state + " " + city}</>
             },
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 90,
+            minSize: 90,
+            maxSize: 90,
         },
 
         {
@@ -169,7 +171,6 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
             cell: (info) => {
 
-                console.log(info.row.original.Status)
                 const constIsVerified = info.row.original.Status === 1
                 return <div className={"text-right"}>
                     <NameShow {...inputs} info={info}/>
@@ -186,9 +187,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <div>عملیات</div>
             </div>,
-            size: 300,
-            minSize: 300,
-            maxSize: 300,
+            size: 350,
+            minSize: 350,
+            maxSize: 350,
             cell: (cellInfo) => {
                 return <SendStatus  {...inputs} info={cellInfo}/>
             }
@@ -213,12 +214,11 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                 />
             </div>,
 
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
             cell: (info) => {
 
-                console.log(info.row.original.Status)
                 const constIsVerified = info.row.original.Status === 1
                 return <>
                     <NameShow {...inputs} info={info}/>
@@ -235,9 +235,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
             accessorKey: 'db',
             header: 'تاریخ بسته بندی',
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
 
 
         },
@@ -246,9 +246,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
             accessorKey: 'ds',
             header: 'تاریخ ارسال',
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
             // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
 
 
@@ -257,9 +257,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
             accessorKey: 'des',
             header: 'توضیحات',
-            size: 50,
-            minSize: 50,
-            maxSize: 50,
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
             // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
 
         },
