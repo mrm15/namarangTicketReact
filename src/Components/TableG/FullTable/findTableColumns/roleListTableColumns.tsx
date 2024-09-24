@@ -5,6 +5,7 @@ import {ICustomColumn} from "../../myTableGTypes";
 import {PAGES} from "../../../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
+import FilterTextInTable from "../Filters/FilterTextInTable.tsx";
 
 
 const NameShow = ({info}) => {
@@ -13,7 +14,7 @@ const NameShow = ({info}) => {
 }
 // Define the columns with the appropriate structure
 export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => {
-    const {url, navigateTo, myAxios, setMyData} = inputs;
+    const {url, navigateTo, myAxios, setMyData, myData} = inputs;
     const temp: ColumnDef<any>[] = [
         {
             id: "rowNumber",
@@ -96,7 +97,15 @@ export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => 
         {
             id: "name",
             accessorKey: 'name',
-            header: "نام",
+            header: ()=>{
+
+                return <FilterTextInTable
+                    placeHolder={"نام نقش "}
+                    myData={myData}
+                    setMyData={setMyData}
+                    filterKey={"name"}
+                />
+            },
 
 
             // cell: info => <>{info.getValue()}</>,
