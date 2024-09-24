@@ -101,7 +101,7 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
 
             // cell: info => <>{info.getValue()}</>,
             cell: (info) => {
-                debugger
+
 
                 return <NameShow {...inputs} info={info}/>
             },
