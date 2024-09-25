@@ -19,7 +19,6 @@ const dropdownOptions = [
     {value: 'statusListDelete', key: "حذف از جدول استاتوس ها"},
     {value: 'ticketCreate', key: "ایجاد تیکت"},
     {value: 'ticketReadAll', key: "خواندن همه تیکت ها"},
-    {value: 'ticketInput', key: "دسترسی به صندوق ورودی تیکت های مشترک من و دپارتمان"},
     {value: 'ticketChatList', key: "خواندن چت لیست تیکت"},
     {value: 'ticketReadOwn', key: "خواندن تیکت های خودم که طبیعیه"},
     {value: 'ticketReadOwnReceived', key: "مشاهده تمام تیکت هایی که من بهشون دسترسی دارم"},

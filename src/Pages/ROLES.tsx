@@ -27,7 +27,6 @@ export const ROLES = {
     readDepartmentTickets: ['readDepartmentTickets'],
     ticketChatList: ['ticketChatList'],
     ticketReadOwn: ['ticketReadOwn'], // all tickets user has access to them
-    ticketInput: ['ticketInput'],
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
     adminSettings:['adminSettings'],

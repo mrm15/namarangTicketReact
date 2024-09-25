@@ -33,7 +33,6 @@ type MyStateType = {
 const title = {
     readSentTickets: 'لیست پیام های ارسالی',
     read: 'همه ی تیکت های موجود در سیستم',
-    readMyInboxTickets: 'صندوق ورودی من',
     readMyAllTickets: 'همه ی تیکت های من',
     readDepartmentTickets: 'تیکت های دپارتمان',
 }

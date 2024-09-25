@@ -123,10 +123,6 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
                             <Route path={PAGES.ticket_Read_All} element={<TicketRead view={'read'}/>}/>
                         </Route>
-                        {/* - که هم در پارتمان من هستند و هم من بهشون دسترسی دارم -   آخرین تیکت های دریافتی */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.ticketInput}/>}>
-                            <Route path={PAGES.ticketInbox} element={<TicketRead view={'readMyInboxTickets'}/>}/>
-                        </Route>
 
                         {/* -تمام تیکت هایی که من بهشون دسترسی دارم */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwnReceived}/>}>
