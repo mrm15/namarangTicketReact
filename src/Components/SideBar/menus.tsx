@@ -119,12 +119,6 @@ export const getMenus=(roleAccessList:any): MenuType => [
         showItem: roleAccessList?.includes('ticketReadOwnReceived'),
     },
     {
-        name: "صندوق ورودی",
-        link: PAGES.ticketInbox,
-        icon: FaBackspace,
-        showItem: roleAccessList?.includes('ticketInput'),
-    },
-    {
         name: "سفارشات کل",
         link: PAGES.ticket_Read_All,
         icon: MdLocalFireDepartment,
