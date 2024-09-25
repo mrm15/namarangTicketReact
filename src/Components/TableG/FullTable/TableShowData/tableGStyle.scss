@@ -1,4 +1,10 @@
 .table-container-g {
+
+  margin: 0 auto;
+  position: relative;
+  border-radius: 5px;
+  overflow-x: auto;
+  max-height: 70vh;
   .resizer {
 
     position:absolute;
@@ -15,12 +21,6 @@
       background: rgba(99,102,241,0.1);
     }
   }
-
-  margin: 0 auto;
-  position: relative;
-  border-radius: 5px;
-  overflow-x: auto;
-  max-height: 70vh;
   .table-g {
     display: table;
     //border-collapse: collapse;
