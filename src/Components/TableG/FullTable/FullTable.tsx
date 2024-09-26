@@ -6,19 +6,23 @@ import TableShowData from "./TableShowData/TableShowData.tsx";
 
 const FullTable = () => {
     const context = useContext(TableGContext);
-    const { myData, setMyData } = context;
+    const {myData, setMyData} = context;
     if (!context) {
         return <div>{"Error: Context is undefined"}</div>;
     }
 
 
-    return (
-        <div>
-            <TableShowData />
-            <br/>
-            <Pagination />
-        </div>
-    );
+    try {
+        return (
+            <div>
+                <TableShowData/>
+                <br/>
+                <Pagination/>
+            </div>
+        );
+    } catch (error) {
+        return <>{error.toString()}</>
+    }
 };
 
 export default FullTable;
