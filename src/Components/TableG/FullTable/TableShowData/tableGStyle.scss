@@ -53,14 +53,14 @@
       display: table-row;
       text-overflow: ellipsis;
       height: 40px;
-      overflow: hidden;
+      //overflow: hidden;
 
       .table-cell-g {
         height: 40px;
         text-wrap: nowrap;
         text-overflow: ellipsis;
         text-align: justify;
-        overflow: hidden;
+        //overflow: hidden;
         border-right: 1px solid whitesmoke;
         display: table-cell;
         //padding: 12px;

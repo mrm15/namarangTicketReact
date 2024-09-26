@@ -46,7 +46,7 @@ const TableHeader = ({table}) => {
                                 header.column.columnDef.minSize=newWidth
                                 header.column.columnDef.maxSize=newWidth
                                 // header.column.setSize(newWidth);
-                                setMyData({reload:randomNumberGenerator()})
+                                setMyData({reOrderTableAfterChangeColumnWidth:randomNumberGenerator()})
                             };
 
                             const handleMouseUp = () => {
@@ -63,7 +63,8 @@ const TableHeader = ({table}) => {
                                 style={{
                                     padding: '5px 3px',
                                     textAlign: "center",
-                                    overflow: "hidden",
+                                    // overflowX: "hidden",
+                                    // overflowY:"visible",
                                     width: header.column.getSize() + "px", // Use column size
                                     minWidth: header.column.columnDef.minSize + "px", // Use column minSize
                                     maxWidth: header.column.columnDef.maxSize + "px", // Use column maxSize
