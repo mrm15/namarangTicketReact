@@ -15,10 +15,11 @@ export interface IMyData {
     tableData: any[];
     filters: any[];
     totalRows: number;
-    reload: string;
+    reload: string| number;
     isLoading: boolean;
     errorMessage: string;
     queryData:any
+    reOrderTableAfterChangeColumnWidth:string;
 }
 
 export interface myTableGContext {
