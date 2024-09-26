@@ -20,11 +20,11 @@ body {
 }
 
 .btn-gay-mir {
-    @apply bg-gray-500 hover:bg-gray-700 text-white  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
+    @apply bg-gray-300 hover:bg-gray-400 text-black  py-1 px-2 border border-gray-200 rounded hover:cursor-pointer;
 }
 
 .btn-white-border-mir {
-    @apply bg-white  text-black  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
+    @apply h-max bg-white  text-black  py-1 px-2 border border-gray-200 rounded hover:cursor-pointer;
 }
 .btn-red-border-mir {
     @apply bg-red-600  text-white  py-2 px-4 border border-gray-700 rounded hover:cursor-pointer;
