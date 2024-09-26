@@ -8,6 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
 
 import {toast} from "react-toastify";
+import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
 const TableG = ({url = "/user/read"}) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
@@ -23,6 +24,7 @@ const TableG = ({url = "/user/read"}) => {
         isLoading: false,
         errorMessage: "",
         queryData: "",
+        reOrderTableAfterChangeColumnWidth:"",
     });
 
     const myAxios = useAxiosPrivate();
@@ -94,7 +96,7 @@ const TableG = ({url = "/user/read"}) => {
                 pageNumber: data.currentPage,
             });
         }
-    }, [data, myData.reload, setMyData]);
+    }, [data, setMyData , myData.reOrderTableAfterChangeColumnWidth]);
 
     useEffect(() => {
         void refetch()
@@ -125,7 +127,10 @@ const TableG = ({url = "/user/read"}) => {
                             در حال دریافت اطلاعات
                         </span> : ""}
                     {myData.queryData.error ?
-                        <span className={"badge-bg-red-text-red cursor-pointer "}>
+                        <span
+
+                            onClick={()=>setMyData({reload:randomNumberGenerator()})}
+                            className={"badge-bg-red-text-red cursor-pointer "}>
                         تلاش مجدد
                     </span> : ""}
                 </div>
