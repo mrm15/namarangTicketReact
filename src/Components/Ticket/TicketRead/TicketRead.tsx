@@ -11,6 +11,7 @@ import useAuth from "../../../hooks/useAuth.tsx";
 import {FaArrowRight, FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 import {useQuery} from "@tanstack/react-query";
+import TableG from "../../TableG/TableG.tsx";
 
 
 interface ColumnDefinition {
@@ -265,7 +266,6 @@ export function TicketRead({view}) {
     const query = useQuery({
         queryKey: ['forwardConfig'],
         queryFn,
-
         staleTime: 86400000,  // === 60*60*24*1000
         enabled: isEnableForwarding,
     })
@@ -315,6 +315,14 @@ export function TicketRead({view}) {
 
 
     try {
+
+        if(view==="read"){
+            return  <TableG
+            url={"/ticket/read"}
+            />
+        }
+
+
         return (
             <div>
                 {openForwardToUserModal && <ForwardModal
