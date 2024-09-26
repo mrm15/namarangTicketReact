@@ -8,10 +8,21 @@ import {
 } from "../../../../utils/utilsFunction.tsx";
 import MyDatePicker from "../../../MyDatePicker";
 
-const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filterType="",
-                           optionsForSelectOption=[{key:"تایید شده",value:"1",}],
-                               placeHolder="",
-                           }) => {
+interface propType {
+    myData: any;
+    setMyData: any;
+    filterKey: string;
+    operator?: "*" | "in" | "=" | "includes" | "nin" | "regex" | '!=' | '<' | '<=' | '>' | '>=';
+    filterType?: "date" | "select" | "number" | string,
+    optionsForSelectOption?: { [key: string]: string }[];
+    placeHolder?: string;
+}
+
+const FilterTextInTable = ({
+                               myData, setMyData, filterKey, operator = "*", filterType,
+                               optionsForSelectOption = [{key: "تایید شده", value: "1",}],
+                               placeHolder = "",
+                           }: propType) => {
 
     const [query, setQuery] = useState('');
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
@@ -61,14 +72,14 @@ const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filter
         setQuery("")
     }
 
-    if(filterType ==="date") {
+    if (filterType === "date") {
 
         let rr = query
         if (rr !== "") {
             rr = HesabfaTimeStampWithTToPersianTime(query + "")
         }
 
-        return <div className={'flex font-normal overflow-visible'}>
+        return <div className={'flex font-normal overflow-visible relative w-9 overflow-hidden'}>
             <MyDatePicker
                 value={rr}
                 onChange={(selectedDate) => {
@@ -85,24 +96,38 @@ const FilterTextInTable = ({myData, setMyData, filterKey , operator="*" , filter
 
                 }}
             />
-            <div
-                onClick={removeFilter}
-                className={'px-2 bg-red-50 cursor-pointer'}>&times;</div>
+            {/*<div*/}
+            {/*    onClick={removeFilter}*/}
+            {/*    className={'px-2 bg-red-50 cursor-pointer'}>&times;</div>*/}
         </div>
 
     }
-    if(filterType==="select") {
+    if (filterType === "select") {
         return <div className={" m-1"}>
 
             <select
-            onChange={handleChangeFilter}
-            value={query}
+                onChange={handleChangeFilter}
+                value={query}
             >
                 <option value="">انتخاب کنید</option>
-                {optionsForSelectOption.map((row,index)=><option key={index} value={row.value}>{row.key}</option>)}
+                {optionsForSelectOption.map((row, index) => <option key={index} value={row.value}>{row.key}</option>)}
             </select>
 
         </div>
+    }
+    if (filterType === "number") {
+        return (
+            <div className={" m-1"}>
+                <input
+                    placeholder={placeHolder}
+                    className={" rounded p-2 outline-0 w-full"}
+                    type={"number"}
+                    onChange={handleChangeFilter}
+                    value={query}
+
+                />
+            </div>
+        );
     }
 
     return (
