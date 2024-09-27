@@ -35,10 +35,10 @@ body {
 }
 
 .btn-blue-secondary {
-    @apply py-1 px-2 rounded-lg text-sm  bg-teal-200 text-teal-800;
+    @apply  px-1 rounded bg-teal-200 text-teal-800;
 }
 .btn-blue-secondary-delete {
-    @apply py-1 px-2 rounded-lg text-sm  bg-red-200 text-teal-800;
+    @apply  px-1 rounded bg-red-200 text-teal-800;
 }
 
 .btn-small-edit {
