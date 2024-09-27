@@ -8,6 +8,8 @@ import {PAGES} from "../../../../../Pages/Route-string.tsx";
 import {ICustomColumn} from "../../../myTableGTypes.tsx";
 import DateShowltr from "../../components/DateShowltr.tsx";
 import OperationColumInTicketTable from "../../components/OperationColumInTicketTable.tsx";
+import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
+import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -47,6 +49,27 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
 
         },
+        {
+            id: "select",
+            accessorKey: 'select',
+            type:"select",
+            uniqId:"_id",
+            // showCheckBoxInHeader:true,
+            header: (info) => {
+                return <>
+                    <CheckBoxHeader
+                        info={info}
+
+                    />
+                </>
+            },
+            cell: (info) => {
+
+
+                return  <CheckBoxCell cellInfo={info} />
+            },
+        },
+
         // _عنوان سفارش
         {
             id: "title",
@@ -55,8 +78,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"عنوان سفارش"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"title"}
                     />
                 </>
@@ -75,8 +96,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"کاربر ایجاد کننده سفارش"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"userCreateThisOrder"}
                     />
                 </>
@@ -117,8 +136,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return <FilterTextInTable
                     placeHolder={"شماره تیکت"}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"ticketNumber"}
                     operator={"="}
                     filterType={"number"}
@@ -145,8 +162,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"دپارتمان"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"assignedToDepartmentIdText"}
                     />
                 </>
@@ -163,8 +178,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"آخرین کاربر"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"assignToUserIdText"}
                     />
                 </>
@@ -184,8 +197,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                     <div>تاریخ ثبت سفارش</div>
                     <FilterTextInTable
                         placeHolder={"تاریخ ثبت سفارش"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"dateCreate"}
                         operator={"="}
                         filterType={"date"}
@@ -217,8 +228,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                     <div> تاریخ آخرین تغییر</div>
                     <FilterTextInTable
                         placeHolder={"lastChangeTimeStamp"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"lastChangeTimeStamp"}
                         filterType={"date"}
                     />
@@ -236,11 +245,10 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'description',
             // header: 'توضیحات',
             header: (info) => {
+
                 return <>
                     <FilterTextInTable
                         placeHolder={"توضیحات"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"description"}
                     />
                 </>
@@ -258,8 +266,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"اولویت"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"priority"}
                     />
                 </>
@@ -281,8 +287,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"وضعیت"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"statusText"}
                     />
                 </>
@@ -304,8 +308,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"_id"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"id"}
                     />
                 </>
@@ -324,8 +326,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"userId"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"userId"}
                     />
                 </>
@@ -344,8 +344,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"assignedToDepartmentId"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"assignedToDepartmentId"}
                     />
                 </>
@@ -362,8 +360,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <>
                     <FilterTextInTable
                         placeHolder={"assignToUserId"}
-                        myData={myData}
-                        setMyData={setMyData}
                         filterKey={"assignToUserId"}
                     />
                 </>
@@ -383,8 +379,6 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return <FilterTextInTable
                     placeHolder={"تعداد فایل ضمیمه"}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"numberOfAttachments"}
                     operator={"="}
                     filterType={"number"}
