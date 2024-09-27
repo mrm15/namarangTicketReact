@@ -1,4 +1,4 @@
-import React ,{useContext} from 'react';
+import React, {useContext} from 'react';
 import {TableGContext} from "../TableGContext.tsx";
 import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 
@@ -45,21 +45,28 @@ const Pagination = () => {
     }
 
     return (
-        <div className={'flex flex-wrap gap-2 justify-between fontSize8'}>
-            <div className={'flex flex-wrap gap-2'}>
-                {[5, 10, 15, 20, 30, 50,100,200,500].map((singleNumber, index) => {
+        <div className={'flex flex-wrap gap-1 justify-between fontSize8'}>
+            <div className={'flex flex-wrap gap-1'}>
+                {[5, 10, 15, 20, 30, 50, 100, 200, 500].map((singleNumber, index) => {
 
 
                     return <button
                         key={index}
                         className={` ${myData.numberOfRows === singleNumber ? 'btn-gay-mir ' : 'btn-white-border-mir'}`}
 
-                        onClick={() => setMyData({numberOfRows: singleNumber, pageNumber: 1, reload})}
+                        onClick={() => {
+                            if (myData.numberOfRows === singleNumber) {
+                                // i am not a senior Developer Don't Expect me act like Pro!!
+                            } else {
+                                setMyData({numberOfRows: singleNumber, pageNumber: 1, reload})
+                            }
+
+                        }}
                     >{singleNumber}</button>
                 })}
 
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1">
                 {/* Previous Page Button */}
                 <button
                     className={`mx-3  ${currentPage === 1 ? 'btn-disabled' : 'btn-enabled'}`}
@@ -77,7 +84,14 @@ const Pagination = () => {
                         <button
                             key={index}
                             className={`btn ${currentPage === number ? 'btn-gay-mir' : 'btn-white-border-mir'}`}
-                            onClick={() => setMyData({pageNumber: number, reload})}
+                            onClick={() => {
+                                if (currentPage === number) {
+                                    // as I Told you I am not Pro
+                                } else {
+                                    setMyData({pageNumber: number, reload})
+                                }
+                            }
+                            }
                         >
                             {number}
                         </button>
@@ -87,7 +101,7 @@ const Pagination = () => {
                 {/* Next Page Button */}
                 <button
                     className={`mx-3 ${currentPage === numberOfButtons ? 'btn-disabled' : 'btn-enabled'}`}
-                    onClick={() => setMyData({pageNumber: Math.min(numberOfButtons, currentPage + 1) , reload})}
+                    onClick={() => setMyData({pageNumber: Math.min(numberOfButtons, currentPage + 1), reload})}
                     disabled={currentPage === numberOfButtons}
                 >
                     صفحه بعدی
