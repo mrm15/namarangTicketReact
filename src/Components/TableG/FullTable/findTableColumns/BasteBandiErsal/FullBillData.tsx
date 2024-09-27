@@ -52,8 +52,6 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                 {/*<div>  عنوان سفارش</div>*/}
                 <FilterTextInTable
                     placeHolder={"عنوان سفارش"}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"ContactTitle"}
                 />
             </div>,
@@ -115,10 +113,8 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*    تاریخ ثبت*/}
                     {/*</div>*/}
                     <FilterTextInTable
-                        myData={myData}
                         filterKey={"Date"}
                         filterType={"date"}
-                        setMyData={setMyData}
                         operator={"="}
                     />
                 </div>
@@ -160,8 +156,6 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                 {/*<div>شماره فاکتور</div>*/}
                 <FilterTextInTable
                     placeHolder={"شماره فاکتور"}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"Number"}
                 />
             </div>,
@@ -199,8 +193,6 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <div>وضعیت</div>
                 <FilterTextInTable
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"Status"}
                     operator={"="}
                     filterType={"select"}
