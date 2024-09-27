@@ -81,7 +81,7 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
                     }
                 }
 
-                return <div className={"flex flex-wrap gap-1"}>
+                return <div className={"flex gap-1 items-center justify-center"}>
                     <button
                         className={"btn-blue-secondary"}
                         onClick={handleEdit}>ویرایش
@@ -102,8 +102,6 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
 
                 return <FilterTextInTable
                     placeHolder={"نام دپارتمان "}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"name"}
                 />
             },
