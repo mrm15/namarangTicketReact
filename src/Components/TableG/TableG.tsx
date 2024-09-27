@@ -25,6 +25,7 @@ const TableG = ({url = "/user/read"}) => {
         errorMessage: "",
         queryData: "",
         reOrderTableAfterChangeColumnWidth:"",
+        checkedItems:[]
     });
 
     const myAxios = useAxiosPrivate();
