@@ -27,7 +27,7 @@ const OperationColumInTicketTable = ({
     const ticketTitle = row?.original?.title
 
 
-    console.log(row)
+
     const {auth} = useAuth();
     //console.log(row,url,navigateTo,myAxios,setMyData,myData)
     const openTicketHandler = () => {
