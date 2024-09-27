@@ -5,8 +5,7 @@ import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 
 const TableHeader = ({table}) => {
     const context = useContext(TableGContext);
-    const { myData, setMyData } = context;
-    const [tableState, setTableState] = useState(0);
+    const {myData, setMyData} = context;
 
 
 
@@ -24,14 +23,7 @@ const TableHeader = ({table}) => {
                             return null
                         }
 
-                        // setInterval(() => {
-                        //     header.column.size += 10;
-                        //     header.column.columnDef.minSize += 10;
-                        //     header.column.columnDef.maxSize += 10;
-                        //
-                        //
-                        //
-                        // }, 2000)
+
                         const handleMouseDown = (e, header) => {
                             const startX = e.clientX;
                             const startWidth = header.column.getSize();
