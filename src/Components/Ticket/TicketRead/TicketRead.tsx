@@ -12,6 +12,7 @@ import {FaArrowRight, FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 import {useQuery} from "@tanstack/react-query";
 import TableG from "../../TableG/TableG.tsx";
+import TableWithCheckboxes from "./F.tsx";
 
 
 interface ColumnDefinition {
@@ -317,9 +318,11 @@ export function TicketRead({view}) {
     try {
 
         if(view==="read"){
-            return  <TableG
-            url={"/ticket/read"}
-            />
+            return <>
+                <TableG
+                    url={"/ticket/read"}
+                />
+            </>
         }
 
 
