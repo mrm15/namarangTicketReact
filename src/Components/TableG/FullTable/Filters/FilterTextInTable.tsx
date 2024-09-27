@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useDebounce} from "../../../../hooks/useDebounce.tsx";
 import {
     HesabfaTimeStampWithTToPersianTime,
@@ -7,10 +7,9 @@ import {
     timestampToFormattedDateToSendHesabfa
 } from "../../../../utils/utilsFunction.tsx";
 import MyDatePicker from "../../../MyDatePicker";
+import {TableGContext} from "../../TableGContext.tsx";
 
 interface propType {
-    myData: any;
-    setMyData: any;
     filterKey: string;
     operator?: "*" | "in" | "=" | "includes" | "nin" | "regex" | '!=' | '<' | '<=' | '>' | '>=';
     filterType?: "date" | "select" | "number" | string,
@@ -19,11 +18,16 @@ interface propType {
 }
 
 const FilterTextInTable = ({
-                               myData, setMyData, filterKey, operator = "*", filterType,
+                               filterKey, operator = "*", filterType,
                                optionsForSelectOption = [{key: "تایید شده", value: "1",}],
                                placeHolder = "",
                            }: propType) => {
 
+    const context = useContext(TableGContext);
+    const {myData, setMyData} = context;
+    //console.log(myData.tableData)
+
+    const defaultValue = myData.filters.find(row=>row.property===filterKey)
     const [query, setQuery] = useState('');
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
     const handleChangeFilter = (e: any) => {
@@ -60,7 +64,7 @@ const FilterTextInTable = ({
 
         // Update the myData state with the new filters array
 
-        console.log(newFilterArray)
+        //console.log(newFilterArray)
         setMyData({
             filters: newFilterArray,
             reload: randomNumberGenerator()
@@ -138,6 +142,7 @@ const FilterTextInTable = ({
                 type={"text"}
                 onChange={handleChangeFilter}
                 value={query}
+                defaultValue={defaultValue}
 
             />
         </div>
