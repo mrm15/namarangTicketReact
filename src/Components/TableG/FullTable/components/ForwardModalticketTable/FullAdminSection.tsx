@@ -4,9 +4,9 @@ import DepartmentList from "./DepartmentList.tsx";
 const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => {
     return (
         <div>
-            <div>
-                🥇
-                دسترسی به کل سازمان</div>
+            <div
+            title={"دسترسی به کل سازمان"}
+            >🥇</div>
             <div className={' flex flex-wrap'}>
                 <div className={'w-full'}>
                     <div>انتخاب دپارتمان</div>
