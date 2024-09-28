@@ -96,6 +96,11 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
 
                        onSubmit={onSubmit}
                 >
+                    <div
+                    className={"sm:min-w-640 overflow-hidden"}
+                    >
+
+
                     {data ?
                         <>
                             <SelectedTicketsInModal
@@ -128,7 +133,7 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
 
                     {/*<div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>*/}
                     {/*<div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>*/}
-
+                    </div>
                 </Modal>
             </div>
         );
