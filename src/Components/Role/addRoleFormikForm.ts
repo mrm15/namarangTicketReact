@@ -110,6 +110,8 @@ const dropdownOptions = [
     {value: "widgetNumberOfBills7days", key: "ویجت تعداد فاکتور های 7 روز گذشته"},
     {value: "widgetAmountOfBills7days", key: "ویجت مبلغ فاکتور های 7 روز گذشته"},
     {value: "widgetHowManyUsersThereAre", key: "ویجت تعداد کل کاربران سیستم"},
+    //////////////////
+    {value: "screenShotBills", key: "صفحه اسکرین شات کارا"},
 
 
 ]
