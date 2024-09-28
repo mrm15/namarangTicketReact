@@ -8,7 +8,7 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
 import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
-const TableG = ({url = "/user/read", TopTableComponent}) => {
+const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
         pageNumber: 1,
