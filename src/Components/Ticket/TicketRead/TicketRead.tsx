@@ -316,6 +316,13 @@ export function TicketRead({view}) {
 
 
     try {
+        return <>
+            <TableG
+                url={`/ticket/${view}`}
+                TopTableComponent={TopTableComponent}
+            />
+        </>
+
 
         if(view==="read"){
             return <>
