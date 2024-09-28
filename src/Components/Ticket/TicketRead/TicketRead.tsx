@@ -12,7 +12,7 @@ import {FaArrowRight, FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 import {useQuery} from "@tanstack/react-query";
 import TableG from "../../TableG/TableG.tsx";
-import TableWithCheckboxes from "./F.tsx";
+import TopTableComponent from "./TopTableComponent/TopTableComponent.tsx";
 
 
 interface ColumnDefinition {
@@ -321,6 +321,7 @@ export function TicketRead({view}) {
             return <>
                 <TableG
                     url={"/ticket/read"}
+                    TopTableComponent={TopTableComponent}
                 />
             </>
         }
