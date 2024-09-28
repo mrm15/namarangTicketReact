@@ -14,7 +14,11 @@ const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, dest
     try{
         return (
             <div>
-                <div>دسترسی مدیر دپارتمان</div>
+                <div
+                title={"دسترسی مدیر دپارتمان"}
+                >
+                🏬
+                </div>
                 <div className={'flex'}>
                     <div className={' flex gap-2  border border-2 p-2 rounded cursor-pointer'}>
 
