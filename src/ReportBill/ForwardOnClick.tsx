@@ -2,15 +2,15 @@ import {useNavigate} from "react-router-dom";
 import {PAGES} from "../Pages/Route-string";
 import React from "react";
 
-const ForwardOnClick = ({value, NewPage, options}) => {
+const ForwardOnClick = ({value, NewPage, options , buttonCaption="ویرایش"}) => {
 
     const navigateTo = useNavigate();
     try {
-        return <div
+        return <button
             onClick={() => navigateTo(NewPage, options)}>
             {/*{value}*/}
-            ویرایش
-        </div>
+            {buttonCaption}
+        </button>
     } catch (error) {
         return <>{error.toString()}</>
     }
