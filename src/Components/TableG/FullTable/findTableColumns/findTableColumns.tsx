@@ -20,7 +20,11 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     "/role/read": roleListTableColumns,
     "/department/read": departmentListTableColumns,
     "/hesabfa/getBillListData": FullBillData,
-    "/ticket/read": ticketlistColumns,
+
+    "/ticket/readSentTickets": ticketlistColumns, // ارسالی ها
+    "/ticket/read": ticketlistColumns, // همه ی تیکت ها
+    "/ticket/readMyAllTickets": ticketlistColumns, // صندوق ورودی
+    "/ticket/readDepartmentTickets": ticketlistColumns, // تیکت های دپارتمان
 
 }
 
