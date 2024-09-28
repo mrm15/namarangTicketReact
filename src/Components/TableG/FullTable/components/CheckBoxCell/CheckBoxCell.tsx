@@ -41,7 +41,7 @@ const CheckBoxCell = ({cellInfo}) => {
 
 
     return (
-        <div>
+        <div className={"text-center"}>
             <input
                 type="checkbox"
                    checked={!!isCheck}
