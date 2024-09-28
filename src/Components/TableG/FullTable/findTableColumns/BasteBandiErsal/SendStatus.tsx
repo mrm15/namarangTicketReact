@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {getCurrentDate, randomNumberGenerator} from "../../../../../utils/utilsFunction.tsx";
 import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate.tsx";
 import {makeInvoiceBaseOnHesabfaData} from "../../../../Hesabfa/SubmitBill/functions.tsx";
@@ -9,6 +9,7 @@ import ErsalInPackSendTable from "./ErsalInPackSendTable.tsx";
 import {PAGES} from "../../../../../Pages/Route-string.tsx";
 import ForwardOnClick from "../../../../../ReportBill/ForwardOnClick.tsx";
 import DeleteBill from "./DeleteBill.tsx";
+import {TableGContext} from "../../../TableGContext.tsx";
 
 const SendStatus = ({
                         info,
@@ -83,12 +84,14 @@ const SendStatus = ({
     const hasAccessErsal = auth?.userInfo?.roleAccessList?.includes("ersal")
     const hasAccessVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const hasAccessDraftBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDraft[0])
+    const hasAccessToGetScreenShotBills = auth?.userInfo?.roleAccessList?.includes(ROLES.screenShotBills[0])
 
 
     const roleAccessList = auth.userInfo?.roleAccessList;
     // const accessToEditBill = roleAccessList.includes(ROLES.editBillInChatList[0])
     const accessToDeleteBill = roleAccessList.includes(ROLES.deleteBill[0])
 
+    const billObject = info?.row?.original
 
     return (
         <div className={"flex flex-wrap items-center gap-1 "}>
@@ -131,6 +134,19 @@ const SendStatus = ({
                 billNumber={billNumber}
                 info={info}
               />
+            }
+            {hasAccessToGetScreenShotBills &&
+              <div className={"btn-small-edit"}>
+                <ForwardOnClick
+                  buttonCaption={"اسکرین شات"}
+                  value={billNumber} NewPage={PAGES.screenshot}
+                  options={{
+                      state: {
+                          data: {bill: billObject}
+                      }
+                  }}
+                />
+              </div>
             }
 
 
