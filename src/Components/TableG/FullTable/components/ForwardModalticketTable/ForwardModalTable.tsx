@@ -126,8 +126,8 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
                         <div>اطلاعات مربوط به ارجاع یافت نشد لطفا مجددا تلاش کنید. </div>
                     }
 
-                    <div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>
-                    <div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>
+                    {/*<div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>*/}
+                    {/*<div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>*/}
 
                 </Modal>
             </div>
