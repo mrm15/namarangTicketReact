@@ -107,6 +107,7 @@ export const ROLES = {
     adminReport:["adminReport"],
     basted_bandi_ersal:["basteBandi","ersal"],
     hasAccessToUnCheckedSendPackages : ["hasAccessToUnCheckedSendPackages"],
+    screenShotBills: ["screenShotBills"],
 
 
 
