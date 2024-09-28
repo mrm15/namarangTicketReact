@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import DepartmentList from "./DepartmentList.tsx";
+import SelectOptionListView from "./SelectOptionListView.tsx";
 
 const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, destinationUserList}) => {
     const [whichView, setWhichView] = useState(1);
@@ -32,7 +32,7 @@ const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, dest
                     {whichView === 1 && <div className={''}>
                       <div>انتخاب دپارتمان</div>
                         {<div>
-                            <DepartmentList
+                            <SelectOptionListView
                                 myOptions={departmentList}
                                 myKey={'department'}
                                 setSelectedData={setSelectedData}
@@ -41,7 +41,7 @@ const DepartmentAdminViewSection = ({mode, departmentList, setSelectedData, dest
                     </div>}
                     {whichView === 0 && <div className={'w-full'}>
                       <div> انتخاب کاربر</div>
-                      <DepartmentList
+                      <SelectOptionListView
                         myOptions={destinationUserList}
                         myKey={'user'}
                         setSelectedData={setSelectedData}

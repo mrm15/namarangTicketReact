@@ -1,5 +1,5 @@
 import React from 'react';
-import DepartmentList from "./DepartmentList.tsx";
+import SelectOptionListView from "./SelectOptionListView.tsx";
 
 const UsualUserViewSection = ({mode, setSelectedData, destinationUserList}) => {
     return (
@@ -8,7 +8,7 @@ const UsualUserViewSection = ({mode, setSelectedData, destinationUserList}) => {
                 <div className={' flex gap-2'}>
                     <div className={'w-full'}>
                         <div> انتخاب کاربر</div>
-                        <DepartmentList
+                        <SelectOptionListView
                             myOptions={destinationUserList}
                             myKey={'user'}
                             setSelectedData={setSelectedData}

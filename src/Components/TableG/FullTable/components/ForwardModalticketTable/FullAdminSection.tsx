@@ -1,5 +1,5 @@
 import React from 'react';
-import DepartmentList from "./DepartmentList.tsx";
+import SelectOptionListView from "./SelectOptionListView.tsx";
 
 const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => {
     return (
@@ -11,7 +11,7 @@ const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => 
                 <div className={'w-full'}>
                     <div>انتخاب دپارتمان</div>
                     <div>
-                        <DepartmentList
+                        <SelectOptionListView
                             myOptions={departmentList}
                             myKey={'department'}
                             setSelectedData={setSelectedData}
@@ -20,7 +20,7 @@ const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => 
                 </div>
                 <div className={'w-full'}>
                     <div> انتخاب کاربر</div>
-                    {mode === 'admin' && <DepartmentList
+                    {mode === 'admin' && <SelectOptionListView
                       myOptions={userList}
                       myKey={'user'}
                       setSelectedData={setSelectedData}

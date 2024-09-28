@@ -41,7 +41,7 @@ const customStyles = {
     indicatorsContainer: () => ({display: 'none'}), // Hide the dropdown indicators
 };
 
-const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
+const SelectOptionListView = ({myKey, setSelectedData, myOptions}) => {
     const [selectedOption, setSelectedOption] = useState({value: '', label: 'انتخاب کنید'}); // State to store the selected option
 
 
@@ -95,4 +95,4 @@ const DepartmentList = ({myKey, setSelectedData, myOptions}) => {
     // }
 };
 
-export default DepartmentList;
+export default SelectOptionListView;
