@@ -42,6 +42,7 @@ export const PAGES = {
     // hesabfa
     showBill:"/s",
     submit_bill:"/submit-bill",
+    screenshot:"/screenshot",
     ////////////////////////////////////
     reportBill:"/reportBill",
     basted_bandi_ersal:"/pack-send",
