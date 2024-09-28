@@ -39,6 +39,7 @@ import ListDepartmentG from "../Components/Department/ListDepartmentG.tsx";
 import AdminReport from "../Components/AdminReport/AdminReport.tsx";
 import AdminReportCP from "../Components/AdminReport/AdminReportCP.tsx";
 import PackSend from "../Components/PackSend/PackSend.tsx";
+import ScreenShotBill from "../Components/ScreenShotBill/ScreenShotBill.tsx";
 
 
 const Pages = () => {
@@ -168,6 +169,9 @@ const Pages = () => {
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.basted_bandi_ersal}/>}>
                             <Route path={PAGES.basted_bandi_ersal} element={<PackSend/>}/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.screenShotBills}/>}>
+                            <Route path={PAGES.screenshot} element={<ScreenShotBill/>}/>
                         </Route>
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
