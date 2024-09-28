@@ -97,7 +97,7 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
                        onSubmit={onSubmit}
                 >
                     <div
-                    className={"sm:min-w-640 overflow-hidden"}
+                    className={"sm:min-w-640 "}
                     >
 
 
