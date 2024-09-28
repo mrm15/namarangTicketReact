@@ -53,7 +53,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             id: "select",
             accessorKey: 'select',
             type:"select",
-            uniqId:"_id",
+            uniqId:"_id", // وقتی چک باکس داریم این مورد اجباریه
             // showCheckBoxInHeader:true,
             header: (info) => {
                 return <>
@@ -94,10 +94,12 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'userCreateThisOrder',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"کاربر ایجاد کننده سفارش"}
-                        filterKey={"userCreateThisOrder"}
-                    />
+                    <div>کاربر ایجاد کننده سفارش</div>
+
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"کاربر ایجاد کننده سفارش"}*/}
+                    {/*    filterKey={"userCreateThisOrder"}*/}
+                    {/*/>*/}
                 </>
             },
             size: 200,
@@ -160,10 +162,11 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'assignedToDepartmentIdText',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"دپارتمان"}
-                        filterKey={"assignedToDepartmentIdText"}
-                    />
+                    <div>دپارتمان</div>
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"دپارتمان"}*/}
+                    {/*    filterKey={"assignedToDepartmentIdText"}*/}
+                    {/*/>*/}
                 </>
             },
             size: 150,
@@ -176,10 +179,11 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'assignToUserIdText',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"آخرین کاربر"}
-                        filterKey={"assignToUserIdText"}
-                    />
+                    <div>آخرین کاربر</div>
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"آخرین کاربر"}*/}
+                    {/*    filterKey={"assignToUserIdText"}*/}
+                    {/*/>*/}
                 </>
             },
             size: 150,
@@ -195,13 +199,13 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return <div>
                     <div>تاریخ ثبت سفارش</div>
-                    <FilterTextInTable
-                        placeHolder={"تاریخ ثبت سفارش"}
-                        filterKey={"dateCreate"}
-                        operator={"="}
-                        filterType={"date"}
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"تاریخ ثبت سفارش"}*/}
+                    {/*    filterKey={"dateCreate"}*/}
+                    {/*    operator={"="}*/}
+                    {/*    filterType={"date"}*/}
 
-                    />
+                    {/*/>*/}
                 </div>
             },
 
@@ -226,11 +230,11 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             header: (info) => {
                 return <>
                     <div> تاریخ آخرین تغییر</div>
-                    <FilterTextInTable
-                        placeHolder={"lastChangeTimeStamp"}
-                        filterKey={"lastChangeTimeStamp"}
-                        filterType={"date"}
-                    />
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"lastChangeTimeStamp"}*/}
+                    {/*    filterKey={"lastChangeTimeStamp"}*/}
+                    {/*    filterType={"date"}*/}
+                    {/*/>*/}
                 </>
             },
             size: 200,
@@ -240,25 +244,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
 
         },
-        // توضیحات سفارش
-        {
-            accessorKey: 'description',
-            // header: 'توضیحات',
-            header: (info) => {
-
-                return <>
-                    <FilterTextInTable
-                        placeHolder={"توضیحات"}
-                        filterKey={"description"}
-                    />
-                </>
-            },
-
-            size: 150,
-            minSize: 150,
-            maxSize: 150,
-        },
-        // الویت
+     // الویت
         {
             id: "priority",
             accessorKey: 'priority',
@@ -285,15 +271,65 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"وضعیت"}
-                        filterKey={"statusText"}
-                    />
+                    <div>وضعیت</div>
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"وضعیت"}*/}
+                    {/*    filterKey={"statusText"}*/}
+                    {/*/>*/}
                 </>
             },
             size: 150,
             minSize: 150,
             maxSize: 150,
+        },
+
+        // تعداد فایل ضمیمه
+        {
+            id: "numberOfAttachments",
+            accessorKey: 'numberOfAttachments',
+            // header: "نام",
+            header: () => {
+
+                return <>
+                    <div>تعداد فایل ضمیمه</div>
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"تعداد فایل ضمیمه"}*/}
+                    {/*    filterKey={"numberOfAttachments"}*/}
+                    {/*    operator={"="}*/}
+                    {/*    filterType={"number"}*/}
+                    {/*/>*/}
+                </>
+            },
+
+
+            // cell: info => <>{info.getValue()}</>,
+            cell: (info) => {
+
+
+                return <>{info.getValue()}</>
+            },
+            size: 90,
+            minSize: 90,
+            maxSize: 90,
+        },
+
+        // توضیحات سفارش
+        {
+            accessorKey: 'description',
+            // header: 'توضیحات',
+            header: (info) => {
+
+                return <>
+                    <FilterTextInTable
+                        placeHolder={"توضیحات"}
+                        filterKey={"description"}
+                    />
+                </>
+            },
+
+            size: 400,
+            minSize: 400,
+            maxSize: 400,
         },
 
 
@@ -370,33 +406,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
         },
 
 
-        // تعداد فایل ضمیمه
-        {
-            id: "numberOfAttachments",
-            accessorKey: 'numberOfAttachments',
-            // header: "نام",
-            header: () => {
 
-                return <FilterTextInTable
-                    placeHolder={"تعداد فایل ضمیمه"}
-                    filterKey={"numberOfAttachments"}
-                    operator={"="}
-                    filterType={"number"}
-
-                />
-            },
-
-
-            // cell: info => <>{info.getValue()}</>,
-            cell: (info) => {
-
-
-                return <>{info.getValue()}</>
-            },
-            size: 90,
-            minSize: 90,
-            maxSize: 90,
-        },
     ];
 
     return temp
