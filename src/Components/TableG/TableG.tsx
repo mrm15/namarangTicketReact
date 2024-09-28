@@ -6,11 +6,9 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {IMyData} from "./myTableGTypes.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
-
-import {toast} from "react-toastify";
 import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
-const TableG = ({url = "/user/read"}) => {
+const TableG = ({url = "/user/read", TopTableComponent}) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
         pageNumber: 1,
@@ -97,7 +95,7 @@ const TableG = ({url = "/user/read"}) => {
                 pageNumber: data.currentPage,
             });
         }
-    }, [data, setMyData , myData.reOrderTableAfterChangeColumnWidth]);
+    }, [data, setMyData, myData.reOrderTableAfterChangeColumnWidth]);
 
     useEffect(() => {
         void refetch()
@@ -118,6 +116,7 @@ const TableG = ({url = "/user/read"}) => {
                 <div>
                     {/*<div>{"عنوان"}</div>*/}
 
+                    {TopTableComponent && <TopTableComponent/>}
                     <FullTable/>
                 </div>
                 <div className={"m-5"}>
