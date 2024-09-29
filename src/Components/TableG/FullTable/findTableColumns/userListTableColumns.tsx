@@ -99,9 +99,6 @@ export const userListTableColumns = (inputs: IInputObject) => {
                 return <><FilterTextInTable
                     placeHolder={"نام"}
                     filterKey={"name"}
-                    setMyData={setMyData}
-                    myData={myData}
-
 
                     /></>
             },
