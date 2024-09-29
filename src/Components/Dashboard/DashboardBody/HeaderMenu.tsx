@@ -11,7 +11,7 @@ function HeaderMenu() {
     const name = auth?.userInfo?.userData?.name || "کاربر"
     const roleName = auth?.userInfo?.userData?.roleName || ""
     const departmentName = auth?.userInfo?.userData?.departmentName || ""
-    console.log(auth)
+
 
     const logout = useLogout();
     const navigateTo = useNavigate()
