@@ -1,3 +1,4 @@
+@import "Components/MyFormik/styles.scss";
 :root{
     --bgcolor: #fafafa;
     --whitecolor:#ffffff;
