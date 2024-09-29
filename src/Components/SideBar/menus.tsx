@@ -7,6 +7,7 @@ import {FaBarsStaggered, FaFileCirclePlus, FaShapes} from "react-icons/fa6";
 import {FaBackspace, FaFileAlt} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
 import {IconType} from "react-icons";
+import {ROLES} from "../../Pages/ROLES.tsx";
 
 type CustomIconType = {
     icon: IconType;
@@ -32,16 +33,16 @@ export const getMenus=(roleAccessList:any): MenuType => [
         showItem: roleAccessList?.includes('adminReport'),
     },
     {
-        name: "لیست فاکتور",
+        name: "خروجی انبار",
         link: PAGES.reportBill,
         icon: RiBillLine,
         showItem: roleAccessList?.includes('showReportBillList'),
     },
     {
-        name: "بسته بندی ارسال",
+        name: "لیست فاکتور",
         link: PAGES.basted_bandi_ersal,
         icon: RiBillLine,
-        showItem: (roleAccessList?.includes('basteBandi') || roleAccessList?.includes('ersal')),
+        showItem: roleAccessList?.includes('basteBandi') || roleAccessList?.includes('ersal') || (roleAccessList?.includes(ROLES.screenShotBills[0])) ,
     },
 
 
