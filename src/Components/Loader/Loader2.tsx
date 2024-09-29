@@ -4,7 +4,7 @@ interface Loader2Props {
     text?: string
 }
 
-function Loader2({text}: Loader2Props) {
+function Loader2({text="در حال بارگزاری"}: Loader2Props) {
 
 
     return (
