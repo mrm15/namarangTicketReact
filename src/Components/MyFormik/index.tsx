@@ -1,7 +1,7 @@
 import {Form, Formik} from 'formik'
 import FormikControl from './FormikControl'
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
-import "./styles.scss"
+// import "./styles.scss" //  i import it in the App.css  cz lazy load need this style //@import "Components/MyFormik/styles.scss";
 import {Id, toast} from "react-toastify";
 import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
 import {uploadFileUtil} from "../../utils/upload.tsx";
