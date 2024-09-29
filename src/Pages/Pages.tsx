@@ -8,6 +8,7 @@ import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
 import {ROLES} from "./ROLES.tsx";
 import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
+import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
@@ -229,7 +230,18 @@ const Pages = () => {
                         <Route element={<RequireAuth
                             allowedRoles={[...ROLES.basted_bandi_ersal, ...ROLES.screenShotBills]}/>}>
                             <Route path={PAGES.basted_bandi_ersal} element={
-                                <Suspense fallback={<Loader/>}>
+                                <Suspense fallback={<>
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100" />
+                                </>}>
                                     <PackSend/>
                                 </Suspense>
                             }/>
