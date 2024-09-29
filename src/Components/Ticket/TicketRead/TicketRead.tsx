@@ -39,7 +39,7 @@ const title = {
     readDepartmentTickets: 'تیکت های دپارتمان',
 }
 
-export function TicketRead({view}) {
+ function TicketRead({view}) {
     const { pathname } = useLocation();
 
 
@@ -387,3 +387,5 @@ export function TicketRead({view}) {
         return <>{error.toString()}</>
     }
 }
+
+export default TicketRead
