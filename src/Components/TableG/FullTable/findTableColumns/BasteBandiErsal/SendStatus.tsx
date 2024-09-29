@@ -138,7 +138,7 @@ const SendStatus = ({
             {hasAccessToGetScreenShotBills &&
               <div className={"btn-small-edit"}>
                 <ForwardOnClick
-                  buttonCaption={"اسکرین شات"}
+                  buttonCaption={" شات"}
                   value={billNumber} NewPage={PAGES.screenshot}
                   options={{
                       state: {
