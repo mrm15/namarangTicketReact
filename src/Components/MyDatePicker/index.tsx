@@ -1,17 +1,21 @@
-import  {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
 import numeric from "../../utils/NumericFunction";
 
-const FormDatePicker = (props) => {
+interface propType {
+    value: any;
+    onChange: any;
+}
+
+const FormDatePicker = (props: propType) => {
 
     const {value, onChange} = props
 
     const dateCal = useRef<HTMLInputElement>(null); // Specify the expected type for clarity
 
     useEffect(() => {
-
 
 
         const handleKeyDown = (event) => {
@@ -48,7 +52,6 @@ const FormDatePicker = (props) => {
 
                 } else {
                     onChange('')
-
 
 
                 }
