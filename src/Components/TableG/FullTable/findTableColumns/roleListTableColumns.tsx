@@ -101,8 +101,6 @@ export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => 
 
                 return <FilterTextInTable
                     placeHolder={"نام نقش "}
-                    myData={myData}
-                    setMyData={setMyData}
                     filterKey={"name"}
                 />
             },
