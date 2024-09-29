@@ -6,17 +6,12 @@ import RequireAuth from "../Components/RequireAuth"
 import Home from "../Components/Home/Home.tsx"
 import Missing from "../Components/Missing"
 import LoginSMS from "../Components/LoginSMS.tsx";
-
 import {PAGES} from "./Route-string.tsx"
-
 import Unauthorized from "../Components/Unauthorized/Unauthorized.tsx";
 import AddUser from "../Components/User/AddUser.tsx";
-import ListUsers from "../Components/User/ListUsers.tsx";
 import {ROLES} from "./ROLES.tsx";
 import AddRole from "../Components/Role/AddRole.tsx";
-import ListRoles from "../Components/Role/ListRoles.tsx";
 import AddDepartment from "../Components/Department/AddDepartment.tsx";
-import ListDepartment from "../Components/Department/ListDepartment.tsx";
 import AddStatus from "../Components/Status/AddStatus.tsx";
 import ListStatus from "../Components/Status/ListStatus.tsx";
 import AddFiles from "../Components/Files/AddFiles.tsx";
@@ -25,18 +20,14 @@ import TicketCreate from "../Components/Ticket/TicketCreate/TicketCreate.tsx";
 import {TicketRead} from "../Components/Ticket/TicketRead/TicketRead.tsx";
 import TicketChatList from "../Components/Ticket/TicketChatList/TicketChatList.tsx";
 import AddSettings from "../Components/AdminSettings/AddSettings.tsx";
-import SendSmsForm from "../SMS/SendSmsForm/SendSmsForm.tsx";
 import SendSms from "../SendSms/SendSms.tsx";
-import ShowSmsList from "../SMS/ShowSmsList/ShowSmsList.tsx";
 import HesabfaTest from "../Components/Test/HesabfaTest.tsx";
 import ShowBill from "../Components/Hesabfa/ShowBill/ShowBill.tsx";
 import SubmitBill from "../Components/Hesabfa/SubmitBill/SubmitBill.tsx";
 import ReportBill from "../ReportBill/ReportBill.tsx";
-import TableG from "../Components/TableG/TableG.tsx";
 import ListUsersG from "../Components/User/ListUsersG.tsx";
 import ListRolesG from "../Components/Role/ListRolesG.tsx";
 import ListDepartmentG from "../Components/Department/ListDepartmentG.tsx";
-import AdminReport from "../Components/AdminReport/AdminReport.tsx";
 import AdminReportCP from "../Components/AdminReport/AdminReportCP.tsx";
 import PackSend from "../Components/PackSend/PackSend.tsx";
 import ScreenShotBill from "../Components/ScreenShotBill/ScreenShotBill.tsx";
@@ -167,7 +158,7 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.adminReport}/>}>
                             <Route path={PAGES.adminReport} element={<AdminReportCP/>}/>
                         </Route>
-                        <Route element={<RequireAuth allowedRoles={ROLES.basted_bandi_ersal}/>}>
+                        <Route element={<RequireAuth allowedRoles={[...ROLES.basted_bandi_ersal , ...ROLES.screenShotBills]}/>}>
                             <Route path={PAGES.basted_bandi_ersal} element={<PackSend/>}/>
                         </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.screenShotBills}/>}>
