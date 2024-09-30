@@ -13,17 +13,19 @@ const NameShow = ({info}) => {
 
     return <div>{info.getValue()}</div>
 }
-const RowNumberShow = ({info,}) => {
-
-
-    return <span
-        style={{
-            textOverflow: "ellipsis",
-            textWrap: "nowrap"
-        }}
-    >{info.getValue()}</span>
-}
-
+const RowNumberShow = ({ info }) => {
+    return (
+        <span
+            style={{
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap", // Change textWrap to whiteSpace
+                overflow: "hidden" // Add overflow to handle ellipsis
+            }}
+        >
+            {info.getValue()}
+        </span>
+    );
+};
 // Define the columns with the appropriate structure
 export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
     const {url, navigateTo, myAxios, setMyData, myData} = inputs;
