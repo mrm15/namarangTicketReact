@@ -1,9 +1,10 @@
 import './App.css'
 import Pages from "./Pages/Pages";
-import { ToastContainer, toast } from 'react-toastify';
+import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import React, {useEffect, useRef} from "react";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
 
 
 const App: React.FC = () => {
@@ -44,16 +45,14 @@ const App: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            <Pages />
+            {/*<ErrorBoundary>*/}
+                <Pages/>
+            {/*</ErrorBoundary>*/}
         </>
     );
 };
 
 export default App;
-
-
-
-
 
 
 // Add a request interceptor

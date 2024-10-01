@@ -33,6 +33,7 @@ const ScreenShotBill = () => {
         <ScreenshotProvider initialData={initialData}>
             <CalculateData/>
             <div id={'i_want_to_take_screenshot_here'}
+                 className={"shot__font"}
                  style={{
                      background: "white",
                      border: ` 5px solid rgba(255, 0, 0, 0.13)`,

@@ -13,30 +13,32 @@ const ScreenShotTable = () => {
         <div className={"text-center"}>
 
             {/*{JSON.stringify(data.tableColumnArray)}*/}
-            <div className="">
-                <table className="min-w-full max-w-fit bg-white border border-gray-300">
+            <div className="shot__font">
+                <table className="min-w-full max-w-fit bg-white border border-gray-300 shot__font">
                     <thead>
-                    <tr className="bg-gray-100 ">
-                        <th className="py-2 px-4 border-b border">نام مشتری</th>
+                    <tr className="bg-gray-100shot__font ">
+                        <th className="py-2 px-4 border-b border shot__font">نام مشتری</th>
                         {data.tableColumnArray.map(row => <th
                             key={row.id}
-                            className="py-2 px-4 border-b border"
+                            className="py-2 px-4 border-b border shot__font"
                         >{row.title}</th>)}
-                        <th className="py-2 px-4 border-b border">تاریخ</th>
+                        <th className="py-2 px-4 border-b border shot__font ">تاریخ</th>
 
                     </tr>
                     </thead>
                     <tbody>
 
-                    <tr className="hover:bg-gray-50">
-                        <td className="py-2 px-4 border-b border">{data.fileName}</td>
+                    <tr className="hover:bg-gray-50 shot__font">
+                        <td className="py-2 px-4 border-b border shot__font">{data.fileName}</td>
                         {data.tableColumnArray.map(row => <td
                             key={row.id}
-                            className="py-2 px-4 border-b border"
-                        >{row.value?.split("\n")?.map((line: any, index: React.Key) => <div key={index}>
+                            className="py-2 px-4 border-b border shot__font"
+                        >{row.value?.split("\n")?.map((line: any, index: React.Key) => <div
+                            className={"shot__font"}
+                            key={index}>
                             <>{line}</>
                         </div>)}</td>)}
-                        <td className="py-2 px-4 border-b border">
+                        <td className="py-2 px-4 border-b border shot__font">
                             {data.dateOnScreenShot}
                         </td>
 
@@ -46,7 +48,7 @@ const ScreenShotTable = () => {
                             className={""}
                         >
                             <input type="text"
-                                   className={"w-full p-2 outline-0 text-center"}
+                                   className={"w-full p-2 outline-0 text-center shot__font"}
                                    placeholder={"توضیحات"}
                                    value={data.description}
                                    onChange={e => setData({description: e.target.value})}
