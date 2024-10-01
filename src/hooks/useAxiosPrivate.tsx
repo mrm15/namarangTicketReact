@@ -7,7 +7,7 @@ import {toast} from "react-toastify";
 const useAxiosPrivate = () => {
     const refresh = useRefreshToken();
     // @ts-ignore
-    const { auth,setAuth } = useAuth();
+    const { auth } = useAuth();
  
     useEffect(() => {
         const controller = new AbortController();
