@@ -10,8 +10,10 @@ const useAxiosPrivate = () => {
     const { auth,setAuth } = useAuth();
  
     useEffect(() => {
+        const controller = new AbortController();
         const requestIntercept = axiosPrivate.interceptors.request.use(
             config => {
+                config.signal = controller.signal;
                 if (!config.headers['Authorization']) {
                     config.headers['Authorization'] = `Bearer ${auth?.accessToken}`;
                 }
@@ -68,6 +70,7 @@ const useAxiosPrivate = () => {
         );
 
         return () => {
+            controller.abort()
             axiosPrivate.interceptors.request.eject(requestIntercept);
             axiosPrivate.interceptors.response.eject(responseIntercept);
         }
