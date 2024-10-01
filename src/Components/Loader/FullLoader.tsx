@@ -2,8 +2,9 @@ import useWindowSize from "../../hooks/useWindowSize.tsx";
 import React from "react";
 import "./fullLoader.scss"
 import namarangLogo from "../../assets/images/logo_namarang256.png"
+import NamarangLogoSvg from "../../assets/Svg/NamarangLogoSvg.tsx";
 
-const  FullLoader=({text=""})=> {
+const FullLoader = ({text = ""}) => {
     const {widthWindowSize} = useWindowSize()
 
     const styles: React.CSSProperties = {
@@ -12,12 +13,13 @@ const  FullLoader=({text=""})=> {
     }
     return <>
         <div style={styles}
-        className={"loading-logo"}
+             className={"loading-logo"}
         >
             <div>
                 <div className="flex-col gap-4 w-full flex items-center justify-center">
                     <div className="loading-logo">
-                        <img src={namarangLogo} alt={""}/>
+                        {/*<img src={namarangLogo} alt={""}/>*/}
+                        <NamarangLogoSvg height={256} width={256}/>
                         {/*<span style="color: #FFFFFF;">2.0.62</span>*/}
                         <div className="loader"></div>
                     </div>
