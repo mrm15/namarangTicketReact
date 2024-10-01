@@ -6,6 +6,8 @@ import store from './store'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {AuthProvider} from './context/AuthProvider';
 import MyQueryClientProvider from "./Components/MyQueryClientProvider/MyQueryClientProvider.tsx";
+import swRegister from "../SW/swRegister.tsx";
+import swUnregister from "../SW/swUnregister.tsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -24,28 +26,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     // </React.StrictMode>,
 )
 
-// Request notification permission when the app loads
-if ('Notification' in window && navigator.serviceWorker) {
-    void Notification.requestPermission().then(permission => {
-        if (permission === 'granted') {
-            console.log('Notification permission granted.');
-        } else if (permission === 'denied') {
-            console.log('Notification permission denied.');
-        } else {
-            console.log('Notification permission dismissed.');
-        }
-    });
-}
-
-// Service Worker registration
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-            .then(registration => {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(error => {
-                console.error('Service Worker registration failed:', error);
-            });
-    });
-}
+swRegister()
+// swUnregister()
