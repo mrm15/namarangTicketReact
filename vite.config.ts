@@ -9,8 +9,16 @@ export default defineConfig({
         react(),
         VitePWA(//
             {//
-                registerType: "prompt", // This is valid as long as it's one of the accepted types
-                includeAssets: ['favicon.ico', "apple-touch-icon.png", "masked-icon.png"],
+                registerType: "autoUpdate", // This is valid as long as it's one of the accepted types
+                // add this to cache all the imports
+                workbox: {
+                    globPatterns: ["**/*"],
+                },
+                // add this to cache all the
+                // static assets in the public folder
+                includeAssets: [
+                    "**/*",
+                ],
                 manifest: {
                     name: "نمارنگ",
                     short_name: "نمارنگ",
@@ -53,7 +61,7 @@ export default defineConfig({
                         },
                     ],
                     theme_color: "#181818",
-                    background_color: "#e8eac2",
+                    background_color: "#000c40",
                     display: "standalone",
                     scope: "/",
                     start_url: "/",
