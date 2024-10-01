@@ -21,7 +21,9 @@
     "noFallthroughCasesInSwitch": false, //  it was true => false
     "allowSyntheticDefaultImports": true,
     "types": [
-      "vite-plugin-pwa/client"
+      "vite-plugin-pwa/client",
+      "node",
+
     ]
   },
   "include": ["./src/*"],
