@@ -23,3 +23,46 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
     // </React.StrictMode>,
 )
+
+// Request notification permission when the app loads
+if ('Notification' in window && navigator.serviceWorker) {
+    void Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+            console.log('Notification permission granted.');
+        } else if (permission === 'denied') {
+            console.log('Notification permission denied.');
+        } else {
+            console.log('Notification permission dismissed.');
+        }
+    });
+}
+
+// Service Worker registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
+    });
+}
+
+// Service Worker registration (add this part below the render method)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        console.log(`window.addEventListener('load')   FIRED!1️⃣`)
+        navigator.serviceWorker.register('./service-worker.js')
+            .then(registration => {
+                console.log(`navigator.serviceWorker.register('/service-worker.js') FIRED!12️⃣`)
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.log(`catch(error ) register('/service-worker FIRED! 🔴🔴`)
+
+                console.error('Service Worker registration failed:', error);
+            });
+    });
+}
