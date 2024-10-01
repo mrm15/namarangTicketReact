@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>نمارنگ آفلاین</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b, #86a8e7, #91eae4);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .offline-container {
+            text-align: center;
+            color: #ffffff;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        p {
+            font-size: 1.5em;
+        }
+
+        .pulse {
+            font-size: 6em;
+            color: #fff;
+            animation: pulseAnimation 1.5s infinite;
+        }
+
+        @keyframes pulseAnimation {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            border: none;
+            border-radius: 30px;
+            background-color: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff4757;
+        }
+    </style>
+</head>
+<body>
+<div class="offline-container">
+    <h1>You're Offline</h1>
+    <p>Please check your internet connection</p>
+    <div class="pulse">⚠️</div>
+    <button onclick="reloadPage()">تلاش مجدد</button>
+</div>
+
+<script>
+  // Function to reload the page
+  function reloadPage() {
+    location.reload();
+  }
+
+  // Optionally, you can listen for the online/offline status in JavaScript
+  window.addEventListener('offline', () => {
+    document.querySelector('h1').textContent = "You're Offline";
+    document.querySelector('p').textContent = "لطفا اتصال به اینترنت را بررسی کنید";
+  });
+
+  window.addEventListener('online', () => {
+    document.querySelector('h1').textContent = "شما آنلاین شدید!";
+    document.querySelector('p').textContent = "لطفا صفحه را مجددا بارگزاری کنید";
+  });
+</script>
+</body>
+</html>
