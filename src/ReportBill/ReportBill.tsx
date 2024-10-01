@@ -78,60 +78,62 @@ const ReportBill = () => {
     }
 
 
-    const updateTableData = async () => {
-        const skipFromTheFirst = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
-        const TakeNumberOfData = awesomeData.numberOfRowsShowInTable
-        const queryInfo = {
-            SortBy: 'Date',
-            SortDesc: true,
-            Take: TakeNumberOfData,
-            Skip: skipFromTheFirst,
-            filters: awesomeData.filterItems
-        }
-
-
-        const data = {queryInfo}
-        const tId = toast.loading("در حال به روز رسانی جدول")
-        const resultOfGetFactorList = await myAxios.post(getBillList, data)
-        toast.dismiss(tId)
-        if (resultOfGetFactorList.status === 200) {
-            const List: [{ Sum: number }] = resultOfGetFactorList.data.data.List;
-            const totalSum = List.reduce(((accumulator, currentValue) => accumulator + currentValue.Sum), 0)
-            console.log("totalSum: ")
-            console.log(totalSum.toLocaleString())
-            console.log(Num2persian(totalSum));
-            const listOfData = resultOfGetFactorList.data.data.List
-            const TotalCount = resultOfGetFactorList.data.data.TotalCount
-            const FilteredCount = resultOfGetFactorList.data.data.FilteredCount
-            const temp = listOfData.map((row: any) => {
-                try {
-                    const myTag = JSON.parse(row.Tag)
-                    if (myTag) {
-                        return {
-                            ...row,
-                            sellerName: myTag.n,
-                            orderNumber: myTag.tn
-                        }
-                    }
-                } catch (error) {
-                    return row
-                }
-
-
-            })
-            return {
-                // totalData: temp,
-                tableData: temp,
-                TotalCount,
-                FilteredCount
-            }
-        } else {
-            return undefined
-        }
-    }
 
 
     useEffect(() => {
+        let tId;
+        const updateTableData = async () => {
+            const skipFromTheFirst = (awesomeData.currentSelectedPage - 1) * awesomeData.numberOfRowsShowInTable;
+            const TakeNumberOfData = awesomeData.numberOfRowsShowInTable
+            const queryInfo = {
+                SortBy: 'Date',
+                SortDesc: true,
+                Take: TakeNumberOfData,
+                Skip: skipFromTheFirst,
+                filters: awesomeData.filterItems
+            }
+
+
+            const data = {queryInfo}
+            tId = toast.loading("در حال به روز رسانی جدول")
+            const resultOfGetFactorList = await myAxios.post(getBillList, data)
+            toast.dismiss(tId)
+            if (resultOfGetFactorList.status === 200) {
+                const List: [{ Sum: number }] = resultOfGetFactorList.data.data.List;
+                const totalSum = List.reduce(((accumulator, currentValue) => accumulator + currentValue.Sum), 0)
+                console.log("totalSum: ")
+                console.log(totalSum.toLocaleString())
+                console.log(Num2persian(totalSum));
+                const listOfData = resultOfGetFactorList.data.data.List
+                const TotalCount = resultOfGetFactorList.data.data.TotalCount
+                const FilteredCount = resultOfGetFactorList.data.data.FilteredCount
+                const temp = listOfData.map((row: any) => {
+                    try {
+                        const myTag = JSON.parse(row.Tag)
+                        if (myTag) {
+                            return {
+                                ...row,
+                                sellerName: myTag.n,
+                                orderNumber: myTag.tn
+                            }
+                        }
+                    } catch (error) {
+                        return row
+                    }
+
+
+                })
+                return {
+                    // totalData: temp,
+                    tableData: temp,
+                    TotalCount,
+                    FilteredCount
+                }
+            } else {
+                return undefined
+            }
+        }
+
 
         void updateTableData().then(result => {
 
@@ -159,6 +161,10 @@ const ReportBill = () => {
 
 
         })
+
+        return ()=>{
+            toast.dismiss(tId)
+        }
     }, [awesomeData.numberOfRowsShowInTable, awesomeData.currentSelectedPage, awesomeData.reload,
         awesomeData.filterItems]);
 
