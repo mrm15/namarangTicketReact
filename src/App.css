@@ -152,3 +152,7 @@ html {
     margin-inline: auto;
     width: fit-content;
 }
+.shot__font{
+    font-size: 18px;
+    font-family: "B Titr", serif !important;
+}
