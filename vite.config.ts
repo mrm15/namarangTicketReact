@@ -10,15 +10,6 @@ export default defineConfig({
         VitePWA(//
             {//
                 registerType: "autoUpdate", // This is valid as long as it's one of the accepted types
-                // add this to cache all the imports
-                workbox: {
-                    globPatterns: ["**/*"],
-                },
-                // add this to cache all the
-                // static assets in the public folder
-                includeAssets: [
-                    "**/*",
-                ],
                 manifest: {
                     name: "نمارنگ",
                     short_name: "نمارنگ",
