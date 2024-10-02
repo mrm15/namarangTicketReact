@@ -6,8 +6,8 @@ import store from './store'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {AuthProvider} from './context/AuthProvider';
 import MyQueryClientProvider from "./Components/MyQueryClientProvider/MyQueryClientProvider.tsx";
-import swRegister from "../SW/swRegister.tsx";
-import swUnregister from "../SW/swUnregister.tsx";
+import swRegister from "./SW/swRegister.tsx";
+import swUnregister from "./SW/swUnregister.tsx";
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -26,5 +26,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     // </React.StrictMode>,
 )
 
-swRegister()
+swRegister();
 // swUnregister()
