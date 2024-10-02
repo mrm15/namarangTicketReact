@@ -1,7 +1,7 @@
 const CACHE_NAME = 'my-app-cache-v2000003'; // Change the version number whenever you update the app
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html', // Ensure this exists in public
+  // '/',
+  // '/index.html', // Ensure this exists in public
 
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
@@ -12,7 +12,7 @@ const ASSETS_TO_CACHE = [
   '/namarangLogo.svg',
   '/site.webmanifest',
   '/offline.html',
-  '/login'
+  // '/login'
 ];
 
 // Function to open cache and cache assets on install
