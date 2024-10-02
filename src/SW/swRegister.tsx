@@ -31,14 +31,15 @@ function requestNotificationPermission(retryCount = 0) {
 const swRegister = () => {
 
 
-    // Call the function to request notification permission
-    requestNotificationPermission();
+
 
 // Service Worker registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
+                    // Call the function to request notification permission
+                    requestNotificationPermission();
                     console.log('Service Worker registered with scope:', registration.scope);
                 })
                 .catch(error => {
