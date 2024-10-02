@@ -1,52 +1,58 @@
-import React, { useEffect, useState } from 'react';
+import './App.css'
+import Pages from "./Pages/Pages";
+import {ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
-    const [installPrompt, setInstallPrompt] = useState<any>(null);
-    const [showInstallMessage, setShowInstallMessage] = useState(true);
+import React, {useEffect, useRef} from "react";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
+
+
+const App: React.FC = () => {
+    const offlineToastRef = useRef<any>(null);
 
     useEffect(() => {
-        const handleBeforeInstallPrompt = (e: Event) => {
-            debugger
-            e.preventDefault();
-            setInstallPrompt(e);
-            setShowInstallMessage(true); // Show your custom install message
+        const updateOnlineStatus = () => {
+            const isOnline = navigator.onLine;
+            if (isOnline) {
+                toast.dismiss(offlineToastRef.current);
+                toast.success('ارتباط بر قرار شد. 😎', {
+                    position: 'bottom-center',
+                });
+            } else {
+                offlineToastRef.current = toast.error('دسترسی به  اینترنت نداریم!😕', {
+                    position: 'bottom-center',
+                    autoClose: false,
+                });
+            }
         };
 
-        window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
 
         return () => {
-            window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+            window.removeEventListener('online', updateOnlineStatus);
+            window.removeEventListener('offline', updateOnlineStatus);
         };
     }, []);
 
-    const handleInstallClick = () => {
-        if (installPrompt) {
-            installPrompt.prompt(); // Show the install prompt
-            installPrompt.userChoice.then((choiceResult: any) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                } else {
-                    console.log('User dismissed the install prompt');
-                }
-                setInstallPrompt(null);
-                setShowInstallMessage(false); // Hide the custom install message
-            });
-        }
-    };
-
     return (
-        <div>
-            {/* Your app components */}
-            {showInstallMessage && (
-                <div className="install-banner">
-                    <p>Install this app on your device for a better experience.</p>
-                    <button
-                        className={"btn-gay-mir"}
-                        onClick={handleInstallClick}>Install</button>
-                </div>
-            )}
-        </div>
+        <>
+            <ToastContainer
+                position="bottom-left"
+                autoClose={2500}
+                rtl
+                pauseOnFocusLoss={false}
+                draggable
+                pauseOnHover
+            />
+            {/*<ErrorBoundary>*/}
+                <Pages/>
+            {/*</ErrorBoundary>*/}
+        </>
     );
 };
 
 export default App;
+
+
+// Add a request interceptor
