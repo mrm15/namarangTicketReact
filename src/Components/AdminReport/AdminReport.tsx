@@ -6,6 +6,7 @@ import ReportTable from './ReportTable/ReportTable.tsx';
 import AdminReportFilter from "./AdminReportFilter.tsx";
 import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
+import SummaryTable from "./SummaryTable/SummaryTable.tsx";
 
 const AdminReport = () => {
 
@@ -37,6 +38,7 @@ const AdminReport = () => {
                             {showReportTable ? '▲ پنهان کردن جزئیات' : '▼ مشاهده جزئیات'}
                         </button>
                         {showReportTable && <ReportTable/>}
+                        {myData?.titleData?.length>0 && <SummaryTable/>}
                     </> : <>در حال بارگزاری...</>
             }
         </div>
