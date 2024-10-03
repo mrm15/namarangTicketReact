@@ -8,6 +8,8 @@ const SummaryReport = () => {
     let sumTotalPrice = 0
 
 
+
+
     try {
         return (
             <div>
