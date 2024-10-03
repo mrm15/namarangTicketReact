@@ -4,6 +4,7 @@ export interface ImyDataAdminReport {
     reload: string;
     filterItems: any[] | undefined|[];
     isLoading: boolean;
+    reFetch:any;
 }
 
 export interface AdminReportContextType {

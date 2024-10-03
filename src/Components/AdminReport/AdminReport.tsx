@@ -5,35 +5,18 @@ import SummaryReport from './SummaryReport.tsx';
 import ReportTable from './ReportTable/ReportTable.tsx';
 import AdminReportFilter from "./AdminReportFilter.tsx";
 import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
+import {useQuery} from "@tanstack/react-query";
 
 const AdminReport = () => {
-    const url = 'reports/adminReport';
 
     const context = useContext(AdminReportContext);
-    const { myData, setMyData } = context;
+    const {myData, setMyData} = context;
 
-    const myAxios = useAxiosPrivate();
+
 
     const [showReportTable, setShowReportTable] = useState(true); // State to manage the visibility of ReportTable
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                setMyData({isLoading: true,});
-                const data = {filterItems: myData.filterItems};
-                const result = await myAxios.post(url, data);
-                const temp = result.data;
 
-                setMyData({isLoading: false, ...temp});
-            } catch (error: any) {
-                setMyData({isLoading: false,});
-
-                console.log(error);
-            }
-        };
-
-        void getData();
-    }, [myData?.reload]);
 
     if (!myData || !setMyData) {
         return <> موردی پیش اومده و اطلاعات به درستی دریافت نشد!</>;

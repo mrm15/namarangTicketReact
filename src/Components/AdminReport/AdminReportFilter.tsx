@@ -36,7 +36,7 @@ const AdminReportFilter = () => {
                         Value: temp22,
                     },
                 ],
-            reload: randomNumberGenerator(),
+            // reload: randomNumberGenerator(),
         })
     }
 
