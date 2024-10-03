@@ -1,12 +1,18 @@
 .summaryTable {
+  * {
+    transition: all 2s ease-in-out;
+  }
+
   width: 100%;
   max-width: 30rem;
+
   td, th {
     border: 1px solid gray;
   }
 
   .ul_li_table {
     margin-top: 20px;
+
     ul {
       border-top: 1px solid gray;
       border-left: 1px solid gray;
