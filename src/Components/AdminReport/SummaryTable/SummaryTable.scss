@@ -1,15 +1,31 @@
-.summaryTable{
-  td ,th {
-    border: 1px solid black;
+.summaryTable {
+  width: 100%;
+  max-width: 30rem;
+  td, th {
+    border: 1px solid gray;
   }
 
-  .ul_li_table{
-    ul{
+  .ul_li_table {
+    margin-top: 20px;
+    ul {
+      border-top: 1px solid gray;
+      border-left: 1px solid gray;
+      border-right: 1px solid gray;
+      //border-radius: 2px;
+
+
       display: flex;
       width: 100%;
-      li{
+
+      &:last-child {
+        border-bottom: 1px solid gray;
+      }
+
+      li {
+        padding: 5px;
         flex: 0.5;
-        border: 1px solid black;
+        //border-bottom: 1px solid black;
+        //border-left: 1px solid black;
       }
     }
   }
