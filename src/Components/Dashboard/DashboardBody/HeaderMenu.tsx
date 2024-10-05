@@ -35,11 +35,10 @@ function HeaderMenu() {
                 <div> 🏬 {departmentName} </div>
                 <div> 🎭 {roleName} </div>
             </li>
-            <li
-                // onClick={signOut}
-                className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>
-                ویرایش پروفایل
-            </li>
+            {/*<li*/}
+            {/*    className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>*/}
+            {/*    ویرایش پروفایل*/}
+            {/*</li>*/}
             <li
                 onClick={signOut}
                 className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>
