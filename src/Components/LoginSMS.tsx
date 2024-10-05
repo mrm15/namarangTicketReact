@@ -35,6 +35,7 @@ const LoginSMS: React.FC = () => {
     // بخش ورود شماره نشون داده بشه یا بخش ورود کدپیامکی
     const [sectionView, setSectionView] = useState('number') // number | code
     const [secretMode, setSecretMode] = useState(false)
+    const [isLoadingForLogin , setIsLoadingForLogin] = useState(false)
     /*
      مقدار
      persist
@@ -129,7 +130,9 @@ const LoginSMS: React.FC = () => {
                 withCredentials: true,
             };
 
+            setIsLoadingForLogin(true)
             const response = await axios.post(LOGIN_URL_verify, JSON.stringify(loginPayload), axiosConfig);
+            setIsLoadingForLogin(false)
 
 
             const accessToken = response?.data?.accessToken;
@@ -141,6 +144,7 @@ const LoginSMS: React.FC = () => {
             setPwd('');
             navigateTo(from, {replace: true});
         } catch (err) {
+            setIsLoadingForLogin(false)
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
@@ -267,7 +271,8 @@ const LoginSMS: React.FC = () => {
                     <button
                       onClick={handleSubmit}
                       className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
-                    >ورود به سایت
+                    >
+                        {isLoadingForLogin ? <> در حال بررسی کد ورود...</> : <>ورود به سایت</>}
                     </button>
 
                   </form>
@@ -284,16 +289,16 @@ const LoginSMS: React.FC = () => {
                 </div>
 
 
-                <div>
-                    اگر حساب کاربری ندارید<br/>
-                    <span className="line">
-                    <Link to="/register">
-                        <div className={'text-black font-bold py-2 px-4 rounded-full'}>
-                            ثبت نام در سایت
-                        </div>
-                    </Link>
-                </span>
-                </div>
+                {/*<div>*/}
+                {/*    اگر حساب کاربری ندارید<br/>*/}
+                {/*    <span className="line">*/}
+                {/*    <Link to="/register">*/}
+                {/*        <div className={'text-black font-bold py-2 px-4 rounded-full'}>*/}
+                {/*            ثبت نام در سایت*/}
+                {/*        </div>*/}
+                {/*    </Link>*/}
+                {/*</span>*/}
+                {/*</div>*/}
             </section>
         </LoginRegisterParent>
     </>)
