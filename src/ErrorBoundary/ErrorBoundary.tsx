@@ -1,4 +1,5 @@
 import React, {ErrorInfo} from 'react';
+import {useNavigate} from "react-router-dom";
 
 interface Props {
     children: React.ReactNode;
@@ -30,7 +31,9 @@ class ErrorBoundary extends React.Component<Props, State> {
         console.error(errorInfo)
     }
 
+
     render() {
+
         if (this.state.hasError) {
             // Fallback UI when an error occurs
             return <div
@@ -42,6 +45,14 @@ class ErrorBoundary extends React.Component<Props, State> {
                 >
 
                     <div className={"rtl "}> یه موردی پیش اومده!</div>
+                    <div className={"rtl "}>
+                    <button
+                    className={"btn btn-gay-mir"}
+                    // onClick={goToDashboard}
+                    >
+                        برو به داشبورد
+                    </button>
+                    </div>
                     <div className={"font-mono"}>{JSON.stringify(this.state.errorData?.toString())}</div>
                 </div>
             </div>;
