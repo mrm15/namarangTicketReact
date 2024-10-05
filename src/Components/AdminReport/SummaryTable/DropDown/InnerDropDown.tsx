@@ -12,9 +12,11 @@ const InnerDropDown = ({item}) => {
     };
     try {
         return (
-            <div key={uuidV4()}
+            <div
+                className={"transition-all duration-1000 "}
+                // key={uuidV4()}
                  style={{marginRight: '10px', padding: "10px 10px", borderRight: "1px solid rgba(0,0,0,0.5)" , borderRadius:10}}>
-                <div onClick={toggleDropdown} style={{cursor: 'pointer', fontWeight: 'bold'}}>
+                <div onClick={toggleDropdown} style={{cursor: 'pointer'}}>
                     <div className={"flex "}>
                         <div>{item.subItems ? (isOpen ? <MinusIcon/> : <PlusIcon/>) : <span style={{opacity:"0.4"}}>🟣</span>}</div>
                         <div> {item?.title}: {item?.value}</div>

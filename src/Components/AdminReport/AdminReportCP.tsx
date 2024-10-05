@@ -14,8 +14,7 @@ const AdminReportCP = () => {
     const todayFormatted = formatDateForBackend(today);
 
     const [myData, setMyData] = useObjectDataHolder<ImyDataAdminReport>({
-        titleData: [],
-        detailsData: [],
+        tableView: [],
         reload: "",
         filterItems: [
             {
@@ -26,6 +25,7 @@ const AdminReportCP = () => {
         ],
         isLoading: true,
         reFetch: "",
+        treeView:[],
     })
     const url = 'reports/adminReport';
 
@@ -49,6 +49,8 @@ const AdminReportCP = () => {
         const temp = {
             titleData: resultOfUseQuery?.data?.data?.titleData || [],
             detailsData: resultOfUseQuery?.data?.data?.detailsData || [],
+            treeView: resultOfUseQuery?.data?.data?.treeView || [],
+            tableView: resultOfUseQuery?.data?.data?.tableView || [],
         }
         const hasError = resultOfUseQuery.error
         if(!hasError){

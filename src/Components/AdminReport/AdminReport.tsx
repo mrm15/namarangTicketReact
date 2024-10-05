@@ -31,14 +31,6 @@ const AdminReport = () => {
                     <>
                         <SummaryReport/>
                         <hr/>
-                        <button
-                            onClick={() => setShowReportTable(!showReportTable)}
-                            className="  text-right text-blue-500 hover:text-blue-700 font-semibold p-5 mb-2 border-2 rounded"
-                        >
-                            {showReportTable ? '▲ پنهان کردن جزئیات' : '▼ مشاهده جزئیات'}
-                        </button>
-                        {showReportTable && <ReportTable/>}
-                        {myData?.titleData?.length>0 && <SummaryTable/>}
                     </> : <>در حال بارگزاری...</>
             }
         </div>
