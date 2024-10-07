@@ -297,7 +297,7 @@ const title = {
             }
         }
 
-        void getList()
+        // void getList()
 
 
     }, [reload , pathname]);
