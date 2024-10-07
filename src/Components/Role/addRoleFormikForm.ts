@@ -17,11 +17,13 @@ const dropdownOptions = [
     {value: 'statusListRead', key: "خواندن جدول استاتوس ها"},
     {value: 'statusListUpdate', key: "تغییر دادن جدول استاتوس ها"},
     {value: 'statusListDelete', key: "حذف از جدول استاتوس ها"},
-    {value: 'ticketCreate', key: "ایجاد تیکت"},
+
+    {value: 'ticketCreate', key: "ثبت سفارش جدید - ایجاد تیکت - و همچنین دسترسی به پیگیری سفارشات هم داره - در منو بار گزینه ی پیگیری سفارش ظاهر میشه "},
     {value: 'readAllTicketsInSystem', key: "خواندن همه تیکت های موجود در سیستم - دسترسی فقط ادمین کل سیستم"},
+
     {value: 'ticketChatList', key: "خواندن چت لیست تیکت"},
     {value: 'ticketReadOwn', key: "خواندن تیکت های خودم که طبیعیه- سفارشاتی که من ثبت کردم - این مورد برای دپارتمان مشتریان هست"},
-    {value: 'ticketReadOwnReceived', key: "مشاهده تمام تیکت هایی که من بهشون دسترسی دارم-؟؟؟؟"},
+    // {value: 'ticketReadOwnReceived', key: "مشاهده تمام تیکت هایی که من بهشون دسترسی دارم-؟؟؟؟"},
     {value: 'ticketUpdate', key: "به روز رسانی مشخصات یک تیکت"},
     {value: 'ticketDelete', key: "حذف دائم یک تیکت"},
     {value: 'themeCreate', key: "ایجاد تم جدید در آینده"},
