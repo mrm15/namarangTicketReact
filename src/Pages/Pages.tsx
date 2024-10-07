@@ -178,15 +178,16 @@ const Pages = () => {
                         {/*</Route>*/}
 
 
-                            <Route
-                                // element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}
-                            >
-                                <Route path={PAGES.ticket_read_department_tickets} element={
-                                    <Suspense fallback={<Loader/>}>
-                                        {isDepartmentAdmin ? <TicketRead view={'readDepartmentTickets'}/> : <> فقط مدیر دپارتمان میتواند این صفحه را مشاهده کند.</>}
-                                    </Suspense>
-                                }/>
-                            </Route>
+                        <Route
+                            // element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}
+                        >
+                            <Route path={PAGES.ticket_read_department_tickets} element={
+                                <Suspense fallback={<Loader/>}>
+                                    {isDepartmentAdmin ? <TicketRead view={'readDepartmentTickets'}/> : <> فقط مدیر
+                                        دپارتمان میتواند این صفحه را مشاهده کند.</>}
+                                </Suspense>
+                            }/>
+                        </Route>
 
 
                         {/* TicketChatList */}
