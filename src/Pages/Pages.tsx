@@ -155,7 +155,7 @@ const Pages = () => {
                         </Route>
 
                         {/* ticket readAll for Admin */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadAll}/>}>
+                        <Route element={<RequireAuth allowedRoles={ROLES.readAllTicketsInSystem}/>}>
                             <Route path={PAGES.ticket_Read_All} element={
                                 <Suspense fallback={<Loader/>}>
                                     <TicketRead view={'read'}/>

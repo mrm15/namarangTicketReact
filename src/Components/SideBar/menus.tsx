@@ -120,16 +120,16 @@ export const getMenus=(roleAccessList:any): MenuType => [
         showItem: roleAccessList?.includes('ticketReadOwnReceived'),
     },
     {
-        name: "سفارشات کل",
+        name: "کل سفارشات سامانه",
         link: PAGES.ticket_Read_All,
         icon: MdLocalFireDepartment,
-        showItem: roleAccessList?.includes('ticketReadAll'),
+        showItem: roleAccessList?.includes('readAllTicketsInSystem'),
     },
     {
         name: "ورودی دپارتمان",
         link: PAGES.ticket_read_department_tickets,
         icon: MdLocalFireDepartment,
-        showItem: roleAccessList?.includes('ticketReadAll'),
+        showItem: roleAccessList?.includes(ROLES.readDepartmentTickets[0]),
     },
     //
     {

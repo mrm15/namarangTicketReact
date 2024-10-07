@@ -14,15 +14,9 @@ export const ROLES = {
         'statusListUpdate',
         'statusListDelete',
     ],
-    // ticket: [
-    //     'ticketCreate', // create new ticket
-    //     'ticketReadAll',// list of all tickets
-    //     'ticketReadOwn', // list of my tickets or my orders
-    //     'ticketUpdate', // update Ticket // just admin
-    //     'ticketDelete', // delete a ticket just admin
-    // ],
+
     ticketCreate: ['ticketCreate'],
-    ticketReadAll: ['ticketReadAll'],
+    readAllTicketsInSystem: ['readAllTicketsInSystem'],
     ticketReadOwnReceived: ['ticketReadOwnReceived'],
     readDepartmentTickets: ['readDepartmentTickets'],
     ticketChatList: ['ticketChatList'],
