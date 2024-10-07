@@ -39,55 +39,56 @@ const AddRole = props => {
 
 
     useEffect(() => {
-        let updatedFormConfig = [...formikFormAddDepartment]
+        const initializeForm = async () => {
+            let updatedFormConfig = [...formikFormAddDepartment];
 
-
-        if (editMode) {
-            updatedFormConfig = updatedFormConfig.map(v => {
-                const row = {...v}
-                if (row.name === 'name') {
-                    row['disabled'] = true
-                }
-                return row
-            })
-        }
-
-
-        const temp: any = {};
-        if (editMode) {
-            temp.id = formUniqId
-        }
-
-        for (const row of updatedFormConfig) {
-
-
+            // Disable 'name' field in edit mode
             if (editMode) {
-                temp[row.name] = myLocation?.state?.data[row.name]
-            } else {
-                temp[row.name] = ''
+                updatedFormConfig = updatedFormConfig.map(v => {
+                    if (v.name === 'name') {
+                        return { ...v, disabled: true };
+                    }
+                    return v;
+                });
             }
-        }
 
-        void getArrayList('/user/userList').then(userList => {
-            void getArrayList('/department/departmentList').then(departmentList => {
+            const temp: any = {};
+            if (editMode) {
+                temp.id = formUniqId;
+            }
+
+            // Populate form initial values based on edit mode
+            for (const row of updatedFormConfig) {
+                temp[row.name] = editMode ? myLocation?.state?.data[row.name] : '';
+            }
+
+            try {
+                const userList = await getArrayList('/user/userList');
+                const departmentList = await getArrayList('/department/departmentList');
+
                 updatedFormConfig = updatedFormConfig.map(r => {
-                    const row = {...r}
-                    if (row.name === 'managerUserId') {
-                        row.options = userList
+                    if (r.name === 'managerUserId') {
+                        r.options = userList.map(user => ({
+                            ...user,
+                            key: `${user.key} ${user.phoneNumber}`
+                        }));
                     }
+                    if (r.name === 'parentDepartmentId') {
+                        r.options = departmentList;
+                    }
+                    return r;
+                });
 
-                    if (row.name === 'parentDepartmentId') {
-                        row.options = departmentList
-                    }
-                    return row
-                })
-                setMyInitialValuesAddUser(temp)
+                setMyInitialValuesAddUser(temp);
                 setMyFormikFormAddUser(updatedFormConfig);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
                 setIsLoading(false);
-            })
-        })
+            }
+        };
 
-        // }, 1000);
+        void initializeForm();
     }, [auth?.userInfo?.roleAccessList]); // Depend on user's role list to re-evaluate form config on change
 
 
