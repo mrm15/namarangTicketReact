@@ -9,6 +9,7 @@ function HeaderMenu() {
 
     const {auth} = useAuth();
     const name = auth?.userInfo?.userData?.name || "کاربر"
+    const phoneNumber = auth?.userInfo?.userData?.phoneNumber || "کاربر"
     const roleName = auth?.userInfo?.userData?.roleName || ""
     const departmentName = auth?.userInfo?.userData?.departmentName || ""
 
@@ -32,6 +33,7 @@ function HeaderMenu() {
 
             <li>
                 <div> 👨🏿 {name} </div>
+                <div> 📞 {phoneNumber} </div>
                 <div> 🏬 {departmentName} </div>
                 <div> 🎭 {roleName} </div>
             </li>
