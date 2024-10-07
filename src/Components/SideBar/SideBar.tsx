@@ -40,8 +40,9 @@ const Sidebar = () => {
 
 
     const roleAccessList = auth.userInfo?.roleAccessList;
+    const isDepartmentAdmin = auth.userInfo?.isDepartmentAdmin;
 
-    const menus = getMenus(roleAccessList)
+    const menus = getMenus({roleAccessList, isDepartmentAdmin})
 
 
 
