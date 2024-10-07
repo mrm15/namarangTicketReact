@@ -82,8 +82,8 @@ const Home = () => {
         {title: 'صندوق ورودی', description: '', icon: FaTicketAlt, link: PAGES.ticketInbox},
         {title: 'تمام تیکت های من', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_my_all_tickets},
         {title: 'تیکت های فرستاده شده', description: '', icon: FaTicketAlt, link: PAGES.ticket_own_sent},
-        {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
-        {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
+        // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
+        // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
         {title: 'تنظیمات مدیریتی', description: '', icon: FaTicketAlt, link: PAGES.admin_settings},
 
     ]
