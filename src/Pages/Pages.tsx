@@ -164,13 +164,13 @@ const Pages = () => {
                         </Route>
 
                         {/* -تمام تیکت هایی که من بهشون دسترسی دارم */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwnReceived}/>}>
-                            <Route path={PAGES.ticket_read_my_all_tickets} element={
-                                <Suspense fallback={<Loader/>}>
-                                    <TicketRead view={'readMyAllTickets'}/>
-                                </Suspense>
-                            }/>
-                        </Route>
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.ticketReadOwnReceived}/>}>*/}
+                        {/*    <Route path={PAGES.ticket_read_my_all_tickets} element={*/}
+                        {/*        <Suspense fallback={<Loader/>}>*/}
+                        {/*            <TicketRead view={'readMyAllTickets'}/>*/}
+                        {/*        </Suspense>*/}
+                        {/*    }/>*/}
+                        {/*</Route>*/}
 
                         <Route element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}>
                             <Route path={PAGES.ticket_read_department_tickets} element={
