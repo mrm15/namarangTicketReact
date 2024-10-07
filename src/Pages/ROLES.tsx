@@ -15,12 +15,12 @@ export const ROLES = {
         'statusListDelete',
     ],
 
-    ticketCreate: ['ticketCreate'],
+    ticketCreate: ['ticketCreate'], // برای دسترسی به:ثبت سفارش و پیگیری سفارش
     readAllTicketsInSystem: ['readAllTicketsInSystem'],
-    ticketReadOwnReceived: ['ticketReadOwnReceived'],
-    readDepartmentTickets: ['readDepartmentTickets'],
+    // ticketReadOwnReceived: ['ticketReadOwnReceived'],
+    // readDepartmentTickets: ['readDepartmentTickets'],
     ticketChatList: ['ticketChatList'],
-    ticketReadOwn: ['ticketReadOwn'], // all tickets user has access to them
+    // ticketReadOwn: ['ticketReadOwn'], // all tickets user has access to them
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
     adminSettings:['adminSettings'],
