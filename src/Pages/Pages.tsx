@@ -9,6 +9,7 @@ import {ROLES} from "./ROLES.tsx";
 import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
+import useAuth from "../hooks/useAuth.tsx";
 
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
@@ -44,6 +45,10 @@ const Pages = () => {
     // @ts-ignore
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+
+    const {auth} = useAuth()
+    const isDepartmentAdmin = auth?.userInfo?.isDepartmentAdmin;
+
     return (
         <>
             <Routes>
@@ -172,13 +177,17 @@ const Pages = () => {
                         {/*    }/>*/}
                         {/*</Route>*/}
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}>
-                            <Route path={PAGES.ticket_read_department_tickets} element={
-                                <Suspense fallback={<Loader/>}>
-                                    <TicketRead view={'readDepartmentTickets'}/>
-                                </Suspense>
-                            }/>
-                        </Route>
+
+                            <Route
+                                // element={<RequireAuth allowedRoles={ROLES.readDepartmentTickets}/>}
+                            >
+                                <Route path={PAGES.ticket_read_department_tickets} element={
+                                    <Suspense fallback={<Loader/>}>
+                                        {isDepartmentAdmin ? <TicketRead view={'readDepartmentTickets'}/> : <> فقط مدیر دپارتمان میتواند این صفحه را مشاهده کند.</>}
+                                    </Suspense>
+                                }/>
+                            </Route>
+
 
                         {/* TicketChatList */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketRepliesCreate}/>}>
@@ -231,16 +240,16 @@ const Pages = () => {
                             allowedRoles={[...ROLES.basted_bandi_ersal, ...ROLES.screenShotBills]}/>}>
                             <Route path={PAGES.basted_bandi_ersal} element={
                                 <Suspense fallback={<>
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
-                                    <Skeleton classes="text width-100" />
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
+                                    <Skeleton classes="text width-100"/>
                                 </>}>
                                     <PackSend/>
                                 </Suspense>
