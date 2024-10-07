@@ -41,19 +41,19 @@ class ErrorBoundary extends React.Component<Props, State> {
             >
 
                 <div
-                    className={"w-full h-screen bg-red-400 text-white fontSize22 font-mono whitespace-break-spaces absolute  p-5   ltr"}
+                    className={"w-full h-screen bg-red-950 text-white fontSize14 font-mono whitespace-break-spaces absolute  p-5   ltr"}
                 >
 
-                    <div className={"rtl "}> یه موردی پیش اومده!</div>
+                    {/*<div className={"rtl "}> یه موردی پیش اومده!</div>*/}
                     <div className={"rtl "}>
-                    <button
-                    className={"btn btn-gay-mir"}
-                    // onClick={goToDashboard}
-                    >
-                        برو به داشبورد
-                    </button>
+                    {/*<button*/}
+                    {/*className={"btn btn-gay-mir"}*/}
+                    {/*onClick={goToDashboard}*/}
+                    {/*>*/}
+                    {/*    برو به داشبورد*/}
+                    {/*</button>*/}
                     </div>
-                    <div className={"font-mono"}>{JSON.stringify(this.state.errorData?.toString())}</div>
+                    <pre className={"font-mono"}>{JSON.stringify(this.state.errorData?.toString())}</pre>
                 </div>
             </div>;
         }
