@@ -81,7 +81,7 @@ const Home = () => {
         {title: 'مشاهده همه سفارشات ادمین', description: ' ', icon: FaTicketAlt, link: PAGES.ticket_Read_All},
         {title: 'صندوق ورودی', description: '', icon: FaTicketAlt, link: PAGES.ticketInbox},
         {title: 'تمام تیکت های من', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_my_all_tickets},
-        {title: 'تیکت های فرستاده شده', description: '', icon: FaTicketAlt, link: PAGES.ticket_own_sent},
+        {title: 'تیکت های فرستاده شده', description: '', icon: FaTicketAlt, link: PAGES.ticket_created_by_me},
         // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
         // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
         {title: 'تنظیمات مدیریتی', description: '', icon: FaTicketAlt, link: PAGES.admin_settings},
