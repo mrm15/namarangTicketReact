@@ -24,7 +24,7 @@ type MenuType = {
 }[]
 
 
-export const getMenus=(roleAccessList:any): MenuType => [
+export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     {name: "داشبورد", link: '/', icon: MdOutlineDashboard, margin: false, showItem: true,},
     {
         name: "گزارش مدیر",
@@ -105,20 +105,20 @@ export const getMenus=(roleAccessList:any): MenuType => [
         name: "ثبت سفارش",
         link: PAGES.ticket_Create,
         icon: MdAssignmentAdd,
-        showItem: roleAccessList?.includes('ticketCreate'),
+        showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
     },
     {
         name: "پیگیری سفارش",
         link: PAGES.ticket_own_sent,
         icon: MdAssignment,
-        showItem: roleAccessList?.includes('fileRead'),
+        showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
     },
-    {
-        name: "کل تیکت های من",
-        link: PAGES.ticket_read_my_all_tickets,
-        icon: FaBarsStaggered,
-        showItem: roleAccessList?.includes('ticketReadOwnReceived'),
-    },
+    // {
+    //     name: "کل تیکت های من",
+    //     link: PAGES.ticket_read_my_all_tickets,
+    //     icon: FaBarsStaggered,
+    //     showItem: roleAccessList?.includes('ticketReadOwnReceived'),
+    // },
     {
         name: "کل سفارشات سامانه",
         link: PAGES.ticket_Read_All,
@@ -126,10 +126,11 @@ export const getMenus=(roleAccessList:any): MenuType => [
         showItem: roleAccessList?.includes('readAllTicketsInSystem'),
     },
     {
+        // اگه کاربری ادمین دپارتمان باشه میتونه اینو ببینه. به همین سادگی
         name: "ورودی دپارتمان",
         link: PAGES.ticket_read_department_tickets,
         icon: MdLocalFireDepartment,
-        showItem: roleAccessList?.includes(ROLES.readDepartmentTickets[0]),
+        showItem: isDepartmentAdmin,
     },
     //
     {
