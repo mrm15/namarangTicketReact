@@ -152,7 +152,7 @@ const Pages = () => {
                                     <TicketCreate/>
                                 </Suspense>
                             }/>
-                            <Route path={PAGES.ticket_own_sent} element={
+                            <Route path={PAGES.ticket_created_by_me} element={
                                 <Suspense fallback={<Loader/>}>
                                     <TicketRead view={'readSentTickets'}/>
                                 </Suspense>

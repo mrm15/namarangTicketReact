@@ -188,7 +188,7 @@ const TicketCreate: React.FC = () => {
                             state: {
                                 data: {
                                     ...data,
-                                    backUrl: PAGES.ticket_own_sent,
+                                    backUrl: PAGES.ticket_created_by_me,
                                 }
                             }
                         })

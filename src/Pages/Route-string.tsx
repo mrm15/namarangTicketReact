@@ -20,7 +20,7 @@ export const PAGES = {
     FILE_LIST: '/file-list',
 
     ticket_Create: '/ticket-new', // ad new ticket
-    ticket_own_sent: '/ticket-sent', // show list Of sent Tickets
+    ticket_created_by_me: '/ticket-sent', // show list Of sent Tickets
     // all tickets for Admin
     ticket_Read_All: '/ticket-list', // show list Of all tickets just admin
     // my inbox    in department and in my access list

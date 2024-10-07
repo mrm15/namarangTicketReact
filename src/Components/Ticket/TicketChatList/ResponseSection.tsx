@@ -135,7 +135,7 @@ const ResponseSection = ({ chatList, setReload, reload }) => {
                         state: {
                             data: {
                                 ...data111,
-                                backUrl: PAGES.ticket_own_sent,
+                                backUrl: PAGES.ticket_created_by_me,
                             }
                         }
                     });

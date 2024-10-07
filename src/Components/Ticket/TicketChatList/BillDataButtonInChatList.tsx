@@ -29,7 +29,7 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
                     id: billData.id,
                     billNumber,
                     ticketId: billData.ticketId,
-                    backUrl: PAGES.ticket_own_sent,
+                    backUrl: PAGES.ticket_created_by_me,
                 }
             }
         })
