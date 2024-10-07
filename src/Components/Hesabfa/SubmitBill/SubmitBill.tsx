@@ -8,9 +8,10 @@ import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 import BillInvoice from "./BillInvoice.tsx";
 import {addRowIdtoTable} from "../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow, detectTag, makeInvoiceBaseOnHesabfaData,} from "./functions.tsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx";
+import {toast} from "react-toastify";
 
 
 const SubmitBill = () => {
@@ -55,6 +56,7 @@ const SubmitBill = () => {
             tag: JSON.stringify(myTag), //
             backUrl: myStateData.backUrl,
         }
+        const navigateTo = useNavigate()
 
 
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
@@ -88,68 +90,77 @@ const SubmitBill = () => {
         const myAxios = useAxiosPrivate();
         useEffect(() => {
             const getData = async () => {
-                const temp = {
-                    productList: [],
-                    projectList: [],
-                    customerList: [],
-                }
-                const res1_project = await myAxios.get(getProjectList);
-                const res2_product = await myAxios.get(getProductList);
-                // const res3_customers = await myAxios.get(getCustomerList);
-                const res3_customers = undefined
+                try{
+                    const temp = {
+                        productList: [],
+                        projectList: [],
+                        customerList: [],
+                    }
+                    const res1_project = await myAxios.get(getProjectList);
+                    const res2_product = await myAxios.get(getProductList);
+                    // const res3_customers = await myAxios.get(getCustomerList);
+                    const res3_customers = undefined
 
-                if (res1_project.data) {
-                    temp.projectList = res1_project.data.data;
-                }
-                if (res2_product.data) {
-                    const temp222 = res2_product.data?.data?.List.map((row: any) => {
-                        return {
-                            Id: row.Id,
-                            Description: row.Description || row.SalesTitle,
-                            ItemCode: row.Code,
-                            Unit: row.Unit,
-                            Quantity: 1,
-                            UnitPrice: row.SellPrice,
-                            Discount: 0,
-                            Tax: 0,
-                            SubUnit: row.SubUnit,
-                            ///////////////////////////
-                            Name: row.Name,
-                            fixedPrice: row.SellPrice,
-                            dividedBy: 1,
-                            // selectedUnit: "1",
-                            Units: [
-                                {id: 1, value: row.Unit, divideNumber: 1},
-                                {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
-                            ],
-                            sum: 0,
-                        }
-                    })
-                    console.log(temp222)
-                    temp.productList = temp222;
-                }
-                if (res3_customers?.data) {
-                    temp.customerList = res3_customers?.data?.data?.List
-                }
+                    if (res1_project.data) {
+                        temp.projectList = res1_project.data.data;
+                    }
+                    if (res2_product.data) {
+                        const temp222 = res2_product.data?.data?.List.map((row: any) => {
+                            return {
+                                Id: row.Id,
+                                Description: row.Description || row.SalesTitle,
+                                ItemCode: row.Code,
+                                Unit: row.Unit,
+                                Quantity: 1,
+                                UnitPrice: row.SellPrice,
+                                Discount: 0,
+                                Tax: 0,
+                                SubUnit: row.SubUnit,
+                                ///////////////////////////
+                                Name: row.Name,
+                                fixedPrice: row.SellPrice,
+                                dividedBy: 1,
+                                // selectedUnit: "1",
+                                Units: [
+                                    {id: 1, value: row.Unit, divideNumber: 1},
+                                    {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
+                                ],
+                                sum: 0,
+                            }
+                        })
+                        console.log(temp222)
+                        temp.productList = temp222;
+                    }
+                    if (res3_customers?.data) {
+                        temp.customerList = res3_customers?.data?.data?.List
+                    }
 
 
-                // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
-                if (componentInfo.billNumber) {
-                    const result = await myAxios.get(getBillData + componentInfo.billNumber);
-                    const incomingData = result.data.data;
-                    const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
+                    // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
+                    if (componentInfo.billNumber) {
+                        const result = await myAxios.get(getBillData + componentInfo.billNumber);
+                        const incomingData = result.data.data;
+                        const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
 
-                    // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                    const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag , ticketNumber:myStateData.ticketNumber})
-                    setInvoice({...myInvoice, Tag: newTag})
+                        // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
+                        const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag , ticketNumber:myStateData.ticketNumber})
+                        setInvoice({...myInvoice, Tag: newTag})
+                        setIsLoading(false);
+                    } else {
+                        // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
+                        const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined , ticketNumber:myStateData.ticketNumber})
+                        setInvoice({...invoice, Tag: newTag11})
+                    }
+                    setInitialBillData({...temp});
                     setIsLoading(false);
-                } else {
-                    // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                    const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined , ticketNumber:myStateData.ticketNumber})
-                    setInvoice({...invoice, Tag: newTag11})
+                }catch (error){
+                    setIsLoading(false);
+                    navigateTo(-1)
+                    toast.error(" خطا در دریافت فاکتور")
+                    console.log("خطا در دریافت فاکتور")
+                    console.log(error?.toString())
+
                 }
-                setInitialBillData({...temp});
-                setIsLoading(false);
             }
             void getData()
         }, [])
