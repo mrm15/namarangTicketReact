@@ -108,8 +108,9 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
     },
     {
+        // اگه دسترسی ثبت سفارسش داشت پس باید دسترسی پیگیری سفارش هم داشته باشه
         name: "پیگیری سفارش",
-        link: PAGES.ticket_own_sent,
+        link: PAGES.ticket_created_by_me,
         icon: MdAssignment,
         showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
     },
