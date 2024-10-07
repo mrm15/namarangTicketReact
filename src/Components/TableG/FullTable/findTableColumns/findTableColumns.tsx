@@ -23,8 +23,8 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     "/ticket/readSentTickets": ticketlistColumns, // ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
-    "/ticket/readMyAllTickets": ticketlistColumns, // صندوق ورودی
-    "/ticket/readDepartmentTickets": ticketlistColumns, // تیکت های دپارتمان
+    // "/ticket/readMyAllTickets": ticketlistColumns, // صندوق ورودی
+    // "/ticket/readDepartmentTickets": ticketlistColumns, // تیکت های دپارتمان
 
 }
 
