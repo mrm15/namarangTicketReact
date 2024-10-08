@@ -16,11 +16,8 @@ export const ROLES = {
     ],
 
     ticketCreate: ['ticketCreate'], // برای دسترسی به:ثبت سفارش و پیگیری سفارش
-    readAllTicketsInSystem: ['readAllTicketsInSystem'],
-    // ticketReadOwnReceived: ['ticketReadOwnReceived'],
-    // readDepartmentTickets: ['readDepartmentTickets'],
-    ticketChatList: ['ticketChatList'],
-    // ticketReadOwn: ['ticketReadOwn'], // all tickets user has access to them
+    readAllTicketsInSystem: ['readAllTicketsInSystem'], // کل تیکت های سیستم رو ببینه
+    ticketChatList: ['ticketChatList'], // چتا لیست رو ببینه - روی گزینه ی مشاهده کلیک کنه و ببینه
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
     adminSettings:['adminSettings'],
@@ -84,8 +81,6 @@ export const ROLES = {
         'howManyTicketsHasDoneStatusIn12Month',
     ],
     smsSend:['smsSend'],
-    smsPending:['smsPending'],
-    smsArchive:['smsArchive'],
     // hesabfa
     showBillAccess:['showBillAccess'],
     downloadBillAsPdf:['downloadBillAsPdf'],
