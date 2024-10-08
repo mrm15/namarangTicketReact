@@ -67,8 +67,8 @@ const TableShowData = () => {
                             )}
 
                         {data.length === 0 && <>
-                          <div className={" h-full min-h-40"}>
-                            <div className={"center__absolut min-h-20 flex items-center  justify-center"}>
+                          <div className={" h-full min-h-screen "}>
+                            <div className={"center__absolut w-screen min-h-min flex items-center  justify-center"}>
                               <div className={""}>
                                 اطلاعاتی جهت نمایش وجود ندارد ☹️
 
