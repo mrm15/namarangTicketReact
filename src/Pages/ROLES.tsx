@@ -17,6 +17,11 @@ export const ROLES = {
 
     ticketCreate: ['ticketCreate'], // برای دسترسی به:ثبت سفارش و پیگیری سفارش
     readAllTicketsInSystem: ['readAllTicketsInSystem'], // کل تیکت های سیستم رو ببینه
+
+    ticket_read_assign_tickets_outbox:['assignTicketsOutBox'],
+    ticket_read_assign_tickets_inbox:['assignTicketsOutBox'],
+    ticket_read_assign_tickets_all:['assignTicketsShowAll'],
+
     ticketChatList: ['ticketChatList'], // چتا لیست رو ببینه - روی گزینه ی مشاهده کلیک کنه و ببینه
     ticketUpdate: ['ticketUpdate'],
     ticketDelete: ['ticketDelete'],
