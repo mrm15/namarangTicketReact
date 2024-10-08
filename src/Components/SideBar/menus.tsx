@@ -141,25 +141,24 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         showItem: isDepartmentAdmin,
     },
     {
-        //
         // assignTicketsInboxCanDelete
-        //
         // assignTicketsOutBoxCanDelete
         // assignTicketsShowAll
         name: "صندوق ورودی",
-        link: PAGES.ticket_read_department_tickets,
+        // link: PAGES.ticket_Read_Own,
+        link: PAGES.ticket_read_assign_tickets_inbox,
         icon: FaEnvelope,
         showItem: roleAccessList?.includes('assignTicketsInbox'),
     },
     {
         name: "ارجاع شده ها",
-        link: PAGES.ticket_read_department_tickets,
+        link: PAGES.ticket_read_assign_tickets_outbox,
         icon: FaShareSquare,
-        showItem: roleAccessList?.includes('assignTicketsOutBox'),
+        showItem: roleAccessList?.includes(ROLES.ticket_read_assign_tickets_outbox[0]),
     },
     {
         name: "کل ارجاعات",
-        link: PAGES.ticket_read_department_tickets,
+        link: PAGES.ticket_read_assign_tickets_all,
         icon: RiShareForward2Fill,
         showItem: roleAccessList?.includes('assignTicketsShowAll'),
     },
