@@ -58,7 +58,14 @@ const dropdownOptions = [
     {value: 'ticketChangeHistoryRepliesUpdate', key: "ویرایش جدول سوابق یک تیکت"},
     {value: 'ticketChangeHistoryDelete', key: "حذف یک مورد از سوابق یک تیکت"},
     {value: 'forwardTickets', key: "قابلیت ارجاع تیکت داشته باشد یا نه؟"},
-    {value: 'UnlimitedForward', key: "ارجاع تیکت به همه ی دپارتمان ها و همه کاربران"},
+    {value: 'assignTicketsInbox', key: "مشاهده صندوق ورودی پیام هایی که به من ارجاع شده در منو بار"},
+    {value: 'assignTicketsInboxCanDelete', key: "قابلیت حذف پیام های صندوق ورودی من که به من ارجاع شده"},
+    {value: 'assignTicketsOutBox', key: "مشاهده صندوق خروجی پیام هایی که به دیگران ارجاع دادم در منوبار"},
+    {value: 'assignTicketsOutBoxCanDelete', key: "قابلیت حذف پیام هایی که من به دیگران ارجاع دادم"},
+    {value: 'assignTicketsShowAll', key: "مشاهده ی کل تیکت های ارجاعی برای ادمین که بتونه مدیریت کاملی روی تیکت های ارجاعی داشته باشه"},
+
+    {value: 'UnlimitedForward', key: "قابلیت ارجاع تیکت به همه ی دپارتمان ها و همه کاربران"},
+
     {value: 'userCreate', key: "ایجاد کاربر جدید"},
     {value: 'userReadAll', key: "مشاهده جدول کاربران"},
     {value: 'userReadSameDepartment', key: "مشاهده کاربرانی که توی همون دپارتمان خودش هستن"},
