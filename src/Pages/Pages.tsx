@@ -188,7 +188,30 @@ const Pages = () => {
                                 </Suspense>
                             }/>
                         </Route>
-
+                        {/* ticket read outBox === i assined to others */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticket_read_assign_tickets_outbox}/>}>
+                            <Route path={PAGES.ticket_read_assign_tickets_outbox} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <TicketRead view={'readMyForwardedTickets'}/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        {/* ticket read outBox === i assined to others */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticket_read_assign_tickets_all}/>}>
+                            <Route path={PAGES.ticket_read_assign_tickets_all} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <TicketRead view={'readAllAssignments'}/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        {/* ticket read outBox === i assined to others */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticket_read_assign_tickets_inbox}/>}>
+                            <Route path={PAGES.ticket_read_assign_tickets_inbox} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <TicketRead view={'readForwardedToMeTickets'}/>
+                                </Suspense>
+                            }/>
+                        </Route>
 
                         {/* TicketChatList */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketRepliesCreate}/>}>
