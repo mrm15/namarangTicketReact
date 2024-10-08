@@ -23,18 +23,14 @@ export const PAGES = {
     ticket_created_by_me: '/ticket-sent', // show list Of sent Tickets
     // all tickets for Admin
     ticket_Read_All: '/ticket-list', // show list Of all tickets just admin
-    // my inbox    in department and in my access list
-    ticketInbox: '/ticket-inbox', // show list Of tickets in my department and in my access list
-    // all my access list ticket
-    ticket_read_my_all_tickets: '/readMyAllTickets', // show list Of tickets
-    ticket_read_department_tickets: '/readDepartmentTickets', // show department tickets
-    // sent Ticket Link
-    /////////////////////////////////////////
-
     ticket_chat_list: '/ticket-chat-list', // ad new ticket
-    Tickets_Incoming: 'IncomingTickets',
-    ticket_Read_Own: '/ticket-read-own', // read ticket with ticket replies
     ticket_Update: '/ticket-new', // change ticket text file description ( just Admin)
+    // assignment Tickets
+    ticket_read_department_tickets: '/readDepartmentTickets', // show department tickets
+    ticket_read_assign_tickets_outbox : "/outbox",
+    ticket_read_assign_tickets_inbox : "/inbox",
+    ticket_read_assign_tickets_all : "/allAssignments",
+
     admin_settings: '/admin-settings', // admin settings  just For admin
     sms_archive: '/sms-archive', //
     sms_pending: '/sms-pending', //
