@@ -1,16 +1,5 @@
 import {Link, useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
-import {
-    FaUserPlus,
-    FaUsers,
-    FaUserTag,
-    FaClipboardList,
-    FaBuilding,
-    FaSitemap,
-    FaLayerGroup,
-    FaFile,
-    FaTicketAlt
-} from 'react-icons/fa';
 import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
@@ -18,6 +7,8 @@ import {RiRefreshLine} from "react-icons/ri";
 import LoadingSvg1 from "../../assets/Svg/LoadingSvg1.tsx";
 import MyLineChart from "../Rechart/LineChart/MyLineChart.tsx";
 import ShowSingleReport from "./ShowSingleReport.tsx";
+import {getMenus} from "../SideBar/menus.tsx";
+import useAuth from "../../hooks/useAuth.tsx";
 
 
 const Home = () => {
@@ -33,60 +24,10 @@ const Home = () => {
         enabled: true,
     })
 
-    const shortcuts = [
-        {title: 'افزودن کاربر', description: "افزودن کاربر جدید ", icon: FaUserPlus, link: PAGES.USER_ADD_EDIT},
-        {title: 'مشاهده لیست کاربران نمارنگ', description: "لیست کاربران ", icon: FaUsers, link: PAGES.USER_LIST},
-
-        {
-            title: 'افزودن نقش',
-            description: "افزودن نقش جدید به نقش های سایت  ",
-            icon: FaUserTag,
-            link: PAGES.ROLE_ADD_EDIT
-        },
-        {title: 'لیست نقش ها', description: "مشاهده لیست نقش ها", icon: FaClipboardList, link: PAGES.ROLE_LIST},
-
-        {
-            title: 'افزودن دپارتمان',
-            description: "افزودن دپارتمان جدید به سایت  ",
-            icon: FaBuilding,
-            link: PAGES.DEPARTMENT_ADD_EDIT
-        },
-        {title: 'لیست دپارتمان ها', description: "مشاهده لیست دپارتمان ", icon: FaSitemap, link: PAGES.DEPARTMENT_LIST},
-
-        {
-            title: 'افزودن استاتوس تیکت',
-            description: "افزودن استاتوس جدید به سایت  ",
-            icon: FaLayerGroup,
-            link: PAGES.STATUS_ADD_EDIT
-        },
-        {title: 'لیست استاتوس تیکت', description: "مشاهده لیست استاتوس ", icon: FaLayerGroup, link: PAGES.STATUS_LIST},
-        // { title:'لیست نقش ها' , description:"مشاهده لیست نقش های تعریف شده و دسترسی ها ", icon:'blobb', link:PAGES.LIST_ROLE_PANEL},
-
-        {
-            title: 'افزودن فایل',
-            description: "افزودن فایل جدید به بانک فایل ها  ",
-            icon: FaFile,
-            link: PAGES.FILE_ADD_EDIT
-        },
-        {title: 'لیست فایل ها', description: "مشاهده لیست فایل ها ", icon: FaFile, link: PAGES.FILE_LIST},
-
-
-        {
-            title: 'ثبت سفارش جدید',
-            description: 'ایجاد سفارش جدید در نمارنگ',
-            icon: FaTicketAlt,
-            link: PAGES.ticket_Create
-        },
-
-        {title: 'مشاهده همه سفارشات ادمین', description: ' ', icon: FaTicketAlt, link: PAGES.ticket_Read_All},
-        {title: 'صندوق ورودی', description: '', icon: FaTicketAlt, link: PAGES.ticketInbox},
-        {title: 'تمام تیکت های من', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_my_all_tickets},
-        {title: 'تیکت های فرستاده شده', description: '', icon: FaTicketAlt, link: PAGES.ticket_created_by_me},
-        // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
-        // {title: 'تیکت های دپارتمان', description: '', icon: FaTicketAlt, link: PAGES.ticket_read_department_tickets},
-        {title: 'تنظیمات مدیریتی', description: '', icon: FaTicketAlt, link: PAGES.admin_settings},
-
-    ]
+    const {auth} = useAuth()
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const isDepartmentAdmin = auth.userInfo?.isDepartmentAdmin;
+    const shortcuts = getMenus({roleAccessList, isDepartmentAdmin})
 
     const whichShow = ((randomNumberGenerator() * 10 - 500) > 0) ? 1 : 0
     const navigateTo = useNavigate()
@@ -165,12 +106,12 @@ const Home = () => {
 
                                 <div className="font-bold text-xl mb-2">
                                     <row.icon/>
-                                    {row?.title}
+                                    {row?.name}
 
 
                                 </div>
                                 <p className="text-gray-700 text-base">
-                                    {row?.description}
+                                    {row?.name}
                                 </p>
                             </div>
 
