@@ -21,16 +21,21 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     "/department/read": departmentListTableColumns,
     "/hesabfa/getBillListData": FullBillData,
 
-    "/ticket/readSentTickets": ticketlistColumns, // ارسالی ها
+    "/ticket/readSentTickets": ticketlistColumns, //ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
-    // "/ticket/readMyAllTickets": ticketlistColumns, // صندوق ورودی
     "/ticket/readDepartmentTickets": ticketlistColumns, // تیکت های دپارتمان
+    "/ticket/readMyForwardedTickets": ticketlistColumns, // تیکت هایی که من فوروارد کردم.
+    "/ticket/readForwardedToMeTickets": ticketlistColumns, // تیکت هایی که ب من فورارد شده
+    "/ticket/readAllAssignments": ticketlistColumns, // کل تیکتا های فروارد شده
+
 
 }
 
 // Function to find table columns based on the input object
 export const findTableColumns = (inputObject: IInputObject) => {
     const {url, navigateTo} = inputObject;
+    console.log("////////////////////////////////////////////////////")
+    console.log(url)
     // Get the function from tableColumns
     const getColumns = tableColumns[url];
     // Return the result of calling the function with inputObject
