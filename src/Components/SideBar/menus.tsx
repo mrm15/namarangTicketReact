@@ -3,11 +3,18 @@ import {PAGES} from "../../Pages/Route-string";
 import {RiBillLine} from "react-icons/ri";
 import {IoPersonAddSharp, IoShapes} from "react-icons/io5";
 import {BsBuildingAdd, BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "react-icons/bs";
-import {FaBarsStaggered, FaFileCirclePlus, FaShapes} from "react-icons/fa6";
-import {FaBackspace, FaFileAlt} from "react-icons/fa";
+import {FaBarsStaggered, FaEnvelopeOpenText, FaFileCirclePlus, FaShapes} from "react-icons/fa6";
+import { MdAssignmentTurnedIn } from "react-icons/md";
+import { FaEnvelope } from "react-icons/fa";
+import { HiInboxArrowDown } from "react-icons/hi2";
+
+import {FaBackspace, FaFileAlt, FaShareSquare} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
 import {IconType} from "react-icons";
 import {ROLES} from "../../Pages/ROLES.tsx";
+import {FcDepartment} from "react-icons/fc";
+import { RiShareForward2Fill } from "react-icons/ri";
+
 
 type CustomIconType = {
     icon: IconType;
@@ -111,7 +118,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         // اگه دسترسی ثبت سفارسش داشت پس باید دسترسی پیگیری سفارش هم داشته باشه
         name: "پیگیری سفارش",
         link: PAGES.ticket_created_by_me,
-        icon: MdAssignment,
+        icon: MdAssignmentTurnedIn,
         showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
     },
     // {
@@ -130,8 +137,31 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         // اگه کاربری ادمین دپارتمان باشه میتونه اینو ببینه. به همین سادگی
         name: "ورودی دپارتمان",
         link: PAGES.ticket_read_department_tickets,
-        icon: MdLocalFireDepartment,
+        icon: HiInboxArrowDown ,
         showItem: isDepartmentAdmin,
+    },
+    {
+        //
+        // assignTicketsInboxCanDelete
+        //
+        // assignTicketsOutBoxCanDelete
+        // assignTicketsShowAll
+        name: "صندوق ورودی",
+        link: PAGES.ticket_read_department_tickets,
+        icon: FaEnvelope,
+        showItem: roleAccessList?.includes('assignTicketsInbox'),
+    },
+    {
+        name: "ارجاع شده ها",
+        link: PAGES.ticket_read_department_tickets,
+        icon: FaShareSquare,
+        showItem: roleAccessList?.includes('assignTicketsOutBox'),
+    },
+    {
+        name: "کل ارجاعات",
+        link: PAGES.ticket_read_department_tickets,
+        icon: RiShareForward2Fill,
+        showItem: roleAccessList?.includes('assignTicketsShowAll'),
     },
     //
     {
