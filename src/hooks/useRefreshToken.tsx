@@ -2,26 +2,35 @@ import axios from '../api/axios';
 import useAuth from './useAuth';
 
 const useRefreshToken = () => {
-    // @ts-ignore
     const { setAuth } = useAuth();
 
     const refresh = async () => {
+        let attempts = 0;
+        const maxAttempts = 3;
 
-        const response = await axios.get('/refresh', {
-            withCredentials: true
-        });
-         
-        setAuth(prev => {
-            //console.log(JSON.stringify(prev));
-            //console.log(response.data.accessToken);
-            return {
-                ...prev,
-                userInfo: response.data.userInfo,
-                accessToken: response.data.accessToken
+        while (attempts < maxAttempts) {
+            try {
+                const response = await axios.get('/refresh', {
+                    withCredentials: true
+                });
+
+                setAuth(prev => ({
+                    ...prev,
+                    userInfo: response.data.userInfo,
+                    accessToken: response.data.accessToken
+                }));
+                return response.data.accessToken;
+            } catch (error) {
+                attempts++;
+                if (attempts === maxAttempts) {
+                    // Handle the error after 3 attempts
+                    console.error("Failed to refresh token:", error);
+                    throw error; // or handle the error as needed
+                }
             }
-        });
-        return response.data.accessToken;
-    }
+        }
+    };
+
     return refresh;
 };
 
