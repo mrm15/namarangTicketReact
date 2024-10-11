@@ -4,7 +4,7 @@ import {TableGContext} from "../../../TableGContext.tsx";
 
 const CheckBoxHeader = ({info}) => {
 
-    console.log("CheckBoxHeader Rendered")
+    //console.log("CheckBoxHeader Rendered")
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
     //console.log(myData)
