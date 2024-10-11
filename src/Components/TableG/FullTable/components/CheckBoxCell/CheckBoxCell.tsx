@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {TableGContext} from "../../../TableGContext";
 
 const CheckBoxCell = ({cellInfo}) => {
-    console.log("CheckBoxCell Rendered")
+    // console.log("CheckBoxCell Rendered")
 
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
