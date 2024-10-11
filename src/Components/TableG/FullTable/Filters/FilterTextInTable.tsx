@@ -37,6 +37,16 @@ const FilterTextInTable = ({
         console.log(value)
         setQuery(value)
     }
+    const handleChangeFilterSetNumber = (e: any) => {
+
+        let value = (e.target.value);
+        if(value!==""){
+            value = +value
+        }
+        const filterArray = myData.filters;
+        console.log(value)
+        setQuery(value)
+    }
 
     useEffect(() => {
         const filters = myData.filters;
@@ -67,7 +77,7 @@ const FilterTextInTable = ({
         //console.log(newFilterArray)
         setMyData({
             filters: newFilterArray,
-            reload: randomNumberGenerator()
+            // reload: randomNumberGenerator()
         })
 
     }, [debouncedQuery]);
@@ -126,7 +136,7 @@ const FilterTextInTable = ({
                     placeholder={placeHolder}
                     className={" rounded p-2 outline-0 w-full"}
                     type={"number"}
-                    onChange={handleChangeFilter}
+                    onChange={handleChangeFilterSetNumber}
                     value={query}
 
                 />
