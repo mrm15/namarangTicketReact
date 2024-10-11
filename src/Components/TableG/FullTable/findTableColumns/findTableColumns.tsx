@@ -4,6 +4,7 @@ import {roleListTableColumns} from "./roleListTableColumns.tsx";
 import {departmentListTableColumns} from "./departmentListTableColumns.tsx";
 import {FullBillData} from "./BasteBandiErsal/FullBillData.tsx";
 import {ticketlistColumns} from "./ticketlistColumns/ticketlistColumns.tsx";
+import {ticketAssignmentListColumns} from "./ticketAssignmentListColumns/ticketAssignmentListColumns.tsx";
 
 // Define the interface for the input object
 export interface IInputObject {
@@ -23,10 +24,10 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     "/ticket/readSentTickets": ticketlistColumns, //ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
-    "/ticket/readDepartmentTickets": ticketlistColumns, // تیکت های دپارتمان
-    "/ticket/readMyForwardedTickets": ticketlistColumns, // تیکت هایی که من فوروارد کردم.
-    "/ticket/readForwardedToMeTickets": ticketlistColumns, // تیکت هایی که ب من فورارد شده
-    "/ticket/readAllAssignments": ticketlistColumns, // کل تیکتا های فروارد شده
+    "/ticket/readDepartmentTickets": ticketAssignmentListColumns, // تیکت های دپارتمان
+    // "/ticket/readMyForwardedTickets": ticketlistColumns, // تیکت هایی که من فوروارد کردم.
+    // "/ticket/readForwardedToMeTickets": ticketlistColumns, // تیکت هایی که ب من فورارد شده
+    "/ticket/readAllAssignments": ticketAssignmentListColumns, // کل تیکتا های فروارد شده
 
 
 }
