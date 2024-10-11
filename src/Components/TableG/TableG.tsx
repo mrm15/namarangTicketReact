@@ -98,9 +98,15 @@ const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
     }, [data, setMyData, myData.reOrderTableAfterChangeColumnWidth]);
 
     useEffect(() => {
-        void refetch()
-    }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url]);
-
+        // اینجا کامپوننت بعضی وقتا دو بار رندر میشد و دوبار موقع باز کردن صفحه به بک اند درخواست میزد با این کار که تایم اوت گذاشتم جلوشو گرفتم
+        const timeoutId = setTimeout(() => {
+            void refetch()
+        }, 100); // Delay for 100 ms
+        return () => {
+            console.log(`clearTimeout(${timeoutId})`)
+            return clearTimeout(timeoutId); // Cleanup previous timeout
+        }
+    }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url , refetch]);
 
     try {
 
