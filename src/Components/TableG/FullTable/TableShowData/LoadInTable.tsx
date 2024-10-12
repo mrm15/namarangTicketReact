@@ -11,9 +11,9 @@ const LoadInTable = () => {
 
         return <div className={""}>
             <div
-                className={" center__absolut bg-white min-h-40 h-full w-full opacity-80"}
+                className={" center__absolut min-h-40  w-screen opacity-80"}
             >
-                <Loader3/>
+                <Loader3 text={"در حال بروز رسانی جدول..."}/>
             </div>
         </div>
 
