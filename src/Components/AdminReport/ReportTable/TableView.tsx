@@ -7,7 +7,7 @@ const TableView = ({data}) => {
     const SingleTableView = ({tableArray}) => {
 
         return <div className={"ul_li_table"}>
-            {tableArray.map(row =>
+            {tableArray?.map(row =>
                 <ul
                 style={{
                     backgroundColor:row.bgColor,
