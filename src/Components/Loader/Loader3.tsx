@@ -1,7 +1,7 @@
 import React from 'react';
 import "./loader3.scss"
 
-const Loader3 = () => {
+const Loader3 = ({text = " در حال به روز رسانی"}) => {
     return (
         <div className={"flex justify-center items-center "}>
             <div
@@ -9,7 +9,7 @@ const Loader3 = () => {
             >
                 <div className="lds-dual-ring"></div>
                 <div>
-                    در حال به روز رسانی
+                    {text}
                 </div>
             </div>
 
