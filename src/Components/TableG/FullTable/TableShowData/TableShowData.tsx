@@ -59,7 +59,7 @@ const TableShowData = () => {
                         <TableHeader table={table}/>
                     </div>
                     <div
-                        className={"table-body-g"}
+                        className={"table-body-g relative"}
                     >
 
                             {myData?.queryData?.isLoading && (
@@ -68,10 +68,9 @@ const TableShowData = () => {
 
                         {data.length === 0 && <>
                           <div className={" h-full min-h-screen "}>
-                            <div className={"center__absolut w-screen min-h-min flex items-center  justify-center"}>
+                            <div className={"absolute top-0 right-0 w-screen text-center "}>
                               <div className={""}>
                                 اطلاعاتی جهت نمایش وجود ندارد ☹️
-
                               </div>
                             </div>
                           </div>
