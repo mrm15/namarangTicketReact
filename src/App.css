@@ -147,10 +147,11 @@ html {
 }
 .center__absolut{
     position: absolute;
-    left: 0;
+    /*left: 0;*/
+    top: 0;
     right: 0;
-    margin-inline: auto;
-    width: fit-content;
+    /*margin-inline: auto;*/
+    /*width: fit-content;*/
 }
 .shot__font{
     font-size: 45px;
