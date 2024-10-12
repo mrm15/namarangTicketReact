@@ -10,7 +10,7 @@ import FilterTextInTable from "../Filters/FilterTextInTable.tsx";
 
 const NameShow = ({info}) => {
 
-    return <>{info.getValue() + " 1"}</>
+    return <>{info.getValue() }</>
 }
 // Define the columns with the appropriate structure
 export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => {
