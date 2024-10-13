@@ -10,6 +10,7 @@ import DateShowltr from "../../components/DateShowltr.tsx";
 import OperationColumInTicketTable from "../../components/OperationColumInTicketTable.tsx";
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
+import DateShowTimeStampToDateLtr from "../../components/DateShowTimeStampToDateLtr.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -214,7 +215,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             cell: (info) => {
 
 
-                return <DateShowltr
+                return <DateShowTimeStampToDateLtr
                     info={info}
                 />
             },
@@ -240,7 +241,14 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             size: 200,
             minSize: 200,
             maxSize: 200,
-            hidden: true
+            hidden: true,
+            cell: (info) => {
+
+
+                return <DateShowTimeStampToDateLtr
+                    info={info}
+                />
+            },
 
 
         },
@@ -480,7 +488,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
         },
         ///////////////////////////
 
-        //numberOfAssign تاریخ خواندن
+        //numberOfAssign
         {
             accessorKey: 'numberOfAssign',
             header: (info) => {
