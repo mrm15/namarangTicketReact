@@ -9,6 +9,7 @@ import {ticketAssignmentListColumns} from "./ticketAssignmentListColumns/ticketA
 // Define the interface for the input object
 export interface IInputObject {
     url: string;
+    auth:any;
     navigateTo: any; // Replace 'any' with the actual type if known
     myAxios:any;
     setMyData:any
@@ -24,8 +25,8 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     "/ticket/readSentTickets": ticketlistColumns, //ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
-    "/ticket/readDepartmentTickets": ticketAssignmentListColumns, // تیکت های دپارتمان
-    // "/ticket/readMyForwardedTickets": ticketlistColumns, // تیکت هایی که من فوروارد کردم.
+    // "/ticket/readDepartmentTickets": ticketAssignmentListColumns, // تیکت های دپارتمان
+    "/ticket/readMyForwardedTickets": ticketAssignmentListColumns, // تیکت هایی که من فوروارد کردم.
     // "/ticket/readForwardedToMeTickets": ticketlistColumns, // تیکت هایی که ب من فورارد شده
     "/ticket/readAllAssignments": ticketAssignmentListColumns, // کل تیکتا های فروارد شده
 
