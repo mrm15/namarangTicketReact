@@ -9,6 +9,7 @@ import {useNavigate} from "react-router-dom";
 import {findTableColumns} from "../findTableColumns/findTableColumns.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import "./tableGStyle.scss"
+import useAuth from "../../../../hooks/useAuth.tsx";
 
 const TableShowData = () => {
     const context = useContext(TableGContext);
@@ -16,6 +17,7 @@ const TableShowData = () => {
 
     const navigateTo = useNavigate()
 
+    const {auth} = useAuth()
     const myAxios = useAxiosPrivate()
     // Memoize columns to only change when URL changes
     const columns = useMemo(() => {
@@ -24,8 +26,8 @@ const TableShowData = () => {
             navigateTo,
             myAxios,
             setMyData,
-            myData
-
+            myData,
+            auth,
         });
     }, [myData.url]);
 
