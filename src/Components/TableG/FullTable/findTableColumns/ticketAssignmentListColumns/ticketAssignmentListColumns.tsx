@@ -22,6 +22,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
     const {url, navigateTo, myAxios, setMyData, myData , auth} = inputs;
     // اگه دسترسی به کا ارجاعات داشت یه سری ستون ها رو نشونش میدم در غیر اینصورن نشونش نمیدم. همینجا تعیین میکنم نشون بدم یا ندم؟
 
+    const mustShow = auth
 
 
     const temp: ICustomColumn<any>[] = [
