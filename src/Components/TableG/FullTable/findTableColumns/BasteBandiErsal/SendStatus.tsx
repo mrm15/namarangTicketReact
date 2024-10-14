@@ -113,11 +113,10 @@ const SendStatus = ({
             </div>}
             {(hasAccessVerifyBill || hasAccessDraftBill) &&
               <div className={"flex flex-wrap gap-1"}>
-                <div className={"btn-small-show"}>
-                  <a target={"_blank"} href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>
-                </div>
-                <div className={"btn-small-edit"}>
+                  <a className={"btn-small-show"} target={"_blank"} href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>
+                <div>
                   <ForwardOnClick
+                      className={"btn-small-edit"}
                     value={billNumber} NewPage={PAGES.submit_bill}
                     options={{
                         state: {
@@ -136,8 +135,9 @@ const SendStatus = ({
               />
             }
             {hasAccessToGetScreenShotBills &&
-              <div className={"btn-small-edit"}>
+              <div>
                 <ForwardOnClick
+                    className={"btn-small-edit"}
                   buttonCaption={" شات"}
                   value={billNumber} NewPage={PAGES.screenshot}
                   options={{
