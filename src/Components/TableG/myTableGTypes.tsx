@@ -12,6 +12,7 @@ export type ICustomColumn<TData = any> = ColumnDef<TData> & {
 
 export interface IMyData {
     url: string;
+    boldRowCondition:any;
     columns: ICustomColumn[]; // Use the updated ICustomColumn type
     pageNumber: number;
     currentPage: number;
