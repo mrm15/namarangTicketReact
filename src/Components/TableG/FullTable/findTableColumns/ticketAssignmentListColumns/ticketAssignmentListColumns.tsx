@@ -358,7 +358,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
                 return <>
                     <FilterTextInTable
                         placeHolder={"کاربر مقصد"}
-                        filterKey={"assignedToUserId"}
+                        filterKey={"assignedToUserIdText"}
                     />
                 </>
             },
@@ -443,7 +443,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
 
         // assignDate تاریخ ارجاع تیکت
         {
-            accessorKey: 'isDeleteFromAssignedBy',
+            accessorKey: 'assignDate',
             header: (info) => {
 
                 return <>
@@ -457,6 +457,13 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             size: 150,
             minSize: 150,
             maxSize: 150,
+            cell: (info) => {
+
+
+                return <DateShowTimeStampToDateLtr
+                    info={info}
+                />
+            },
         },
         ///////////////////////////
         //readStatus وضعیت خواندن
@@ -480,7 +487,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
         ///////////////////////////
         //readDate تاریخ خواندن
         {
-            accessorKey: 'readStatus',
+            accessorKey: 'readDate',
             header: (info) => {
 
                 return <>
@@ -494,6 +501,13 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             size: 150,
             minSize: 150,
             maxSize: 150,
+            cell: (info) => {
+
+
+                return <DateShowTimeStampToDateLtr
+                    info={info}
+                />
+            },
         },
         ///////////////////////////
 
