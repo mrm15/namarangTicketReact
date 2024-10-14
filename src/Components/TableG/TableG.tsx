@@ -8,9 +8,10 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
 import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
-const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
+const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondition = () => false}) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
+        boldRowCondition: boldRowCondition,
         pageNumber: 1,
         currentPage: 1,
         numberOfRows: 5,
@@ -22,8 +23,8 @@ const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
         isLoading: false,
         errorMessage: "",
         queryData: "",
-        reOrderTableAfterChangeColumnWidth:"",
-        checkedItems:[]
+        reOrderTableAfterChangeColumnWidth: "",
+        checkedItems: []
     });
 
     const myAxios = useAxiosPrivate();
@@ -106,7 +107,7 @@ const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
             console.log(`clearTimeout(${timeoutId})`)
             return clearTimeout(timeoutId); // Cleanup previous timeout
         }
-    }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url , refetch]);
+    }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url, refetch]);
 
     try {
 
@@ -135,7 +136,7 @@ const TableG = ({url = "/user/read", TopTableComponent=undefined}) => {
                     {myData.queryData.error ?
                         <span
 
-                            onClick={()=>setMyData({reload:randomNumberGenerator()})}
+                            onClick={() => setMyData({reload: randomNumberGenerator()})}
                             className={"badge-bg-red-text-red cursor-pointer "}>
                         تلاش مجدد
                     </span> : ""}
