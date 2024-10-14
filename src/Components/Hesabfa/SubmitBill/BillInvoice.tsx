@@ -108,9 +108,10 @@ const BillInvoice = ({
         console.log(error)
     }
 
-    const userBedOrBesValue = invoice.Contact.Credits - invoice.Contact.Liability
-    const userBedOrBesStatus = userBedOrBesValue > 0 ? "بس" : "بد"
-    const userBedOrBesColor = userBedOrBesValue >0 ? "blue" : "red"
+    const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
+    console.log(invoice?.Contact)
+    const userBedOrBesStatus = userBedOrBesValue >= 0 ? "بس" : "بد"
+    const userBedOrBesColor = userBedOrBesValue >=0 ? "blue" : "red"
     const Currency = invoice.Currency==="IRT" ? "تومان" : "ريال"
 
     try {
