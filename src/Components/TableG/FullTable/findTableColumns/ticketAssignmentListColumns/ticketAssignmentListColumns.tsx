@@ -11,11 +11,19 @@ import OperationColumInTicketTable from "../../components/OperationColumInTicket
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 import DateShowTimeStampToDateLtr from "../../components/DateShowTimeStampToDateLtr.tsx";
+import useAuth from "../../../../../hooks/useAuth.tsx";
+import {getMenus} from "../../../../SideBar/menus.tsx";
 
 
 // Define the columns with the appropriate structure
 export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any>[] => {
-    const {url, navigateTo, myAxios, setMyData, myData} = inputs;
+
+
+    const {url, navigateTo, myAxios, setMyData, myData , auth} = inputs;
+    // اگه دسترسی به کا ارجاعات داشت یه سری ستون ها رو نشونش میدم در غیر اینصورن نشونش نمیدم. همینجا تعیین میکنم نشون بدم یا ندم؟
+
+
+
     const temp: ICustomColumn<any>[] = [
         // 0_ردیف
         // 1_عنوان سفارش
