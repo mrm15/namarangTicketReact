@@ -1,14 +1,13 @@
 import {PAGES} from "../../../Pages/Route-string";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate";
 import {toast} from "react-toastify";
-import EditButton from "../../../assets/icons/EditButton";
 import DeleteButton from "../../../assets/icons/DeleteButton";
 import Loader from "../../Loader";
 import AggridDataShow from "../../AgGridDataShow/AgGridDataShow";
 import useAuth from "../../../hooks/useAuth.tsx";
-import {FaArrowRight, FaShareSquare} from "react-icons/fa";
+import {FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../ForwardModal/ForwardModal.tsx";
 import {useQuery} from "@tanstack/react-query";
 import TableG from "../../TableG/TableG.tsx";
@@ -315,11 +314,19 @@ const title = {
     }
 
 
+
     try {
+
+        const boldRowCondition=(row?:any)=>{
+            return !(row?.original?.readStatus)
+            // return false
+        }
+
         return <>
             <TableG
                 url={`/ticket/${view}`}
                 TopTableComponent={TopTableComponent}
+                boldRowCondition={boldRowCondition}
             />
         </>
 
