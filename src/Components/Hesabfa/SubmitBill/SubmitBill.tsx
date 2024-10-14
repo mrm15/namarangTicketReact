@@ -181,10 +181,10 @@ const SubmitBill = () => {
         }
         try {
             return (
-                <FullWidthPage>
+                <div className={"relative w-full"}>
                     {isLoading ? <Loader/> :
                         <div>
-                            <div className={'w-full'}>
+                            <div>
                                 <ShowProductListForSelect
                                     billData={componentInfo}
                                     invoice={invoice}
@@ -200,7 +200,7 @@ const SubmitBill = () => {
                             <hr/>
                         </div>
                     }
-                </FullWidthPage>
+                </div>
             );
         } catch (error) {
             return (

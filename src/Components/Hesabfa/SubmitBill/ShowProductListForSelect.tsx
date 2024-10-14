@@ -59,8 +59,8 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
     try {
         return (
-            <div className={''}>
-                <div className="w-96">
+            <div className={'w-full flex flex-wrap justify-between'}>
+                <div className="min-w-640">
                     <label htmlFor={"name"}>نام کالا</label>
                     <Select
                         onChange={onSelect}
@@ -77,11 +77,11 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
                     />
                 </div>
-                <div className={'flex justify-end w-full'}>
+                <div className={''}>
                     {canSaveFactorAsDraft &&
-                      <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir'}>ذخیره</button>}
+                      <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}
                     {canSaveFactorAsDone &&
-                      <button onClick={() => sendFactorForSave(1)} className={'btn-submit-mir'}>تایید </button>}
+                      <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}>تایید </button>}
                 </div>
 
             </div>

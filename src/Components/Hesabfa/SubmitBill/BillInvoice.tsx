@@ -107,6 +107,12 @@ const BillInvoice = ({
     } catch (error) {
         console.log(error)
     }
+
+    const userBedOrBesValue = invoice.Contact.Credits - invoice.Contact.Liability
+    const userBedOrBesStatus = userBedOrBesValue > 0 ? "بس" : "بد"
+    const userBedOrBesColor = userBedOrBesValue >0 ? "blue" : "red"
+    const Currency = invoice.Currency==="IRT" ? "تومان" : "ريال"
+
     try {
         return (
             <div>
@@ -125,6 +131,14 @@ const BillInvoice = ({
                         <input
 
                             type="text" value={invoice.ContactTitle} disabled={true}/>
+                        <span style={{color:userBedOrBesColor , fontWeight:"bold"}}
+                        className={"flex"}
+                        >
+                            <div>تراز:</div>
+                            <div className={"ltr"}>{formatNumber(userBedOrBesValue)} </div>
+                             <div> {Currency} {userBedOrBesStatus}</div>
+
+                        </span>
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor="">عنوان مشتری </label>
@@ -180,7 +194,7 @@ const BillInvoice = ({
                         />
                     </div>
                     <div className={'div__group__input_select fontSize075rem'}>
-                        <a href={`tel:${ContactMobile}`} >
+                        <a href={`tel:${ContactMobile}`}>
                             <div>شماره تماس مشتری</div>
                             <div>{ContactMobile}</div>
                         </a>
@@ -189,7 +203,7 @@ const BillInvoice = ({
 
                 </div>
                 <div>
-                <div className={'flex flex-col items-center my-3'}>
+                    <div className={'my-3 w-full overflow-scroll'}>
                         <div>
                             <InvoiceTableItems
                                 invoice={invoice}
