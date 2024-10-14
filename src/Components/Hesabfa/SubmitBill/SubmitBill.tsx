@@ -73,7 +73,7 @@ const SubmitBill = () => {
             Tag: componentInfo.tag, // تگ
             InvoiceItems: [],
             Others: [],
-            Currency: "IRR",
+            Currency: "IRT",
             TaxId: "",
             CurrencyRate: 1.0000000000,
             Project: "",
@@ -147,6 +147,17 @@ const SubmitBill = () => {
                         setInvoice({...myInvoice, Tag: newTag})
                         setIsLoading(false);
                     } else {
+                        // اینجا باید درخواست بزنم اطلاعات مشتری رو بگیرم که کد داره.
+                        // و اونو توی بخش مخاطب بزارم
+                        const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + componentInfo.ContactCode);
+
+                        if(ContactRequest.status===200){
+                            console.log(ContactRequest.data.data)
+                        }
+
+                        invoice.Contact = ContactRequest.data.data
+
+
                         // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
                         const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined , ticketNumber:myStateData.ticketNumber})
                         setInvoice({...invoice, Tag: newTag11})
