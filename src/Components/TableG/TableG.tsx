@@ -13,7 +13,6 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
         url: url,
         boldRowCondition: boldRowCondition,
         pageNumber: 1,
-        currentPage: 1,
         numberOfRows: 5,
         columns: [],
         tableData: [],
@@ -27,11 +26,13 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
         checkedItems: []
     });
 
+    console.log("3548" ,  myData.pageNumber)
     const myAxios = useAxiosPrivate();
+
 
     const resultOfUseQuery =
         useQuery({
-            queryKey: [url, myData.pageNumber, myData.numberOfRows, myData.filters],
+            queryKey: [myData.url, myData.pageNumber, myData.numberOfRows, myData.filters],
             // url: string, myAxios: any, page: number, pageSize: number, filters: any
             queryFn: () => fetchTableData(url, myAxios, myData.pageNumber, myData.numberOfRows, myData.filters),
             staleTime: 86400000,  // === 60*60*24*1000
@@ -93,7 +94,7 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
                 errorMessage: "",
                 totalRows: data.totalDocuments || 0,
                 tableData: data?.results || [],
-                pageNumber: data.currentPage,
+                pageNumber: data.currentPage, // از بک به اسم "کارنت پیج" میاد
             });
         }
     }, [data, setMyData, myData.reOrderTableAfterChangeColumnWidth]);
