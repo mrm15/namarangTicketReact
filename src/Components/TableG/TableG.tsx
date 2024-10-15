@@ -26,7 +26,6 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
         checkedItems: []
     });
 
-    console.log("3548" ,  myData.pageNumber)
     const myAxios = useAxiosPrivate();
 
 
