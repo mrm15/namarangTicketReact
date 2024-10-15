@@ -43,7 +43,7 @@ const TableShowData = () => {
         getCoreRowModel: getCoreRowModel(),
     });
 
-    const myWindowsSize = useWindowSize();
+    // const myWindowsSize = useWindowSize();
     // const parentTableWidth = myWindowsSize.widthWindowSize - 150;
 
 
