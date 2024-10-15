@@ -6,6 +6,7 @@ import SendStatus from "./SendStatus.tsx";
 import ShowDateFromHesabfa from "./ShowDateFromHesabfa.tsx";
 import ContactNumber from "./ContactNumber.tsx";
 import FilterTextInTable from "../../Filters/FilterTextInTable.tsx";
+import FilterButtons from "../../Filters/DateFilter/FilterButtons.tsx";
 
 
 const NameShow = ({info}) => {
@@ -114,11 +115,12 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*<div style={{width: 50}}>*/}
                     {/*    تاریخ ثبت*/}
                     {/*</div>*/}
-                    <FilterTextInTable
-                        filterKey={"Date"}
-                        filterType={"date"}
-                        operator={"="}
-                    />
+                    {/*<FilterTextInTable*/}
+                    {/*    filterKey={"Date"}*/}
+                    {/*    filterType={"date"}*/}
+                    {/*    operator={"="}*/}
+                    {/*/>*/}
+                    <FilterButtons />
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
