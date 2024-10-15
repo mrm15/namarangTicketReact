@@ -6,14 +6,15 @@ import {FullBillData} from "./BasteBandiErsal/FullBillData.tsx";
 import {ticketlistColumns} from "./ticketlistColumns/ticketlistColumns.tsx";
 import {ticketAssignmentListColumns} from "./ticketAssignmentListColumns/ticketAssignmentListColumns.tsx";
 
+
 // Define the interface for the input object
 export interface IInputObject {
     url: string;
-    auth:any;
+    auth: any;
     navigateTo: any; // Replace 'any' with the actual type if known
-    myAxios:any;
-    setMyData:any
-    myData:any
+    myAxios: any;
+    setMyData: any
+    myData: any
 }
 
 // Update the mapping of URLs to functions that accept IInputObject
@@ -25,12 +26,15 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     "/ticket/readSentTickets": ticketlistColumns, //ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
-    "/ticket/readMyForwardedTickets": ticketAssignmentListColumns, // تیکت هایی که من فوروارد کردم.
 
-
-    "/ticket/readForwardedToMeTickets": ticketAssignmentListColumns, // تیکت هایی که ب من فورارد شده
-    "/ticket/readDepartmentTickets": ticketAssignmentListColumns, // تیکت های دپارتمان
-    "/ticket/readAllAssignments": ticketAssignmentListColumns, // کل تیکتا های فروارد شده
+    // تیکت هایی که من فوروارد کردم.
+    "/ticket/readMyForwardedTickets": ticketAssignmentListColumns,
+    // تیکت هایی که ب من فورارد شده
+    "/ticket/readForwardedToMeTickets": ticketAssignmentListColumns,
+    // تیکت های دپارتمان
+    "/ticket/readDepartmentTickets": ticketAssignmentListColumns,
+    // کل تیکتا های فروارد شده
+    "/ticket/readAllAssignments": ticketAssignmentListColumns,
 
 
 }
