@@ -69,7 +69,9 @@ const TableShowData = () => {
                             )}
 
                         {data.length === 0 && <>
-                          <div className={" h-full min-h-screen "}>
+                          <div style={{
+                              minHeight:'40vh',
+                          }}>
                             <div className={"absolute top-0 right-0 w-screen text-center "}>
                               <div className={""}>
                                 اطلاعاتی جهت نمایش وجود ندارد ☹️
