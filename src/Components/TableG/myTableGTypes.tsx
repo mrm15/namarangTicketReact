@@ -15,7 +15,6 @@ export interface IMyData {
     boldRowCondition:any;
     columns: ICustomColumn[]; // Use the updated ICustomColumn type
     pageNumber: number;
-    currentPage: number;
     numberOfRows: number;
     tableData: any[];
     filters: any[];
