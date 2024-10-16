@@ -7,11 +7,12 @@ import numeric from "../../utils/NumericFunction";
 interface propType {
     value: any;
     onChange: any;
+    className?:string;
 }
 
 const FormDatePicker = (props: propType) => {
 
-    const {value, onChange} = props
+    const {value, onChange,className} = props
 
     const dateCal = useRef<HTMLInputElement>(null); // Specify the expected type for clarity
 
@@ -60,6 +61,8 @@ const FormDatePicker = (props: propType) => {
             placeholder="تاریخ"
             locale={persian_fa}
             value={value}
+            className={className}
+
             calendarPosition="bottom-right"
             hideOnScroll
 

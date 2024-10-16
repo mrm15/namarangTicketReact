@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useDebounce} from "../../../../hooks/useDebounce.tsx";
 import {
+    convertPersianDateToTimestamp,
     HesabfaTimeStampWithTToPersianTime,
     persianDateToTimestamp,
     randomNumberGenerator,
@@ -10,7 +11,8 @@ import MyDatePicker from "../../../MyDatePicker";
 import {TableGContext} from "../../TableGContext.tsx";
 
 interface propType {
-    filterKey: string;
+    uniqueId: string;
+    property: string;
     operator?: "*" | "in" | "=" | "includes" | "nin" | "regex" | '!=' | '<' | '<=' | '>' | '>=' | any;
     filterType?: "date" | "select" | "number" | string,
     optionsForSelectOption?: { [key: string]: string }[];
@@ -18,7 +20,10 @@ interface propType {
 }
 
 const FilterTextInTable = ({
-                               filterKey, operator = "*", filterType,
+                               uniqueId,
+                               property,
+                               operator = "*",
+                               filterType,
                                optionsForSelectOption = [{key: "تایید شده", value: "1",}],
                                placeHolder = "",
                            }: propType) => {
@@ -27,8 +32,8 @@ const FilterTextInTable = ({
     const {myData, setMyData} = context;
     //console.log(myData.tableData)
 
-    const defaultValue = myData.filters.find(row => row.property === filterKey && row.operator === operator) || ""
-    const [query, setQuery] = useState('');
+    const defaultValue = myData.filters.find(row => row.uniqueId===uniqueId) || {value: "", showValue: "",}
+    const [query, setQuery] = useState<{ value: string, showValue: string }>(defaultValue);
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
     const handleChangeFilter = (e: any) => {
 
@@ -57,24 +62,28 @@ const FilterTextInTable = ({
     useEffect(() => {
         const filters = myData.filters;
         let newFilterArray = [...filters]; // Create a copy of the existing filters array
-
-        if (debouncedQuery.length === 0) {
+        // یعنی الان هیچی نداریم توی این آبجکت
+        if (debouncedQuery.value.length === 0) {
             // Remove the filter if the query is empty
-            newFilterArray = filters.filter(item => item.property !== filterKey);
+            newFilterArray = filters.filter(item => item.uniqueId !== uniqueId);
         } else {
             // Find the existing filter object by key
-            const existingIndex = newFilterArray.findIndex((item: any) => item.property === filterKey);
+            const existingIndex = newFilterArray.findIndex((item: any) => item.uniqueId === uniqueId);
 
             if (existingIndex !== -1) {
                 // Update the value of the existing filter object
-                newFilterArray[existingIndex].value = debouncedQuery;
+                // newFilterArray[existingIndex].property = property;
+                newFilterArray[existingIndex].value = debouncedQuery.value;
+                newFilterArray[existingIndex].showValue = debouncedQuery.showValue;
                 newFilterArray[existingIndex].operator = operator;
             } else {
                 // Add a new filter object
                 newFilterArray.push({
-                    property: filterKey,
+                    uniqueId,
+                    property,
                     operator: operator,
-                    value: debouncedQuery
+                    value: debouncedQuery.value,
+                    showValue: debouncedQuery.showValue,
                 })
             }
         }
@@ -90,21 +99,27 @@ const FilterTextInTable = ({
     }, [debouncedQuery, operator]);
 
     const removeFilter = () => {
-        setQuery("")
+        setQuery({value:"",showValue:""})
     }
 
     if (filterType === "date") {
 
-        let rr = query
+
+        const rr = defaultValue.showValue
         if (rr !== "") {
-            rr = HesabfaTimeStampWithTToPersianTime(query + "")
+            // rr = convertPersianDateToTimestamp(rr)
+            // alert(JSON.stringify(rr.value))
+            // rr = HesabfaTimeStampWithTToPersianTime(defaultValue + "")
         }
 
-        return <div className={'flex font-normal overflow-visible relative w-9 overflow-hidden'}>
+        return <div className={'flex font-normal overflow-visible relative w-9 overflow-hidden '}>
             <MyDatePicker
+                className={"fontSize8"}
                 value={rr}
 
                 onChange={(selectedDate) => {
+                    //alert(JSON.stringify(selectedDate))
+
                     if (selectedDate === '') {
                         console.log(selectedDate)
                         handleChangeFilterDate(selectedDate)
@@ -130,7 +145,7 @@ const FilterTextInTable = ({
 
             <select
                 onChange={handleChangeFilter}
-                value={query}
+                value={query.showValue}
             >
                 <option value="">انتخاب کنید</option>
                 {optionsForSelectOption.map((row, index) => <option key={index} value={row.value}>{row.key}</option>)}
@@ -146,7 +161,7 @@ const FilterTextInTable = ({
                     className={" rounded p-2 outline-0 w-full"}
                     type={"number"}
                     onChange={handleChangeFilterSetNumber}
-                    value={query}
+                    value={query.showValue}
 
                 />
             </div>
@@ -160,8 +175,7 @@ const FilterTextInTable = ({
                 className={" rounded p-2 outline-0 w-full"}
                 type={"text"}
                 onChange={handleChangeFilter}
-                value={query}
-                defaultValue={defaultValue}
+                value={query.value}
 
             />
         </div>

@@ -10,14 +10,32 @@ export type ICustomColumn<TData = any> = ColumnDef<TData> & {
 
 };
 
+type filterSelectOption = [] | {
+    key: string;
+    value: any;
+}[];
+type filterOfDatType = {
+    uniqueId: string;
+    optionsForSelectOption?: filterSelectOption;
+    placeHolder?: string;
+    property:string;
+    operator: string;
+    // مقداری که واسه بک لازمه
+    value: any;
+    // مقداری که توی فرانت میخوام نمایش بدم
+    showValue: any;
+
+
+}[] | [];
+
 export interface IMyData {
     url: string;
-    boldRowCondition:any;
+    boldRowCondition: any;
     columns: ICustomColumn[]; // Use the updated ICustomColumn type
     pageNumber: number;
     numberOfRows: number;
     tableData: any[];
-    filters: any[];
+    filters: filterOfDatType;
     totalRows: number;
     reload: string | number;
     isLoading: boolean;

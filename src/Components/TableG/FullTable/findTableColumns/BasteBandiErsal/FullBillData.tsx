@@ -120,7 +120,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*    filterType={"date"}*/}
                     {/*    operator={"="}*/}
                     {/*/>*/}
-                    <FilterButtons />
+                    <FilterButtons
+                        filterKey={"Date"}
+                    />
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
