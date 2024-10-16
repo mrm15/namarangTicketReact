@@ -16,7 +16,6 @@ const FilterButtons = () => {
     }, [])
 
     const [showOptions, setShowOptions] = useState(false)
-    const [selectedOption, setSelectedOption] = useState(filterSigns[0])
     return (
         <div
             onMouseLeave={() => setShowOptions(false)}
