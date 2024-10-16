@@ -5,17 +5,17 @@ import {TableGContext} from "../../../TableGContext.tsx";
 import removeItemFromFilterArray from "./removeItemFromFilterArray.tsx";
 
 
-const FilterButtons = ({filterKey}) => {
+const FilterButtons = ({property, uniqueId}) => {
 
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
     const defaultSelected = {textForFilter: "=", text: "مساوی", sign: "==",}
     const [selectedOption, setSelectedOption] = useState<any>(defaultSelected)
-    const clickHandler = (row:any) => {
+    const clickHandler = (row: any) => {
         if (row.textForFilter === "removeFilter") {
             setSelectedOption(defaultSelected)
-            removeItemFromFilterArray({filterKey, myData, setMyData})
-        }else {
+            removeItemFromFilterArray({property, myData, setMyData})
+        } else {
             setSelectedOption(row);
         }
     }
@@ -34,44 +34,52 @@ const FilterButtons = ({filterKey}) => {
         ]
     }, [])
 
-    return (
-        <div>
-            {
-                selectedOption.textForFilter !== "between"
-                &&
-                <FilterTextInTable
-                    filterKey={filterKey}
+    try {
+        return (
+            <div>
+                {
+                    selectedOption.textForFilter !== "between"
+                    &&
+                  <FilterTextInTable
+                    uniqueId={uniqueId}
+                    property={property}
                     filterType={"date"}
                     operator={selectedOption.textForFilter}
-                />
-            }
-            {
-                selectedOption.textForFilter==="between"
-                &&
-                <div>
+                  />
+                }
+                {
+                    selectedOption.textForFilter === "between"
+                    &&
+                  <div>
                     <FilterTextInTable
-                        filterKey={filterKey}
-                        filterType={"date"}
-                        operator={">="}
+                      uniqueId={uniqueId + 1}
+                      property={property}
+                      filterType={"date"}
+                      operator={">="}
                     />
                     <FilterTextInTable
-                        filterKey={filterKey}
-                        filterType={"date"}
-                        operator={"<="}
+                      uniqueId={uniqueId + 2}
+
+                      property={property}
+                      filterType={"date"}
+                      operator={"<="}
                     />
-                </div>
-            }
-            <HoverMenuFilter filterSigns={filterSigns}>
-                <div className={"flex gap-2"}>
-                    <div>{selectedOption.textForFilter}</div>
-                    <div>{selectedOption.text}</div>
+                  </div>
+                }
+                <HoverMenuFilter filterSigns={filterSigns}>
+                    <div className={"flex gap-2"}>
+                        <div>{selectedOption.textForFilter}</div>
+                        <div>{selectedOption.text}</div>
 
-                </div>
-            </HoverMenuFilter>
+                    </div>
+                </HoverMenuFilter>
 
-        </div>
-    )
-        ;
+            </div>
+        )
+    } catch (error) {
+        return <>{error.toString()}</>
+    }
+
 };
 
 export default FilterButtons;
