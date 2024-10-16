@@ -9,6 +9,7 @@ import {
 } from "../../../../utils/utilsFunction.tsx";
 import MyDatePicker from "../../../MyDatePicker";
 import {TableGContext} from "../../TableGContext.tsx";
+import { filterOfDataTypeObject} from "../../myTableGTypes.tsx";
 
 interface propType {
     uniqueId: string;
@@ -32,21 +33,19 @@ const FilterTextInTable = ({
     const {myData, setMyData} = context;
     //console.log(myData.tableData)
 
-    const defaultValue = myData.filters.find(row => row.uniqueId===uniqueId) || {value: "", showValue: "",}
+    const defaultValue = myData.filters.find(row => row.uniqueId === uniqueId) || {value: "", showValue: "",}
     const [query, setQuery] = useState<{ value: string, showValue: string }>(defaultValue);
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
     const handleChangeFilter = (e: any) => {
-
         const value = e.target.value;
-        const filterArray = myData.filters;
-        console.log(value)
-        setQuery(value)
+        setQuery({value, showValue: value})
     }
-    const handleChangeFilterDate = (value: any) => {
+    const handleChangeFilterDate = (value: string) => {
         const filterArray = myData.filters;
         console.log(filterArray)
         console.log(value)
-        setQuery(value)
+
+        setQuery({value, showValue: value})
     }
 
     const handleChangeFilterSetNumber = (e: any) => {
@@ -56,19 +55,20 @@ const FilterTextInTable = ({
             value = +value
         }
         console.log(value)
-        setQuery(value)
+        setQuery({value, showValue: value})
     }
 
+    console.log("123 ", debouncedQuery)
     useEffect(() => {
         const filters = myData.filters;
         let newFilterArray = [...filters]; // Create a copy of the existing filters array
         // یعنی الان هیچی نداریم توی این آبجکت
-        if (debouncedQuery.value.length === 0) {
+        if (debouncedQuery.value?.length === 0) {
             // Remove the filter if the query is empty
-            newFilterArray = filters.filter(item => item.uniqueId !== uniqueId);
+            newFilterArray = filters.filter((item:filterOfDataTypeObject) => item.uniqueId !== uniqueId);
         } else {
             // Find the existing filter object by key
-            const existingIndex = newFilterArray.findIndex((item: any) => item.uniqueId === uniqueId);
+            const existingIndex = newFilterArray.findIndex((item: filterOfDataTypeObject) => item.uniqueId === uniqueId);
 
             if (existingIndex !== -1) {
                 // Update the value of the existing filter object
@@ -77,6 +77,7 @@ const FilterTextInTable = ({
                 newFilterArray[existingIndex].showValue = debouncedQuery.showValue;
                 newFilterArray[existingIndex].operator = operator;
             } else {
+                debugger
                 // Add a new filter object
                 newFilterArray.push({
                     uniqueId,
@@ -99,7 +100,7 @@ const FilterTextInTable = ({
     }, [debouncedQuery, operator]);
 
     const removeFilter = () => {
-        setQuery({value:"",showValue:""})
+        setQuery({value: "", showValue: ""})
     }
 
     if (filterType === "date") {
@@ -112,6 +113,7 @@ const FilterTextInTable = ({
             // rr = HesabfaTimeStampWithTToPersianTime(defaultValue + "")
         }
 
+        console.log(rr)
         return <div className={'flex font-normal overflow-visible relative w-9 overflow-hidden '}>
             <MyDatePicker
                 className={"fontSize8"}
