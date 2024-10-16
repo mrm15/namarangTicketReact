@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 export function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = useState(value);
+    const [debouncedValue, setDebouncedValue] = useState<any>(value);
 
     useEffect(() => {
         // Set a timeout to update the debounced value after a delay
