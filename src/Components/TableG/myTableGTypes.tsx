@@ -14,7 +14,7 @@ type filterSelectOption = [] | {
     key: string;
     value: any;
 }[];
-type filterOfDatType = {
+type filterOfDataType = {
     uniqueId: string;
     optionsForSelectOption?: filterSelectOption;
     placeHolder?: string;
@@ -35,7 +35,7 @@ export interface IMyData {
     pageNumber: number;
     numberOfRows: number;
     tableData: any[];
-    filters: filterOfDatType;
+    filters: filterOfDataType;
     totalRows: number;
     reload: string | number;
     isLoading: boolean;
