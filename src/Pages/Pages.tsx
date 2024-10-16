@@ -10,6 +10,7 @@ import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
+import MyDatePicker2 from "../Components/myDatePicker2/MyDatePicker2.tsx";
 
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
@@ -52,6 +53,7 @@ const Pages = () => {
     return (
         <>
             <Routes>
+                <Route path={"testDate"} element={<MyDatePicker2/>}/>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
 
