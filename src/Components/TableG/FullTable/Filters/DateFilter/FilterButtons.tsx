@@ -20,12 +20,13 @@ const FilterButtons = () => {
     return (
         <div
             onMouseLeave={() => setShowOptions(false)}
+            className={""}
         >
             <input
                 placeholder={"تاریخ"}
                 className={" rounded p-2 outline-0 w-full"}
                 type="text"/>
-            <div className={"float-right py-1 px-2 rounded bg-white"}
+            <div className={"my-1 float-right py-1 px-2 rounded bg-white"}
 
                  onMouseOver={() => setShowOptions(true)}>
                 <div
@@ -36,7 +37,7 @@ const FilterButtons = () => {
 
             {showOptions &&
               <div
-                className={"absolute rounded shadow-2xl  overflow-hidden bg-white block w-fit border-white border-2 text-right"}>
+                className={"absolute top-1 rounded shadow-2xl  overflow-hidden bg-white block w-fit border-white border-2 text-right"}>
                   {filterSigns.map((row, index) => <ul key={index}
                                                        className={"flex justify-between px-3 py-1 hover:bg-gray-200"}>
                       <li>{row.text}</li>
