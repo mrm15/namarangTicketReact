@@ -11,7 +11,7 @@ import {TableGContext} from "../../TableGContext.tsx";
 
 interface propType {
     filterKey: string;
-    operator?: "*" | "in" | "=" | "includes" | "nin" | "regex" | '!=' | '<' | '<=' | '>' | '>=';
+    operator?: "*" | "in" | "=" | "includes" | "nin" | "regex" | '!=' | '<' | '<=' | '>' | '>=' | any;
     filterType?: "date" | "select" | "number" | string,
     optionsForSelectOption?: { [key: string]: string }[];
     placeHolder?: string;
@@ -27,7 +27,7 @@ const FilterTextInTable = ({
     const {myData, setMyData} = context;
     //console.log(myData.tableData)
 
-    const defaultValue = myData.filters.find(row=>row.property===filterKey)
+    const defaultValue = myData.filters.find(row => row.property === filterKey && row.operator === operator) || ""
     const [query, setQuery] = useState('');
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
     const handleChangeFilter = (e: any) => {
@@ -37,13 +37,19 @@ const FilterTextInTable = ({
         console.log(value)
         setQuery(value)
     }
+    const handleChangeFilterDate = (value: any) => {
+        const filterArray = myData.filters;
+        console.log(filterArray)
+        console.log(value)
+        setQuery(value)
+    }
+
     const handleChangeFilterSetNumber = (e: any) => {
 
         let value = (e.target.value);
-        if(value!==""){
+        if (value !== "") {
             value = +value
         }
-        const filterArray = myData.filters;
         console.log(value)
         setQuery(value)
     }
@@ -62,6 +68,7 @@ const FilterTextInTable = ({
             if (existingIndex !== -1) {
                 // Update the value of the existing filter object
                 newFilterArray[existingIndex].value = debouncedQuery;
+                newFilterArray[existingIndex].operator = operator;
             } else {
                 // Add a new filter object
                 newFilterArray.push({
@@ -74,13 +81,13 @@ const FilterTextInTable = ({
 
         // Update the myData state with the new filters array
 
-        //console.log(newFilterArray)
+        console.table(newFilterArray)
         setMyData({
             filters: newFilterArray,
             // reload: randomNumberGenerator()
         })
 
-    }, [debouncedQuery]);
+    }, [debouncedQuery, operator]);
 
     const removeFilter = () => {
         setQuery("")
@@ -96,16 +103,18 @@ const FilterTextInTable = ({
         return <div className={'flex font-normal overflow-visible relative w-9 overflow-hidden'}>
             <MyDatePicker
                 value={rr}
+
                 onChange={(selectedDate) => {
                     if (selectedDate === '') {
+                        console.log(selectedDate)
+                        handleChangeFilterDate(selectedDate)
                         return
                     }
 
                     const temp = persianDateToTimestamp(selectedDate)
                     const temp2 = (timestampToFormattedDateToSendHesabfa(temp))
-                    const temp3 = temp2.replace(" ", "T");
-                    const temp4 = {target: {value: temp3}}
-                    handleChangeFilter(temp4)
+                    const temp3 = temp2.replace(" ", "T")
+                    handleChangeFilterDate(temp3)
 
 
                 }}

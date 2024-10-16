@@ -1,51 +1,73 @@
-import React, {useMemo, useState} from 'react';
+import React, {useContext, useMemo, useState} from 'react';
+import HoverMenuFilter from "./HoverMenuFilter.tsx";
+import FilterTextInTable from "../FilterTextInTable.tsx";
+import {TableGContext} from "../../../TableGContext.tsx";
+import removeItemFromFilterArray from "./removeItemFromFilterArray.tsx";
 
 
-const FilterButtons = () => {
+const FilterButtons = ({filterKey}) => {
+
+    const context = useContext(TableGContext);
+    const {myData, setMyData} = context;
+    const defaultSelected = {textForFilter: "=", text: "مساوی", sign: "==",}
+    const [selectedOption, setSelectedOption] = useState<any>(defaultSelected)
+    const clickHandler = (row:any) => {
+        if (row.textForFilter === "removeFilter") {
+            setSelectedOption(defaultSelected)
+            removeItemFromFilterArray({filterKey, myData, setMyData})
+        }else {
+            setSelectedOption(row);
+        }
+    }
+
+
     const filterSigns = useMemo(() => {
         return [
-            {text: "مساوی", sign: "=",}, // میشه فقط اپریتور رو تغییر میده
-            {text: " نامساوی", sign: "!=",}, //  میشه فقط اپریتور رو تغییر میده
-            {text: "بزرگتر", sign: <>&gt;</>,},
-            {text: "بزرگتر مساوی", sign: <>&#8805;</>,},
-            {text: "کوچیکتر", sign: <>&lt;</>,},
-            {text: "کوچیکتر مساوی", sign: <>&#8804;</>,},
-            {text: "بین", sign: <>&#119081;</>,}, // فیلتر رو حذف میکنه و دوتا مقدار میده بیشتر و کمتر که باید پر بشه
-            {text: "حذف فیلتر", sign: <>&#215;</>,}, // فیلتر رو حذف میکنه
+            {textForFilter: "=", onClick: clickHandler, text: "مساوی", sign: "==",}, // میشه فقط اپریتور رو تغییر میده
+            {textForFilter: "!=", onClick: clickHandler, text: " نامساوی", sign: "!=",}, //  میشه فقط اپریتور رو تغییر میده
+            {textForFilter: ">", onClick: clickHandler, text: "بزرگتر", sign: <>&gt;</>,},
+            {textForFilter: ">=", onClick: clickHandler, text: "بزرگتر مساوی", sign: <>&#8805;</>,},
+            {textForFilter: "<", onClick: clickHandler, text: "کوچیکتر", sign: <>&lt;</>,},
+            {textForFilter: "<=", onClick: clickHandler, text: "کوچیکتر مساوی", sign: <>&#8804;</>,},
+            {textForFilter: "between", onClick: clickHandler, text: "بین", sign: <>&#119081;</>,}, // فیلتر رو حذف میکنه و دوتا مقدار میده بیشتر و کمتر که باید پر بشه
+            {textForFilter: "removeFilter", onClick: clickHandler, text: "حذف فیلتر", sign: <>&#215;</>,}, // فیلتر رو حذف میکنه
         ]
     }, [])
 
-    const [showOptions, setShowOptions] = useState(false)
     return (
-        <div
-            onMouseLeave={() => setShowOptions(false)}
-            className={""}
-        >
-            <input
-                placeholder={"تاریخ"}
-                className={" rounded p-2 outline-0 w-full"}
-                type="text"/>
-            <div className={"my-1 float-right py-1 px-2 rounded bg-white"}
-
-                 onMouseOver={() => setShowOptions(true)}>
-                <div
-
-                >=
-                </div>
-            </div>
-
-            {showOptions &&
-              <div
-                className={"absolute top-1 rounded shadow-2xl  overflow-hidden bg-white block w-fit border-white border-2 text-right"}>
-                  {filterSigns.map((row, index) => <ul key={index}
-                                                       className={"flex justify-between px-3 py-1 hover:bg-gray-200"}>
-                      <li>{row.text}</li>
-                      <li>{row.sign}</li>
-                  </ul>)
-                  }
-              </div>
+        <div>
+            {
+                selectedOption.textForFilter !== "between"
+                &&
+                <FilterTextInTable
+                    filterKey={filterKey}
+                    filterType={"date"}
+                    operator={selectedOption.textForFilter}
+                />
             }
+            {
+                selectedOption.textForFilter==="between"
+                &&
+                <div>
+                    <FilterTextInTable
+                        filterKey={filterKey}
+                        filterType={"date"}
+                        operator={">="}
+                    />
+                    <FilterTextInTable
+                        filterKey={filterKey}
+                        filterType={"date"}
+                        operator={"<="}
+                    />
+                </div>
+            }
+            <HoverMenuFilter filterSigns={filterSigns}>
+                <div className={"flex gap-2"}>
+                    <div>{selectedOption.textForFilter}</div>
+                    <div>{selectedOption.text}</div>
 
+                </div>
+            </HoverMenuFilter>
 
         </div>
     )
