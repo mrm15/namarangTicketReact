@@ -14,11 +14,12 @@ type filterSelectOption = [] | {
     key: string;
     value: any;
 }[];
-type filterOfDataType = {
+
+export interface filterOfDataTypeObject {
     uniqueId: string;
     optionsForSelectOption?: filterSelectOption;
     placeHolder?: string;
-    property:string;
+    property: string;
     operator: string;
     // مقداری که واسه بک لازمه
     value: any;
@@ -26,7 +27,7 @@ type filterOfDataType = {
     showValue: any;
 
 
-}[] | [];
+}
 
 export interface IMyData {
     url: string;
@@ -35,7 +36,7 @@ export interface IMyData {
     pageNumber: number;
     numberOfRows: number;
     tableData: any[];
-    filters: filterOfDataType;
+    filters: filterOfDataTypeObject[] | [];
     totalRows: number;
     reload: string | number;
     isLoading: boolean;
