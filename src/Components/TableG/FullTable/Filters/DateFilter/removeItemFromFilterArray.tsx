@@ -1,5 +1,5 @@
-const removeItemFromFilterArray = ({filterKey, myData, setMyData}) => {
-    const newFilterArray = myData?.filters?.filter(row => row.property !== filterKey)
+const removeItemFromFilterArray = ({property, myData, setMyData}) => {
+    const newFilterArray = myData?.filters?.filter(row => row.property !== property)
     setMyData({filters: newFilterArray})
     setTimeout(() => {
 
