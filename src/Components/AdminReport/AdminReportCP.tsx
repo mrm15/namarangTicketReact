@@ -5,13 +5,18 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {getDataFromHesabfaBasedOnFilterState} from "../../ReportBill/functions.tsx";
 import AdminReport from "./AdminReport.tsx";
 import {AdminReportContextType, ImyDataAdminReport} from "./myTypes.tsx";
-import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
+import {dateObjectToIso8601, formatDateForBackend} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
+import {DateObject} from "react-multi-date-picker";
 
 const AdminReportCP = () => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const todayFormatted = formatDateForBackend(today);
+    const todayDateObject = new DateObject();
+    todayDateObject.setHour(0);
+    todayDateObject.setMinute(0);
+    todayDateObject.setSecond(0);
+    todayDateObject.setMillisecond(0);
+    const todayFormatted = dateObjectToIso8601(todayDateObject)
+
 
     const [myData, setMyData] = useObjectDataHolder<ImyDataAdminReport>({
         tableView: [],
