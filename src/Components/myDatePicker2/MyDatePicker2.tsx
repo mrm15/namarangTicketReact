@@ -1,124 +1,115 @@
-import React, {useState} from "react"
-import DatePicker, {DateObject} from "react-multi-date-picker"
-import persian from "react-date-object/calendars/persian"
-import persian_fa from "react-date-object/locales/persian_fa"
-
-const date = new DateObject({calendar: persian, locale: persian_fa})
-
-console.log(date.format()) //۱۴۰۰/۰۴/۱۳
-console.log(date.month.name) //تیر
-
-export default function MyDatePicker2() {
-    const newDate = new DateObject()
-    debugger
-    const [value, setValue] = useState(new DateObject())
-
-    debugger
-    return (
-        <div className={"m-16"} style={{direction: "rtl"}}>
-            <DatePicker
-                calendar={persian}
-                locale={persian_fa}
-                calendarPosition="bottom-right"
-                value={value}
-                onChange={setValue}
-            />
-        </div>
-    )
-}
-/****
-import {useState} from "react";
-import DatePicker, {DateObject} from "react-multi-date-picker";
-
-//gregorian calendar & locale
+import React, { useEffect, useRef, useState } from "react";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+// gregorian calendar & locale
 import gregorian from "react-date-object/calendars/gregorian";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
-
-//persian calendar & locale
+// persian calendar & locale
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
-
-//arabic calendar & locale
-import arabic from "react-date-object/calendars/arabic";
-import arabic_fa from "react-date-object/locales/arabic_fa";
-
-//indian calendar & locale
-import indian from "react-date-object/calendars/indian";
-import indian_fa from "react-date-object/locales/indian_fa";
+import "react-multi-date-picker/styles/layouts/mobile.css";
+import { isMobileDevice } from "../../utils/utilsFunction";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 
-export default function MyDatePicker2() {
-    const [state, setState] = useState<any>({format: "MM/DD/YYYY"})
+interface ConvertedDates {
+    jsDate: Date;
+    jsDateZeroTime: Date;
+    gregorian: string;
+    persian: string;
+    [key: string]: any; // For additional dynamic keys if needed
+}
 
-    const convert = (date, format = state.format) => {
-        const object = {date, format}
+interface MyDatePicker2Props {
+    value: DateObject | null;
+    onChange: (dates: ConvertedDates | null) => void;
+    className?: string;
+    placeholder?: string;
+}
 
-        setState({
-            gregorian: new DateObject(object).convert(gregorian, gregorian_fa).format(),
-            persian: new DateObject(object).format(),
-            arabic: new DateObject(object).convert(arabic, arabic_fa).format(),
-            indian: new DateObject(object).convert(indian, indian_fa).format(),
-            jsDate: date.toDate(),
-            ...object
-        })
+export default function MyDatePicker2(props: MyDatePicker2Props) {
+    const {
+        value = null, // default value is null
+        onChange = (x) => console.log(x),
+        placeholder = "تاریخ",
+    } = props;
+
+    let { className = "" } = props;
+
+    // Local state for managing the value of the date picker
+    const [selectedDate, setSelectedDate] = useState<DateObject | null>(value)
+
+    // Ref to close the calendar on keydown
+    const datePickerRef = useRef<any>(null);
+
+    const setValue = (dateObjectInput: DateObject | null): void => {
+        if (!dateObjectInput) {
+            onChange({
+                jsDate: null,
+                jsDateZeroTime: null,
+                gregorian: null,
+                persian: null,
+            });
+            setSelectedDate(null); // Clear the date by setting it to null
+            return;
+        }
+
+        const jsDate: Date = dateObjectInput.toDate();
+        const jsDateZeroTime: Date = new Date(jsDate.setHours(0, 0, 0, 0));
+
+        const temp: ConvertedDates = {
+            jsDate,
+            jsDateZeroTime,
+            gregorian: new DateObject(dateObjectInput)
+                .convert(gregorian, gregorian_fa)
+                .format(),
+            persian: new DateObject(dateObjectInput).format(),
+        };
+
+        onChange(temp); // Pass the converted date object to the parent onChange
+        setSelectedDate(dateObjectInput); // Update local state with the selected date
+    };
+
+    const clearDate = () => {
+        setSelectedDate(null); // Clear the state to remove the date
+        onChange(null); // Notify parent component that the date has been cleared
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.keyCode === 9 && datePickerRef.current) {
+                datePickerRef.current.closeCalendar();
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
+    // If the user is on mobile, add mobile-specific class
+    if (isMobileDevice()) {
+        className += " rmdp-mobile";
     }
 
-    const Span = ({children}) => <span style={{fontWeight: "bold"}}>{children}</span>
-
     return (
-        <div className={"m-16"}>
-            <div>
-                <div>
-                    <Span>کلیک کنید: </Span>
-                    <DatePicker
-                        value={state.date}
-                        onChange={convert}
-                        calendar={persian}
-                        locale={persian_fa}
-                        calendarPosition="bottom-right"
-                    />
-                </div>
-                <div>
-                    <Span>فرمت: </Span>
-                    <select
-                        value={state.format}
-                        onChange={e => {
-                            debugger
-                            convert(state.date, e.target.value)
-                        }}
-                        className="select"
-                    >
-                        <option>MM/DD/YYYY</option>
-                        <option>DD-MM-YYYY</option>
-                        <option>YYYY,MM,DD</option>
-                        <option>dddd DD MMMM YYYY</option>
-                        <option>ddd MMM DD YYYY HH:mm:ss</option>
-                        <option>MMM/DD/YYYY hh:mm:ss a</option>
-                        <option>MMM/DD/YYYY HH:mm:ss</option>
-                    </select>
-                </div>
-                <div>
-                    <Span>میلادی: </Span>
-                    <span>{state.gregorian}</span>
-                </div>
-                <div>
-                    <Span>هجری شمسی: </Span>
-                    <span>{state.persian}</span>
-                </div>
-                <div>
-                    <Span>هجری قمری: </Span>
-                    <span>{state.arabic}</span>
-                </div>
-                <div>
-                    <Span>هندی: </Span>
-                    <span>{state.indian}</span>
-                </div>
-                <div>
-                    <Span>تاریخ جاوااسکریپت: </Span>
-                    <span>{state.jsDate?.toString?.()}</span>
-                </div>
-            </div>
+        <div style={{ direction: "rtl" }}
+        className={"flex"}
+        >
+            <DatePicker
+                value={selectedDate} // Controlled value via state
+                onChange={setValue} // Handle change with setValue
+                className={className}
+                ref={datePickerRef} // Use ref to close the calendar with "Tab"
+                calendar={persian}
+                placeholder={placeholder}
+                locale={persian_fa}
+                calendarPosition="bottom-right"
+                hideOnScroll
+            />
+            <button onClick={clearDate}>
+                <IoCloseCircleOutline />
+            </button> {/* Button to clear date */}
         </div>
-    )
+    );
 }
-*/
