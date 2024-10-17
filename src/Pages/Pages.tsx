@@ -53,7 +53,6 @@ const Pages = () => {
     return (
         <>
             <Routes>
-                <Route path={"testDate"} element={<MyDatePicker2/>}/>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
 
