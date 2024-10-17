@@ -22,7 +22,8 @@ const AdminReportFilter = () => {
 
     const handleChaneDate = (selectedDate) => {
 
-        setFilterDateDate({singleDate: selectedDate})
+        debugger
+        setFilterDateDate({singleDate: selectedDate.jsDateZeroTime})
 
         // const backEnfFormat = convertPersianDateToTimestamp(selectedDate);
 
@@ -34,7 +35,7 @@ const AdminReportFilter = () => {
                     {
                         Property: 'Date',
                         Operator: '=',
-                        Value: selectedDate.jsDateZeroTime,
+                        Value: selectedDate.hesabfaFormatDate,
                     },
                 ],
             // reload: randomNumberGenerator(),
