@@ -1,7 +1,26 @@
 import numeric from "./NumericFunction.tsx";
 import moment from 'moment-jalaali';
 import jalaali from 'jalaali-js';
-import {DateObject} from "react-multi-date-picker";
+
+/*********************************************/
+import DateObject from "react-date-object"; // Import DateObject
+import gregorian from "react-date-object/calendars/gregorian";
+import gregorian_en from "react-date-object/locales/gregorian_en"; // Import Gregorian calendar
+
+export const dateObjectToIso8601 = (dateObject: DateObject | null): string | null => {
+    if (!dateObject) {
+        return null; // Return null if the dateObject is not provided
+    }
+
+    // Convert the dateObject to Gregorian to ensure it's using the correct calendar
+    // Format the DateObject to ISO 8601 string using English digits
+
+    return dateObject.convert(gregorian, gregorian_en).format("YYYY-MM-DDTHH:mm:ss"); // Return the formatted string
+};
+
+
+
+/*********************************************/
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -325,7 +344,7 @@ export const convertPersianDateToTimestamp = (persianDate) => {
     // Get the timestamp
     return gregorianDate.getTime();
 }
-export const isMobileDevice  = () => {
+export const isMobileDevice = () => {
 
     const result = (
         typeof window !== "undefined" &&
@@ -337,6 +356,7 @@ export const isMobileDevice  = () => {
     return result
 
 }
+
 
 
 
