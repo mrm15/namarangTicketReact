@@ -62,7 +62,7 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
             return;
         }
 
-        debugger
+        
 
         // Original jsDate retains its original time
         const jsDate: Date = new Date(dateObjectInput.toDate()); // Use a new instance to keep original time
