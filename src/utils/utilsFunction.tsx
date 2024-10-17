@@ -1,6 +1,7 @@
 import numeric from "./NumericFunction.tsx";
 import moment from 'moment-jalaali';
 import jalaali from 'jalaali-js';
+import {DateObject} from "react-multi-date-picker";
 
 const stringToArray = (str: string): string[] => {
     return str.split("------");
@@ -25,7 +26,6 @@ const removeComma = (str: string | number): string => {
 };
 export const isFloat = (n) => Number(n) === n && n % 1 !== 0;
 export const formatFloat = (value) => (isFloat(value) ? value?.toFixed(2) : value);
-
 
 
 export const randomNumberGenerator = (): number => Math.random() * 10000000000;
@@ -101,7 +101,7 @@ END:VCARD
     downloadBlob(str, fileName, 'text/csv;charset=utf-8;')
 }
 
-export const getCurrentDate = (timeString=false) => {
+export const getCurrentDate = (timeString = false) => {
     const currentDate = new Date();
     let formatter = new Intl.DateTimeFormat('fa-IR', {
         year: 'numeric',
@@ -110,7 +110,7 @@ export const getCurrentDate = (timeString=false) => {
         // The 'calendar' option is not included here as it's not standard in all environments
     });
 
-    if(timeString){
+    if (timeString) {
         formatter = new Intl.DateTimeFormat('fa-IR', {
             year: 'numeric',
             month: '2-digit',
@@ -122,7 +122,6 @@ export const getCurrentDate = (timeString=false) => {
     }
 
 
-
     let formattedDate = formatter.format(currentDate);
 
     formattedDate = formattedDate.replaceAll('/', '-');
@@ -130,6 +129,12 @@ export const getCurrentDate = (timeString=false) => {
     formattedDate = numeric.p2e(formattedDate);
 
     return formattedDate || '';
+};
+
+export const getCurrentDateWithZeroHours = (): DateObject => {
+    const rightNow = new Date();
+    rightNow.setHours(0, 0, 0, 0); // Set the time to 00:00:00.000
+    return new DateObject(rightNow); // Convert and return as DateObject
 };
 
 export const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
@@ -239,7 +244,7 @@ export const formatNumber = (value) => {
     return newValueNumberSeperated
 }
 
-export const HesabfaTimeStampWithTToPersianTime =  (isoString) => {
+export const HesabfaTimeStampWithTToPersianTime = (isoString) => {
     if (!isoString) {
         throw new Error('Invalid ISO string');
     }
@@ -293,7 +298,7 @@ export const HesabfaTimeStampWithTToPersianTime =  (isoString) => {
         jm = i + 1;
         jd = jDayNo + 1;
 
-        return { jy, jm, jd };
+        return {jy, jm, jd};
     };
 
     const persianDate = toPersianDate(iranTime);
@@ -307,18 +312,30 @@ export const formatDateForBackend = (date: Date) => {
     return `${year}-${month}-${day}T00:00:00`;
 };
 
-export const convertPersianDateToTimestamp=(persianDate) => {
+export const convertPersianDateToTimestamp = (persianDate) => {
     // Split the date string into parts
     const [year, month, day] = persianDate.split('/').map(Number);
 
     // Convert the Persian date to Gregorian
-    const { gy, gm, gd } = jalaali.toGregorian(year, month, day);
+    const {gy, gm, gd} = jalaali.toGregorian(year, month, day);
 
     // Create a new Date object using the Gregorian date
     const gregorianDate = new Date(gy, gm - 1, gd);
 
     // Get the timestamp
     return gregorianDate.getTime();
+}
+export const isMobileDevice  = () => {
+
+    const result = (
+        typeof window !== "undefined" &&
+        /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile|WPDesktop/i.test(
+            window.navigator.userAgent
+        )
+    );
+    console.log(result)
+    return result
+
 }
 
 
