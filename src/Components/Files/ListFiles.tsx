@@ -18,7 +18,7 @@ function ListFiles() {
     const CheckboxRenderer = (params) => {
         const handleCheckboxClick = (e) => {
             e.stopPropagation();
-            console.log("Checkbox clicked:", params.data);
+            // console.log("Checkbox clicked:", params.data);
             // Additional logic
         };
 
@@ -193,7 +193,7 @@ function ListFiles() {
                 // mohammad mrm
 
 
-                console.log(res.data)
+                // console.log(res.data)
                 setMyTableData(tableData)
                 setIsLoading(false)
             }
@@ -205,7 +205,7 @@ function ListFiles() {
     }, [reload]);
 
     const onCellClicked = (params) => {
-        console.log(params.data)
+        // console.log(params.data)
     }
     try {
         return (

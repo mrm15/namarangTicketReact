@@ -12,7 +12,7 @@ const TableBody = ({table}) => {
         const isEven = index % 2 === 0
 
         const isRowBold = myData?.boldRowCondition(row)
-        console.log(isRowBold)
+
         return <ul key={row.id}
                    className={` ${isEven ? " bg-gray-50  " : " bg-gray-100"} table-row-g table__row__hover`  }
                    style={{fontWeight: isRowBold ? "bold" : "normal"}}

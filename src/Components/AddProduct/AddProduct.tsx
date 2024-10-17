@@ -92,7 +92,6 @@ const AddProduct: FunctionComponent = () => {
 
     const addProduct = () => {
         void axiosPrivate.post('/api/products', values).then(res => {
-            //console.log(res)
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (res.data.status) {
                 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access

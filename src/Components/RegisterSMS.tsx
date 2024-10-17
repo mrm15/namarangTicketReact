@@ -74,7 +74,7 @@ const RegisterSMS = () => {
             toast.success(response?.data?.message)
 
         } catch (err) {
-            //console.log(err)
+            console.log(err)
         }
 
     }
@@ -98,8 +98,7 @@ const RegisterSMS = () => {
             if (!response.data) {
                 return
             }
-            //console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response))
+
             setSuccess(true);
             //clear state and controlled inputs
             setPhoneNumber('');

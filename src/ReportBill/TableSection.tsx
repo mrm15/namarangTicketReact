@@ -32,7 +32,7 @@ const TableSection = () => {
                             {[5, 10, 15, 20, 30, 50, 100 , 200].map((singleNumber, index) => {
 
 
-                                console.log(awesomeData.numberOfRowsShowInTable)
+
                                 return <button
                                     key={index}
                                     className={` ${awesomeData.numberOfRowsShowInTable === singleNumber ? 'btn-gay-mir ' : 'btn-white-border-mir'}`}

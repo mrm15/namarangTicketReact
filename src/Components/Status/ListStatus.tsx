@@ -18,7 +18,7 @@ function ListStatus() {
     const CheckboxRenderer = (params) => {
         const handleCheckboxClick = (e) => {
             e.stopPropagation();
-            console.log("Checkbox clicked:", params.data);
+            //
             // Additional logic
         };
 
@@ -194,7 +194,7 @@ function ListStatus() {
                 // mohammad mrm
 
 
-                console.log(res.data)
+
                 setMyTableData(tableData)
                 setIsLoading(false)
             }
@@ -206,7 +206,7 @@ function ListStatus() {
     }, [reload]);
 
     const onCellClicked = (params) => {
-        console.log(params.data)
+        //
     }
     try {
         return (

@@ -38,7 +38,6 @@ const ChatList = ({chatList, setReload, reload}) => {
                             ticketId: data?.ticketId, // این از توی دیتا میاد
                             ticketNumber: data.ticketNumber, // اینم از توی دیتا میاد
                         }
-                        //console.log(tempBillData)
 
                         try {
                             return (

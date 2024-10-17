@@ -10,11 +10,9 @@ function EnrollmentForm({formikForm, initialValues, validationSchema, afterSubmi
 
     // ///////////////////////////////////////////
     const onSubmit = async (values, {resetForm}) => {
-        console.log('Form data', values);
         try {
             const response = await myPrivateAxios.post("/user/add", values); // Ensure you pass the values to your API call
             if (response.status === 200) { // Check for a successful response status
-                console.log('Submission Successful', response.data);
                 resetForm(); // Reset the form after successful submission
                 !!afterSubmit && afterSubmit()
 

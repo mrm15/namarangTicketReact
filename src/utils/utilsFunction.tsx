@@ -352,7 +352,7 @@ export const isMobileDevice = () => {
             window.navigator.userAgent
         )
     );
-    console.log(result)
+
     return result
 
 }

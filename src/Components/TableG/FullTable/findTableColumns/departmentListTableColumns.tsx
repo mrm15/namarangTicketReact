@@ -39,7 +39,7 @@ export const departmentListTableColumns = (inputs: IInputObject): ColumnDef<any>
             maxSize: 50,
             cell: ({row}) => {
                 const handleEdit = () => {
-                    console.log("Editing row:", row.original);
+
                     navigateTo(PAGES.DEPARTMENT_ADD_EDIT, {state: {data: row.original}});
                 }
                 const handleDeleteDepartment = async (id: any) => {

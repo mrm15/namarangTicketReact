@@ -21,7 +21,7 @@ export const upload = async ({
         debugger
         const response = await axiosPrivateFormData.post(url, myFormData);
 
-        debugger
+
         if (response.status === 200) {
             console.log(`${key} upload successful`, response.data);
             return response; // Assuming the backend returns data including an ID or file reference

@@ -79,8 +79,7 @@ const SubmitBill = () => {
             Project: "",
             Sum: 0
         });
-        console.log("invoice:")
-        console.log(invoice)
+
         const [isLoading, setIsLoading] = useState(true)
         const [initialBillData, setInitialBillData] = useObjectDataHolder<IInitialBillData>({
             productList: [],
@@ -128,7 +127,7 @@ const SubmitBill = () => {
                                 sum: 0,
                             }
                         })
-                        console.log(temp222)
+
                         temp.productList = temp222;
                     }
                     if (res3_customers?.data) {
@@ -151,9 +150,7 @@ const SubmitBill = () => {
                         // و اونو توی بخش مخاطب بزارم
                         const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + componentInfo.ContactCode);
 
-                        if(ContactRequest.status===200){
-                            console.log(ContactRequest.data.data)
-                        }
+
 
                         invoice.Contact = ContactRequest.data.data
 

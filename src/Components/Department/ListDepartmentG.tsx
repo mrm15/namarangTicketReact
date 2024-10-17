@@ -16,7 +16,7 @@ function ListDepartment() {
     const CheckboxRenderer = (params) => {
         const handleCheckboxClick = (e) => {
             e.stopPropagation();
-            console.log("Checkbox clicked:", params.data);
+            //console.log("Checkbox clicked:", params.data);
             // Additional logic
         };
 
@@ -193,7 +193,7 @@ function ListDepartment() {
 
 
 
-                console.log(res.data)
+                // console.log(res.data)
                 setMyTableData(tableData)
                 setIsLoading(false)
             }
@@ -205,7 +205,7 @@ function ListDepartment() {
     }, [reload]);
 
     const onCellClicked = (params) => {
-        console.log(params.data)
+        // console.log(params.data)
     }
     try {
         return (

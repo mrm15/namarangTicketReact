@@ -162,7 +162,7 @@ const LoginSMS: React.FC = () => {
 
     useEffect(() => {
         void tryToRefresh().then(r => {
-            console.log(r)
+
             navigateTo(from)
         }).catch((err: Error) => {
             console.log(err?.toString())
@@ -180,7 +180,6 @@ const LoginSMS: React.FC = () => {
 
     }
     const handleSecretMode = (e: { detail: number; }) => {
-        console.log(e.detail)
         if (e.detail === 3) {
             activeSecretMode()
         }

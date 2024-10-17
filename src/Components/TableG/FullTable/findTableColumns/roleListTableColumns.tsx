@@ -39,7 +39,7 @@ export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => 
             maxSize: 50,
             cell: ({row}) => {
                 const handleEdit = () => {
-                    console.log("Editing row:", row.original);
+
                     navigateTo(PAGES.ROLE_ADD_EDIT, {state: {data: row.original}});
                 }
                 const handleDeleteRole = async (id: any) => {

@@ -112,7 +112,7 @@ const title = {
 
 
     const onCellClicked = (params) => {
-        console.log(params)
+       //
     }
 
 
@@ -131,7 +131,7 @@ const title = {
                         <button
                             onClick={() => {
                                 setCurrentParams(params)
-                                console.log(params)
+
                                 setOpenForwardToUserModal(true)
                             }}
                             className={'mx-1 flex items-center gap-1 items-center justify-center'}
@@ -290,7 +290,6 @@ const title = {
                 // mohammad mrm
 
 
-                console.log(res.data)
                 setMyTableData(tableData)
                 setIsLoading(false)
             }
@@ -306,10 +305,9 @@ const title = {
 
     const handleOnSelectionChanged = (params) => {
         const selectedRows = params.api.getSelectedRows();
-        console.log("Selected Rows:", selectedRows);
+
         setSelectedItems(selectedRows)
-        console.log("selectedItems")
-        console.log(selectedItems)
+
 
     }
 

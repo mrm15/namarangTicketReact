@@ -107,7 +107,7 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
             }
         }, ); // Delay for 100 ms
         return () => {
-            console.log(`clearTimeout(${timeoutId})`)
+
             return clearTimeout(timeoutId); // Cleanup previous timeout
         }
     }, [myData.filters, myData.numberOfRows, myData.pageNumber, myData.reload, url, refetch]);

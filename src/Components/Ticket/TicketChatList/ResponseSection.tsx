@@ -100,7 +100,7 @@ const ResponseSection = ({ chatList, setReload, reload }) => {
                             attachments.push('');
                         }
                     } catch (error) {
-                        debugger
+
                         console.log(error)
                     }
                 }

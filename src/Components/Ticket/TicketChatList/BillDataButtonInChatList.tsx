@@ -9,7 +9,7 @@ import {toast} from "react-toastify";
 import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 
 const BillDataButtonInChatList = ({billData,setReload}) => {
-    console.log(billData);
+
     const {billNumber, billStatus, id, type} = billData;
     const navigateTo = useNavigate()
     // کاربر در صورتی میتونه فاکتور ویرایش کنه اولا دسترسی به این بخش داشته باشه و دوما  این چت لیست هیچ فاکتور تاییده شده ای نداشته باشه
@@ -20,7 +20,7 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
     const accessToDeleteBill = roleAccessList.includes(ROLES.deleteBill[0])
 
     const editHandler = () => {
-        console.log(billData);
+
         navigateTo(PAGES.submit_bill, {
             state: {
                 data: {

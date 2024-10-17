@@ -144,7 +144,6 @@ function AddContact() {
     const onBlur = (objectKey: string) => {
         // const value = e.target.value;
         //setContactForm({[objectKey]: 'value'})
-        console.log(objectKey)
     }
 
 

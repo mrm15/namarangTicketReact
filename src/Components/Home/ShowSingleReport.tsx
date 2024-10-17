@@ -3,7 +3,6 @@ import MyLineChart from "../Rechart/LineChart/MyLineChart.tsx";
 
 const ShowSingleReport = (props:any) => {
 
-    console.log(props)
     if(props?.type==="reChart"){
 
         return   <>
