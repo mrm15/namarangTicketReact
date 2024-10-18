@@ -1,16 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import {useDebounce} from "../../../../hooks/useDebounce.tsx";
-import {
-    convertPersianDateToTimestamp,
-    HesabfaTimeStampWithTToPersianTime, iso8601ToDateObject,
-    persianDateToTimestamp,
-    randomNumberGenerator,
-    timestampToFormattedDateToSendHesabfa
-} from "../../../../utils/utilsFunction.tsx";
+import useFilterEffect from "./seFilterEffect.tsx";
 import MyDatePicker from "../../../MyDatePicker";
 import {TableGContext} from "../../TableGContext.tsx";
 import {filterOfDataTypeObject} from "../../myTableGTypes.tsx";
 import MyDatePicker2 from "../../../myDatePicker2/MyDatePicker2.tsx";
+import {nanoid} from "@reduxjs/toolkit";
 
 interface propType {
     uniqueId: string;
@@ -58,45 +53,15 @@ const FilterTextInTable = ({
     }
 
     console.log("123 ", debouncedQuery)
-    useEffect(() => {
-        const filters = myData.filters;
-        let newFilterArray = [...filters]; // Create a copy of the existing filters array
-        // یعنی الان هیچی نداریم توی این آبجکت
-        if (debouncedQuery.value?.length === 0) {
-            // Remove the filter if the query is empty
-            newFilterArray = filters.filter((item: filterOfDataTypeObject) => item.uniqueId !== uniqueId);
-        } else {
-            // Find the existing filter object by key
-            const existingIndex = newFilterArray.findIndex((item: filterOfDataTypeObject) => item.uniqueId === uniqueId);
-
-            if (existingIndex !== -1) {
-                // Update the value of the existing filter object
-                // newFilterArray[existingIndex].property = property;
-                newFilterArray[existingIndex].value = debouncedQuery.value;
-                newFilterArray[existingIndex].showValue = debouncedQuery.showValue;
-                newFilterArray[existingIndex].operator = operator;
-            } else {
-
-                // Add a new filter object
-                newFilterArray.push({
-                    uniqueId,
-                    property,
-                    operator: operator,
-                    value: debouncedQuery.value,
-                    showValue: debouncedQuery.showValue,
-                })
-            }
-        }
-
-        // Update the myData state with the new filters array
-
-        console.table(newFilterArray)
-        setMyData({
-            filters: newFilterArray,
-            // reload: randomNumberGenerator()
-        })
-
-    }, [debouncedQuery, operator]);
+    // Use the custom hook here
+    useFilterEffect({
+        debouncedQuery,
+        operator,
+        uniqueId,
+        property,
+        myData,
+        setMyData,
+    });
 
     const removeFilter = () => {
         setQuery({value: "", showValue: ""})
