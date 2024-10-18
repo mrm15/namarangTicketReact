@@ -3,6 +3,7 @@ import HoverMenuFilter from "./HoverMenuFilter.tsx";
 import FilterTextInTable from "../FilterTextInTable.tsx";
 import {TableGContext} from "../../../TableGContext.tsx";
 import removeItemFromFilterArray from "./removeItemFromFilterArray.tsx";
+import {nanoid} from "@reduxjs/toolkit";
 
 const op = {
     equal: "=",
@@ -18,9 +19,9 @@ const op = {
 
 const FilterButtons = (props) => {
     const {property, uniqueId, dateTypeShow} = props
+    console.log(nanoid(4) + " FilterButtons  Rendered => " + uniqueId)
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
-    console.log(myData.filters)
     const defaultSelected = {textForFilter: "=", text: "مساوی", sign: "==",}
     const [selectedOption, setSelectedOption] = useState<any>(defaultSelected)
     const actionMap: any = {
@@ -30,9 +31,17 @@ const FilterButtons = (props) => {
         [op.greaterThanOrEqual]: (row: any) => setSelectedOption(row),
         [op.lowerThan]: (row: any) => setSelectedOption(row),
         [op.lowerThanOrEqual]: (row: any) => setSelectedOption(row),
-        [op.between]: (row: any) => { setSelectedOption(row);removeItemFromFilterArray({property, myData, setMyData});},
-        [op.removeFilter]: () => {  removeItemFromFilterArray({property, myData, setMyData});setSelectedOption(defaultSelected); },
-        [op.remove]: () => {  removeItemFromFilterArray({property, myData, setMyData}) },
+        [op.between]: (row: any) => {
+            setSelectedOption(row);
+            removeItemFromFilterArray({property, myData, setMyData});
+        },
+        [op.removeFilter]: () => {
+            removeItemFromFilterArray({property, myData, setMyData});
+            setSelectedOption(defaultSelected);
+        },
+        [op.remove]: () => {
+            removeItemFromFilterArray({property, myData, setMyData})
+        },
     };
 
     const clickHandler = (row: any) => {
@@ -57,46 +66,47 @@ const FilterButtons = (props) => {
         ]
     }, [])
 
+
+    let content = <></>
+
+    if (selectedOption.textForFilter !== "between") {
+        content = <>
+            <FilterTextInTable
+                uniqueId={uniqueId}
+                property={property}
+                filterType={"date"}
+                operator={selectedOption.textForFilter}
+                dateTypeShow={dateTypeShow}
+            />
+        </>
+    } else if (selectedOption.textForFilter === "between") {
+        content = <div>
+            <FilterTextInTable
+                uniqueId={uniqueId + 1}
+                property={property}
+                filterType={"date"}
+                operator={op.greaterThanOrEqual}
+                dateTypeShow={dateTypeShow}
+            />
+            <FilterTextInTable
+                uniqueId={uniqueId + 2}
+                property={property}
+                filterType={"date"}
+                operator={op.lowerThan}
+                dateTypeShow={dateTypeShow}
+            />
+        </div>
+    }
+
+
     try {
         return (
             <div>
-                {
-                    selectedOption.textForFilter !== "between"
-                    &&
-                  <FilterTextInTable
-                    uniqueId={uniqueId}
-                    property={property}
-                    filterType={"date"}
-                    operator={selectedOption.textForFilter}
-                    dateTypeShow={dateTypeShow}
-                  />
-                }
-                {
-                    selectedOption.textForFilter === "between"
-                    &&
-                  <div>
-                    <FilterTextInTable
-                      uniqueId={uniqueId + 1}
-                      property={property}
-                      filterType={"date"}
-                      operator={op.greaterThanOrEqual}
-                      dateTypeShow={dateTypeShow}
-                    />
-                    <FilterTextInTable
-                      uniqueId={uniqueId + 2}
-
-                      property={property}
-                      filterType={"date"}
-                      operator={op.lowerThan}
-                      dateTypeShow={dateTypeShow}
-                    />
-                  </div>
-                }
+                {content}
                 <HoverMenuFilter filterSigns={filterSigns}>
                     <div className={"flex gap-2"}>
                         <div>{selectedOption.textForFilter}</div>
                         <div>{selectedOption.text}</div>
-
                     </div>
                 </HoverMenuFilter>
 
