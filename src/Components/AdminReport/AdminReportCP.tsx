@@ -8,6 +8,7 @@ import {AdminReportContextType, ImyDataAdminReport} from "./myTypes.tsx";
 import {dateObjectToIso8601, formatDateForBackend} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {DateObject} from "react-multi-date-picker";
+import {toast} from "react-toastify";
 
 const AdminReportCP = () => {
     const todayDateObject = new DateObject();
@@ -30,7 +31,9 @@ const AdminReportCP = () => {
         ],
         isLoading: true,
         reFetch: "",
-        treeView:[],
+        treeView: [],
+        resultOfUseQuery:null
+
     })
     const url = 'reports/adminReport';
 
@@ -43,7 +46,7 @@ const AdminReportCP = () => {
 
     const resultOfUseQuery =
         useQuery({
-            queryKey: [myData.filterItems],
+            queryKey: [myData.reload],
             // url: string, myAxios: any, page: number, pageSize: number, filters: any
             queryFn,
             staleTime: 86400000,  // === 60*60*24*1000
@@ -56,41 +59,40 @@ const AdminReportCP = () => {
             detailsData: resultOfUseQuery?.data?.data?.detailsData || [],
             treeView: resultOfUseQuery?.data?.data?.treeView || [],
             tableView: resultOfUseQuery?.data?.data?.tableView || [],
+            resultOfUseQuery:resultOfUseQuery,
         }
         const hasError = resultOfUseQuery.error
-        if(!hasError){
-            setMyData({isLoading:false , ...temp})
+        if (!hasError) {
+            setMyData({isLoading: false, ...temp})
         }
-    }, [resultOfUseQuery?.data, resultOfUseQuery.error, setMyData,myData.filterItems]);
+    }, [resultOfUseQuery?.data, resultOfUseQuery.error, setMyData, myData.filterItems]);
     // const {data, error, refetch} = resultOfUseQuery;
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                setMyData({isLoading: true,});
-                const data = {filterItems: myData.filterItems};
-                const result = await myAxios.post(url, data);
-                const temp = result.data;
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         try {
+    //             setMyData({isLoading: true,});
+    //             const data = {filterItems: myData.filterItems};
+    //             const result = await myAxios.post(url, data);
+    //             const temp = result.data;
+    //
+    //             setMyData({isLoading: false, ...temp});
+    //         } catch (error: any) {
+    //             setMyData({isLoading: false,});
+    //
+    //             console.log(error);
+    //         }
+    //     };
+    //
+    //     // void getData();
+    // }, [myData?.reload]);
 
-                setMyData({isLoading: false, ...temp});
-            } catch (error: any) {
-                setMyData({isLoading: false,});
-
-                console.log(error);
-            }
-        };
-
-        // void getData();
-    }, [myData?.reload]);
 
 
-    return (<div>
+    return (<div className={"relative"}>
         <AdminReportContext.Provider
             value={{myData, setMyData}}
         >
-            <div>
-                {resultOfUseQuery.isFetching && <> در حال بارگیری گزارش...</>}
-            </div>
             <AdminReport/>
         </AdminReportContext.Provider>
     </div>)

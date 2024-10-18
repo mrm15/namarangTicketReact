@@ -5,6 +5,7 @@ export interface ImyDataAdminReport {
     filterItems: any[] | undefined|[];
     isLoading: boolean;
     reFetch:any;
+    resultOfUseQuery:any
 
 }
 
