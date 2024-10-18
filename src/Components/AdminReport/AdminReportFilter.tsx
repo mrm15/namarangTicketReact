@@ -52,7 +52,7 @@ const AdminReportFilter = () => {
     }
 
     const handleChangeMultiDate = (selectedDate, filterType) => {
-        debugger
+        
         const tempFilterDate = {...filterDate}
         if (filterType === "start") {
             tempFilterDate.startDate = selectedDate.hesabfaFormatDate
