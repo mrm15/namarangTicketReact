@@ -125,6 +125,8 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     <FilterButtons
                         uniqueId={"Date"}
                         property={"Date"}
+                        dateTypeShow={"hesabfa"}
+
                     />
                 </div>
             },
@@ -203,7 +205,7 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <div>وضعیت</div>
                 <FilterTextInTable
-                    uniqueId={"ss"}
+                    uniqueId={"Status"}
                     property={"Status"}
                     operator={"="}
                     filterType={"select"}
