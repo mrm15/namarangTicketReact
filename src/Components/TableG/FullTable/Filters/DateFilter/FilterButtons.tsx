@@ -13,8 +13,7 @@ const op = {
     lowerThan: "<",
     lowerThanOrEqual: "<=",
     between: "between",
-    removeFilter: "removeFilter",
-    remove: "remove",
+
 }
 
 const FilterButtons = (props) => {
@@ -32,15 +31,8 @@ const FilterButtons = (props) => {
         [op.lowerThan]: (row: any) => setSelectedOption(row),
         [op.lowerThanOrEqual]: (row: any) => setSelectedOption(row),
         [op.between]: (row: any) => {
-            setSelectedOption(row);
+            setSelectedOption(row)
             removeItemFromFilterArray({property, myData, setMyData});
-        },
-        [op.removeFilter]: () => {
-            removeItemFromFilterArray({property, myData, setMyData});
-            setSelectedOption(defaultSelected);
-        },
-        [op.remove]: () => {
-            removeItemFromFilterArray({property, myData, setMyData})
         },
     };
 
@@ -61,8 +53,6 @@ const FilterButtons = (props) => {
             {textForFilter:op.lowerThan, onClick: clickHandler, text: "کوچیکتر", sign: <>&lt;</>,},
             {textForFilter:op.lowerThanOrEqual, onClick: clickHandler, text: "کوچیکتر مساوی", sign: <>&#8804;</>,},
             {textForFilter:op.between, onClick: clickHandler, text: "بین", sign: <>&#119081;</>,}, // فیلتر رو حذف میکنه و دوتا مقدار میده بیشتر و کمتر که باید پر بشه
-            {textForFilter:op.removeFilter, onClick: clickHandler, text: "حذف فیلتر", sign: <>&#215;</>,}, // فیلتر رو حذف میکنه
-            {textForFilter:op.remove, onClick: clickHandler, text: "حذف ", sign: <>delete   </>,}, // فیلتر رو حذف میکنه
         ]
     }, [])
 

@@ -6,6 +6,7 @@ import {TableGContext} from "../../TableGContext.tsx";
 import {filterOfDataTypeObject} from "../../myTableGTypes.tsx";
 import MyDatePicker2 from "../../../myDatePicker2/MyDatePicker2.tsx";
 import {nanoid} from "@reduxjs/toolkit";
+import FilterTypeDate from "./DateFilter/FilterTypeDate.tsx";
 
 interface propType {
     uniqueId: string;
@@ -68,26 +69,14 @@ const FilterTextInTable = ({
     }
 
     if (filterType === "date") {
-        return <div className={'flex font-normal relative w-9'}>
-            <MyDatePicker2
-                className={"fontSize8"}
-                value={defaultValue.showValue === "" ? null : defaultValue.showValue}
-
-                onChange={(selectedDate) => {
-                    const showValue = selectedDate.jsDate;
-                    let value: any = "";
-                    if (dateTypeShow === "hesabfa") {
-                        value = selectedDate.hesabfaFormatDate
-                    } else if (dateTypeShow === "JsDate") {
-                        value = selectedDate.jsDate
-                    }
-                    setQuery({value, showValue})
-                }}
-            />
-            {/*<div*/}
-            {/*    onClick={removeFilter}*/}
-            {/*    className={'px-2 bg-red-50 cursor-pointer'}>&times;</div>*/}
-        </div>
+        return <FilterTypeDate
+            myData={myData}
+            dateTypeShow={dateTypeShow}
+            defaultValue={defaultValue}
+            query={query}
+            setQuery={setQuery}
+            uniqueId={uniqueId}
+        />
 
     }
     if (filterType === "select") {
