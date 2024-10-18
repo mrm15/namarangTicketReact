@@ -36,7 +36,10 @@ const FilterTextInTable = ({
     const {myData, setMyData} = context;
     //console.log(myData.tableData)
 
-    const defaultValue = myData.filters.find(row => row.uniqueId === uniqueId) || {value: "", showValue: "",}
+    const defaultValue = myData.filters.find((row: filterOfDataTypeObject) => row.uniqueId === uniqueId) || {
+        value: "",
+        showValue: "",
+    }
     const [query, setQuery] = useState<{ value: any, showValue: any }>(defaultValue);
     const debouncedQuery = useDebounce(query, 1000); // 500ms debounce delay
     const handleChangeFilter = (e: any) => {
@@ -100,10 +103,10 @@ const FilterTextInTable = ({
     }
 
     if (filterType === "date") {
-        return <div className={'flex font-normal relative w-9 overflow-hidden '}>
+        return <div className={'flex font-normal relative w-9'}>
             <MyDatePicker2
                 className={"fontSize8"}
-                value={defaultValue.showValue}
+                value={defaultValue.showValue === "" ? null : defaultValue.showValue}
 
                 onChange={(selectedDate) => {
                     const showValue = selectedDate.jsDate;
