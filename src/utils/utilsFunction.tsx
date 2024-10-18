@@ -18,6 +18,24 @@ export const dateObjectToIso8601 = (dateObject: DateObject | null): string | nul
     return dateObject.convert(gregorian, gregorian_en).format("YYYY-MM-DDTHH:mm:ss"); // Return the formatted string
 };
 
+export const iso8601ToDateObject = (isoString: string | null): DateObject | null => {
+    if (!isoString) {
+        return null; // Return null if the ISO string is not provided
+    }
+    console.log(isoString)
+    // Replace the "T" with a space for proper parsing
+    const formattedString = isoString.replace("T", " ");
+
+    // Create a DateObject from the ISO string using the Gregorian calendar
+    const result = new DateObject({
+        date: formattedString,
+        format: "YYYY-MM-DD HH:mm:ss",
+        calendar: gregorian
+    });
+
+    return result;
+};
+
 
 
 /*********************************************/
