@@ -11,7 +11,7 @@ import {dateObjectToIso8601, isMobileDevice} from "../../utils/utilsFunction";
 import {IoCloseCircleOutline} from "react-icons/io5";
 import gregorian_en from "react-date-object/locales/gregorian_en";
 import {p2e} from "../../utils/NumericFunction.tsx";
-
+import "./customDatePicker2Style.scss"
 
 interface ConvertedDates {
     jsDate: Date;
@@ -122,12 +122,12 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
 
     return (
         <div style={{direction: "rtl"}}
-             className={"flex"}
+             className={"flex customDatePicker2Style"}
         >
             <DatePicker
                 value={selectedDate} // Controlled value via state
                 onChange={setValue} // Handle change with setValue
-                className={className}
+                className={className + " "}
                 ref={datePickerRef} // Use ref to close the calendar with "Tab"
                 calendar={persian}
                 placeholder={placeholder}
