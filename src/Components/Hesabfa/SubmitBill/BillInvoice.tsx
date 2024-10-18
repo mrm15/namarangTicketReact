@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import InvoiceTableItems from "./InvoiceTableItems.tsx";
 import {
     addRowIdtoTable,
-    formatNumber, getCurrentDate,
+    formatNumber, getCurrentDate, iso8601ToDateObject,
     persianDateToTimestamp,
     timestampToTimeFromHesabfa
 } from "../../../utils/utilsFunction.tsx";
@@ -14,6 +14,7 @@ import MyDatePicker from "../../MyDatePicker";
 import numeric from "../../../utils/NumericFunction.tsx";
 import {IProjectList} from "./initialData.tsx";
 import contactNumber from "../../TableG/FullTable/findTableColumns/BasteBandiErsal/ContactNumber.tsx";
+import MyDatePicker2 from "../../myDatePicker2/MyDatePicker2.tsx";
 
 
 const BillInvoice = ({
@@ -64,10 +65,7 @@ const BillInvoice = ({
         }
     }
     const changeDateHandler = (myDate: string, myKey: string) => {
-        const newDate = persianDateToTimestamp(myDate)
-
-        setInvoice({[myKey]: newDate})
-
+        setInvoice({[myKey]: myDate})
     }
     useEffect(() => {
 
@@ -110,8 +108,8 @@ const BillInvoice = ({
 
     const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
     const userBedOrBesStatus = userBedOrBesValue >= 0 ? "بس" : "بد"
-    const userBedOrBesColor = userBedOrBesValue >=0 ? "blue" : "red"
-    const Currency = invoice.Currency==="IRT" ? "تومان" : "ريال"
+    const userBedOrBesColor = userBedOrBesValue >= 0 ? "blue" : "red"
+    const Currency = invoice.Currency === "IRT" ? "تومان" : "ريال"
 
     try {
         return (
@@ -131,8 +129,8 @@ const BillInvoice = ({
                         <input
 
                             type="text" value={invoice.ContactTitle} disabled={true}/>
-                        <span style={{color:userBedOrBesColor , fontWeight:"bold"}}
-                        className={"flex"}
+                        <span style={{color: userBedOrBesColor, fontWeight: "bold"}}
+                              className={"flex"}
                         >
                             <div>تراز:</div>
                             <div className={"ltr"}>{formatNumber(userBedOrBesValue)} </div>
@@ -152,16 +150,17 @@ const BillInvoice = ({
                         <label htmlFor=""> تاریخ </label>
                         {/*<input className={'ltr'} type="text" value={timestampToTimeFromHesabfa(invoice.Date)} disabled={true}/>*/}
 
-                        <MyDatePicker value={timestampToTimeFromHesabfa(invoice.Date)}
-                                      onChange={(selectedDate) => changeDateHandler(selectedDate, 'Date')}/>
+                        <MyDatePicker2
+                            value={iso8601ToDateObject(invoice.Date)}
+                            onChange={(selectedDate) => changeDateHandler(selectedDate.hesabfaFormatDate, 'Date')}
+                        />
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> تاریخ سر رسید </label>
-                        {/*<input className={'ltr'} type="text" value={timestampToTimeFromHesabfa(invoice.DueDate)}*/}
-                        {/*       disabled={true}/>*/}
-                        <MyDatePicker value={timestampToTimeFromHesabfa(invoice.DueDate)}
-                                      onChange={(selectedDate) => changeDateHandler(selectedDate, 'DueDate')}/>
-
+                        <MyDatePicker2
+                            value={iso8601ToDateObject(invoice.DueDate)}
+                            onChange={(selectedDate) => changeDateHandler(selectedDate.hesabfaFormatDate, 'DueDate')}
+                        />
                     </div>
 
                     <div className={'div__group__input_select'}>
