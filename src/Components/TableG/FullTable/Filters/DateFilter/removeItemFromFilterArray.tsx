@@ -1,9 +1,12 @@
 const removeItemFromFilterArray = ({property, myData, setMyData}) => {
-    const newFilterArray = myData?.filters?.filter(row => row.property !== property)
-    setMyData({filters: newFilterArray})
-    setTimeout(() => {
+    // چ.م اینجا خودم در نظر گرفتم که یه عدد 1 -2 اضافه میکنم به مقدار Date پیس شامل Date باشه باید پاک بشه
 
-        console.log(myData.filters)
+    setTimeout(() => {
+        const newFilterArray = myData?.filters?.filter(row => row.property.includes(property))
+
+        setMyData({filters: newFilterArray})
+
+        setTimeout(() => console.log("ttt" ,  myData.filters), 5000)
     }, 100)
 
 
