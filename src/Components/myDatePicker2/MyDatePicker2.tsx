@@ -45,24 +45,23 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
 
     // Ref to close the calendar on keydown
     const datePickerRef = useRef<any>(null);
-
+    const onChangeNullObject = {
+        hesabfaFormatDate: null,
+        jsDate: null,
+        jsDateZeroTime: null,
+        gregorian_en: null,
+        gregorian_fa: null,
+        persian: null,
+        persian_enDigits: null,
+    }
     const setValue = (dateObjectInput: DateObject | null): void => {
 
         if (!dateObjectInput) {
-            onChange({
-                hesabfaFormatDate: null,
-                jsDate: null,
-                jsDateZeroTime: null,
-                gregorian_en: null,
-                gregorian_fa: null,
-                persian: null,
-                persian_enDigits: null,
-            });
+            onChange(onChangeNullObject);
             setSelectedDate(null); // Clear the date by setting it to null
             return;
         }
 
-        
 
         // Original jsDate retains its original time
         const jsDate: Date = new Date(dateObjectInput.toDate()); // Use a new instance to keep original time
@@ -100,7 +99,7 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
 
     const clearDate = () => {
         setSelectedDate(null); // Clear the state to remove the date
-        onChange(null); // Notify parent component that the date has been cleared
+        onChange(onChangeNullObject); // Notify parent component that the date has been cleared
     };
 
     useEffect(() => {
