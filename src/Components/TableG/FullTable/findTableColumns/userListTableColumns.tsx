@@ -6,10 +6,11 @@ import {PAGES} from "../../../../Pages/Route-string.tsx";
 import EditButton from "../../../../assets/icons/EditButton.tsx";
 import DeleteButton from "../../../../assets/icons/DeleteButton.tsx";
 import FilterTextInTable from "../Filters/FilterTextInTable.tsx";
+import StringFilter from "../Filters/StringFilter/StringFilter.tsx";
 
 
 export const userListTableColumns = (inputs: IInputObject) => {
-    const {url, navigateTo, myAxios, setMyData , myData} = inputs
+    const {url, navigateTo, myAxios, setMyData, myData} = inputs
     return [
         // {accessorKey: '_id', header: 'ID'},
         // {accessorKey: 'userName', header: 'User Name'},
@@ -33,7 +34,7 @@ export const userListTableColumns = (inputs: IInputObject) => {
                         if (response?.data) {
 
                             toast.success(response?.data?.message)
-                            setMyData({reload:randomNumberGenerator()})
+                            setMyData({reload: randomNumberGenerator()})
                         }
                     } catch (error) {
                         console.log(error)
@@ -94,13 +95,10 @@ export const userListTableColumns = (inputs: IInputObject) => {
         {accessorKey: 'title', header: 'عنوان'},
         {
             accessorKey: 'name',
-            header: ()=>{
-
-                return <><FilterTextInTable
-                    placeHolder={"نام"}
-                    filterKey={"name"}
-
-                    /></>
+            header: () => {
+                return <>
+                    <StringFilter uniqueId={"name"} operator={"*"} property={"name"} placeHolder={"نام "}/>
+                </>
             },
             size: 350,
             minSize: 350,

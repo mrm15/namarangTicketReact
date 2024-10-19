@@ -6,6 +6,7 @@ import {PAGES} from "../../../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 import FilterTextInTable from "../Filters/FilterTextInTable.tsx";
+import StringFilter from "../Filters/StringFilter/StringFilter.tsx";
 
 
 const NameShow = ({info}) => {
@@ -98,11 +99,8 @@ export const roleListTableColumns = (inputs: IInputObject): ColumnDef<any>[] => 
             id: "name",
             accessorKey: 'name',
             header: ()=>{
+                return <StringFilter uniqueId={"name"} operator={"*"} property={"name"} placeHolder={"نام "}/>
 
-                return <FilterTextInTable
-                    placeHolder={"نام نقش "}
-                    filterKey={"name"}
-                />
             },
 
 
