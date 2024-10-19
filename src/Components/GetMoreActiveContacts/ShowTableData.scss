@@ -1,0 +1,17 @@
+.ShowTableData {
+
+  th {
+    font-weight: bold;
+  }
+
+  th, td {
+    border: 1px solid gray;
+    padding: 5px;
+  }
+
+  tr:nth-child(2n){
+    background: rgba(128, 128, 128, 0.15);
+  }
+
+
+}
