@@ -10,6 +10,7 @@ import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter.tsx";
 import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
+import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 
 
 const NameShow = ({info}) => {
