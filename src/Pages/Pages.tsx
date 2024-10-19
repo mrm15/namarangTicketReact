@@ -37,6 +37,7 @@ const ReportBill = lazy(() => import('../ReportBill/ReportBill.tsx'));
 const AdminReportCP = lazy(() => import('../Components/AdminReport/AdminReportCP.tsx'));
 const HesabfaTest = lazy(() => import('../Components/Test/HesabfaTest.tsx'));
 const Missing = lazy(() => import('../Components/Missing'));
+const Index = lazy(() => import("../Components/GetMoreActiveContacts/Index.tsx"))
 
 
 const Pages = () => {
@@ -72,6 +73,10 @@ const Pages = () => {
                 {/* pages all people can see and need sidebar */}
 
                 <Route element={<PersistLogin/>}>
+
+
+
+
                     <Route path="/" element={<Layout/>}>
                         {/* public routes */}
 
@@ -80,7 +85,12 @@ const Pages = () => {
                                 <Home/>
                             </Suspense>
                         }/>
-
+                        <Route path={'/getMoreActiveContacts'} element={
+                            <Suspense fallback={<Loader/>}>
+                                <Index/>
+                            </Suspense>
+                        }
+                        />
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={
                                 <Suspense fallback={<Loader/>}>

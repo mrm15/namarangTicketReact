@@ -100,6 +100,7 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
     const clearDate = () => {
         setSelectedDate(null); // Clear the state to remove the date
         onChange(onChangeNullObject); // Notify parent component that the date has been cleared
+
     };
 
     useEffect(() => {

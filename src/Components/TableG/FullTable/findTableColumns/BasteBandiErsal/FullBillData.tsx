@@ -5,11 +5,11 @@ import {ICustomColumn} from "../../../myTableGTypes";
 import SendStatus from "./SendStatus.tsx";
 import ShowDateFromHesabfa from "./ShowDateFromHesabfa.tsx";
 import ContactNumber from "./ContactNumber.tsx";
+import FilterButtons from "../../Filters/DateFilter/FilterButtons.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter.tsx";
-import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
-import {ROLES} from "../../../../../Pages/ROLES.tsx";
+import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 
 
 const NameShow = ({info}) => {
@@ -134,6 +134,11 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*    dateTypeShow={"hesabfa"}*/}
 
                     {/*/>*/}
+                    <DatesFilter
+                            property={"Date"}
+                            model ={"advanced"}
+                            dateFormatValue ={"hesabfa"}
+                    />
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,

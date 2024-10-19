@@ -16,13 +16,20 @@ const TableFilterSection = () => {
                 {/*تاریخ*/}
 
                 <TdInput
+                    uniqId={"date-1"}
                     myKey={"Date"}
-                    operator={"="}
+                    operator={">="}
+                />
+                <TdInput
+                    uniqId={"date-2"}
+                    myKey={"Date"}
+                    operator={"<"}
                 />
             </td>
             <td className={'border-2 border-black   '}>
                 {/*عنوان مشتری*/}
                 <TdInput
+                    uniqId={"ContactTitle"}
                     myKey={"ContactTitle"}
                     placeholder={"عنوان مشتری"}
 
@@ -31,6 +38,8 @@ const TableFilterSection = () => {
             <td className={'border-2 border-black   '}>
                 {/*کد سفارش*/}
                 <TdInput
+                    uniqId={"Tag"}
+
                     myKey={"Tag"}
                     placeholder={"کد سفارش"}
                 />
@@ -38,6 +47,7 @@ const TableFilterSection = () => {
             <td className={'border-2 border-black   '}>
                 {/*فروشنده*/}
                 <TdInput
+                    uniqId={"tag2"}
                     myKey={"Tag"}
                     placeholder={"فروشنده"}
                 />
@@ -45,6 +55,7 @@ const TableFilterSection = () => {
             <td className={'border-2 border-black   '}>
                 {/*شماره فاکتور*/}
                 <TdInput
+                    uniqId={"Number"}
                     myKey={"Number"}
                     placeholder={"شماره فاکتور"}
                 />
@@ -52,6 +63,7 @@ const TableFilterSection = () => {
             <td className={'border-2 border-black   '}>
                 {/*پروژه*/}
                 <TdInput
+                    uniqId={"Project"}
                     myKey={"Project"}
                     placeholder={"پروژه"}
                 />
@@ -59,6 +71,7 @@ const TableFilterSection = () => {
             <td className={'border-2 border-black   '}>
                 {/*جمع فاکتور*/}
                 <TdInput
+                    uniqId={"Sum"}
                     myKey={"Sum"}
                     placeholder={"جمع فاکتور"}
                     operator={"="}
@@ -69,6 +82,7 @@ const TableFilterSection = () => {
 
                 {/*وضعیت فاکتور*/}
                 <TdInput
+                    uniqId={"Status"}
                     myKey={"Status"}
                     placeholder={"وضعیت فاکتور"}
                     operator={"="}
