@@ -110,7 +110,7 @@ const DatesFilter = ({
             {textForFilter: op.lowerThan, onClick: clickHandler, text: "کوچیکتر", sign: <>&lt;</>,},
             {textForFilter: op.lowerThanOrEqual, onClick: clickHandler, text: "کوچیکتر مساوی", sign: <>&#8804;</>,},
             {textForFilter: op.between, onClick: clickHandler, text: "بین", sign: <>&#119081;</>,}, //
-            {textForFilter: op.remove, onClick: clickHandler, text: "حذف", sign: <>&#119081;</>,}, ///
+            // {textForFilter: op.remove, onClick: clickHandler, text: "حذف", sign: <>&#119081;</>,}, ///
         ]
     }, [])
 
