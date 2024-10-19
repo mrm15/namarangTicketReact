@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import React, {useEffect, useRef} from "react";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
+import UpdateInfo from "./UpdateInfo.tsx";
 
 
 const App: React.FC = () => {
@@ -37,6 +38,7 @@ const App: React.FC = () => {
 
     return (
         <>
+            <UpdateInfo/>
             <ToastContainer
                 position="bottom-left"
                 autoClose={2500}

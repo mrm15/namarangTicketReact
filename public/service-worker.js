@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v2000004'; // Change the version number whenever you update the app
+const CACHE_NAME = 'my-app-cache-v2000005'; // Change the version number whenever you update the app
 const ASSETS_TO_CACHE = [
   // '/',
   // '/index.html', // Ensure this exists in public
@@ -22,8 +22,15 @@ const openCacheOnInstall = (CACHE_NAME) => {
     return cache.addAll(ASSETS_TO_CACHE);
   });
 }
+// Function to send message to all clients (open pages)
+const sendMessageToClients = async (message) => {
+  const allClients = await clients.matchAll({ type: 'window' });
+  allClients.forEach(client => {
+    client.postMessage(message);
+  });
+};
 
-// Function to delete old caches on activation
+// Function to delete old caches on activation and notify React app
 const deleteCacheOnActive = (CACHE_NAME) => {
   console.log("deleteCacheOnActive")
   return caches.keys().then(cacheNames => {
@@ -33,10 +40,13 @@ const deleteCacheOnActive = (CACHE_NAME) => {
         console.log('Deleting old cache:', cacheName);
         return caches.delete(cacheName);
       }
-    }));
-  });
-}
+    })).then(() => {
+      // Send message to the React app after cache activation
+      sendMessageToClients({ type: 'CACHE_UPDATED', cacheName: CACHE_NAME })
 
+    });
+  });
+};
 // Function to respond with cached or fetched resources
 const responseCacheOnFetch = (event) => {
   return caches.match(event.request).then(response => {
