@@ -5,10 +5,11 @@ import {ICustomColumn} from "../../../myTableGTypes";
 import SendStatus from "./SendStatus.tsx";
 import ShowDateFromHesabfa from "./ShowDateFromHesabfa.tsx";
 import ContactNumber from "./ContactNumber.tsx";
-import FilterButtons from "../../Filters/DateFilter/FilterButtons.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter.tsx";
+import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
+import {ROLES} from "../../../../../Pages/ROLES.tsx";
 
 
 const NameShow = ({info}) => {
@@ -31,7 +32,9 @@ const RowNumberShow = ({info}) => {
 };
 // Define the columns with the appropriate structure
 export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
-    const {url, navigateTo, myAxios, setMyData, myData} = inputs;
+    const {url, navigateTo, myAxios, setMyData, myData,auth} = inputs;
+
+    const hasAccessToVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const temp: ICustomColumn<any>[] = [
         {
             id: "rowNumber",
@@ -192,6 +195,33 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 100,
             maxSize: 100,
         },
+        {
+            id: "Sum",
+            accessorKey: 'Sum',
+            header: () => <div>
+                {/*<NumberFilterInTableG*/}
+                {/*    uniqueId={"Number"}*/}
+                {/*    placeHolder={"شماره فاکتور"}*/}
+                {/*    property={"Number"}*/}
+                {/*    operator={"*"}*/}
+                {/*/>*/}
+                جمع مبلغ (تومان)
+            </div>,
+
+            cell: (info) => {
+
+                const temp = formatNumber(info.getValue())
+                // const constIsVerified = info.row.original.Status === 1
+                return <div className={"text-left pl-2 font-bold"}>
+                    {temp}
+                </div>
+            },
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
+            hidden:!hasAccessToVerifyBill,
+        },
+
         {
 
             accessorKey: 'ss',
