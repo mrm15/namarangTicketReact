@@ -13,6 +13,7 @@ import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 import DateShowTimeStampToDateLtr from "../../components/DateShowTimeStampToDateLtr.tsx";
 import useAuth from "../../../../../hooks/useAuth.tsx";
 import {getMenus} from "../../../../SideBar/menus.tsx";
+import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -86,10 +87,9 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             accessorKey: 'title',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"عنوان سفارش"}
-                        filterKey={"title"}
-                    />
+
+                    <StringFilter uniqueId={"title"} operator={"*"} property={"title"} placeHolder={"عنوان سفارش"} />
+
                 </>
             },
             size: 150,
@@ -106,10 +106,6 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
                 return <>
                     <div>کاربر ایجاد کننده سفارش</div>
 
-                    {/*<FilterTextInTable*/}
-                    {/*    placeHolder={"کاربر ایجاد کننده سفارش"}*/}
-                    {/*    filterKey={"userCreateThisOrder"}*/}
-                    {/*/>*/}
                 </>
             },
             size: 200,
@@ -146,13 +142,8 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             accessorKey: 'ticketNumber',
             header: () => {
 
-                return <FilterTextInTable
-                    placeHolder={"شماره تیکت"}
-                    filterKey={"ticketNumber"}
-                    operator={"="}
-                    filterType={"number"}
+                return <StringFilter uniqueId={"ticketNumber"} operator={"*"} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
 
-                />
             },
 
 
@@ -267,10 +258,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             accessorKey: 'priority',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"اولویت"}
-                        filterKey={"priority"}
-                    />
+                    <StringFilter uniqueId={"priority"} operator={"*"} property={"priority"} placeHolder={"اولویت"} />
                 </>
             },
             size: 150,
@@ -337,10 +325,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"توضیحات"}
-                        filterKey={"description"}
-                    />
+                    <StringFilter uniqueId={"description"} operator={"*"} property={"description"} placeHolder={"توضیحات"} />
                 </>
             },
 
@@ -356,10 +341,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"کاربر مقصد"}
-                        filterKey={"assignedToUserIdText"}
-                    />
+                    <StringFilter uniqueId={"assignedToUserIdText"} operator={"*"} property={"assignedToUserIdText"} placeHolder={"کاربر مقصد"} />
                 </>
             },
 
@@ -374,10 +356,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"دپارتمان مقصد"}
-                        filterKey={"assignedToDepartmentIdText"}
-                    />
+                    <StringFilter uniqueId={"assignedToDepartmentIdText"} operator={"*"} property={"assignedToDepartmentIdText"} placeHolder={"دپارتمان مقصد"} />
                 </>
             },
 
@@ -392,10 +371,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"isDeleteDestination"}
-                        filterKey={"isDeleteDestination"}
-                    />
+                    <StringFilter uniqueId={"isDeleteDestination"} operator={"*"} property={"isDeleteDestination"} placeHolder={"isDeleteDestination"} />
                 </>
             },
 
@@ -410,10 +386,8 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"فرستنده"}
-                        filterKey={"assignedByText"}
-                    />
+                    <StringFilter uniqueId={"assignedByText"} operator={"*"} property={"assignedByText"} placeHolder={"فرستنده"} />
+
                 </>
             },
 
@@ -428,10 +402,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"فرستنده حذف کرده؟"}
-                        filterKey={"isDeleteFromAssignedBy"}
-                    />
+                    <StringFilter uniqueId={"isDeleteFromAssignedBy"} operator={"*"} property={"isDeleteFromAssignedBy"} placeHolder={"فرستنده حذف کرده؟"} />
                 </>
             },
 
@@ -447,10 +418,8 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"assignDate"}
-                        filterKey={"assignDate"}
-                    />
+                    <StringFilter uniqueId={"assignDate"} operator={"*"} property={"assignDate"} placeHolder={"assignDate"} />
+
                 </>
             },
 
@@ -472,10 +441,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"readStatus"}
-                        filterKey={"readStatus"}
-                    />
+                    <StringFilter uniqueId={"readStatus"} operator={"*"} property={"readStatus"} placeHolder={"readStatus"} />
                 </>
             },
 
@@ -491,10 +457,8 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"readDate"}
-                        filterKey={"readDate"}
-                    />
+                    <StringFilter uniqueId={"readDate"} operator={"*"} property={"readDate"} placeHolder={"readDate"} />
+
                 </>
             },
 
@@ -517,10 +481,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"تعداد ارجاع"}
-                        filterKey={"numberOfAssign"}
-                    />
+                    <StringFilter uniqueId={"numberOfAssign"} operator={"*"} property={"numberOfAssign"} placeHolder={"تعداد ارجاع"} />
                 </>
             },
 
@@ -536,9 +497,11 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
+                    <StringFilter
+                        uniqueId={"assignmentType"}
+                        operator={"*"}
+                        property={"assignmentType"}
                         placeHolder={"نوع ارجاع"}
-                        filterKey={"assignmentType"}
                     />
                 </>
             },
