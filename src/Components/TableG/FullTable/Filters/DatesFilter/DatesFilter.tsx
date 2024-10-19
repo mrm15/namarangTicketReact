@@ -24,7 +24,7 @@ const op = {
 const DatesFilter = ({
                          property,
                          model = "advanced",
-                         dateFormatValue = "hesabfa"
+                         dateFormatValue = "jsDate"
                      }) => {
 
     const context = useContext(TableGContext);
@@ -39,8 +39,8 @@ const DatesFilter = ({
     const defaultValue2 = {value: "", showValue: ""}
     const [query, setQuery] = useState<{ value: any, showValue: any }>(defaultValue1);
     const [query2, setQuery2] = useState<{ value: any, showValue: any }>(defaultValue2);
-    const debouncedQuery1 = useDebounce(query, 500); // 500ms debounce delay
-    const debouncedQuery2 = useDebounce(query2, 500); // 500ms debounce delay
+    const debouncedQuery1 = useDebounce(query, 1000); // 500ms debounce delay
+    const debouncedQuery2 = useDebounce(query2, 1000); // 500ms debounce delay
 
     useMyFilterHook({
         myData,
@@ -61,10 +61,13 @@ const DatesFilter = ({
 
     const temp1 = findValueInFilterObject({myData, uniqueId: property + 1})
     const temp2 = findValueInFilterObject({myData, uniqueId: property + 2})
-
+    console.log(selectedOption.textForFilter)
 
     const actionMap: any = {
-        [op.equal]: (row: any) => setOperator1(op.equal),
+        [op.equal]: (row: any) => {
+
+            setOperator1(op.equal)
+        },
         [op.notEqual]: (row: any) => setOperator1(op.notEqual),
         [op.greaterThan]: (row: any) => setOperator1(op.greaterThan),
         [op.greaterThanOrEqual]: (row: any) => setOperator1(op.greaterThanOrEqual),
@@ -75,17 +78,27 @@ const DatesFilter = ({
             //removeItemFromFilterArray({property, myData, setMyData});
         },
         [op.remove]: (row: any) => {
-            //setSelectedOption(row)
-            //removeItemFromFilterArray({property, myData, setMyData});
+            setQuery({value: "", showValue: ""})
+            // if  selectedOption.textForFilter===op.between   it means  there are two fileds need to reset
+            if (selectedOption.textForFilter === op.between) {
+                setQuery2({value: "", showValue: ""})
+            }
+            setOperator1(op.equal)
         },
     }
 
     const clickHandler = (row) => {
         const action = actionMap[row.textForFilter];
         if (action) {
-            action(row);
+            action(row)
         }
-        setSelectedOption(row)
+        if (row.textForFilter !== op.remove) {
+            setSelectedOption(row)
+        }
+        if (row.textForFilter === op.remove) {
+            setSelectedOption(defaultSelected)
+
+        }
     }
 
     const filterSigns = useMemo(() => {
@@ -102,34 +115,39 @@ const DatesFilter = ({
     }, [])
 
 
+    console.log(query)
     if (model !== "advanced") {
         return <MyDatePicker2
             onChange={(singleDate) => {
-                const value = singleDate.jsDate
-                const showValue = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate
+                const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
+                const value0 = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate;
+                const value = (value0 === null) ? "" : value0
                 setQuery({value, showValue})
             }}
-            value={temp1.value}
+            value={query.value==="" ? null : query.value}
         />
     } else {
-        let content = <>
+        const content = <>
             <MyDatePicker2
                 onChange={(singleDate) => {
-                    const value = singleDate.jsDate
-                    const showValue = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate
+                    const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
+                    const value0 = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate;
+                    const value = (value0 === null) ? "" : value0
                     setQuery({value, showValue})
                 }}
-                value={temp1.value}
+                value={query.value==="" ? null : query.value}
             />
             {(selectedOption.textForFilter === "between") && <>
-              <MyDatePicker2
-                onChange={(singleDate) => {
-                    const value = singleDate.jsDate
-                    const showValue = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate
-                    setQuery2({value, showValue})
-                }}
-                value={temp2.value}
-              />
+                <MyDatePicker2
+
+                    onChange={(singleDate) => {
+                        const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
+                        const value0 = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate;
+                        const value = (value0 === null) ? "" : value0
+                        setQuery2({value, showValue})
+                    }}
+                    value={query2.value==="" ? null : query2.value}
+                />
             </>}
         </>
 

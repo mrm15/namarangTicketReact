@@ -9,6 +9,7 @@ import FilterButtons from "../../Filters/DateFilter/FilterButtons.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter.tsx";
+import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 
 
 const NameShow = ({info}) => {
@@ -131,6 +132,11 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*    dateTypeShow={"hesabfa"}*/}
 
                     {/*/>*/}
+                    <DatesFilter
+                            property={"Date"}
+                            model ={"advanced"}
+                            dateFormatValue ={"hesabfa"}
+                    />
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
