@@ -5,8 +5,10 @@ import {ICustomColumn} from "../../../myTableGTypes";
 import SendStatus from "./SendStatus.tsx";
 import ShowDateFromHesabfa from "./ShowDateFromHesabfa.tsx";
 import ContactNumber from "./ContactNumber.tsx";
-import FilterTextInTable from "../../Filters/FilterTextInTable.tsx";
 import FilterButtons from "../../Filters/DateFilter/FilterButtons.tsx";
+import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
+import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
+import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter.tsx";
 
 
 const NameShow = ({info}) => {
@@ -14,7 +16,7 @@ const NameShow = ({info}) => {
 
     return <div>{info.getValue()}</div>
 }
-const RowNumberShow = ({ info }) => {
+const RowNumberShow = ({info}) => {
     return (
         <span
             style={{
@@ -53,10 +55,11 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
 
                 {/*<div>  عنوان سفارش</div>*/}
-                <FilterTextInTable
+                <StringFilter
                     uniqueId={"ContactTitle"}
-                    placeHolder={"عنوان سفارش"}
+                    operator={"*"}
                     property={"ContactTitle"}
+                    placeHolder={"عنوان مشتری"}
                 />
             </div>,
             id: "ContactTitle",
@@ -122,12 +125,12 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     {/*    filterType={"date"}*/}
                     {/*    operator={"="}*/}
                     {/*/>*/}
-                    <FilterButtons
-                        uniqueId={"Date"}
-                        property={"Date"}
-                        dateTypeShow={"hesabfa"}
+                    {/*<FilterButtons*/}
+                    {/*    uniqueId={"Date"}*/}
+                    {/*    property={"Date"}*/}
+                    {/*    dateTypeShow={"hesabfa"}*/}
 
-                    />
+                    {/*/>*/}
                 </div>
             },
             cell: (cellInfo) => <ShowDateFromHesabfa info={cellInfo}/>,
@@ -165,10 +168,16 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             // header: "شماره فاکتور",
             header: () => <div>
                 {/*<div>شماره فاکتور</div>*/}
-                <FilterTextInTable
+                {/*<FilterTextInTable*/}
+                {/*    uniqueId={"Number"}*/}
+                {/*    placeHolder={"شماره فاکتور"}*/}
+                {/*    property={"Number"}*/}
+                {/*/>*/}
+                <NumberFilterInTableG
                     uniqueId={"Number"}
                     placeHolder={"شماره فاکتور"}
                     property={"Number"}
+                    operator={"*"}
                 />
             </div>,
 
@@ -203,16 +212,26 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'ss',
             // header: 'وضعیت ',
             header: () => <div>
-                <div>وضعیت</div>
-                <FilterTextInTable
+                <div></div>
+                {/*<FilterTextInTable*/}
+                {/*    uniqueId={"Status"}*/}
+                {/*    property={"Status"}*/}
+                {/*    operator={"="}*/}
+                {/*    filterType={"select"}*/}
+                {/*    optionsForSelectOption={[*/}
+                {/*        {key: "تایید نشده", value: "0"},*/}
+                {/*        {key: "تایید شده", value: "1"},*/}
+                {/*    ]}*/}
+                {/*/>*/}
+                <SelectOptionFilter
                     uniqueId={"Status"}
                     property={"Status"}
                     operator={"="}
-                    filterType={"select"}
                     optionsForSelectOption={[
                         {key: "تایید نشده", value: "0"},
                         {key: "تایید شده", value: "1"},
                     ]}
+                    placeHolder={"وضعیت"}
                 />
             </div>,
 

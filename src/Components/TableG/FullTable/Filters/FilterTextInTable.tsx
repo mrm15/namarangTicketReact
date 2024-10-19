@@ -62,7 +62,7 @@ const FilterTextInTable = ({
         property,
         myData,
         setMyData,
-    });
+    })
 
     const removeFilter = () => {
         setQuery({value: "", showValue: ""})
