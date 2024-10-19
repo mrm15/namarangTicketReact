@@ -10,6 +10,7 @@ import DateShowltr from "../../components/DateShowltr.tsx";
 import OperationColumInTicketTable from "../../components/OperationColumInTicketTable.tsx";
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
+import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -76,10 +77,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'title',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"عنوان سفارش"}
-                        filterKey={"title"}
-                    />
+                    <StringFilter uniqueId={"title"} operator={"*"} property={"title"} placeHolder={"عنوان سفارش"} />
+
                 </>
             },
             size: 150,
@@ -135,14 +134,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             id: "ticketNumber",
             accessorKey: 'ticketNumber',
             header: () => {
-
-                return <FilterTextInTable
-                    placeHolder={"شماره تیکت"}
-                    filterKey={"ticketNumber"}
-                    operator={"="}
-                    filterType={"number"}
-
-                />
+                return  <StringFilter uniqueId={"ticketNumber"} operator={"*"} property={"ticketNumber"} placeHolder={"شماره تیکت"} />
             },
 
 
@@ -250,10 +242,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'priority',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"اولویت"}
-                        filterKey={"priority"}
-                    />
+                    <StringFilter uniqueId={"priority"} operator={"*"} property={"priority"} placeHolder={"priority"} />
+
                 </>
             },
             size: 150,
@@ -320,10 +310,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             header: (info) => {
 
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"توضیحات"}
-                        filterKey={"description"}
-                    />
+                    <StringFilter uniqueId={"description"} operator={"*"} property={"description"} placeHolder={"description"} />
                 </>
             },
 
@@ -342,10 +329,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: '_id',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"_id"}
-                        filterKey={"id"}
-                    />
+                   شناسه
                 </>
             },
             size: 150,
@@ -360,10 +344,11 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'userId',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"userId"}
-                        filterKey={"userId"}
-                    />
+
+
+                    <StringFilter uniqueId={"userId"} operator={"*"} property={"userId"} placeHolder={"userId"} />
+
+
                 </>
             },
             size: 150,
@@ -378,10 +363,9 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'assignedToDepartmentId',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"assignedToDepartmentId"}
-                        filterKey={"assignedToDepartmentId"}
-                    />
+
+                    <StringFilter uniqueId={"assignedToDepartmentId"} operator={"*"} property={"assignedToDepartmentId"} placeHolder={"assignedToDepartmentId"} />
+
                 </>
             },
             size: 150,
@@ -394,11 +378,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'assignToUserId',
             header: (info) => {
                 return <>
-                    <FilterTextInTable
-                        placeHolder={"assignToUserId"}
-                        filterKey={"assignToUserId"}
-                    />
-                </>
+                    <StringFilter uniqueId={"assignedToUserId"} operator={"*"} property={"assignToUserId"} placeHolder={"کاربر مقصد"} />
+                    </>
             },
             size: 150,
             minSize: 150,
