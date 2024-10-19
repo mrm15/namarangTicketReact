@@ -10,6 +10,7 @@ import {
 
 const TdInput = ({
                      placeholder = "وارد کنید", myKey = "billNumber", operator = "*",
+                     uniqId,
                  }) => {
 
     const t = useContext(ReportBillContext);
@@ -27,6 +28,7 @@ const TdInput = ({
         property: string;
         operator: string;
         value: any;
+        uniqId:string;
     }
 
     useEffect(() => {
@@ -34,7 +36,7 @@ const TdInput = ({
 
         // Create a copy of the existing filterItems array
         if (debouncedQuery.length === 0) {
-            updatedFilterItems = updatedFilterItems.filter(item => item.property !== myKey);
+            updatedFilterItems = updatedFilterItems.filter(item => item.uniqId !== uniqId);
             if (updatedFilterItems.length !== 0) {
                 setAwesomeData({
                     ...awesomeData,
@@ -46,7 +48,7 @@ const TdInput = ({
             updatedFilterItems = [...awesomeData.filterItems];
 
             // Find the index of the existing object with the same property key
-            const existingIndex = updatedFilterItems.findIndex((item: any) => item.property === myKey);
+            const existingIndex = updatedFilterItems.findIndex((item: any) => item.uniqId === uniqId);
 
             if (existingIndex !== -1) {
                 // If the object exists, replace its value
@@ -54,9 +56,10 @@ const TdInput = ({
             } else {
                 // If the object doesn't exist, add a new one
                 updatedFilterItems.push({
+                    uniqId,
                     property: myKey,
                     operator: operator,
-                    value: debouncedQuery
+                    value: debouncedQuery,
                 });
             }
 
