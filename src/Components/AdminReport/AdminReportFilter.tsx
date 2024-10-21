@@ -158,7 +158,7 @@ const AdminReportFilter = () => {
                         </div>
                     </div>
                     <div className={""}>
-                        {myData.resultOfUseQuery.isFetching && <div
+                        {myData?.resultOfUseQuery?.isFetching && <div
                           className={"badge-bg-green-text-white"}
                         > در حال بارگیری گزارش...</div>}
                     </div>
