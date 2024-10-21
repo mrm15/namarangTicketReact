@@ -1,19 +1,12 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import InvoiceTableItems from "./InvoiceTableItems.tsx";
 import {
-    addRowIdtoTable,
-    formatNumber, getCurrentDate, iso8601ToDateObject,
-    persianDateToTimestamp,
-    timestampToTimeFromHesabfa
+    addRowIdtoTable,formatNumber,iso8601ToDateObject,
 } from "../../../utils/utilsFunction.tsx";
-import useAuth from "../../../hooks/useAuth.tsx";
-import {ROLES} from "../../../Pages/ROLES.tsx";
+
 import OtherCostsInBill from "./OtherCostsInBill.tsx";
 import Num2persian from 'num2persian';
-import MyDatePicker from "../../MyDatePicker";
-import numeric from "../../../utils/NumericFunction.tsx";
 import {IProjectList} from "./initialData.tsx";
-import contactNumber from "../../TableG/FullTable/findTableColumns/BasteBandiErsal/ContactNumber.tsx";
 import MyDatePicker2 from "../../myDatePicker2/MyDatePicker2.tsx";
 
 
@@ -67,31 +60,6 @@ const BillInvoice = ({
     const changeDateHandler = (myDate: string, myKey: string) => {
         setInvoice({[myKey]: myDate})
     }
-    useEffect(() => {
-
-        // اگه مقدار های تاریخ خالی بودند ینی داره فاکتور صادر میشه و ما باید مقدار تاریخ امروز رو بزاریم
-        if (!invoice.Date && !invoice.DueDate) {
-            // Get current date in timestamp format
-            const formattedCurrentDate = numeric.p2e(new Date().toLocaleDateString('fa-ir'))
-            const saveFormatDate = persianDateToTimestamp(formattedCurrentDate)
-            const tempData: {
-                Date: string | number;
-                DueDate: string | number;
-            } = {
-                Date: '',
-                DueDate: '',
-            }
-
-            tempData.Date = saveFormatDate;
-            tempData.DueDate = saveFormatDate;
-
-            setInvoice({
-                Date: tempData.Date,
-                DueDate: tempData.DueDate
-            })
-        }
-
-    }, []);
 
     const handleInputChange = (value: string, myKey: any) => {
         setInvoice({[myKey]: value})
