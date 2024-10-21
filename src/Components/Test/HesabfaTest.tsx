@@ -84,7 +84,7 @@ const HesabfaTest = () => {
 
 
     return (
-        <div className={'p-32'}>
+        <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
             <div>
                 <button
                     onClick={handleGetProduct}
@@ -92,7 +92,6 @@ const HesabfaTest = () => {
                     تست دریافت کالا
                 </button>
             </div>
-            <hr/>
             <div>
                 <button
                     onClick={handleGetProjects}
@@ -102,7 +101,6 @@ const HesabfaTest = () => {
                     تست دریافت پروژه ها
                 </button>
             </div>
-            <hr/>
             <div>
                 <button
                     onClick={() => handleGetBillData("1003")}
@@ -112,7 +110,6 @@ const HesabfaTest = () => {
                     تست دریافت اطلاعات یک فاکتور
                 </button>
             </div>
-            <hr/>
             <div>
                 <button
                     onClick={handleGetCustomerList}
@@ -122,7 +119,6 @@ const HesabfaTest = () => {
                     تست دریافت لیست مخاطبین
                 </button>
             </div>
-            <hr/>
             <div>
                 <button
                     onClick={testSubmitFactor}
@@ -132,9 +128,7 @@ const HesabfaTest = () => {
                     ثبت فاکتور تستی
                 </button>
             </div>
-            <hr/>
-            <br/>
-            <hr/>
+
             <div>
                 <button
                     onClick={testGetContactData}
@@ -144,10 +138,7 @@ const HesabfaTest = () => {
                     گرفتن دیتای یک مخاطب
                 </button>
             </div>
-            <hr/>
-            <hr/>
 
-            <hr/>
             <div>
                 <button
                     onClick={syncContactsFromHesabfa}
@@ -157,7 +148,7 @@ const HesabfaTest = () => {
                     همگام سازی مخاطبین
                 </button>
             </div>
-            <hr/>
+
             <div>
                 <button
                     onClick={updateProductsFromHesabfaToSite}
@@ -169,8 +160,6 @@ const HesabfaTest = () => {
             </div>
 
 
-            <hr/>
-            <hr/>
             <div>
                 <button
                     onClick={sendSmsCurrentReport}
@@ -179,8 +168,7 @@ const HesabfaTest = () => {
                     ارسال گزارش مدیریتی
                 </button>
             </div>
-            <hr/>
-            <hr/>
+
 
         </div>
     );
