@@ -6,7 +6,11 @@ import {ROLES} from "../../../Pages/ROLES.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {submitBill} from "../../../config/api.tsx";
 import {toast} from "react-toastify";
-import {timestampToFormattedDateToSendHesabfa, timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
+import {
+    formatNumber,
+    timestampToFormattedDateToSendHesabfa,
+    timestampToTimeFromHesabfa
+} from "../../../utils/utilsFunction.tsx";
 import {useNavigate} from "react-router-dom";
 
 
@@ -78,6 +82,13 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
                     />
                 </div>
                 <div className={''}>
+                    <button disabled={true}>
+
+                        {canSaveFactorAsDone &&
+                            invoice?.Sum && <b>{formatNumber(invoice.Sum)} تومان</b>
+                        }
+                    </button>
+
                     {canSaveFactorAsDraft &&
                       <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}
                     {canSaveFactorAsDone &&
