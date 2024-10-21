@@ -6,12 +6,13 @@ import {getBillData, getCustomerList, getProductList, getProjectList, submitBill
 import FullWidthPage from "../../UI/FullWidthPage.tsx";
 import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 import BillInvoice from "./BillInvoice.tsx";
-import {addRowIdtoTable} from "../../../utils/utilsFunction.tsx";
+import {addRowIdtoTable, dateObjectToIso8601} from "../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow, detectTag, makeInvoiceBaseOnHesabfaData,} from "./functions.tsx";
 import {useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx";
 import {toast} from "react-toastify";
+import DateObject from "react-date-object";
 
 
 const SubmitBill = () => {
@@ -58,14 +59,15 @@ const SubmitBill = () => {
         }
         const navigateTo = useNavigate()
 
-
+            const todayDate = new DateObject();
+            const todayIsoDate = dateObjectToIso8601(todayDate)
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Contact:{},
             Number: componentInfo.billNumber + "",
             ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
             Reference: '',
-            Date: '',//
-            DueDate: '',//
+            Date: todayIsoDate,//
+            DueDate: todayIsoDate,//
             ContactCode: componentInfo.ContactCode,
             Note: '',
             InvoiceType: 0,
