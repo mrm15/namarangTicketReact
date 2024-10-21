@@ -58,7 +58,7 @@ function ProfileInHeader() {
                 >
 
                     <div className={openMenu ? '' : 'hidden'}>
-                        <HeaderMenu/>
+                        <HeaderMenu setOpenMenu={setOpenMenu}  />
                     </div>
                 </div>
             </div>

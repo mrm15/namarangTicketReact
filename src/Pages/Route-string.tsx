@@ -5,6 +5,7 @@ export const PAGES = {
 
     USER_ADD_EDIT: '/add-edit-user',
     USER_LIST: '/user-list',
+    USER_EDIT_HIS_INFO: '/editUserInfo',
 
     ROLE_ADD_EDIT: '/role-add-edit',
     ROLE_LIST: '/role-list',

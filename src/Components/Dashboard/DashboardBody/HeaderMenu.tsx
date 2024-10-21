@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../../Pages/Route-string.tsx";
 
 
-function HeaderMenu() {
+function HeaderMenu({setOpenMenu}) {
 
 
     const {auth} = useAuth();
@@ -12,11 +12,20 @@ function HeaderMenu() {
     const phoneNumber = auth?.userInfo?.userData?.phoneNumber || "کاربر"
     const roleName = auth?.userInfo?.userData?.roleName || ""
     const departmentName = auth?.userInfo?.userData?.departmentName || ""
+    const userId = auth?.userInfo?.userData?.userId
 
 
     const logout = useLogout();
     const navigateTo = useNavigate()
 
+    const editProfile = () => {
+        if (!userId) {
+            return
+        }
+        navigateTo(PAGES.USER_EDIT_HIS_INFO);
+        setOpenMenu(false)
+
+    }
 
     const signOut = async () => {
 
@@ -37,10 +46,11 @@ function HeaderMenu() {
                 <div> 🏬 {departmentName} </div>
                 <div> 🎭 {roleName} </div>
             </li>
-            {/*<li*/}
-            {/*    className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>*/}
-            {/*    ویرایش پروفایل*/}
-            {/*</li>*/}
+            <li
+                onClick={editProfile}
+                className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>
+                ویرایش پروفایل
+            </li>
             <li
                 onClick={signOut}
                 className={'cursor-pointer block  rounded px-4 hover:bg-blue-400 text-center btn-gay-mir'}>

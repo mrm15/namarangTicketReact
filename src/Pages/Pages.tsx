@@ -10,7 +10,6 @@ import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
-import MyDatePicker2 from "../Components/myDatePicker2/MyDatePicker2.tsx";
 
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
@@ -38,6 +37,7 @@ const AdminReportCP = lazy(() => import('../Components/AdminReport/AdminReportCP
 const HesabfaTest = lazy(() => import('../Components/Test/HesabfaTest.tsx'));
 const Missing = lazy(() => import('../Components/Missing'));
 const Index = lazy(() => import("../Components/GetMoreActiveContacts/Index.tsx"))
+const EditProfileInfo = lazy(() => import("../Components/User/EditProfileInfo/EditProfileInfo.tsx"))
 
 
 const Pages = () => {
@@ -91,6 +91,13 @@ const Pages = () => {
                             </Suspense>
                         }
                         />
+
+                        <Route path={PAGES.USER_EDIT_HIS_INFO} element={
+                            <Suspense fallback={<Loader/>}>
+                                <EditProfileInfo />
+                            </Suspense>
+                        }/>
+
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={
                                 <Suspense fallback={<Loader/>}>
