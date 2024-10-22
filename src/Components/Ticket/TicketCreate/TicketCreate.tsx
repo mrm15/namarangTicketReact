@@ -101,7 +101,7 @@ const TicketCreate: React.FC = () => {
 
     const myAxiosPrivate = useAxiosPrivate()
     const clickHandler = async (inputNumber: number) => {
-        const myTicketData = {...ticketData};
+        const {userList, ...myTicketData} = ticketData
 
         // فایل ها رو جدا میکنیم
         const uploadFiles = myTicketData.files.filter((singleFile): File => {
@@ -316,7 +316,7 @@ const TicketCreate: React.FC = () => {
 
                     {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
                         <div>
-                          فایل به کدام فروشنده ارجاع شود؟
+                            فایل به کدام فروشنده ارجاع شود؟
                         </div>
                         {ticketData?.userList.map((singleUser, index) => {
 
@@ -332,7 +332,7 @@ const TicketCreate: React.FC = () => {
                             >
                                 {singleUser.name}
                                 {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
-                                  🟢
+                                    🟢
                                 </div>}
                             </button>
 
@@ -355,11 +355,11 @@ const TicketCreate: React.FC = () => {
                             value={'ارسال'}/>
                     </div>
                     {hasAccessToSubmitFactorInSubmitOrderForm && <div className="div__group__input_select w-full">
-                      <label htmlFor="ticketTitle"> </label>
-                      <input
-                        onClick={() => clickHandler(1)}
-                        id="ticketTitle" type="button" className="btn-submit-mir"
-                        value={'ارسال و ثبت فاکتور'}/>
+                        <label htmlFor="ticketTitle"> </label>
+                        <input
+                            onClick={() => clickHandler(1)}
+                            id="ticketTitle" type="button" className="btn-submit-mir"
+                            value={'ارسال و ثبت فاکتور'}/>
                     </div>}
                     {}
                 </div>
