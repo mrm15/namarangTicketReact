@@ -14,6 +14,7 @@ import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx
 import {toast} from "react-toastify";
 import DateObject from "react-date-object";
 import {useQuery} from "@tanstack/react-query";
+import Loader3 from "../../Loader/Loader3.tsx";
 
 
 const SubmitBill = () => {
@@ -38,30 +39,6 @@ const SubmitBill = () => {
         // اگه بود که ینی نباید تگ رو عوض کنم ولی اگه نبود باید تگ رو عوض کنم
         const [modeData, setModeData] = useState({mode: "", newTag: ""}) // i will use it later 
 
-        const queryFnGet = async (url) => {
-            const temp = await myAxios.get(url)
-            return temp.data;
-        }
-        const productListUseQuery = useQuery({
-            queryKey: ["getProductList"],
-            // url: string, myAxios: any, page: number, pageSize: number, filters: any
-            queryFn: () => queryFnGet(getProductList),
-            staleTime: 86400000,  // === 60*60*24*1000
-            enabled: true,
-        })
-        const projectListUseQuery = useQuery({
-            queryKey: ["getProjectList"],
-            queryFn: () => queryFnGet(getProjectList),
-            staleTime: 86400000,  // === 60*60*24*1000
-            enabled: true,
-        })
-
-    console.log("productListUseQuery")
-    console.log(productListUseQuery)
-    console.log("--------------------")
-    console.log("--------------------")
-    console.log("projectListUseQuery")
-    console.log(projectListUseQuery)
 
         const {auth} = useAuth();
 
@@ -114,15 +91,42 @@ const SubmitBill = () => {
             customerList: [],
         });
         const myAxios = useAxiosPrivate();
+        const queryFnGet = async (url) => {
+            const temp = await myAxios.get(url)
+            return temp.data;
+        }
+        const productListUseQuery = useQuery({
+            queryKey: ["getProductList"],
+            // url: string, myAxios: any, page: number, pageSize: number, filters: any
+            queryFn: () => queryFnGet(getProductList),
+            staleTime: 86400000,  // === 60*60*24*1000
+            enabled: true,
+        })
+        const projectListUseQuery = useQuery({
+            queryKey: ["getProjectList"],
+            queryFn: () => queryFnGet(getProjectList),
+            staleTime: 86400000,  // === 60*60*24*1000
+            enabled: true,
+        })
+        const billDetailsData = useQuery({
+            queryKey: ["billDetailsData"],
+            queryFn: () => queryFnGet(getBillData + componentInfo.billNumber),
+            staleTime: 100,  // === 60*60*24*1000
+            enabled: Boolean(componentInfo.billNumber),
+        })
+
+        console.log(billDetailsData)
+
         useEffect(() => {
             const getData = async () => {
                 try {
+
                     const temp = {
                         productList: [],
                         projectList: [],
                         customerList: [],
                     }
-                    const res3_customers = undefined
+
 
                     if (projectListUseQuery.data) {
 
@@ -155,26 +159,28 @@ const SubmitBill = () => {
 
                         temp.productList = temp222;
                     }
-                    if (res3_customers?.data) {
-                        temp.customerList = res3_customers?.data?.data?.List
-                    }
 
 
                     // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
                     if (componentInfo.billNumber) {
-                        const result = await myAxios.get(getBillData + componentInfo.billNumber);
-                        const incomingData = result.data.data;
-                        const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
+                        // const result = await myAxios.get(getBillData + componentInfo.billNumber);
 
-                        // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                        const newTag = detectTag({
-                            exceptionArray: result.data.exceptionArray,
-                            auth,
-                            lastTag: myInvoice.Tag,
-                            ticketNumber: myStateData.ticketNumber
-                        })
-                        setInvoice({...myInvoice, Tag: newTag})
-                        setIsLoading(false);
+
+                        const incomingData = billDetailsData?.data
+                        if (incomingData) {
+                            console.log(incomingData)
+                            const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData.data)
+
+                            // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
+                            const newTag = detectTag({
+                                exceptionArray: incomingData?.exceptionArray,
+                                auth,
+                                lastTag: myInvoice.Tag,
+                                ticketNumber: myStateData.ticketNumber
+                            })
+                            setInvoice({...myInvoice, Tag: newTag})
+                            setIsLoading(false);
+                        }
                     } else {
                         // اینجا باید درخواست بزنم اطلاعات مشتری رو بگیرم که کد داره.
                         // و اونو توی بخش مخاطب بزارم
@@ -197,7 +203,7 @@ const SubmitBill = () => {
                     setIsLoading(false);
                 } catch (error) {
                     setIsLoading(false);
-                    navigateTo(-1)
+                    // navigateTo(-1)
                     toast.error(" خطا در دریافت فاکتور")
                     console.log("خطا در دریافت فاکتور")
                     console.log(error?.toString())
@@ -205,7 +211,7 @@ const SubmitBill = () => {
                 }
             }
             void getData()
-        }, [productListUseQuery.data, projectListUseQuery.data])
+        }, [productListUseQuery.data, projectListUseQuery.data, billDetailsData.data])
 
 
         const addProductToTable = (row: any) => {
@@ -224,6 +230,11 @@ const SubmitBill = () => {
         try {
             return (
                 <div className={"relative w-full"}>
+                    {billDetailsData.isError && <button
+
+                        onClick={() => billDetailsData.refetch()}
+                        className={"badge-bg-red-text-red"}> تلاش دوباره - خطا در دریافت اطلاعات</button>}
+
                     {isLoading ? <Loader/> :
                         <div>
                             <div>
@@ -234,11 +245,17 @@ const SubmitBill = () => {
                                     productList={initialBillData.productList}/>
                             </div>
                             <hr/>
-                            <BillInvoice
-                                invoice={invoice}
-                                setInvoice={setInvoice}
-                                initialBillData={initialBillData}
-                            />
+
+                            {billDetailsData.isLoading && <Loader3/>}
+                            {
+
+                                <BillInvoice
+                                    invoice={invoice}
+                                    setInvoice={setInvoice}
+                                    initialBillData={initialBillData}
+                                />
+                            }
+
                             <hr/>
                         </div>
                     }
