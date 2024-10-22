@@ -49,7 +49,7 @@ const formikFormEditProfileInfo = [
     {control: 'input', name: 'country', label: 'کشور',},
     {control: 'input', name: 'province', label: 'استان',},
     {control: 'input', name: 'city', label: 'شهر',},
-    // {control: 'file', name: 'profilePictureUrl', label: ' تغییر عکس پروفایل',},
+    {control: 'file', name: 'profilePictureUrl', label: ' تغییر عکس پروفایل',},
     {control: 'input', name: 'postalCode', label: 'کد پستی',},
 
 
