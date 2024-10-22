@@ -13,6 +13,7 @@ import useAuth from "../../../hooks/useAuth.tsx";
 import {IInitialBillData, IInvoice, IInvoiceItem, IUnit} from "./initialData.tsx";
 import {toast} from "react-toastify";
 import DateObject from "react-date-object";
+import {useQuery} from "@tanstack/react-query";
 
 
 const SubmitBill = () => {
@@ -37,7 +38,31 @@ const SubmitBill = () => {
         // اگه بود که ینی نباید تگ رو عوض کنم ولی اگه نبود باید تگ رو عوض کنم
         const [modeData, setModeData] = useState({mode: "", newTag: ""}) // i will use it later 
 
-        // @ts-ignore
+        const queryFnGet = async (url) => {
+            const temp = await myAxios.get(url)
+            return temp.data;
+        }
+        const productListUseQuery = useQuery({
+            queryKey: ["getProductList"],
+            // url: string, myAxios: any, page: number, pageSize: number, filters: any
+            queryFn: () => queryFnGet(getProductList),
+            staleTime: 86400000,  // === 60*60*24*1000
+            enabled: true,
+        })
+        const projectListUseQuery = useQuery({
+            queryKey: ["getProjectList"],
+            queryFn: () => queryFnGet(getProjectList),
+            staleTime: 86400000,  // === 60*60*24*1000
+            enabled: true,
+        })
+
+    console.log("productListUseQuery")
+    console.log(productListUseQuery)
+    console.log("--------------------")
+    console.log("--------------------")
+    console.log("projectListUseQuery")
+    console.log(projectListUseQuery)
+
         const {auth} = useAuth();
 
         const myLocation = useLocation();
@@ -59,10 +84,10 @@ const SubmitBill = () => {
         }
         const navigateTo = useNavigate()
 
-            const todayDate = new DateObject();
-            const todayIsoDate = dateObjectToIso8601(todayDate)
+        const todayDate = new DateObject();
+        const todayIsoDate = dateObjectToIso8601(todayDate)
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
-            Contact:{},
+            Contact: {},
             Number: componentInfo.billNumber + "",
             ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
             Reference: '',
@@ -91,22 +116,20 @@ const SubmitBill = () => {
         const myAxios = useAxiosPrivate();
         useEffect(() => {
             const getData = async () => {
-                try{
+                try {
                     const temp = {
                         productList: [],
                         projectList: [],
                         customerList: [],
                     }
-                    const res1_project = await myAxios.get(getProjectList);
-                    const res2_product = await myAxios.get(getProductList);
-                    // const res3_customers = await myAxios.get(getCustomerList);
                     const res3_customers = undefined
 
-                    if (res1_project.data) {
-                        temp.projectList = res1_project.data.data;
+                    if (projectListUseQuery.data) {
+
+                        temp.projectList = projectListUseQuery.data.data;
                     }
-                    if (res2_product.data) {
-                        const temp222 = res2_product.data?.data?.List.map((row: any) => {
+                    if (productListUseQuery.data) {
+                        const temp222 = productListUseQuery?.data?.data?.List?.map((row: any) => {
                             return {
                                 Id: row.Id,
                                 Description: row.Description || row.SalesTitle,
@@ -144,7 +167,12 @@ const SubmitBill = () => {
                         const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData)
 
                         // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                        const newTag = detectTag({exceptionArray: result.data.exceptionArray, auth, lastTag: myInvoice.Tag , ticketNumber:myStateData.ticketNumber})
+                        const newTag = detectTag({
+                            exceptionArray: result.data.exceptionArray,
+                            auth,
+                            lastTag: myInvoice.Tag,
+                            ticketNumber: myStateData.ticketNumber
+                        })
                         setInvoice({...myInvoice, Tag: newTag})
                         setIsLoading(false);
                     } else {
@@ -153,17 +181,21 @@ const SubmitBill = () => {
                         const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + componentInfo.ContactCode);
 
 
-
                         invoice.Contact = ContactRequest.data.data
 
 
                         // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                        const newTag11 = detectTag({exceptionArray: [], auth, lastTag: undefined , ticketNumber:myStateData.ticketNumber})
+                        const newTag11 = detectTag({
+                            exceptionArray: [],
+                            auth,
+                            lastTag: undefined,
+                            ticketNumber: myStateData.ticketNumber
+                        })
                         setInvoice({...invoice, Tag: newTag11})
                     }
                     setInitialBillData({...temp});
                     setIsLoading(false);
-                }catch (error){
+                } catch (error) {
                     setIsLoading(false);
                     navigateTo(-1)
                     toast.error(" خطا در دریافت فاکتور")
@@ -173,7 +205,7 @@ const SubmitBill = () => {
                 }
             }
             void getData()
-        }, [])
+        }, [productListUseQuery.data, projectListUseQuery.data])
 
 
         const addProductToTable = (row: any) => {
