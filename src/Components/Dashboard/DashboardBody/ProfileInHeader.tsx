@@ -2,12 +2,15 @@ import HeaderMenu from "./HeaderMenu.tsx";
 import {useEffect, useRef, useState} from "react";
 import {FaUserCircle} from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth.tsx";
+import {BASE_URL} from "../../../api/axios.tsx";
 
 
 function ProfileInHeader() {
-    // @ts-ignore
     const [openMenu, setOpenMenu] = useState<boolean>(false);
     const containerRef = useRef(null);
+    const {auth} = useAuth();
+    const profilePhoto = auth?.userInfo?.userData?.profilePictureUrl
+    // const profilePhoto = false
 
 
     useEffect(() => {
@@ -28,8 +31,6 @@ function ProfileInHeader() {
     }, []);
 
 
-    // @ts-ignore
-    const {auth} = useAuth();
     try {
 
         return (
@@ -44,10 +45,22 @@ function ProfileInHeader() {
                     //onMouseMove={() => setOpenMenu(true)}
                     onClick={() => setOpenMenu(!openMenu)}
                 >
-                    <FaUserCircle size={48}/>
+                    {profilePhoto ?
+                        <div
+                            style={{
+                                width:'48px',
+                                height:'48px'
+                            }}
+                            className={"border-2 border-white rounded-full overflow-hidden"}>
+                            <img style={{
+                                objectFit:"cover",
+                            }} src={`${BASE_URL}/download/${profilePhoto}`} alt="عکس پروفایل"/>
+                        </div>
+                        : < FaUserCircle size={48}/>}
 
                     <div className={'hidden md:block'}>
-                        {auth?.userInfo?.userData?.name ? auth?.userInfo?.name : 'کاربر'} <span>&nbsp;&nbsp;&nbsp;</span>
+                        {auth?.userInfo?.userData?.name ? auth?.userInfo?.name : 'کاربر'}
+                        <span>&nbsp;&nbsp;&nbsp;</span>
                     </div>
 
 
@@ -58,7 +71,7 @@ function ProfileInHeader() {
                 >
 
                     <div className={openMenu ? '' : 'hidden'}>
-                        <HeaderMenu setOpenMenu={setOpenMenu}  />
+                        <HeaderMenu setOpenMenu={setOpenMenu}/>
                     </div>
                 </div>
             </div>
