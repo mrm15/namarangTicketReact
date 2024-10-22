@@ -33,7 +33,7 @@ const formikFormAddUser = [
     {control: 'input', name: 'userName', label: 'نام کاربری',},
     {control: 'select', name: 'departmentId', label: ' دپارتمان',options:[]},
     {control: 'select', name: 'role', label: 'نقش',},
-    {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
+    // {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
     {control: 'input', name: 'company', label: 'شرکت',},
     {control: 'input', name: 'title', label: 'عنوان',},
     {control: 'input', name: 'name', label: 'نام',},

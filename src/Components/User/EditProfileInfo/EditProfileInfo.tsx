@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {useLocation} from "react-router-dom";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {validationSchemaAddUser} from "../addUserFormikForm.tsx";
 import MyFormik from "../../MyFormik";
 import {formikFormEditProfileInfo} from "./formikFormEditProfileInfo.tsx";
 import {useQuery} from "@tanstack/react-query";
-import useAuth from "../../../hooks/useAuth.tsx";
 import Loader3 from "../../Loader/Loader3.tsx";
 
 const EditProfileInfo = () => {
@@ -13,7 +11,7 @@ const EditProfileInfo = () => {
     const myAxios = useAxiosPrivate();
     const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
     const url = "user/info"
-    const sendUrl = "user/update"
+    const sendUrl = "user/updateInfo"
     const resultOfUseQuery =
         useQuery({
             queryKey: ["noThing"],

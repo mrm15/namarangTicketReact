@@ -21,10 +21,10 @@ const dropdownOptions = [
 const formikFormEditProfileInfo = [
 
     {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',
-        // disabled:true
+        disabled:true
     },
     {control: 'input', name: 'userName', label: 'نام کاربری',},
-    {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
+    // {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
     {control: 'input', name: 'company', label: 'شرکت',},
     {control: 'input', name: 'title', label: 'عنوان',},
     {control: 'input', name: 'name', label: 'نام',},
