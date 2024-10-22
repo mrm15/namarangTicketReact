@@ -5,6 +5,7 @@ import MyFormik from "../../MyFormik";
 import {formikFormEditProfileInfo} from "./formikFormEditProfileInfo.tsx";
 import {useQuery} from "@tanstack/react-query";
 import Loader3 from "../../Loader/Loader3.tsx";
+import {useNavigate} from "react-router-dom";
 
 const EditProfileInfo = () => {
 
@@ -12,14 +13,15 @@ const EditProfileInfo = () => {
     const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
     const url = "user/info"
     const sendUrl = "user/updateInfo"
+    const navigateTo = useNavigate()
     const resultOfUseQuery =
         useQuery({
-            queryKey: ["noThing"],
+            queryKey: [],
             queryFn: async () => {
                 const temp = await myAxios.get(url)
                 return temp.data.data
             },
-            staleTime: 86400000,  // === 60*60*24*1000
+            staleTime: 15000,  // === 60*60*24*1000
             enabled: true,
         })
 
@@ -49,12 +51,11 @@ const EditProfileInfo = () => {
                         {
                             Object.keys(myInitialValuesAddUser).length > 0 &&
                             <MyFormik
+                                enableReinitialize={true}
                                 formikForm={formikFormEditProfileInfo}
                                 initialValues={myInitialValuesAddUser}
                                 validationSchema={validationSchemaAddUser}
-                                afterSubmit={() => {
-                                    console.log("that's ok!")
-                                }}
+                                afterSubmit={() =>navigateTo("/")}
                                 requestUrl={sendUrl}
                             />
                         }
