@@ -7,7 +7,7 @@ import useAxiosPrivateFormData from "../../hooks/useAxiosPrivateFormData.tsx";
 import {uploadFileUtil} from "../../utils/upload.tsx";
 
 
-function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, requestUrl}) {
+function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, requestUrl , enableReinitialize=false }) {
 
 
     const myPrivateAxios = useAxiosPrivate()
@@ -117,6 +117,7 @@ function MyComponent({formikForm, initialValues, validationSchema, afterSubmit, 
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
+                enableReinitialize={enableReinitialize}
                 onSubmit={onSubmit}
             >
                 {formik => {
