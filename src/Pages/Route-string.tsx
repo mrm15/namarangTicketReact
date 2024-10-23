@@ -45,6 +45,7 @@ export const PAGES = {
     basted_bandi_ersal:"/pack-send",
     adminReport:"/adminReport",
     ////////////////////////////////
+    fatherAccess:"/fatherAccess",
 
 
 };

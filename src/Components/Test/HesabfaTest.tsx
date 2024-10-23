@@ -10,6 +10,7 @@ import {
 } from "../../config/api.tsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {toast} from "react-toastify";
+import UpdateLocalBills from "./UpdateLocalBills.tsx";
 
 const HesabfaTest = () => {
 
@@ -19,7 +20,7 @@ const HesabfaTest = () => {
     const showToast = (result) => {
         if (result?.data?.message) {
             toast.success(result?.data?.message)
-        }else {
+        } else {
             toast.info("نتیجه بازگشت!")
 
         }
@@ -84,92 +85,101 @@ const HesabfaTest = () => {
 
 
     return (
-        <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
-            <div>
-                <button
-                    onClick={handleGetProduct}
-                    className={'btn-submit-mir'}>
-                    تست دریافت کالا
-                </button>
+
+        <div className={"bg-black  rounded overflow-hidden"}>
+
+            <div className={"bg-black text-red-600 text-center fontSize22 ltr"}>
+                دسترسی فقط مدیر کل سایت
             </div>
-            <div>
-                <button
-                    onClick={handleGetProjects}
-                    className={'btn-submit-mir'}
+            <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
 
-                >
-                    تست دریافت پروژه ها
-                </button>
+                <UpdateLocalBills />
+                <div>
+                    <button
+                        onClick={handleGetProduct}
+                        className={'btn-submit-mir'}>
+                        تست دریافت کالا
+                    </button>
+                </div>
+                <div>
+                    <button
+                        onClick={handleGetProjects}
+                        className={'btn-submit-mir'}
+
+                    >
+                        تست دریافت پروژه ها
+                    </button>
+                </div>
+                <div>
+                    <button
+                        onClick={() => handleGetBillData("1003")}
+                        className={'btn-submit-mir'}
+
+                    >
+                        تست دریافت اطلاعات یک فاکتور
+                    </button>
+                </div>
+                <div>
+                    <button
+                        onClick={handleGetCustomerList}
+                        className={'btn-submit-mir'}
+
+                    >
+                        تست دریافت لیست مخاطبین
+                    </button>
+                </div>
+                <div>
+                    <button
+                        onClick={testSubmitFactor}
+                        className={'btn-submit-mir'}
+
+                    >
+                        ثبت فاکتور تستی
+                    </button>
+                </div>
+
+                <div>
+                    <button
+                        onClick={testGetContactData}
+                        className={'btn-submit-mir'}
+
+                    >
+                        گرفتن دیتای یک مخاطب
+                    </button>
+                </div>
+
+                <div>
+                    <button
+                        onClick={syncContactsFromHesabfa}
+                        className={'btn-submit-mir'}
+
+                    >
+                        همگام سازی مخاطبین
+                    </button>
+                </div>
+
+                <div>
+                    <button
+                        onClick={updateProductsFromHesabfaToSite}
+                        className={'btn-submit-mir bg-red-900'}
+
+                    >
+                        به روز رسانی کالاهای حسابفا و سایت
+                    </button>
+                </div>
+
+
+                <div>
+                    <button
+                        onClick={sendSmsCurrentReport}
+                        className={'btn-submit-mir bg-red-900'}
+                    >
+                        ارسال گزارش مدیریتی
+                    </button>
+                </div>
+
+
             </div>
-            <div>
-                <button
-                    onClick={() => handleGetBillData("1003")}
-                    className={'btn-submit-mir'}
-
-                >
-                    تست دریافت اطلاعات یک فاکتور
-                </button>
-            </div>
-            <div>
-                <button
-                    onClick={handleGetCustomerList}
-                    className={'btn-submit-mir'}
-
-                >
-                    تست دریافت لیست مخاطبین
-                </button>
-            </div>
-            <div>
-                <button
-                    onClick={testSubmitFactor}
-                    className={'btn-submit-mir'}
-
-                >
-                    ثبت فاکتور تستی
-                </button>
-            </div>
-
-            <div>
-                <button
-                    onClick={testGetContactData}
-                    className={'btn-submit-mir'}
-
-                >
-                    گرفتن دیتای یک مخاطب
-                </button>
-            </div>
-
-            <div>
-                <button
-                    onClick={syncContactsFromHesabfa}
-                    className={'btn-submit-mir'}
-
-                >
-                    همگام سازی مخاطبین
-                </button>
-            </div>
-
-            <div>
-                <button
-                    onClick={updateProductsFromHesabfaToSite}
-                    className={'btn-submit-mir bg-red-900'}
-
-                >
-                    به روز رسانی کالاهای حسابفا و سایت
-                </button>
-            </div>
-
-
-            <div>
-                <button
-                    onClick={sendSmsCurrentReport}
-                    className={'btn-submit-mir bg-red-900'}
-                >
-                    ارسال گزارش مدیریتی
-                </button>
-            </div>
-
-
         </div>
     );
 };
