@@ -22,7 +22,6 @@ export const iso8601ToDateObject = (isoString: string | null): DateObject | null
     if (!isoString) {
         return null; // Return null if the ISO string is not provided
     }
-    console.log(isoString)
     // Replace the "T" with a space for proper parsing
     const formattedString = isoString.replace("T", " ");
 
