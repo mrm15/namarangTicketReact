@@ -37,7 +37,10 @@ const AdminReportFilter = () => {
     })
 
     const handleChangeSingleDate = (selectedDate) => {
-        setFilterDate({singleDate: selectedDate.jsDateZeroTime})
+        setFilterDate({
+            singleDate: selectedDate.hesabfaFormatDate,
+            showSingleDate:selectedDate.jsDateZeroTime
+        })
         setMyData({
             filterItems:
                 [
@@ -52,7 +55,7 @@ const AdminReportFilter = () => {
     }
 
     const handleChangeMultiDate = (selectedDate, filterType) => {
-        
+        debugger
         const tempFilterDate = {...filterDate}
         if (filterType === "start") {
             tempFilterDate.startDate = selectedDate.hesabfaFormatDate
@@ -63,6 +66,7 @@ const AdminReportFilter = () => {
             tempFilterDate.showEndDate = selectedDate.jsDate
 
         }
+        debugger
         setFilterDate(tempFilterDate)
 
 
@@ -102,7 +106,6 @@ const AdminReportFilter = () => {
     }
 
 
-    console.log(myData)
     try {
 
         const singleFilterView = <div className={'div__group__input_select'}>
