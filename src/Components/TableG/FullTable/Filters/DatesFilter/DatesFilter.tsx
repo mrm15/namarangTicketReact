@@ -59,8 +59,8 @@ const DatesFilter = ({
         debouncedQuery: debouncedQuery2
     })
 
-    const temp1 = findValueInFilterObject({myData, uniqueId: property + 1})
-    const temp2 = findValueInFilterObject({myData, uniqueId: property + 2})
+    const temp1 = findValueInFilterObject({myData, uniqueId: `${property}1`})
+    const temp2 = findValueInFilterObject({myData, uniqueId: `${property}2`})
     console.log(selectedOption.textForFilter)
 
     const actionMap: any = {
@@ -117,6 +117,7 @@ const DatesFilter = ({
 
     console.log(query)
     if (model !== "advanced") {
+
         return <MyDatePicker2
             onChange={(singleDate) => {
                 const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
@@ -124,9 +125,11 @@ const DatesFilter = ({
                 const value = (value0 === null) ? "" : value0
                 setQuery({value, showValue})
             }}
-            value={query.value==="" ? null : query.value}
+            value={query.showValue}
         />
     } else {
+        console.log(query.value)
+
         const content = <>
             <MyDatePicker2
                 onChange={(singleDate) => {
@@ -135,7 +138,8 @@ const DatesFilter = ({
                     const value = (value0 === null) ? "" : value0
                     setQuery({value, showValue})
                 }}
-                value={query.value==="" ? null : query.value}
+                // value={query.value==="" ? null : query.value}
+                value={query.showValue}
             />
             {(selectedOption.textForFilter === "between") && <>
                 <MyDatePicker2
@@ -146,7 +150,7 @@ const DatesFilter = ({
                         const value = (value0 === null) ? "" : value0
                         setQuery2({value, showValue})
                     }}
-                    value={query2.value==="" ? null : query2.value}
+                    value={query.showValue}
                 />
             </>}
         </>
