@@ -13,6 +13,7 @@ import useAuth from "../hooks/useAuth.tsx";
 
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
+const ShowMyBillListForCustomer = lazy(() => import("../Components/showMyBillListForCustomer/ShowMyBillListForCustomer.tsx"))
 
 const AddUser = lazy(() => import('../Components/User/AddUser.tsx'));
 const Home = lazy(() => import("../Components/Home/Home.tsx"));
@@ -272,6 +273,13 @@ const Pages = () => {
                             <Route path={PAGES.adminReport} element={
                                 <Suspense fallback={<Loader/>}>
                                     <AdminReportCP/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.showMyBillListForCustomer}/>}>
+                            <Route path={PAGES.showMyBillListForCustomer} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <ShowMyBillListForCustomer/>
                                 </Suspense>
                             }/>
                         </Route>

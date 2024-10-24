@@ -46,6 +46,8 @@ export const PAGES = {
     adminReport:"/adminReport",
     ////////////////////////////////
     fatherAccess:"/fatherAccess",
+    ////////////////////
+    showMyBillListForCustomer:"/myBills",
 
 
 };

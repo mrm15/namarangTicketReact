@@ -51,6 +51,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         icon: RiBillLine,
         showItem: roleAccessList?.includes('basteBandi') || roleAccessList?.includes('ersal') || (roleAccessList?.includes(ROLES.screenShotBills[0])) ,
     },
+    {
+        name: "فاکتورهای من",
+        link: PAGES.showMyBillListForCustomer,
+        icon: RiBillLine,
+        showItem: roleAccessList?.includes(ROLES.showMyBillListForCustomer[0]) ,
+    },
 
 
     {

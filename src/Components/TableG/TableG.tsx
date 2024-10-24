@@ -8,7 +8,10 @@ import {useQuery} from "@tanstack/react-query";
 import {fetchTableData} from "./fetchTableData.tsx";
 import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
-const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondition = () => false}) => {
+const TableG = ({
+                    url = "/user/read", TopTableComponent = undefined, boldRowCondition = () => false,
+                    filters = [],
+                }) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
         boldRowCondition: boldRowCondition,
@@ -16,7 +19,7 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
         numberOfRows: 5,
         columns: [],
         tableData: [],
-        filters: [],
+        filters: filters,
         totalRows: 75,
         reload: "",
         isLoading: false,
@@ -105,7 +108,7 @@ const TableG = ({url = "/user/read", TopTableComponent = undefined, boldRowCondi
                 // void refetch();
 
             }
-        }, ); // Delay for 100 ms
+        },); // Delay for 100 ms
         return () => {
 
             return clearTimeout(timeoutId); // Cleanup previous timeout

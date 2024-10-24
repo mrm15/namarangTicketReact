@@ -1,4 +1,5 @@
 export const ROLES = {
+    showMyBillListForCustomer:["showMyBillListForCustomer"],
     fatherAccess:["fatherAccess"],
     user: [
         'userCreate',
