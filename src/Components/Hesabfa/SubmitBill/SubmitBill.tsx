@@ -62,6 +62,10 @@ const SubmitBill = () => {
         const navigateTo = useNavigate()
 
         const todayDate = new DateObject();
+        todayDate.setHour(0)
+        todayDate.setMinute(0)
+        todayDate.setSecond(0)
+        todayDate.setMillisecond(0)
         const todayIsoDate = dateObjectToIso8601(todayDate)
         const [invoice, setInvoice] = useObjectDataHolder<IInvoice>({
             Contact: {},
@@ -115,52 +119,41 @@ const SubmitBill = () => {
             enabled: Boolean(componentInfo.billNumber),
         })
 
-        console.log(billDetailsData)
+        useEffect(() => {
+            if (productListUseQuery?.data?.data?.List) {
+                const temp222 = productListUseQuery?.data?.data?.List?.map((row: any) => {
+                    return {
+                        Id: row.Id,
+                        Description: row.Description || row.SalesTitle,
+                        ItemCode: row.Code,
+                        Unit: row.Unit,
+                        Quantity: 1,
+                        UnitPrice: row.SellPrice,
+                        Discount: 0,
+                        Tax: 0,
+                        SubUnit: row.SubUnit,
+                        ///////////////////////////
+                        Name: row.Name,
+                        fixedPrice: row.SellPrice,
+                        dividedBy: 1,
+                        Units: [
+                            {id: 1, value: row.Unit, divideNumber: 1},
+                            {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
+                        ],
+                        sum: 0,
+                    };
+                });
+
+                setInitialBillData({
+                    productList: productListUseQuery?.data?.data.List,
+                    projectList: temp222,
+                });
+            }
+        }, [projectListUseQuery.data, productListUseQuery.data]);
 
         useEffect(() => {
             const getData = async () => {
                 try {
-
-                    const temp = {
-                        productList: [],
-                        projectList: [],
-                        customerList: [],
-                    }
-
-
-                    if (projectListUseQuery.data) {
-
-                        temp.projectList = projectListUseQuery.data.data;
-                    }
-                    if (productListUseQuery.data) {
-                        const temp222 = productListUseQuery?.data?.data?.List?.map((row: any) => {
-                            return {
-                                Id: row.Id,
-                                Description: row.Description || row.SalesTitle,
-                                ItemCode: row.Code,
-                                Unit: row.Unit,
-                                Quantity: 1,
-                                UnitPrice: row.SellPrice,
-                                Discount: 0,
-                                Tax: 0,
-                                SubUnit: row.SubUnit,
-                                ///////////////////////////
-                                Name: row.Name,
-                                fixedPrice: row.SellPrice,
-                                dividedBy: 1,
-                                // selectedUnit: "1",
-                                Units: [
-                                    {id: 1, value: row.Unit, divideNumber: 1},
-                                    {id: 2, value: row.SubUnit, divideNumber: row.ConversionFactor},
-                                ],
-                                sum: 0,
-                            }
-                        })
-
-                        temp.productList = temp222;
-                    }
-
-
                     // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
                     if (componentInfo.billNumber) {
                         // const result = await myAxios.get(getBillData + componentInfo.billNumber);
@@ -168,7 +161,7 @@ const SubmitBill = () => {
 
                         const incomingData = billDetailsData?.data
                         if (incomingData) {
-                            console.log(incomingData)
+
                             const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData.data)
 
                             // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
@@ -185,11 +178,7 @@ const SubmitBill = () => {
                         // اینجا باید درخواست بزنم اطلاعات مشتری رو بگیرم که کد داره.
                         // و اونو توی بخش مخاطب بزارم
                         const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + componentInfo.ContactCode);
-
-
                         invoice.Contact = ContactRequest.data.data
-
-
                         // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
                         const newTag11 = detectTag({
                             exceptionArray: [],
@@ -199,7 +188,6 @@ const SubmitBill = () => {
                         })
                         setInvoice({...invoice, Tag: newTag11})
                     }
-                    setInitialBillData({...temp});
                     setIsLoading(false);
                 } catch (error) {
                     setIsLoading(false);
@@ -211,8 +199,7 @@ const SubmitBill = () => {
                 }
             }
             void getData()
-        }, [productListUseQuery.data, projectListUseQuery.data, billDetailsData.data])
-
+        }, [billDetailsData.data])
 
         const addProductToTable = (row: any) => {
             if (row) {
