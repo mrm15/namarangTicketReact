@@ -122,6 +122,7 @@ const dropdownOptions = [
     //////////////////
     {value: "screenShotBills", key: "صفحه اسکرین شات کارا"},
     {value: "fatherAccess", key: "دسترسی Developer Mode"},
+    {value: "showMyBillListForCustomer", key: "مشاهده ی منوی  فاکتور های من"},
 
 
 ]
