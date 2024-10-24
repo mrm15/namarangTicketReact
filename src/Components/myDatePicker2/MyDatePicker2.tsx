@@ -31,7 +31,7 @@ interface MyDatePicker2Props {
     placeholder?: string;
 }
 
-export default function MyDatePicker2(props: MyDatePicker2Props) {
+export default function  (props: MyDatePicker2Props) {
     const {
         value = null, // default value is null
         onChange = (x) => console.log(x),
@@ -39,9 +39,15 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
     } = props;
 
     let {className = ""} = props;
+    // useEffect(() => {
+    //     console.log("============================================================================")
+    //     console.log(value)
+    //     console.log("============================================================================")
+    //     setSelectedDate(value)
+    // }, [value]);
 
     // Local state for managing the value of the date picker
-    const [selectedDate, setSelectedDate] = useState<DateObject | null>(value)
+    // const [selectedDate, setSelectedDate] = useState<DateObject | null>(value)
 
     // Ref to close the calendar on keydown
     const datePickerRef = useRef<any>(null);
@@ -58,7 +64,7 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
 
         if (!dateObjectInput) {
             onChange(onChangeNullObject);
-            setSelectedDate(null); // Clear the date by setting it to null
+            // setSelectedDate(null); // Clear the date by setting it to null
             return;
         }
 
@@ -94,11 +100,11 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
         };
 
         onChange(temp); // Pass the converted date object to the parent onChange
-        setSelectedDate(dateObjectInput); // Update local state with the selected date
+        // setSelectedDate(dateObjectInput); // Update local state with the selected date
     };
 
     const clearDate = () => {
-        setSelectedDate(null); // Clear the state to remove the date
+        // setSelectedDate(null); // Clear the state to remove the date
         onChange(onChangeNullObject); // Notify parent component that the date has been cleared
 
     };
@@ -135,7 +141,7 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
         >
             <div className={"relative"}>
                 <DatePicker
-                    value={selectedDate} // Controlled value via state
+                    value={value} // Controlled value via state
                     onChange={setValue} // Handle change with setValue
                     className={className + " "}
                     ref={datePickerRef} // Use ref to close the calendar with "Tab"
