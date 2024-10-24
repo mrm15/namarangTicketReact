@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 import {AdminReportContext} from "./AdminReportContext.jsx";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
@@ -39,10 +39,22 @@ const AdminReportCP = () => {
 
     const myAxios = useAxiosPrivate();
 
-    const queryFn = () => {
-        const dataForSend = {filterItems: myData.filterItems};
-        return myAxios.post(url, dataForSend)
-    }
+    const abortRef= useRef()
+    const queryFn = async ({ signal }) => {
+        const dataForSend = { filterItems: myData.filterItems };
+        try {
+            // ارسال درخواست با استفاده از signal
+            return await myAxios.post(url, dataForSend, {
+                signal: signal, // استفاده از `signal` برای کنسل کردن درخواست
+            })
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                console.log('درخواست کنسل شد');
+            } else {
+                throw error;
+            }
+        }
+    };
 
     const resultOfUseQuery =
         useQuery({
@@ -51,6 +63,7 @@ const AdminReportCP = () => {
             queryFn,
             staleTime: 86400000,  // === 60*60*24*1000
             enabled: true,
+            refetchOnWindowFocus: false, // جلوگیری از رفرش شدن دوباره هنگام فوکوس
         })
 
     useEffect(() => {
