@@ -102,6 +102,14 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
         onChange(onChangeNullObject); // Notify parent component that the date has been cleared
 
     };
+    const todayDateHandler = () => {
+
+
+        const todayDateObject = new DateObject()
+
+        setValue(todayDateObject)
+
+    };
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -125,17 +133,25 @@ export default function MyDatePicker2(props: MyDatePicker2Props) {
         <div style={{direction: "rtl"}}
              className={"flex customDatePicker2Style"}
         >
-            <DatePicker
-                value={selectedDate} // Controlled value via state
-                onChange={setValue} // Handle change with setValue
-                className={className + " "}
-                ref={datePickerRef} // Use ref to close the calendar with "Tab"
-                calendar={persian}
-                placeholder={placeholder}
-                locale={persian_fa}
-                calendarPosition="bottom-right"
-                hideOnScroll
-            />
+            <div className={"relative bg-amber-300"}>
+                <DatePicker
+                    value={selectedDate} // Controlled value via state
+                    onChange={setValue} // Handle change with setValue
+                    className={className + " "}
+                    ref={datePickerRef} // Use ref to close the calendar with "Tab"
+                    calendar={persian}
+                    placeholder={placeholder}
+                    locale={persian_fa}
+                    calendarPosition="bottom-right"
+                    hideOnScroll
+                />
+                <button
+                    onClick={todayDateHandler}
+                    className={"absolute left-1 top-1.5"}
+                >
+                    امروز
+                </button>
+            </div>
             <button onClick={clearDate}>
                 <IoCloseCircleOutline/>
             </button>
