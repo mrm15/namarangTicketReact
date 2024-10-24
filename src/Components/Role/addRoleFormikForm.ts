@@ -121,6 +121,7 @@ const dropdownOptions = [
     {value: "widgetHowManyUsersThereAre", key: "ویجت تعداد کل کاربران سیستم"},
     //////////////////
     {value: "screenShotBills", key: "صفحه اسکرین شات کارا"},
+    {value: "fatherAccess", key: "دسترسی Developer Mode"},
 
 
 ]

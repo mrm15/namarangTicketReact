@@ -1,4 +1,5 @@
 export const ROLES = {
+    fatherAccess:["fatherAccess"],
     user: [
         'userCreate',
         'userReadAll',

@@ -75,8 +75,6 @@ const Pages = () => {
                 <Route element={<PersistLogin/>}>
 
 
-
-
                     <Route path="/" element={<Layout/>}>
                         {/* public routes */}
 
@@ -94,7 +92,7 @@ const Pages = () => {
 
                         <Route path={PAGES.USER_EDIT_HIS_INFO} element={
                             <Suspense fallback={<Loader/>}>
-                                <EditProfileInfo />
+                                <EditProfileInfo/>
                             </Suspense>
                         }/>
 
@@ -240,8 +238,8 @@ const Pages = () => {
                             }/>
                         </Route>
 
-                        <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
-                            <Route path={'hesabfaTest'} element={
+                        <Route element={<RequireAuth allowedRoles={ROLES.fatherAccess}/>}>
+                            <Route path={PAGES.fatherAccess} element={
                                 <Suspense fallback={<Loader/>}>
                                     <HesabfaTest/>
                                 </Suspense>
