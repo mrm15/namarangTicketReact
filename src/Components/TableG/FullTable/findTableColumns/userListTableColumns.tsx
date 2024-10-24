@@ -109,6 +109,15 @@ export const userListTableColumns = (inputs: IInputObject) => {
             >{value.getValue()}</div>
         },
         {accessorKey: 'familyName', header: 'نام خانوادگی', size: 250},
+        {accessorKey: 'contactCode',
+            header: () => {
+                return <>
+                    <StringFilter uniqueId={"contactCode"} operator={"="} property={"contactCode"} placeHolder={"کد مشتری "}/>
+                </>
+            },
+            size: 250,
+
+        },
         {accessorKey: 'middleName', header: 'نام مستعار'},
         {accessorKey: 'phoneNumber', header: 'شماره تماس', size: 250},
         {accessorKey: 'mobile', header: 'موبایل'},
