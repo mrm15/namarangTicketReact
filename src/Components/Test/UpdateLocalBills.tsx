@@ -19,7 +19,7 @@ const UpdateLocalBills = () => {
 
         const tId = toast.loading("در حال بارگیری... در سرور");
         try {
-            const result = await myAxios.post("/hesabfa/updateBillsFile", {data: requestDate})
+            const result = await myAxios.post("/hesabfa/updateBillsFile", {myDate: requestDate})
             toast.dismiss(tId)
             toast(JSON.stringify(result.data))
         } catch (e) {
