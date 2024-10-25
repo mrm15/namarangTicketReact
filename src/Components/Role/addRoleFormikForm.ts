@@ -101,7 +101,7 @@ const dropdownOptions = [
     {value: 'submitBillInChatList', key: "ثبت فاکتور در چت لیست"},
     {value: 'saveBillAsDraft', key: "ذخیره فاکتور به صورت پیش نویس؟"},
     {value: 'saveBillAsDone', key: "ذخیره فاکتور به صورت تایید شده"},
-    {value: 'editBillInChatList', key: " ویرایش فاکتور در چت لیست  "},
+    {value: 'editBillInChatList', key: " ویرایش فاکتور در چت لیست  _ دکمه ی ویرایش در جدول فاکتور ها "},
     {value: 'deleteBill', key: "حذف یک فاکتور"},
     {value: 'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور"},
     {value: 'showReportBillList', key: "لیست فاکتور فروش و گرفتن پیوت و اکسل"},
@@ -123,6 +123,7 @@ const dropdownOptions = [
     {value: "screenShotBills", key: "صفحه اسکرین شات کارا"},
     {value: "fatherAccess", key: "دسترسی Developer Mode"},
     {value: "showMyBillListForCustomer", key: "مشاهده ی منوی  فاکتور های من"},
+    {value: "viewBills", key: " دکمه مشاهده فاکتور در جدول هایی که لازمه- برای مشتری و برای تایید فاکتور لازمه"},
 
 
 ]
