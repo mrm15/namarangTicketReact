@@ -86,9 +86,9 @@ const HesabfaTest = () => {
 
     return (
 
-        <div className={"bg-black  rounded overflow-hidden"}>
+        <div className={"bg-black  rounded overflow-hidden h-screen"}>
 
-            <div className={"bg-black text-red-600 text-center fontSize22 ltr"}>
+            <div className={"bg-black text-red-600 text-center fontSize22 ltr "}>
                 دسترسی فقط مدیر کل سایت
             </div>
             <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
