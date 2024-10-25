@@ -85,6 +85,8 @@ const SendStatus = ({
     const hasAccessVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const hasAccessDraftBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDraft[0])
     const hasAccessToGetScreenShotBills = auth?.userInfo?.roleAccessList?.includes(ROLES.screenShotBills[0])
+    const hasAccessViewBills = auth?.userInfo?.roleAccessList?.includes(ROLES.viewBills[0])
+    const hasAccessToEditBillInChatList = auth?.userInfo?.roleAccessList?.includes(ROLES.editBillInChatList[0])
 
 
     const roleAccessList = auth.userInfo?.roleAccessList;
@@ -111,22 +113,23 @@ const SendStatus = ({
               {/*  setMyData={setMyData}*/}
               {/*/>*/}
             </div>}
-            {(hasAccessVerifyBill || hasAccessDraftBill) &&
+
               <div className={"flex flex-wrap gap-1"}>
-                  <a className={"btn-small-show"} target={"_blank"} href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>
-                <div>
-                  <ForwardOnClick
-                      className={"btn-small-edit"}
-                    value={billNumber} NewPage={PAGES.submit_bill}
-                    options={{
-                        state: {
-                            data: {billNumber: billNumber}
-                        }
-                    }}
-                  />
-                </div>
+                  {hasAccessViewBills && <a className={"btn-small-show"} target={"_blank"}
+                                            href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>}
+                  {hasAccessToEditBillInChatList && <div>
+                      <ForwardOnClick
+                          className={"btn-small-edit"}
+                          value={billNumber} NewPage={PAGES.submit_bill}
+                          options={{
+                              state: {
+                                  data: {billNumber: billNumber}
+                              }
+                          }}
+                      />
+                  </div>}
               </div>
-            }
+
             {accessToDeleteBill &&
               <DeleteBill
                 setMyData={setMyData}
