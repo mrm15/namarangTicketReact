@@ -8,7 +8,7 @@ const ShowMyBillListForCustomer = () => {
 
     const ContactCode = auth.userInfo.userData.contactCode
     const defaultFilter = [
-        {property: "ContactCode", operator: "=", value: ContactCode}
+        {property: "Contact.Code", operator: "=", value: ContactCode}
     ]
 
     console.log(ContactCode)
@@ -16,7 +16,7 @@ const ShowMyBillListForCustomer = () => {
     return (
         <div>
             <TableG
-                url={"/hesabfa/getBillListData"}
+                url={"/hesabfa/getBillListData?"} // علامت سوال برای اینکه صرفا هدر جدول رو از یه جای دیگه بگیرم و این توی ارسال درخواست تاثیری نداره
                     filters={defaultFilter}
                 />
         </div>
