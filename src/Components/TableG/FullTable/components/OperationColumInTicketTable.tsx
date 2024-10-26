@@ -16,6 +16,8 @@ const OperationColumInTicketTable = ({
                                          myAxios,
                                          setMyData,
                                          myData,
+                                         uniqId,
+                                         ticketIdKey,
                                      }) => {
 
 
@@ -23,15 +25,15 @@ const OperationColumInTicketTable = ({
     const openModal = () => setOpenForwardModal(true)
     const closeModal = () => setOpenForwardModal(false)
 
-    const ticketId = row?.original?._id
+    const myUniqId = row?.original[uniqId]
+    const myTicketId = row?.original[ticketIdKey]
     const ticketTitle = row?.original?.title
-
 
 
     const {auth} = useAuth();
     //console.log(row,url,navigateTo,myAxios,setMyData,myData)
     const openTicketHandler = () => {
-        navigateTo(PAGES.ticket_chat_list, {state: {id: ticketId}})
+        navigateTo(PAGES.ticket_chat_list, {state: {id: myTicketId}})
     }
 
     const deleteRequest = "/ticket/delete/";
@@ -66,7 +68,7 @@ const OperationColumInTicketTable = ({
         `
             const confirmResult2 = confirm(message)
             if (confirmResult2) {
-                await handleDeleteTicket(ticketId)
+                await handleDeleteTicket(myUniqId)
             }
         }
     }
@@ -78,7 +80,8 @@ const OperationColumInTicketTable = ({
                   <>
 
                     <ForwardModalTable
-                      // currentParams={currentParams}
+                      ticketIdKey={ticketIdKey}
+                        // currentParams={currentParams}
                       selectedItems={[row?.original]}
                       closeModal={closeModal}
                       title={'ارجاع تیکت'}

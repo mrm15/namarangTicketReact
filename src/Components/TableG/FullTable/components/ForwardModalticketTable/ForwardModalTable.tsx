@@ -11,18 +11,18 @@ import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate.tsx";
 import Modal from "../../../../Modal/Modal.tsx";
 
 
-function ForwardModalTable({ selectedItems, setReload, ...rest}) {
+function ForwardModalTable({selectedItems, setReload, ticketIdKey, ...rest}) {
 
     const requestUrl = '/forward/submit'
     const [selectedData, setSelectedData] = useObjectDataHolder({
-        tickets: [],
+        ticketIdsArray: [],
         department: '',
         user: '',
     });
     const axiosPrivate = useAxiosPrivate()
 
     useEffect(() => {
-        setSelectedData({tickets: [...selectedItems]})
+        setSelectedData({ticketIdsArray: [...selectedItems]})
     }, [selectedItems]);
 
     const [userList, setUserList] = useState([])
@@ -30,15 +30,14 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
 
     const {data, isLoading, error} = useQuery<any>({
         queryKey: ['forwardConfig'],
-        staleTime:8600000,
+        staleTime: 8600000,
     });
-
 
 
     const onSubmit = async () => {
 
         const tempSelectedData = {...selectedData}
-        tempSelectedData.tickets = [...selectedItems]
+        tempSelectedData.ticketIdsArray = [...selectedItems]
 
 
         if (tempSelectedData.department === '' && tempSelectedData.user === '') {
@@ -46,11 +45,11 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
             return;
         }
 
-        if (tempSelectedData.tickets.length === 0) {
+        if (tempSelectedData.ticketIdsArray.length === 0) {
             toast.error('حداقل یک تیکت را انتخاب کنید.')
             return;
         }
-
+        tempSelectedData.ticketIdsArray = tempSelectedData.ticketIdsArray.map(roww => roww[ticketIdKey])
 
         try {
             const myResult = await axiosPrivate.post(requestUrl, tempSelectedData);
@@ -97,42 +96,42 @@ function ForwardModalTable({ selectedItems, setReload, ...rest}) {
                        onSubmit={onSubmit}
                 >
                     <div
-                    className={"sm:min-w-640 "}
+                        className={"sm:min-w-640 "}
                     >
 
 
-                    {data ?
-                        <>
-                            <SelectedTicketsInModal
-                                selectedItems={selectedItems}
-                            />
+                        {data ?
+                            <>
+                                <SelectedTicketsInModal
+                                    selectedItems={selectedItems}
+                                />
 
-                            {mode === 'admin' && <FullAdminSection
-                              mode={mode}
-                              departmentList={departmentList}
-                              setSelectedData={setSelectedData}
-                              userList={userList}
-                            />}
-                            {mode === 'departmentAdmin' && <DepartmentAdminViewSection
-                              mode={mode}
-                              departmentList={departmentList}
-                              setSelectedData={setSelectedData}
-                              destinationUserList={destinationUserList}
-                            />
-                            }
-                            {mode === 'usualUser' && <UsualUserViewSection
-                              mode={mode}
-                              setSelectedData={setSelectedData}
-                              destinationUserList={destinationUserList}
-                            />
-                            }
+                                {mode === 'admin' && <FullAdminSection
+                                  mode={mode}
+                                  departmentList={departmentList}
+                                  setSelectedData={setSelectedData}
+                                  userList={userList}
+                                />}
+                                {mode === 'departmentAdmin' && <DepartmentAdminViewSection
+                                  mode={mode}
+                                  departmentList={departmentList}
+                                  setSelectedData={setSelectedData}
+                                  destinationUserList={destinationUserList}
+                                />
+                                }
+                                {mode === 'usualUser' && <UsualUserViewSection
+                                  mode={mode}
+                                  setSelectedData={setSelectedData}
+                                  destinationUserList={destinationUserList}
+                                />
+                                }
 
-                        </> :
-                        <div>اطلاعات مربوط به ارجاع یافت نشد لطفا مجددا تلاش کنید. </div>
-                    }
+                            </> :
+                            <div>اطلاعات مربوط به ارجاع یافت نشد لطفا مجددا تلاش کنید. </div>
+                        }
 
-                    {/*<div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>*/}
-                    {/*<div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>*/}
+                        {/*<div className={'h-6'}>کاربر مقصد : {selectedData.user}</div>*/}
+                        {/*<div className={'h-6'}>دپارتمان مقصد : {selectedData.department}</div>*/}
                     </div>
                 </Modal>
             </div>

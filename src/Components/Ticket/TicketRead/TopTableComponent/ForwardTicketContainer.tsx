@@ -26,6 +26,7 @@ const ForwardTicketContainer = () => {
                 ارجاع چندتایی
             </button>
             {isOpen && <ForwardModalTable
+              ticketIdKey={"_id"}
               closeModal={closeModal}
               currentParams={""}
               selectedItems={myData.checkedItems}

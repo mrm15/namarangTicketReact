@@ -124,6 +124,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                         myAxios={myAxios}
                         setMyData={setMyData}
                         myData={myData}
+                        uniqId={"_id"}
+                        ticketIdKey={"_id"}
 
                     />
                 </>
