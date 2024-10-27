@@ -20,6 +20,8 @@ const OperationColumInTicketTable = ({
                                          ticketIdKey,
                                      }) => {
 
+    // اگه کاربر من توی صفحه ی صندوق ورودی خودش بود یا اینکه توی صفحه ی صندوق ورودی دپارتمان بود پس باید بعد از اینکه روی گزینه ی مشاهده کلیک کرد. باید یه تابع رو اجرا کنم.
+
 
     const [openForwardModal, setOpenForwardModal] = useState(false)
     const openModal = () => setOpenForwardModal(true)
