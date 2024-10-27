@@ -42,7 +42,7 @@ const deleteCacheOnActive = (CACHE_NAME) => {
       }
     })).then(() => {
       // Send message to the React app after cache activation
-      sendMessageToClients({ type: 'CACHE_UPDATED', cacheName: CACHE_NAME })
+      //sendMessageToClients({ type: 'CACHE_UPDATED', cacheName: CACHE_NAME })
 
     });
   });
