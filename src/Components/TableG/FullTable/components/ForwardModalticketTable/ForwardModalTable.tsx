@@ -11,7 +11,7 @@ import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate.tsx";
 import Modal from "../../../../Modal/Modal.tsx";
 
 
-function ForwardModalTable({selectedItems, setReload, ticketIdKey, ...rest}) {
+function ForwardModalTable({selectedItems, setReload, ...rest}) {
 
     const requestUrl = '/forward/submit'
     const [selectedData, setSelectedData] = useObjectDataHolder({
@@ -23,7 +23,7 @@ function ForwardModalTable({selectedItems, setReload, ticketIdKey, ...rest}) {
 
     useEffect(() => {
         setSelectedData({ticketIdsArray: [...selectedItems]})
-    }, [selectedItems]);
+    }, [selectedItems, setSelectedData])
 
     const [userList, setUserList] = useState([])
 
@@ -49,7 +49,7 @@ function ForwardModalTable({selectedItems, setReload, ticketIdKey, ...rest}) {
             toast.error('حداقل یک تیکت را انتخاب کنید.')
             return;
         }
-        tempSelectedData.ticketIdsArray = tempSelectedData.ticketIdsArray.map(roww => roww[ticketIdKey])
+        tempSelectedData.ticketIdsArray = tempSelectedData.ticketIdsArray.map(row => row._id)
 
         try {
             const myResult = await axiosPrivate.post(requestUrl, tempSelectedData);
