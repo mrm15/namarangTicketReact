@@ -24,10 +24,13 @@ const CheckBoxHeader = ({info}) => {
         console.log(tempCheckedItems)
 
 
+        const uniqueTableDataItems = Array.from(
+            new Map(myData.tableData.map(item => [item['_id'], item])).values()
+        );
         // شاید کاربر زده باشه صفحه ی بعدی و بخواد مقادیر جدید رو وارد کنه پس باید مقادیر قبلی که توی آرایه بودن رو نگه داریم
         setMyData({
             checkedItems: (isChecked
-                ? [...tempCheckedItems, ...myData.tableData] // Merge existing checked items and new table data
+                ? [...tempCheckedItems, ...uniqueTableDataItems] // Merge existing checked items and new table data
                 : []),
 
         })
