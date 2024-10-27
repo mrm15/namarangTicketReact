@@ -26,7 +26,7 @@ const OperationColumInTicketTable = ({
     const closeModal = () => setOpenForwardModal(false)
 
     const myUniqId = row?.original[uniqId]
-    const myTicketId = row?.original[ticketIdKey]
+    const myTicketId = row?.original?._id
     const ticketTitle = row?.original?.title
 
 
@@ -80,7 +80,6 @@ const OperationColumInTicketTable = ({
                   <>
 
                     <ForwardModalTable
-                      ticketIdKey={ticketIdKey}
                         // currentParams={currentParams}
                       selectedItems={[row?.original]}
                       closeModal={closeModal}
