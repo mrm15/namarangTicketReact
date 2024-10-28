@@ -40,7 +40,7 @@ const MarkAsReadTicketAssignments = () => {
                 idArray: ticketAssignmentIdsArray,
                 newStatus: true
             })
-            debugger
+
             if (resultMessage) {
                 updateToast(toastId, "خوانده شده تغییر یافت", true);
                 closeModal();
