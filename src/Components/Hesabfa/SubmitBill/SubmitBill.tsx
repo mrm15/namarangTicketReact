@@ -145,8 +145,8 @@ const SubmitBill = () => {
                 });
 
                 setInitialBillData({
-                    productList: productListUseQuery?.data?.data.List,
-                    projectList: temp222,
+                    projectList: productListUseQuery?.data?.data.List,
+                    productList: temp222,
                 });
             }
         }, [projectListUseQuery.data, productListUseQuery.data]);
@@ -219,8 +219,8 @@ const SubmitBill = () => {
                 <div className={"relative w-full"}>
                     {billDetailsData.isError && <button
 
-                        onClick={() => billDetailsData.refetch()}
-                        className={"badge-bg-red-text-red"}> تلاش دوباره - خطا در دریافت اطلاعات</button>}
+                      onClick={() => billDetailsData.refetch()}
+                      className={"badge-bg-red-text-red"}> تلاش دوباره - خطا در دریافت اطلاعات</button>}
 
                     {isLoading ? <Loader/> :
                         <div>
