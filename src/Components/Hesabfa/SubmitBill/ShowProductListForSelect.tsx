@@ -15,7 +15,7 @@ import {useNavigate} from "react-router-dom";
 
 
 const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
-    // @ts-ignore
+
     const {auth} = useAuth();
 
 
