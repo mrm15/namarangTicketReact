@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import {showErrorToast, showLoadingToast, showSimpleToast, updateToast} from "../../../../utils/toastUtils.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {nanoid} from "@reduxjs/toolkit";
+import useChangeTicketReadStatus from "../../../../hooks/useChangeTicketReadStatus.tsx";
 
 const MarkAsReadTicketAssignments = () => {
     const context = useContext(TableGContext);
@@ -27,27 +28,30 @@ const MarkAsReadTicketAssignments = () => {
         openModal()
     }
 
-    const myAxios = useAxiosPrivate()
+    const myAxios = useAxiosPrivate();
+    const changeReadStatus = useChangeTicketReadStatus()
     const ticketAssignmentIdsArray = myData.checkedItems.map(row => row.ticketAssignedId)
     const sendReadMessage = async () => {
-        let tId: any;
+        let toastId: any;
         try {
-            tId = toast.loading("در حال تغییر وضعیت پیام ها")
-            const result = await myAxios.post("/ticket/markAsReadTicketAssignments", {
-                ticketAssignmentIdsArray,
-                readStatus: true
+            toastId = toast.loading("در حال تغییر وضعیت پیام‌ها...")
+            const resultMessage = await changeReadStatus({
+                ticketType: "assignment",
+                idArray: ticketAssignmentIdsArray,
+                newStatus: true
             })
-
-
-            updateToast(tId, "تغییر وضعیت انجام شد", true);
-            closeModal()
-            setMyData({reload:nanoid(3)})
+            debugger
+            if (resultMessage) {
+                updateToast(toastId, "خوانده شده تغییر یافت", true);
+                closeModal();
+                setMyData({reload: nanoid(3)});
+            }else {
+                updateToast(toastId, "عملیات شکست خورد", false);
+            }
         } catch (error) {
-            updateToast(tId, "عملیات شکست خورد", false);
+            updateToast(toastId, "عملیات شکست خورد", false);
         }
-
-    }
-
+    };
     return (
         <>
             {isOpenModal && (
