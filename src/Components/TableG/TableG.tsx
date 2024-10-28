@@ -34,7 +34,7 @@ const TableG = ({
 
     const resultOfUseQuery =
         useQuery({
-            queryKey: [myData.url, myData.pageNumber, myData.numberOfRows, myData.filters],
+            queryKey: [myData.url, myData.pageNumber, myData.numberOfRows, myData.filters , myData.reload],
             // url: string, myAxios: any, page: number, pageSize: number, filters: any
             queryFn: () => fetchTableData(url, myAxios, myData.pageNumber, myData.numberOfRows, myData.filters),
             staleTime: 86400000,  // === 60*60*24*1000
