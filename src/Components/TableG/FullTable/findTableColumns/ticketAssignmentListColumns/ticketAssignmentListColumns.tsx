@@ -14,6 +14,7 @@ import DateShowTimeStampToDateLtr from "../../components/DateShowTimeStampToDate
 import useAuth from "../../../../../hooks/useAuth.tsx";
 import {getMenus} from "../../../../SideBar/menus.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
+import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -145,7 +146,7 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
             accessorKey: 'ticketNumber',
             header: () => {
 
-                return <StringFilter uniqueId={"ticketNumber"} operator={"*"} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
+                return <NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
 
             },
 
