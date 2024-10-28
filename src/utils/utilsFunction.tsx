@@ -5,7 +5,8 @@ import jalaali from 'jalaali-js';
 /*********************************************/
 import DateObject from "react-date-object"; // Import DateObject
 import gregorian from "react-date-object/calendars/gregorian";
-import gregorian_en from "react-date-object/locales/gregorian_en"; // Import Gregorian calendar
+import gregorian_en from "react-date-object/locales/gregorian_en";
+import {PAGES} from "../Pages/Route-string.tsx"; // Import Gregorian calendar
 
 export const dateObjectToIso8601 = (dateObject: DateObject | null): string | null => {
     if (!dateObject) {
@@ -36,6 +37,9 @@ export const iso8601ToDateObject = (isoString: string | null): DateObject | null
 };
 
 
+export const userIsInInboxPageOrInboxDepartmentPage = () =>
+    window.location.href.includes(PAGES.ticket_read_assign_tickets_inbox) ||
+    window.location.href.includes(PAGES.ticket_read_department_tickets);
 
 /*********************************************/
 
