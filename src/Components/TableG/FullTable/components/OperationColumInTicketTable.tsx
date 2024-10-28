@@ -8,6 +8,8 @@ import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 import {FaShareSquare} from "react-icons/fa";
 import ForwardModal from "../../../Ticket/ForwardModal/ForwardModal.tsx";
 import ForwardModalTable from "./ForwardModalticketTable/ForwardModalTable.tsx";
+import useChangeTicketReadStatus from "../../../../hooks/useChangeTicketReadStatus.tsx";
+import openTicketActions from "./openTicketActions.tsx";
 
 const OperationColumInTicketTable = ({
                                          row,
@@ -34,7 +36,9 @@ const OperationColumInTicketTable = ({
 
     const {auth} = useAuth();
     //console.log(row,url,navigateTo,myAxios,setMyData,myData)
-    const openTicketHandler = () => {
+    const changeReadStatus = useChangeTicketReadStatus()
+    const openTicketHandler = async () => {
+        await openTicketActions({row, changeReadStatus})
         navigateTo(PAGES.ticket_chat_list, {state: {id: myTicketId}})
     }
 
