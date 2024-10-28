@@ -1,38 +1,43 @@
-import useAuth from "./useAuth.js";
+// hooks/useChangeTicketReadStatus.tsx
 import useAxiosPrivate from "./useAxiosPrivate.tsx";
 
 interface PropType {
     ticketType: "ticket" | "assignment";
+    idArray: any[];
     newStatus: boolean;
-    idArray: any[]
 }
 
-const useChangeTicketReadStatus = ({ticketType, idArray, newStatus}: PropType) => {
-
-    let url = "";
-    let data = {};
-    if (ticketType === "assignment") {
-        url = "";
-        data = {
-            rrr: idArray
-        }
-    } else {
-        url = "/"
-        data = {
-            rrr: idArray
-        }
-    }
-
+const useChangeTicketReadStatus = () => {
     const myPrivateAxios = useAxiosPrivate()
-    const changeReadStatus = async () => {
-        try {
-            await myPrivateAxios.post(url, data);
-        } catch (err) {
-            console.error(err);
+
+    const changeReadStatus = async ({ ticketType, idArray, newStatus }: PropType) => {
+        let url = "";
+        let data = {};
+
+        if (ticketType === "assignment") {
+            url = "/ticket/markAsReadTicketAssignments"; // Update to the actual endpoint for assignments
+            data = {
+                idArray: idArray,
+                readStatus: newStatus
+            };
+        } else if (ticketType === "ticket") {
+            url = "/ticket/markAsReadTickets"; // Update to the actual endpoint for tickets
+            data = {
+                ticketAssignmentIdsArray123: idArray,
+                readStatus: newStatus
+            };
         }
-    }
+
+        try {
+            const response = await myPrivateAxios.post(url, data);
+            return response?.data?.message
+        } catch (err) {
+            console.error("Failed to update read status:", err);
+            throw err;
+        }
+    };
 
     return changeReadStatus;
-}
+};
 
-export default useChangeTicketReadStatus
+export default useChangeTicketReadStatus;
