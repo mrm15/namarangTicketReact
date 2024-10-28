@@ -28,7 +28,6 @@ const MarkAsReadTicketAssignments = () => {
         openModal()
     }
 
-    const myAxios = useAxiosPrivate();
     const changeReadStatus = useChangeTicketReadStatus()
     const ticketAssignmentIdsArray = myData.checkedItems.map(row => row.ticketAssignedId)
     const sendReadMessage = async () => {
@@ -42,8 +41,8 @@ const MarkAsReadTicketAssignments = () => {
             })
 
             if (resultMessage) {
-                updateToast(toastId, "خوانده شده تغییر یافت", true);
-                closeModal();
+                updateToast(toastId, "خوانده شده.", true);
+                closeModal()
                 setMyData({reload: nanoid(3)});
             }else {
                 updateToast(toastId, "عملیات شکست خورد", false);
