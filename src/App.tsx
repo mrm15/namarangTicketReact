@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import React, {useEffect, useRef} from "react";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary.tsx";
 import UpdateInfo from "./UpdateInfo.tsx";
-
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
     const offlineToastRef = useRef<any>(null);
@@ -38,6 +38,12 @@ const App: React.FC = () => {
 
     return (
         <>
+            <div className={"rtl"}>
+                <Toaster
+
+                    reverseOrder={true}
+                />
+            </div>
             <UpdateInfo/>
             <ToastContainer
                 position="bottom-left"
@@ -47,9 +53,9 @@ const App: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            {/*<ErrorBoundary>*/}
+            <ErrorBoundary>
                 <Pages/>
-            {/*</ErrorBoundary>*/}
+            </ErrorBoundary>
         </>
     );
 };
