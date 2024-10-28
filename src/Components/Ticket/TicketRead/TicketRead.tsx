@@ -25,7 +25,9 @@ function TicketRead({view}) {
     try {
 
         const boldRowCondition = (row?: any) => {
-            return !(row?.original?.readStatus)
+            const readStatus = row?.original?.readStatus
+            return readStatus === false;
+            //return !(row?.original?.readStatus)
             // return false
         }
 
