@@ -2,8 +2,7 @@ import React, {useContext, useState} from 'react';
 import {TableGContext} from "../../../TableG/TableGContext.tsx";
 import Modal from "../../../Modal/Modal.tsx";
 import toast from 'react-hot-toast';
-import {showErrorToast, showLoadingToast, showSimpleToast, updateToast} from "../../../../utils/toastUtils.tsx";
-import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
+import {showErrorToast, updateToast} from "../../../../utils/toastUtils.tsx";
 import {nanoid} from "@reduxjs/toolkit";
 import useChangeTicketReadStatus from "../../../../hooks/useChangeTicketReadStatus.tsx";
 
@@ -44,7 +43,7 @@ const MarkAsReadTicketAssignments = () => {
                 updateToast(toastId, "خوانده شده.", true);
                 closeModal()
                 setMyData({reload: nanoid(3)});
-            }else {
+            } else {
                 updateToast(toastId, "عملیات شکست خورد", false);
             }
         } catch (error) {
