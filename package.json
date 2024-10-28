@@ -46,6 +46,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-date-object": "^2.1.8",
     "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
     "react-multi-date-picker": "^4.4.1",
     "react-redux": "^8.1.1",
