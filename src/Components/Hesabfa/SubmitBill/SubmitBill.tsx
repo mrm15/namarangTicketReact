@@ -45,7 +45,7 @@ const SubmitBill = () => {
         const myLocation = useLocation();
         const myStateData = myLocation?.state?.data;
         const myTag = {
-            tn: myStateData.ticketNumber,
+            tn: myStateData?.ticketNumber,
             n: auth?.userInfo?.userData?.name // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
         }
 
