@@ -5,13 +5,16 @@ import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {submitBill} from "../../../config/api.tsx";
-import {toast} from "react-toastify";
+import axios from "axios"; // Import axios to use axios.isCancel
+
 import {
     formatNumber,
     timestampToFormattedDateToSendHesabfa,
     timestampToTimeFromHesabfa
 } from "../../../utils/utilsFunction.tsx";
 import {useNavigate} from "react-router-dom";
+import toast from "react-hot-toast";
+import useAxiosPrivate2 from "../../../hooks/useAxiosPrivate2.tsx";
 
 
 const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
@@ -36,30 +39,203 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
     const myAxiosPrivate = useAxiosPrivate()
 
-    const sendFactorForSave = async (newStatus: 0 | 1) => {
-        const Date = timestampToFormattedDateToSendHesabfa(invoice.Date)
-        const DueDate = timestampToFormattedDateToSendHesabfa(invoice.DueDate)
-        const customInvoice = {...invoice, Date, DueDate,}
+
+    interface RetryToastProps {
+        message: string;
+        onRetry: () => void;
+    }
+
+    const RetryToast: React.FC<RetryToastProps> = ({message, onRetry}) => (
+        <div className="flex items-center justify-between p-4 bg-red-600 text-white rounded-md shadow-md">
+            <span>{message}</span>
+            <button
+                onClick={() => {
+                    toast.dismiss();
+                    onRetry();
+                }}
+                className="ml-4 bg-white text-red-600 px-3 py-1 rounded-md font-semibold"
+            >
+                تلاش مجدد
+            </button>
+        </div>
+    );
+
+
+    // Refactored function
+    const sendFactorForSave1 = async (newStatus: 0 | 1) => {
+        debugger
+        const Date = invoice.Date
+        const DueDate = invoice.DueDate
+        const customInvoice = {...invoice, Date, DueDate};
+
+        // Define data payload
         const data = {
             billData,
             invoice: {
                 ...customInvoice,
-                Status: newStatus
+                Status: newStatus,
+            },
+        };
+
+        let tId: string | undefined; // Type for toast ID
+        try {
+            // Show loading toast
+            tId = toast.loading("در حال ارسال اطلاعات...");
+
+            // Send data to the API
+            const result = await myAxiosPrivate.post(submitBill, data);
+
+            // Dismiss loading toast
+            toast.dismiss(tId);
+
+            // Check response status and show success message
+            if (result.status === 200) {
+                const successMessage = newStatus === 0 ? "فاکتور پیش‌نویس شد." : "فاکتور تأیید شد.";
+                toast.success(result.data.message || successMessage);
+                navigateTo(-1); // Redirect after success
             }
+        } catch (error) {
+            // Dismiss loading toast and show error toast
+            toast.dismiss(tId);
+            toast.error("ارسال اطلاعات با خطا مواجه شد.");
+            console.error("Error sending data:", error);
         }
-        const tId = toast.loading("در حال ارسال اطلاعات...")
-        const result = await myAxiosPrivate.post(submitBill, data);
-        // هر کاری بعد از ذخیره فاکتور میخوای انجام بدی اینجا انجام بده
-        toast.dismiss(tId)
+    };
+    const ToastMessage = () => {
+        const [timer, setTimer] = useState(0);
+        setTimeout(() => setTimer(timer + 1), 1000)
+        return (<div
+            className="flex items-center justify-between p-4 bg-white rounded shadow-md">
+            {timer}
+            &nbsp;
+            &nbsp;
+            ثانیه
 
-        if (result.status === 200) {
-
-            // const text = newStatus ===0 ? "پیش نویس " : "تایید"
-            // toast.success("فاکتور "+`«${text}»` + "شد ")
-            toast.success(result?.data?.message)
-            navigateTo(-1)
-        }
+            در حال ارسال اطلاعات...
+        </div>)
     }
+
+    const sendFactorForSave2 = async (newStatus: 0 | 1) => {
+        const TIMEOUT_DURATION = 10000; // 10 seconds
+        const Date = invoice.Date;
+        const DueDate = invoice.DueDate;
+        const customInvoice = {...invoice, Date, DueDate};
+        const data = {
+            billData,
+            invoice: {
+                ...customInvoice,
+                Status: newStatus,
+            },
+        };
+
+        const sendRequest = async () => {
+            const controller = new AbortController(); // Create a new AbortController
+            let tId: string | undefined;
+
+            // Set up a timeout to cancel the request after TIMEOUT_DURATION
+            const timeout = setTimeout(() => {
+                debugger
+                throw new Error("")
+            }, TIMEOUT_DURATION);
+
+
+            // tId = toast.custom(<ToastMessage/>);
+            tId = toast.loading("در حال ارسال اطلاعات")
+            myAxiosPrivate.post(submitBill, data, {signal: controller.signal})
+                .then(result => {
+                    toast.dismiss(tId);
+                    clearTimeout(timeout);
+                    if (result.status === 200) {
+                        const successMessage = newStatus === 0 ? "فاکتور پیش‌نویس شد." : "فاکتور تأیید شد.";
+                        toast.success(result.data.message || successMessage);
+                        navigateTo(-1); // Redirect after success
+                    }
+                })
+                .catch(error => {
+                    toast.dismiss(tId);
+
+                    if (error.name === "AbortError" || error.message === "Request timed out") {
+                        // Show timeout toast with retry option
+                        toast.custom(
+                            <RetryToast
+                                message="درخواست زمان زیادی برد! دوباره تلاش کنید."
+                                onRetry={() => sendFactorForSave(newStatus)} // Retry the request
+                            />
+                        );
+                    } else {
+                        // Show generic error message for other errors
+                        toast.error("ارسال اطلاعات با خطا مواجه شد.");
+                        console.error("Error sending data:", error);
+                    }
+                })
+
+
+        };
+
+        await sendRequest();
+    };
+
+    const { axiosInstance, cancelToken, cancel } = useAxiosPrivate2().getCancelableRequest(); // Get cancelable request setup
+    const myAxios2 = useAxiosPrivate2().axiosPrivate
+    const sendFactorForSave = async (newStatus: 0 | 1) => {
+        const TIMEOUT_DURATION = 10000; // 10 seconds
+
+        const Date = invoice.Date;
+        const DueDate = invoice.DueDate;
+        const customInvoice = { ...invoice, Date, DueDate };
+        const data = {
+            billData,
+            invoice: {
+                ...customInvoice,
+                Status: newStatus,
+            },
+        };
+
+        const sendRequest = async () => {
+            let tId: string | undefined;
+            tId = toast.loading("در حال ارسال اطلاعات...");
+
+            // Set up a timeout to cancel the request after TIMEOUT_DURATION
+            const timeout = setTimeout(() => {
+                cancel(); // Cancel the request if timeout is reached
+                toast.dismiss(tId);
+                toast.custom(
+                    <RetryToast
+                        message="درخواست زمان زیادی برد! دوباره تلاش کنید."
+                        onRetry={() => sendFactorForSave(newStatus)} // Retry the request on button click
+                    />
+                );
+            }, TIMEOUT_DURATION);
+
+            try {
+                const result = await axiosInstance.post(submitBill, data, { cancelToken });
+
+                // Clear the timeout if request completes successfully before TIMEOUT_DURATION
+                clearTimeout(timeout);
+                toast.dismiss(tId);
+
+                if (result.status === 200) {
+                    const successMessage = newStatus === 0 ? "فاکتور پیش‌نویس شد." : "فاکتور تأیید شد.";
+                    toast.success(result.data.message || successMessage);
+                    navigateTo(-1); // Redirect after success
+                }
+            } catch (error: any) {
+                clearTimeout(timeout); // Clear timeout in case of any error
+                toast.dismiss(tId);
+
+                if (axios.isCancel(error)) {
+                    console.log("Request was canceled:", error.message);
+                } else {
+                    toast.error("ارسال اطلاعات با خطا مواجه شد.");
+                    console.error("Error sending data:", error);
+                }
+            }
+        };
+
+        await sendRequest();
+    };
+
+
 
     try {
         return (
