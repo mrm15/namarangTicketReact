@@ -27,7 +27,7 @@ export interface IInvoiceItem {
     fixedPrice?: number;
     dividedBy?: number;
     // selectedUnit?: string;
-    Units?: IUnit[];
+    Units?: IUnit[]|[];
     sum?: number;
 }
 
@@ -45,11 +45,11 @@ export interface IInvoice {
     Status: number;
     Tag: string;
     InvoiceItems?: IInvoiceItem[] | [];
-    Others: IOther[];
+    Others: IOther[]|[];
     Currency: string;
     TaxId: string;
     CurrencyRate: number;
-    Project: "";
+    Project: string;
     Sum: number;
 }
 
@@ -60,8 +60,9 @@ export interface IProjectList {
 }
 
 export interface IInitialBillData {
-    productList?: any[],
     projectList?: IProjectList[] | [],
-    customerList?: any[],
+    invoice: IInvoice,
+    billNumber:string | undefined,
+    billData:any,
 
 }
