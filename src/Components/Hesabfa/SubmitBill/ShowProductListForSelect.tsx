@@ -134,6 +134,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
             // Set up a timeout to cancel the request after TIMEOUT_DURATION
             const timeout = setTimeout(() => {
+                toast.dismiss(tId)
                 toast.custom(
                     <RetryToast
                         message="درخواست زمان زیادی برد! دوباره تلاش کنید."
