@@ -14,7 +14,6 @@ import {
 } from "../../../utils/utilsFunction.tsx";
 import {useNavigate} from "react-router-dom";
 import toast from "react-hot-toast";
-import useAxiosPrivate2 from "../../../hooks/useAxiosPrivate2.tsx";
 
 
 const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
@@ -63,7 +62,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
     // Refactored function
     const sendFactorForSave1 = async (newStatus: 0 | 1) => {
-        debugger
+
         const Date = invoice.Date
         const DueDate = invoice.DueDate
         const customInvoice = {...invoice, Date, DueDate};
@@ -115,70 +114,9 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
         </div>)
     }
 
-    const sendFactorForSave2 = async (newStatus: 0 | 1) => {
-        const TIMEOUT_DURATION = 10000; // 10 seconds
-        const Date = invoice.Date;
-        const DueDate = invoice.DueDate;
-        const customInvoice = {...invoice, Date, DueDate};
-        const data = {
-            billData,
-            invoice: {
-                ...customInvoice,
-                Status: newStatus,
-            },
-        };
 
-        const sendRequest = async () => {
-            const controller = new AbortController(); // Create a new AbortController
-            let tId: string | undefined;
-
-            // Set up a timeout to cancel the request after TIMEOUT_DURATION
-            const timeout = setTimeout(() => {
-                debugger
-                throw new Error("")
-            }, TIMEOUT_DURATION);
-
-
-            // tId = toast.custom(<ToastMessage/>);
-            tId = toast.loading("در حال ارسال اطلاعات")
-            myAxiosPrivate.post(submitBill, data, {signal: controller.signal})
-                .then(result => {
-                    toast.dismiss(tId);
-                    clearTimeout(timeout);
-                    if (result.status === 200) {
-                        const successMessage = newStatus === 0 ? "فاکتور پیش‌نویس شد." : "فاکتور تأیید شد.";
-                        toast.success(result.data.message || successMessage);
-                        navigateTo(-1); // Redirect after success
-                    }
-                })
-                .catch(error => {
-                    toast.dismiss(tId);
-
-                    if (error.name === "AbortError" || error.message === "Request timed out") {
-                        // Show timeout toast with retry option
-                        toast.custom(
-                            <RetryToast
-                                message="درخواست زمان زیادی برد! دوباره تلاش کنید."
-                                onRetry={() => sendFactorForSave(newStatus)} // Retry the request
-                            />
-                        );
-                    } else {
-                        // Show generic error message for other errors
-                        toast.error("ارسال اطلاعات با خطا مواجه شد.");
-                        console.error("Error sending data:", error);
-                    }
-                })
-
-
-        };
-
-        await sendRequest();
-    };
-
-    const { axiosInstance, cancelToken, cancel } = useAxiosPrivate2().getCancelableRequest(); // Get cancelable request setup
-    const myAxios2 = useAxiosPrivate2().axiosPrivate
     const sendFactorForSave = async (newStatus: 0 | 1) => {
-        const TIMEOUT_DURATION = 10000; // 10 seconds
+        const TIMEOUT_DURATION = 3000; // 10 seconds
 
         const Date = invoice.Date;
         const DueDate = invoice.DueDate;
@@ -192,13 +130,10 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
         };
 
         const sendRequest = async () => {
-            let tId: string | undefined;
-            tId = toast.loading("در حال ارسال اطلاعات...");
+            const tId: string | undefined = toast.loading("در حال ارسال اطلاعات...");
 
             // Set up a timeout to cancel the request after TIMEOUT_DURATION
             const timeout = setTimeout(() => {
-                cancel(); // Cancel the request if timeout is reached
-                toast.dismiss(tId);
                 toast.custom(
                     <RetryToast
                         message="درخواست زمان زیادی برد! دوباره تلاش کنید."
@@ -208,7 +143,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
             }, TIMEOUT_DURATION);
 
             try {
-                const result = await axiosInstance.post(submitBill, data, { cancelToken });
+                const result = await myAxiosPrivate.post(submitBill, data);
 
                 // Clear the timeout if request completes successfully before TIMEOUT_DURATION
                 clearTimeout(timeout);
