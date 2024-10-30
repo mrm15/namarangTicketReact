@@ -18,11 +18,9 @@ import toast from "react-hot-toast";
 
 const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) => {
 
-    const {auth} = useAuth();
-
-
+    const {auth} = useAuth()
     const navigateTo = useNavigate()
-    const roleAccessList = auth.userInfo?.roleAccessList;
+    const roleAccessList = auth.userInfo?.roleAccessList
     const canSaveFactorAsDraft = roleAccessList.includes(ROLES.saveBillAsDraft[0])
     const canSaveFactorAsDone = roleAccessList.includes(ROLES.saveBillAsDone[0])
 
@@ -120,7 +118,7 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
 
         const Date = invoice.Date;
         const DueDate = invoice.DueDate;
-        const customInvoice = { ...invoice, Date, DueDate };
+        const customInvoice = {...invoice, Date, DueDate};
         const data = {
             billData,
             invoice: {
@@ -172,7 +170,6 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
     };
 
 
-
     try {
         return (
             <div className={'w-full flex flex-wrap justify-between'}>
@@ -202,9 +199,9 @@ const ShowProductListForSelect = ({productList, onSelect, invoice, billData}) =>
                     </button>
 
                     {canSaveFactorAsDraft &&
-                      <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}
+                        <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}
                     {canSaveFactorAsDone &&
-                      <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}>تایید </button>}
+                        <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}>تایید </button>}
                 </div>
 
             </div>
