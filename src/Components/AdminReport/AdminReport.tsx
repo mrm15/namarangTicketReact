@@ -6,6 +6,7 @@ import AdminReportFilter from "./AdminReportFilter.tsx";
 import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
 import {useQuery} from "@tanstack/react-query";
 import SummaryTable from "./SummaryTable/SummaryTable.tsx";
+import FetchingAdminReport from "./FetchingAdminReport.tsx";
 
 const AdminReport = () => {
 
@@ -13,9 +14,7 @@ const AdminReport = () => {
     const {myData, setMyData} = context;
 
 
-
     const [showReportTable, setShowReportTable] = useState(true); // State to manage the visibility of ReportTable
-
 
 
     if (!myData || !setMyData) {
@@ -25,12 +24,15 @@ const AdminReport = () => {
     return (
         <div className={"fontSize075rem"}>
             <AdminReportFilter/>
+            {myData?.resultOfUseQuery?.isFetching &&
+            <FetchingAdminReport/>
+            }
             {
                 !myData.isLoading ?
                     <>
                         <SummaryReport/>
                         <hr/>
-                    </> : <>در حال بارگزاری...</>
+                    </> : <FetchingAdminReport/>
             }
         </div>
     );
