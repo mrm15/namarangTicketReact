@@ -1,0 +1,105 @@
+.InvoiceTableItems {
+  font-size: 0.75em;
+  width: 100%;
+
+  .table__header {
+    font-weight: bold;
+  }
+
+
+  .select__in__table {
+    appearance: none !important;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    option{
+      margin: 5px;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+  }
+  .select__in__table:focus{
+    outline: none;
+  }
+
+  ul {
+    width: fit-content;
+    display: flex;
+    border-bottom: 1px solid gray;
+    &:first-child {
+      border-top: 1px solid gray;
+      text-align: center;
+    }
+
+    li {
+
+      border-left: 1px solid gray;
+      padding: 5px;
+
+      &:first-child {
+        border-right: 1px solid gray;
+        width: 50px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:nth-child(2) {
+        width: 150px;
+      }
+
+      &:nth-child(3) {
+        width: 100px;
+      }
+
+      &:nth-child(4) {
+        width: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:nth-child(5) {
+        width: 100px;
+      }
+
+      &:nth-child(6) {
+        width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:nth-child(7) {
+        width: 100px;
+      }
+
+      &:nth-child(8) {
+        width: 130px;
+      }
+
+      &:nth-child(9) {
+        width: 100px;
+        //display: block;
+        display: flex;
+        //text-align: center;
+        justify-content: center;
+        //align-items: center;
+      }
+
+
+
+      .input__text__full {
+        width: 100%;
+        height: 100%;
+        text-align: center;
+      }
+
+      .input__text__full:focus {
+        outline: none;
+      }
+    }
+  }
+}
