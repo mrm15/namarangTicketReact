@@ -33,12 +33,12 @@
 }
 
 /* animation */
-@keyframes pulse {
+@keyframes pulseSkeleton {
     50% {
         opacity: .5;
     }
 }
 
-.animate-pulse {
-    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+.animate-pulse-my-skeleton {
+    animation: pulseSkeleton 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
