@@ -148,7 +148,7 @@ const InvoiceTable = () => {
                                         <InputDotToSlash
                                             onClick={(e) => (e.target as HTMLInputElement).select()}
                                             onChange={(myNewString) => handleQuantityChange(row.Id, myNewString)}
-                                            className={'input__text__ftrl'}
+                                            className={'input__text__full ltr'}
                                             type={'text'}
                                             value={(row.Quantity)}
                                         />
