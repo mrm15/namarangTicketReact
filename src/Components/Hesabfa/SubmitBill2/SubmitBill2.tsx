@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {SubmitBillProvider} from "./submitBillContext";
 import GetSubmitBillData from "./GetSubmitBillData.tsx";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
 import DateObject from "react-date-object";
 import {dateObjectToIso8601} from "../../../utils/utilsFunction.tsx";
@@ -10,6 +10,7 @@ import TwoTopButtons from "./components/TwoTopButtons.tsx";
 import InvoiceData from "./components/InvoiceData.tsx";
 import InvoiceTable from "./components/InvoiceTable.tsx";
 import "./InvoiceTableItems.scss"
+import {ROLES} from "../../../Pages/ROLES.tsx";
 
 
 const SubmitBill2 = () => {
@@ -69,22 +70,31 @@ const SubmitBill2 = () => {
         billData: componentInfo,
     }
 
+    const roleAccessList = auth.userInfo?.roleAccessList
+    const canSaveFactorAsDraft = roleAccessList.includes(ROLES.saveBillAsDraft[0])
+    const canSaveFactorAsDone = roleAccessList.includes(ROLES.saveBillAsDone[0])
+    const canShowProductList = canSaveFactorAsDone || canSaveFactorAsDraft
 
     return (
         <SubmitBillProvider initialData={initial}>
 
-            <GetSubmitBillData >
-            <div className={`myResponsiveWidthMenuOpen `}>
-                <div className={"flex"}>
-                    <ShowProductListForSelect/>
-                    <TwoTopButtons/>
+            <GetSubmitBillData>
+                <div className={`myResponsiveWidthMenuOpen `}>
+                    {canShowProductList && <div className={"flex flex-wrap w-full mb-3"}>
+                        <div className={"flex-grow min__width__200"}>
+                            <ShowProductListForSelect/>
+                        </div>
+                        <div className={"flex items-center"}>
+                            <div className={"sm:mx-2"}>
+                                <TwoTopButtons/>
+                            </div>
+                        </div>
+                    </div>}
+                    <InvoiceData/>
+                    <InvoiceTable/>
+
+
                 </div>
-
-                <InvoiceData/>
-                <InvoiceTable/>
-
-
-            </div>
             </GetSubmitBillData>
         </SubmitBillProvider>
     );

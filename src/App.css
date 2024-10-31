@@ -124,6 +124,9 @@ html {
     border: 1px solid gray;
     border-radius: 5px;
 }
+.min__width__200{
+    min-width: 200px;
+}
 .width__90_Percent{
     width: 90% !important;
 }

@@ -103,9 +103,8 @@ const TwoTopButtons = () => {
 
 
     return (
-        <div className={'flex flex-wrap w-52'}>
+        <div className={'flex flex-wrap justify-end '}>
             <button disabled={true}>
-
                 {canSaveFactorAsDone &&
                     invoice?.Sum && <b>{formatNumber(invoice.Sum)} تومان</b>
                 }

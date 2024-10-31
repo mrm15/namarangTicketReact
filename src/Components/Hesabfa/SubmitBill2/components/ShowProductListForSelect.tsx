@@ -82,48 +82,30 @@ const ShowProductListForSelect = () => {
             setMyOptions(temp)
         }
 
-
     }, [productListUseQuery.data])
     /************************************************************/
 
     try {
         return (
-            <div className={'w-full flex flex-wrap justify-between'}>
+            <div className={'flex flex-wrap justify-between'}>
                 {
                     productListUseQuery.isLoading ?
-                    <LittleSpinner/>
-                    :
-                    <div className="min-w-640">
-                        <label htmlFor={"name"}>نام کالا</label>
-                        <Select
-                            onChange={addProductToTable}
-                            options={myOptions}
-                            placeholder={'انتخاب کالا'}
-                            className="z__index2"
-                            isDisabled={false}
-                            isLoading={false}
-                            isClearable={true}
-                            isRtl={true}
-                            // styles={customStyles}
-                            isSearchable={true}
-
-
-                        />
-                    </div>}
-                {/*<div className={''}>*/}
-                {/*    <button disabled={true}>*/}
-
-                {/*        {canSaveFactorAsDone &&*/}
-                {/*            invoice?.Sum && <b>{formatNumber(invoice.Sum)} تومان</b>*/}
-                {/*        }*/}
-                {/*    </button>*/}
-
-                {/*    {canSaveFactorAsDraft &&*/}
-                {/*      <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}*/}
-                {/*    {canSaveFactorAsDone &&*/}
-                {/*      <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}>تایید </button>}*/}
-                {/*</div>*/}
-
+                        <LittleSpinner/>
+                        :
+                        <div className="w-full">
+                            <Select
+                                onChange={addProductToTable}
+                                options={myOptions}
+                                placeholder={'انتخاب کالا'}
+                                className="z__index2"
+                                isDisabled={false}
+                                isLoading={false}
+                                isClearable={true}
+                                isRtl={true}
+                                // styles={customStyles}
+                                isSearchable={true}
+                            />
+                        </div>}
             </div>
         )
 
