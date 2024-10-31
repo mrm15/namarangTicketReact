@@ -8,12 +8,16 @@ import {calculateSumOfEachRow} from "../../SubmitBill/functions.tsx";
 import Num2persian from 'num2persian';
 import OtherCostsInBill from "./OtherCostsInBill.tsx";
 import calculateTotalSumOfAll from "./calculateTotalSumOfAll.tsx";
+import {FaSortAlphaDown, FaSortAlphaUp} from "react-icons/fa";
+import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 
 
 const InvoiceTable = () => {
 
     const {data, setData} = useSubmitBillContext()
     const invoice = data.invoice
+
+    const totalSumBill = calculateTotalSumOfAll(data.invoice)
 
     const setInvoice = (keyValuePairForInvoice) => {
         setData({invoice: {...data.invoice, ...keyValuePairForInvoice}})
@@ -70,6 +74,29 @@ const InvoiceTable = () => {
     }
 
     /***********************************************/
+    const sortItems = ({sortKey, reverseItems}) => {
+        let sortedItems = [...invoice.InvoiceItems].sort((a, b) => {
+            const valueA = a[sortKey];
+            const valueB = b[sortKey];
+
+            // Check if values are strings for localeCompare, otherwise use numeric comparison
+            if (typeof valueA === 'string' && typeof valueB === 'string') {
+                return valueA.localeCompare(valueB);
+            }
+            if (typeof valueA === 'number' && typeof valueB === 'number') {
+                return valueA - valueB;
+            }
+
+            // Handle undefined values
+            return 0;
+        });
+
+        if (reverseItems) {
+            sortedItems = sortedItems.reverse()
+        }
+
+        setInvoice({InvoiceItems: addRowIdtoTable(sortedItems)});
+    };
 
 
     try {
@@ -79,10 +106,24 @@ const InvoiceTable = () => {
             totalQuantity: 0
         }
 
-        const totalSumBill = calculateTotalSumOfAll(data.invoice)
 
         return (
             <div className={"my-3"}>
+                <div className={"w-full flex justify-end gap-2 mb-2"}>
+                    <div className={"btn-white-border-mir"}
+                         onClick={() => sortItems({sortKey:"Name", reverseItems:false})}
+                    >
+                        <FaSortAlphaDown size={16}/>
+
+                    </div>
+                    <div className={"btn-white-border-mir"}
+                         onClick={() => sortItems({sortKey:"Name", reverseItems:true})}
+                    >
+                        <FaSortAlphaUp  size={16}/>
+
+                    </div>
+                </div>
+
                 <div className={'InvoiceTableItems'}>
                     <table className={"tableUlWrapper table-auto w-full"}>
                         <thead>
@@ -105,9 +146,9 @@ const InvoiceTable = () => {
                             <th>
                                 <div>مبلغ واحد</div>
                             </th>
-                            <th>
-                                <div>تخفیف</div>
-                            </th>
+                            {/*<th>*/}
+                            {/*    <div>تخفیف</div>*/}
+                            {/*</th>*/}
                             <th>
                                 <div>مبلغ کل</div>
                             </th>
@@ -117,7 +158,8 @@ const InvoiceTable = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {invoice?.InvoiceItems?.length === 0 && <EmptyRow/>}
+                        {/*{invoice?.InvoiceItems?.length === 0 && <EmptyRow/>}*/}
+
                         {
                             invoice?.InvoiceItems?.map((row, index) => {
                                 totalSum.totalSumNumber += row.sum;
@@ -128,7 +170,7 @@ const InvoiceTable = () => {
                                         <div>{row.RowId}</div>
                                     </td>
                                     <td>
-                                        <div>{row.Name}</div>
+                                        <div>{row.Name ?? <section><ShowProductListForSelect/></section>}</div>
                                     </td>
                                     <td>
                                         <div>{row.Description}</div>
@@ -163,9 +205,9 @@ const InvoiceTable = () => {
                                     <td>
                                         <div>{formatNumber(row.UnitPrice)}</div>
                                     </td>
-                                    <td>
-                                        <div>{formatNumber(row.Discount)}</div>
-                                    </td>
+                                    {/*<td>*/}
+                                    {/*    <div>{formatNumber(row.Discount)}</div>*/}
+                                    {/*</td>*/}
                                     <td>
                                         <div>{formatNumber(row.sum)}</div>
                                     </td>
@@ -180,6 +222,7 @@ const InvoiceTable = () => {
 
                             })
                         }
+                        <EmptyRow/>
                         <tr className={'table__header'}>
                             <td>
                                 <div>&nbsp;</div>
@@ -203,9 +246,7 @@ const InvoiceTable = () => {
                             <td>
                                 <div> تومان{formatNumber(totalSum.totalSumNumber?.toFixed(0))}</div>
                             </td>
-                            <td>
-                                <div></div>
-                            </td>
+
                         </tr>
                         </tbody>
                     </table>
