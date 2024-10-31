@@ -70,15 +70,15 @@ body {
 }
 
 .badge-bg-blue-text-white {
-    @apply inline-block bg-blue-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+    @apply inline-block bg-blue-500 text-white text-xs  mr-2 px-2.5 py-0.5 rounded
 }
 
 .badge-bg-green-text-white {
-    @apply inline-block bg-green-500 text-white text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+    @apply inline-block bg-green-500 text-white text-xs  mr-2 px-2.5 py-0.5 rounded
 }
 
 .badge-bg-red-text-red {
-    @apply inline-block bg-red-400 text-red-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded
+    @apply inline-block bg-red-400 text-red-700 text-xs  mr-2 px-2.5 py-0.5 rounded
 }
 
 
