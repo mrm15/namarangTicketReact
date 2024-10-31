@@ -1,5 +1,5 @@
 import React from 'react';
-import EmptyRow from "../../SubmitBill/EmptyRow.tsx";
+import EmptyRow from "./EmptyRow.tsx";
 import InputDotToSlash from "../../SubmitBill/InputDotToSlash.tsx";
 import {addRowIdtoTable, formatNumber} from "../../../../utils/utilsFunction.tsx";
 import DeleteButton from "../../../../assets/icons/DeleteButton.tsx";
