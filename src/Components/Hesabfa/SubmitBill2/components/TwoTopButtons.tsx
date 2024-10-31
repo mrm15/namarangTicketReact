@@ -8,6 +8,8 @@ import toast from "react-hot-toast";
 import {submitBill} from "../../../../config/api.tsx";
 import axios from "axios";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
+import Num2persian from 'num2persian';
+
 
 interface RetryToastProps {
     message: string;
@@ -106,7 +108,12 @@ const TwoTopButtons = () => {
         <div className={'flex flex-wrap justify-end '}>
             <button disabled={true}>
                 {canSaveFactorAsDone &&
-                    invoice?.Sum && <b>{formatNumber(invoice.Sum)} تومان</b>
+                    invoice?.Sum && <div className={"text-left"}>
+                        <b>{formatNumber(invoice.Sum)} تومان</b>
+                        <div>
+                            {Num2persian(invoice.Sum)}
+                        </div>
+                    </div>
                 }
             </button>
 
