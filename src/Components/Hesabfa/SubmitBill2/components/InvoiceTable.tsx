@@ -7,7 +7,6 @@ import {useSubmitBillContext} from "../submitBillContext.tsx";
 import {calculateSumOfEachRow} from "../../SubmitBill/functions.tsx";
 import Num2persian from 'num2persian';
 import OtherCostsInBill from "./OtherCostsInBill.tsx";
-import {IInvoice} from "../initialDataTypes.tsx";
 import calculateTotalSumOfAll from "./calculateTotalSumOfAll.tsx";
 
 
@@ -34,11 +33,6 @@ const InvoiceTable = () => {
             }
         })
     }
-
-
-
-
-
 
 
     const changeHandler = (invoiceItemsRowId, value) => {
@@ -88,82 +82,133 @@ const InvoiceTable = () => {
         const totalSumBill = calculateTotalSumOfAll(data.invoice)
 
         return (
-            <div>
+            <div className={"my-3"}>
                 <div className={'InvoiceTableItems'}>
-                    <ul className={'table__header'}>
-                        <li>&nbsp;</li>
-                        <li>کالا</li>
-                        <li>شرح</li>
-                        <li>واحد</li>
-                        <li>تعداد</li>
-                        <li>مبلغ واحد</li>
-                        <li>تخفیف</li>
-                        <li>مبلغ کل</li>
-                        <li>حذف</li>
-                    </ul>
-                    {invoice?.InvoiceItems?.length === 0 && <EmptyRow/>}
+                    <table className={"tableUlWrapper table-auto w-full"}>
+                        <thead>
+                        <tr className={'table__header'}>
+                            <th>
+                                <div>&nbsp;</div>
+                            </th>
+                            <th>
+                                <div>کالا</div>
+                            </th>
+                            <th>
+                                <div>شرح</div>
+                            </th>
+                            <th>
+                                <div>واحد</div>
+                            </th>
+                            <th>
+                                <div>تعداد</div>
+                            </th>
+                            <th>
+                                <div>مبلغ واحد</div>
+                            </th>
+                            <th>
+                                <div>تخفیف</div>
+                            </th>
+                            <th>
+                                <div>مبلغ کل</div>
+                            </th>
+                            <th>
+                                <div>حذف</div>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {invoice?.InvoiceItems?.length === 0 && <EmptyRow/>}
+                        {
+                            invoice?.InvoiceItems?.map((row, index) => {
+                                totalSum.totalSumNumber += row.sum;
+                                totalSum.totalQuantity += +row.Quantity;
 
-                    {
-                        invoice?.InvoiceItems?.map((row, index) => {
-                            totalSum.totalSumNumber += row.sum;
-                            totalSum.totalQuantity += +row.Quantity;
-
-                            return <ul key={index}>
-                                <li>{row.RowId}</li>
-                                <li>{row.Name}</li>
-                                <li>{row.Description}</li>
-                                <li>
-                                    {(row.SubUnit && row.SubUnit !== '') ? <select
-                                        onChange={e => changeHandler(row.Id, e.target.value)}
-                                        className={'select__in__table'}
-                                        name={row.SubUnit} id={row.RowId}
-                                        value={row.dividedBy}
-                                    >
-                                        {row?.Units?.map((unitRow, index) => <option key={index}
-                                                                                     value={unitRow.divideNumber}>{unitRow.value}</option>)}
-                                    </select> : row.Unit}
-                                </li>
-                                <li>
-                                    <InputDotToSlash
-                                        onClick={(e) => (e.target as HTMLInputElement).select()}
-                                        onChange={(myNewString) => handleQuantityChange(row.Id, myNewString)}
-                                        className={'input__text__full'}
-                                        type={'text'}
-                                        value={(row.Quantity)}
-                                    />
-                                    {/*<input*/}
-                                    {/*    onClick={(e) => (e.target as HTMLInputElement).select()}*/}
-                                    {/*    onChange={(e) => handleQuantityChange(row.Id, e.target.value)}*/}
-                                    {/*    className={'input__text__full'}*/}
-                                    {/*    type={'text'}*/}
-                                    {/*    value={(row.Quantity)}*/}
-                                    {/*/>*/}
-                                </li>
-                                <li>{formatNumber(row.UnitPrice)}</li>
-                                <li>{formatNumber(row.Discount)}</li>
-                                <li>{formatNumber(row.sum)}</li>
-                                <li className={'p-5'}>
+                                return <tr key={index}>
+                                    <td>
+                                        <div>{row.RowId}</div>
+                                    </td>
+                                    <td>
+                                        <div>{row.Name}</div>
+                                    </td>
+                                    <td>
+                                        <div>{row.Description}</div>
+                                    </td>
+                                    <td>
+                                        {(row.SubUnit && row.SubUnit !== '') ? <select
+                                            onChange={e => changeHandler(row.Id, e.target.value)}
+                                            className={'select__in__table'}
+                                            name={row.SubUnit} id={row.RowId}
+                                            value={row.dividedBy}
+                                        >
+                                            {row?.Units?.map((unitRow, index) => <option key={index}
+                                                                                         value={unitRow.divideNumber}>{unitRow.value}</option>)}
+                                        </select> : row.Unit}
+                                    </td>
+                                    <td>
+                                        <InputDotToSlash
+                                            onClick={(e) => (e.target as HTMLInputElement).select()}
+                                            onChange={(myNewString) => handleQuantityChange(row.Id, myNewString)}
+                                            className={'input__text__ftrl'}
+                                            type={'text'}
+                                            value={(row.Quantity)}
+                                        />
+                                        {/*<input*/}
+                                        {/*    onCtdck={(e) => (e.target as HTMLInputElement).select()}*/}
+                                        {/*    onChange={(e) => handleQuantityChange(row.Id, e.target.value)}*/}
+                                        {/*    className={'input__text__ftrl'}*/}
+                                        {/*    type={'text'}*/}
+                                        {/*    value={(row.Quantity)}*/}
+                                        {/*/>*/}
+                                    </td>
+                                    <td>
+                                        <div>{formatNumber(row.UnitPrice)}</div>
+                                    </td>
+                                    <td>
+                                        <div>{formatNumber(row.Discount)}</div>
+                                    </td>
+                                    <td>
+                                        <div>{formatNumber(row.sum)}</div>
+                                    </td>
+                                    <td className={'p-5'}>
                                 <span className={'cursor-pointer text-red-700'}
                                       onClick={() => onDeleteRow(row.Id)}>
                                     <DeleteButton/>
                                 </span>
-                                </li>
-                                {/*<li>ConversionFactor : {row.dividedBy}</li>*/}
-                            </ul>
+                                    </td>
+                                    {/*<td><div>ConversionFactor : {row.dividedBy}</div></td>*/}
+                                </tr>
 
-                        })
-                    }
-                    <ul className={'table__header'}>
-                        <li>&nbsp;</li>
-                        <li>جمع</li>
-                        <li></li>
-                        <li></li>
-                        <li className={'text-center'}> تعداد: {formatNumber(totalSum.totalQuantity)}</li>
-                        <li></li>
-                        <li></li>
-                        <li> تومان{formatNumber(totalSum.totalSumNumber?.toFixed(0))}</li>
-                        <li></li>
-                    </ul>
+                            })
+                        }
+                        <tr className={'table__header'}>
+                            <td>
+                                <div>&nbsp;</div>
+                            </td>
+                            <td>
+                                <div>جمع</div>
+                            </td>
+                            <td>
+                                <div></div>
+                            </td>
+                            <td>
+                                <div></div>
+                            </td>
+                            <td className={'text-center'}> تعداد: {formatNumber(totalSum.totalQuantity)}</td>
+                            <td>
+                                <div></div>
+                            </td>
+                            <td>
+                                <div></div>
+                            </td>
+                            <td>
+                                <div> تومان{formatNumber(totalSum.totalSumNumber?.toFixed(0))}</div>
+                            </td>
+                            <td>
+                                <div></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div className={'mx-5'}>
                     <div>
