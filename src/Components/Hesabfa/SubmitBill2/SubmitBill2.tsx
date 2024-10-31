@@ -82,7 +82,7 @@ const SubmitBill2 = () => {
                 <div className={`myResponsiveWidthMenuOpen `}>
                     {canShowProductList && <div className={"flex flex-wrap  w-full mb-3"}>
                         <div className={"flex-grow min__width__200"}>
-                            <ShowProductListForSelect/>
+                            {/*<ShowProductListForSelect/>*/}
                         </div>
                         <div className={"flex items-center"}>
                             <div className={"sm:mx-2"}>
