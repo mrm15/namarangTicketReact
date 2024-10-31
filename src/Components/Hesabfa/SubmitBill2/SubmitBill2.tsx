@@ -80,7 +80,7 @@ const SubmitBill2 = () => {
 
             <GetSubmitBillData>
                 <div className={`myResponsiveWidthMenuOpen `}>
-                    {canShowProductList && <div className={"flex flex-wrap w-full mb-3"}>
+                    {canShowProductList && <div className={"flex flex-wrap  w-full mb-3"}>
                         <div className={"flex-grow min__width__200"}>
                             <ShowProductListForSelect/>
                         </div>
