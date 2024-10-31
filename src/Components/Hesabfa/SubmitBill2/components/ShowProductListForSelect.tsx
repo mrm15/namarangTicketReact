@@ -1,16 +1,13 @@
-import toast from "react-hot-toast";
-import useAuth from "../../../../hooks/useAuth";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {useQuery} from "@tanstack/react-query";
 import {getProductList} from "../../../../config/api.tsx";
 import LittleSpinner from "../../../Loader/LittleSpinner.tsx";
-import Select from "react-select";
+import Select, {components} from 'react-select';
 import {useEffect, useState} from "react";
-import productList from "./ProductList.tsx";
-import {addRowIdtoTable} from "../../../../utils/utilsFunction.tsx";
+import {addRowIdtoTable, formatNumber} from "../../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow} from "../../SubmitBill/functions.tsx";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
-import {FaSortAlphaDown} from "react-icons/fa";
+import NamarangLogoSvg from "../../../../assets/Svg/NamarangLogoSvg.tsx";
 
 
 const ShowProductListForSelect = () => {
@@ -38,11 +35,12 @@ const ShowProductListForSelect = () => {
             const tempRow = {...row}
             delete tempRow.value
             delete tempRow.label
-            let temp = [...data.invoice.InvoiceItems , tempRow]
+            let temp = [...data.invoice.InvoiceItems, tempRow]
 
             temp = addRowIdtoTable(temp)
             const temp2 = calculateSumOfEachRow(temp)
             setData({invoice: {...data.invoice, InvoiceItems: temp2}})
+
         }
     }
 
@@ -76,7 +74,7 @@ const ShowProductListForSelect = () => {
             })
 
             const temp = productListNormalized.map((row: any) => {
-                const label = row.Description + " " + row.Name + " " + row.ItemCode + " ";
+                const label = "" + " " + row.Name + " " + row.ItemCode + " ";
                 const value = row.Id;
                 return {value, label, ...row};
             });
@@ -85,6 +83,48 @@ const ShowProductListForSelect = () => {
 
     }, [productListUseQuery.data])
     /************************************************************/
+
+    const filterOption1 = (option, inputValue) => {
+        // Create a regular expression from the input value, escaping special characters
+        const regex = new RegExp(inputValue.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        // Test if the option's label matches the regular expression
+        return regex.test(option.label);
+    };
+
+    const filterOption = (option, inputValue) => {
+        // Normalize the input and option label to lowercase
+        const normalizedInput = inputValue.toLowerCase();
+        const normalizedLabel = option.label.toLowerCase();
+        // Split the input into individual words
+        const inputWords = normalizedInput.split(' ');
+        // Check if all input words are present in the option label
+        return inputWords.every(word => normalizedLabel.includes(word));
+    };
+    const CustomOption = (props) => (
+        <components.Option {...props}>
+            <div className={"flex gap-2 fontSize10"}>
+                <div className={" rounded border border-gray-400"}><NamarangLogoSvg width={50} height={50}/></div>
+                <div>
+                    <div>
+                        {props.data.label}
+
+                    </div>
+                    <div>
+                        واحد:
+                        {props.data.Unit}
+                    </div>
+                    <div>
+                        {formatNumber(props.data.fixedPrice)}
+                        &nbsp; تومان
+                    </div>
+                </div>
+            </div>
+
+        </components.Option>
+    );
+
+
+
 
     try {
         return (
@@ -105,6 +145,9 @@ const ShowProductListForSelect = () => {
                                 isRtl={true}
                                 // styles={customStyles}
                                 isSearchable={true}
+                                components={{Option: CustomOption}}
+                                filterOption={filterOption}
+
                             />
                         </div>}
             </div>
