@@ -4,6 +4,8 @@ import MyDatePicker2 from "../../../myDatePicker2/MyDatePicker2.tsx";
 import {IProjectList} from "../../SubmitBill/initialData.tsx";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
 import ProjectListInBillData from "./ProjectListInBillData.tsx";
+import {AiOutlineCheckCircle} from "react-icons/ai";
+import {FiChevronsDown, FiChevronsUp} from "react-icons/fi";
 
 const InvoiceData = () => {
 
@@ -35,9 +37,18 @@ const InvoiceData = () => {
         console.log(error)
     }
 
-    // const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
-    const userBedOrBesValue = +10
-    const userBedOrBesStatus = userBedOrBesValue > 0 ? "بس 😂" : userBedOrBesValue < 0 ? "بد ☹️" : "تسویه 😊"
+    const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
+    const userBedOrBesStatus = userBedOrBesValue > 0 ?
+        <div className={"flex"}>
+            <span>&nbsp;بس</span>
+            <span><FiChevronsUp/></span>
+        </div>
+        : userBedOrBesValue < 0 ?
+            <div className={"flex"}>
+                <div>&nbsp;بد</div>
+                <div><FiChevronsDown/></div>
+            </div> :
+            <><AiOutlineCheckCircle/></>
     // const userBedOrBesColor1 = userBedOrBesValue >= 0 ? "blue" : "red"
     const userBedOrBesColor = userBedOrBesValue > 0 ? "blue" : userBedOrBesValue < 0 ? "red" : "green"
     const Currency = invoice.Currency === "IRT" ? "تومان" : "ريال"
@@ -67,7 +78,7 @@ const InvoiceData = () => {
                         >
                             <div>تراز:</div>
                             <div className={"ltr"}>&nbsp;{formatNumber(userBedOrBesValue)} &nbsp;</div>
-                             <div> {Currency} {userBedOrBesStatus}</div>
+                             <div className={"flex"}> <div>{Currency}</div> <div>{userBedOrBesStatus}</div></div>
 
                         </span>
                     </div>
