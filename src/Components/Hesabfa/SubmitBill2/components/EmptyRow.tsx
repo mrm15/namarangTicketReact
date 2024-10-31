@@ -13,9 +13,9 @@ const EmptyRow = () => {
                 </td>
                 <td>
                     <section style={{
-                        // minWidth:"450px",
+                        minWidth:"450px",
                         maxWidth:"450px",
-                        // width:"450px",
+                        width:"450px",
                         // background:"red",
                     }}>
                         <ShowProductListForSelect/>
