@@ -24,10 +24,12 @@ const AdminReport = () => {
     return (
         <div className={"fontSize075rem"}>
             <AdminReportFilter/>
+            {myData?.resultOfUseQuery?.isError && <>سرور هیچ پاسخی نداد!</>}
             {myData?.resultOfUseQuery?.isFetching &&
+                !(myData?.resultOfUseQuery?.isError) &&
             <FetchingAdminReport/>
             }
-            {
+            {   !(myData?.resultOfUseQuery?.isError) &&
                 !myData.isLoading ?
                     <>
                         <SummaryReport/>
