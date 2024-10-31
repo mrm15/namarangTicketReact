@@ -7,7 +7,7 @@ export interface IUnit {
 
 export interface IOther {
     Title: string;
-    Amount?: string;
+    Amount?: number;
     Add?: boolean;
 }
 
@@ -28,7 +28,7 @@ export interface IInvoiceItem {
     dividedBy?: number;
     // selectedUnit?: string;
     Units?: IUnit[]|[];
-    sum?: number;
+    sum: number;
 }
 
 // Define the Invoice interface
