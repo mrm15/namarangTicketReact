@@ -82,7 +82,7 @@ const GetSubmitBillData = ({children}) => {
 
 
     return (
-        <div className={`bg-white rounded ${data?.invoice?.Status===1 ? " border border-green-600 shadow shadow-green-500" : "border border-red-200"}`}>
+        <div className={`bg-white rounded mb-36 ${data?.invoice?.Status===1 ? " border border-green-600 shadow shadow-green-500" : "border border-red-200"}`}>
             {children}
         </div>
     );
