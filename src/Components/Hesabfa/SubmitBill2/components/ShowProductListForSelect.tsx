@@ -10,6 +10,7 @@ import productList from "./ProductList.tsx";
 import {addRowIdtoTable} from "../../../../utils/utilsFunction.tsx";
 import {calculateSumOfEachRow} from "../../SubmitBill/functions.tsx";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
+import {FaSortAlphaDown} from "react-icons/fa";
 
 
 const ShowProductListForSelect = () => {
@@ -37,7 +38,7 @@ const ShowProductListForSelect = () => {
             const tempRow = {...row}
             delete tempRow.value
             delete tempRow.label
-            let temp = [tempRow, ...data.invoice.InvoiceItems]
+            let temp = [...data.invoice.InvoiceItems , tempRow]
 
             temp = addRowIdtoTable(temp)
             const temp2 = calculateSumOfEachRow(temp)
