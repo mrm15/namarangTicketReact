@@ -241,10 +241,12 @@ const InvoiceTable = () => {
                                 <div></div>
                             </td>
                             <td>
-                                <div></div>
+                                <div> {formatNumber(totalSum.totalSumNumber?.toFixed(0))}
+                                    <span>&nbsp; تومان</span>
+                                </div>
                             </td>
                             <td>
-                                <div> تومان{formatNumber(totalSum.totalSumNumber?.toFixed(0))}</div>
+                                <div></div>
                             </td>
 
                         </tr>
