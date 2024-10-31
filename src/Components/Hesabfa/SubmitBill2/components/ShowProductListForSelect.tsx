@@ -102,28 +102,26 @@ const ShowProductListForSelect = () => {
     };
     const CustomOption = (props) => (
         <components.Option {...props}>
-            <div className={"flex gap-2 fontSize10"}>
+            <div className={"flex  gap-2 fontSize10 w-80"}>
                 <div className={" rounded border border-gray-400"}><NamarangLogoSvg width={50} height={50}/></div>
-                <div>
+                <div className={"flex flex-col justify-around"} >
                     <div>
                         {props.data.label}
-
                     </div>
-                    <div>
-                        واحد:
-                        {props.data.Unit}
-                    </div>
-                    <div>
-                        {formatNumber(props.data.fixedPrice)}
-                        &nbsp; تومان
+                    <div className={"flex  items-center"}>
+                        <div className={"badge-bg-blue-text-white"}>
+                            {props.data.Unit}
+                        </div>
+                        <div className={"badge-bg-green-text-white"}>
+                            {formatNumber(props.data.fixedPrice)}
+                            &nbsp; تومان
+                        </div>
                     </div>
                 </div>
             </div>
 
         </components.Option>
     );
-
-
 
 
     try {
