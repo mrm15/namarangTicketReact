@@ -53,14 +53,8 @@ export interface IInvoice {
     Sum: number;
 }
 
-export interface IProjectList {
-    Id: number;
-    Title: string;
-    Active: boolean;
-}
 
 export interface IInitialBillData {
-    projectList?: IProjectList[] | [],
     invoice: IInvoice,
     billNumber:string | undefined,
     billData:any,

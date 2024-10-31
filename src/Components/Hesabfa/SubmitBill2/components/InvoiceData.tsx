@@ -35,9 +35,11 @@ const InvoiceData = () => {
         console.log(error)
     }
 
-    const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
-    const userBedOrBesStatus = userBedOrBesValue >= 0 ? "بس" : "بد"
-    const userBedOrBesColor = userBedOrBesValue >= 0 ? "blue" : "red"
+    // const userBedOrBesValue = invoice?.Contact?.Credits - invoice?.Contact?.Liability
+    const userBedOrBesValue = +10
+    const userBedOrBesStatus = userBedOrBesValue > 0 ? "بس 😂" : userBedOrBesValue < 0 ? "بد ☹️" : "تسویه 😊"
+    // const userBedOrBesColor1 = userBedOrBesValue >= 0 ? "blue" : "red"
+    const userBedOrBesColor = userBedOrBesValue > 0 ? "blue" : userBedOrBesValue < 0 ? "red" : "green"
     const Currency = invoice.Currency === "IRT" ? "تومان" : "ريال"
     /*********************************************/
 
@@ -64,7 +66,7 @@ const InvoiceData = () => {
                               className={"flex"}
                         >
                             <div>تراز:</div>
-                            <div className={"ltr"}>{formatNumber(userBedOrBesValue)} </div>
+                            <div className={"ltr"}>&nbsp;{formatNumber(userBedOrBesValue)} &nbsp;</div>
                              <div> {Currency} {userBedOrBesStatus}</div>
 
                         </span>

@@ -5,7 +5,6 @@ import {useLocation} from "react-router-dom";
 import useAuth from "../../../hooks/useAuth.tsx";
 import DateObject from "react-date-object";
 import {dateObjectToIso8601} from "../../../utils/utilsFunction.tsx";
-import {IInvoiceItem, IOther} from "./initialDataTypes.tsx";
 import ShowProductListForSelect from "./components/ShowProductListForSelect.tsx";
 import TwoTopButtons from "./components/TwoTopButtons.tsx";
 import InvoiceData from "./components/InvoiceData.tsx";
@@ -65,7 +64,6 @@ const SubmitBill2 = () => {
 
     const initial = {
         productList: [],
-        projectList: [],
         invoice,
         billNumber: componentInfo.billNumber || undefined,
         billData: componentInfo,
@@ -75,18 +73,19 @@ const SubmitBill2 = () => {
     return (
         <SubmitBillProvider initialData={initial}>
 
-            <div className={"myResponsiveWidthMenuOpen bg-amber-300"}>
-                <GetSubmitBillData/>
+            <GetSubmitBillData >
+            <div className={`myResponsiveWidthMenuOpen `}>
                 <div className={"flex"}>
                     <ShowProductListForSelect/>
                     <TwoTopButtons/>
                 </div>
 
                 <InvoiceData/>
-                <InvoiceTable />
+                <InvoiceTable/>
 
 
             </div>
+            </GetSubmitBillData>
         </SubmitBillProvider>
     );
 };
