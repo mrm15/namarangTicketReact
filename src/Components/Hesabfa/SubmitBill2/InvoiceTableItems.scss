@@ -2,27 +2,31 @@
   font-size: 0.75em;
   width: 100%;
   //background: rgba(255, 0, 0, 0.08);
+  overflow:scroll;
 
   .tableUlWrapper {
-
+    //overflow:scroll;
+    min-width: max-content;
 
     font-size: 14px;
 
-    td,th{
+
+    td, th {
       border: 2px solid rgba(128, 128, 128, 0.29);
     }
-    th{
+
+    th {
       background: whitesmoke;
     }
-    td div , th div{
-        min-height: 50px;
-        //background: #4cd964;
-        display: flex;
-        padding: 5px;
-        align-items: center;
+
+    td > div, th > div {
+      min-height: 50px;
+      //background: #4cd964;
+      display: flex;
+      padding: 5px;
+      align-items: center;
     }
 
-    overflow: scroll;
 
     .table__header {
       font-weight: bold;
