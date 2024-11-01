@@ -66,7 +66,7 @@ const AdminReportFilter = () => {
             tempFilterDate.showEndDate = selectedDate.jsDate
 
         }
-        debugger
+
         setFilterDate(tempFilterDate)
 
 
