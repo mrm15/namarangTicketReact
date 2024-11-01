@@ -10,12 +10,11 @@ const SummaryReport = () => {
 
 
 
-
     try {
         return (
             <div>
                 <div className={"flex flex-wrap gap-1"}>
-                    <SummaryTable />
+                    <SummaryTable myData={myData} />
                 </div>
 
             </div>
