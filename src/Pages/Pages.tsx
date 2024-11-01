@@ -11,6 +11,7 @@ import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
 
+const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
 const ShowMyBillListForCustomer = lazy(() => import("../Components/showMyBillListForCustomer/ShowMyBillListForCustomer.tsx"))
@@ -55,6 +56,7 @@ const Pages = () => {
 
     return (
         <>
+
             <Routes>
                 {/* pages all people can see and no need to side bar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
@@ -76,10 +78,9 @@ const Pages = () => {
 
                 <Route element={<PersistLogin/>}>
 
-
                     <Route path="/" element={<Layout/>}>
                         {/* public routes */}
-
+                        <Route path={"/mali"} element={<AccountingReports/>}/>
                         <Route path={'/'} element={
                             <Suspense fallback={<Loader/>}>
                                 <Home/>
