@@ -4,10 +4,9 @@ import {AdminReportContext} from "../AdminReportContext.tsx";
 import DropDown from "./DropDown/DropDown.tsx";
 import TableView from "../ReportTable/TableView.tsx";
 
-const SummaryTable = () => {
+const SummaryTable = ({myData}) => {
 
-    const context = useContext(AdminReportContext)
-    const {myData} = context;
+
 
 
     try {
