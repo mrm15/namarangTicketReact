@@ -11,6 +11,7 @@ import OperationColumInTicketTable from "../../components/OperationColumInTicket
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
+import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -136,7 +137,9 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             id: "ticketNumber",
             accessorKey: 'ticketNumber',
             header: () => {
-                return  <StringFilter uniqueId={"ticketNumber"} operator={"*"} property={"ticketNumber"} placeHolder={"شماره تیکت"} />
+                return  <>
+                    <NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
+                </>
             },
 
 
