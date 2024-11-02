@@ -26,9 +26,8 @@ const ReportFilters = () => {
 
         setData({ filters: updatedFilters });
     };
-
     const handleStatusChange = (status) => {
-        const updatedFilters = data.filters.filter(r => r.uniqId !== 'status');
+        const updatedFilters = data.filters.filter(r => r["uniqId"] !== 'status');
 
         if (status !== null) {
             updatedFilters.push({
