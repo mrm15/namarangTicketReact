@@ -54,6 +54,7 @@ const InvoiceData = () => {
     const Currency = invoice.Currency === "IRT" ? "تومان" : "ريال"
     /*********************************************/
 
+    console.log(invoice)
 
     try {
         return (
@@ -62,17 +63,27 @@ const InvoiceData = () => {
 
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> شماره فاکتور </label>
-                        <input type="text" value={invoice.Number} disabled={true}/>
+                        <input onChange={() => {
+                            console.log(invoice.Number)
+                        }
+                        } type="text" value={invoice.Number} disabled={true}/>
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> کد مشتری </label>
-                        <input type="text" value={invoice.ContactCode} disabled={true}/>
+                        <input
+                            type="text"
+                            onChange={() => {
+                                console.log(invoice.Number)
+                            }
+                            }
+                            value={invoice.ContactCode} disabled={true}
+                        />
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> نام مشتری </label>
                         <input
 
-                            type="text" value={invoice.ContactTitle} disabled={true}/>
+                            type="text" value={invoice?.Contact?.Name} disabled={true}/>
                         <span style={{color: userBedOrBesColor, fontWeight: "bold"}}
                               className={"flex"}
                         >
