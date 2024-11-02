@@ -1,33 +1,59 @@
 .bill__table__css {
   max-width: 70%;
   margin: 0 auto;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 1rem;
 
-  //background: rgba(139, 139, 231, 0.13);
-  //border-radius: 5px;
-  //padding: 5px;
-
-  .bill__info{
-    //padding: .5rem;
-    border-top: 4px solid #b2f5d6;
-    background-color: #14ea730a;
-    border-radius: 10px;
+  .bill__info {
+    border-top: 3px solid #b2f5d6;
+    background-color: #eafbf5;
+    border-radius: 8px;
+    padding: 1rem;
   }
 
-  .bill__info__item{
-    margin: 15px;
-    padding: 5px;
-    border-radius: 5px;
-    .bill__info__item_title{
-      font-size: 14px;
+  .bill__info__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .bill__info__item_title {
+      font-size: 16px;
       font-weight: bold;
-    }
-    .bill__info__item__description{
       color: #4e4edd;
+    }
+
+    .bill__info__item__description {
+      color: #555;
+      font-size: 14px;
+    }
+  }
+}
+
+// Mobile-specific styles
+@media (max-width: 768px) {
+  .bill__table__css {
+    font-size: 10px;
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .bill__info {
+    padding: 0.5rem;
+  }
+
+  .bill__info__item {
+    padding: 0.25rem;
+    .bill__info__item_title {
+      font-size: 14px;
+    }
+    .bill__info__item__description {
       font-size: 12px;
     }
-
-
   }
-
-
 }

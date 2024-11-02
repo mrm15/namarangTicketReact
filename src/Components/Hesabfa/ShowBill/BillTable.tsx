@@ -63,15 +63,14 @@ const BillTable = ({hesabfaBillData}) => {
             </div>
             <div>
                 <div className="overflow-x-auto">
-                    <table className="table-auto border-collapse border border-gray-200 w-full fontSize14">
+                    <table className="table-auto border-collapse border border-gray-200 w-full">
                         <thead>
                         <tr className="">
                             <th className="border border-b-2 border-gray-300 px-4 py-2">ردیف</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">توضیح</th>
-                            <th className="border border-b-2 border-gray-300 px-4 py-2">مقدار</th>
+                            <th className="border border-b-2 border-gray-300 px-4 py-2">تعداد</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">واحد</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">قیمت واحد</th>
-                            <th className="border border-b-2 border-gray-300 px-4 py-2">جمع</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">جمع کل</th>
                         </tr>
                         </thead>
@@ -95,7 +94,6 @@ const BillTable = ({hesabfaBillData}) => {
                                 <td className="border border-gray-300 px-4 py-2">{Quantity}</td>
                                 <td className="border border-gray-300 px-4 py-2">{Unit}</td>
                                 <td className="border border-gray-300 px-4 py-2">{formattedNumber(UnitPrice)}</td>
-                                <td className="border border-gray-300 px-4 py-2">{formattedNumber(Sum)}</td>
                                 <td className="border border-gray-300 px-4 py-2">{formattedNumber(TotalAmount)}</td>
                             </tr>
                         })}
@@ -106,7 +104,6 @@ const BillTable = ({hesabfaBillData}) => {
                             <th className="border border-t-2 border-gray-300 px-4 py-2">{sumOfNumbers.toFixed(2)}</th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"></th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2"> </th>
-                            <th className="border border-t-2 border-gray-300 px-4 py-2"></th>
                             <th className="border border-t-2 border-gray-300 px-4 py-2 text-right">
                                 {formattedNumber(totalSumShow)}
                                 &nbsp;
