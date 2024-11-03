@@ -124,6 +124,11 @@ const dropdownOptions = [
     {value: "fatherAccess", key: "دسترسی Developer Mode"},
     {value: "showMyBillListForCustomer", key: "مشاهده ی منوی  فاکتور های من"},
     {value: "viewBills", key: " دکمه مشاهده فاکتور در جدول هایی که لازمه- برای مشتری و برای تایید فاکتور لازمه"},
+    //  Dashboards
+    {value: "customerDashboard", key: "داشبورد مشتری - شامل دکمه ها و سایر چیزایی که میتونم بهش اضافه کنم"},
+    {value: "organizationDashboard", key: "داشبورد سازمانی کابران سازمان بهش دسترسی دارن"},
+    {value: "departmentAdminDashboard", key: "داشبورد مدیر دپارتمان"},
+    {value: "fullAdminDashboard", key: "داشبورد مدیر کل با دسترسی های فول"},
 
 
 ]
