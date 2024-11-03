@@ -4,7 +4,7 @@ import useRefreshToken from "./useRefreshToken";
 import useAuth from "./useAuth.js";
 import {toast} from "react-toastify";
 
-const useAxiosPrivate = () => {
+const useAxiosPrivate = (cancelOnUnmount = 0) => {
     const refresh = useRefreshToken();
     const {auth} = useAuth();
     const controllerRef = useRef<AbortController | null>(null);
@@ -12,7 +12,9 @@ const useAxiosPrivate = () => {
     useEffect(() => {
         const createController = () => {
             if (controllerRef.current) {
-                controllerRef.current.abort(); // Abort the previous request if a new one starts
+                if (cancelOnUnmount===1) {
+                    controllerRef.current.abort(); // Abort the previous request if a new one starts
+                }
             }
             controllerRef.current = new AbortController();
             return controllerRef.current;
@@ -77,7 +79,10 @@ const useAxiosPrivate = () => {
         );
 
         return () => {
-            if (controllerRef.current) controllerRef.current.abort();
+            if (cancelOnUnmount === 1) {
+                if (controllerRef.current) controllerRef.current.abort();
+
+            }
             axiosPrivate.interceptors.request.eject(requestIntercept);
             axiosPrivate.interceptors.response.eject(responseIntercept);
         }
