@@ -3,7 +3,7 @@ import useAxiosPrivate from './useAxiosPrivate';
 
 const useList = (requestUrl: string) => {
     const [list, setList] = useState<any[]>([]); // Change the type to any[] temporarily
-    const myPrivateAxios = useAxiosPrivate();
+    const myPrivateAxios = useAxiosPrivate(0);
 
     useEffect(() => {
         // @ts-ignore
