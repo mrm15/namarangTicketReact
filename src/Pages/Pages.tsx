@@ -80,7 +80,7 @@ const Pages = () => {
 
                     <Route path="/" element={<Layout/>}>
                         {/* public routes */}
-                        <Route path={"/mali"} element={<AccountingReports/>}/>
+                        <Route path={"/mali09384642159"} element={<AccountingReports/>}/>
                         <Route path={'/'} element={
                             <Suspense fallback={<Loader/>}>
                                 <Home/>
