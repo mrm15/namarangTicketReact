@@ -30,6 +30,7 @@ const isActiveRadioOptions = [
 const formikFormAddUser = [
 
     {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',},
+    {control: 'input', name: 'nationalCode', label: 'کد ملی',},
     {control: 'input', name: 'userName', label: 'نام کاربری',},
     {control: 'select', name: 'departmentId', label: ' دپارتمان',options:[]},
     {control: 'select', name: 'role', label: 'نقش',},

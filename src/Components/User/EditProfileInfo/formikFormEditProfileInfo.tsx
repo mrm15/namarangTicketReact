@@ -23,6 +23,9 @@ const formikFormEditProfileInfo = [
     {control: 'input', name: 'phoneNumber', label: 'شماره تماس اجباری منحصر ب فرد',
         disabled:true
     },
+    {control: 'input', name: 'nationalCode', label: 'کد ملی',
+        disabled:true
+    },
     {control: 'input', name: 'userName', label: 'نام کاربری',},
     // {control: 'input', name: 'accountingCode', label: 'کد حسابداری',},
     {control: 'input', name: 'company', label: 'شرکت',},

@@ -64,7 +64,7 @@ const AddUser = () => {
             updatedFormConfig = updatedFormConfig.map(v => {
                 const row = {...v}
 
-                if (row.name === 'phoneNumber') {
+                if (row.name === 'phoneNumber' || row.name === 'nationalCode') {
                     row['disabled'] = true
                 }
                 return row
