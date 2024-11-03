@@ -4,6 +4,7 @@ import {getMenus} from "../SideBar/menus.tsx";
 import CustomerDashboard from "./Homes/CustomerDashboard/CustomerDashboard.tsx";
 import OrganizationDashboard from "./Homes/OrganizationDashboard/OrganizationDashboard.tsx";
 import DepartmentAdminDashboard from "./Homes/DepartmentAdminDashboard/DepartmentAdminDashboard.tsx";
+import FullAdminDashboard from "./Homes/FullAdminDashboard/FullAdminDashboard.tsx";
 
 
 const Home = () => {
@@ -16,7 +17,7 @@ const Home = () => {
     const customerDashboard = roleAccessList?.includes('customerDashboard');
     const myOrganizationDashboard = roleAccessList?.includes('organizationDashboard');
     const departmentAdminDashboard = roleAccessList?.includes('departmentAdminDashboard')
-    const FullAdminDashboard = roleAccessList?.includes('fullAdminDashboard')
+    const myFullAdminDashboard = roleAccessList?.includes('fullAdminDashboard')
     const hasDashboardAccess = customerDashboard || myOrganizationDashboard || departmentAdminDashboard || FullAdminDashboard;
 
     try {
@@ -24,7 +25,7 @@ const Home = () => {
             {customerDashboard && <CustomerDashboard/>}
             {myOrganizationDashboard && <OrganizationDashboard/>}
             {departmentAdminDashboard && <DepartmentAdminDashboard/>}
-            {FullAdminDashboard && <FullAdminDashboard/>}
+            {myFullAdminDashboard && <FullAdminDashboard/>}
             {!hasDashboardAccess && <EmptyHomePage/>}
         </>
     } catch (error) {
