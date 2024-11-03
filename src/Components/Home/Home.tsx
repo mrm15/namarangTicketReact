@@ -28,7 +28,7 @@ const Home = () => {
             {!hasDashboardAccess && <EmptyHomePage/>}
         </>
     } catch (error) {
-        return <></>
+        return error?.toString()
     }
 
 
