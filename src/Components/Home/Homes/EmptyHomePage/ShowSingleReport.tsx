@@ -1,5 +1,5 @@
 import React from 'react';
-import MyLineChart from "../Rechart/LineChart/MyLineChart.tsx";
+import MyLineChart from "../../../Rechart/LineChart/MyLineChart.tsx";
 
 const ShowSingleReport = (props:any) => {
 
