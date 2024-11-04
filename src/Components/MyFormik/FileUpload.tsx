@@ -6,8 +6,8 @@ import FormDatePicker from "../MyDatePicker";
 import {FileInput} from "./FileInput.tsx";
 
 function FileUpload (props) {
-    const { label, name, ...rest } = props
-
+    const { label, name, allowedExtensions, ...rest } = props;
+    const acceptExtensions = allowedExtensions?.join(', ');
     try {
         return (
             <div className='div__group__input_select'>
@@ -16,6 +16,7 @@ function FileUpload (props) {
                     name={name}
                     type={'file'}
                     // multiple={true}
+                    accept={acceptExtensions} // Only allow specified file types
                     component={FileInput}
 
                 />
