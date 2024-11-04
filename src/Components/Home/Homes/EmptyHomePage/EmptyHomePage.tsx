@@ -1,131 +1,55 @@
 import React from 'react';
 import LoadingSvg1 from "../../../../assets/Svg/LoadingSvg1";
-import {RiRefreshLine} from "react-icons/ri";
-import {PAGES} from "../../../../Pages/Route-string";
-import {Link, useNavigate} from "react-router-dom";
+import { RiRefreshLine } from "react-icons/ri";
+import { PAGES } from "../../../../Pages/Route-string";
+import { Link, useNavigate } from "react-router-dom";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
-import {useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../hooks/useAuth";
-import {getMenus} from "../../../SideBar/menus";
-import {randomNumberGenerator} from "../../../../utils/utilsFunction";
+import { getMenus } from "../../../SideBar/menus";
+import { randomNumberGenerator } from "../../../../utils/utilsFunction";
 
 const EmptyHomePage = () => {
+    const { auth } = useAuth();
 
-
-    const getReports = "reports/dashboard";
-    const myAxiosPrivate = useAxiosPrivate()
-    const getReportsQueryFn = () => {
-        return myAxiosPrivate.get(getReports)
-    }
-    const reportArrayQuery = useQuery({
-        queryKey: ['getReports'],
-        queryFn: getReportsQueryFn,
-        staleTime: 86400000,  // === 60*60*24*1000
-        enabled: true,
-    })
-
-    const {auth} = useAuth()
     const roleAccessList = auth.userInfo?.roleAccessList;
     const isDepartmentAdmin = auth.userInfo?.isDepartmentAdmin;
-    const shortcuts = getMenus({roleAccessList, isDepartmentAdmin})
+    const menus = getMenus({ roleAccessList, isDepartmentAdmin });
 
-    const whichShow = ((randomNumberGenerator() * 10 - 500) > 0) ? 1 : 0
-    const navigateTo = useNavigate()
     try {
         return (
-            <section>
-                {<div className={"flex flex-wrap w-full mt-2 min_height_45 overflow-hidden items-center justify-end"}>
-                    {(reportArrayQuery.isLoading || reportArrayQuery.isFetching) ?
-                        <div><LoadingSvg1/></div> :
-                        <div>
-                            <button onClick={() => reportArrayQuery.refetch()}><RiRefreshLine/></button>
-                        </div>
-                    }
-                </div>}
+            <div className="p-6 bg-gray-100 min-h-screen">
+                <h1 className="text-3xl font-bold mb-6">داشبورد</h1>
 
+                <section className="bg-white p-4 rounded-lg shadow-md mb-6">
+                    <h2 className="text-xl font-semibold mb-3">میانبر ها</h2>
 
-                <div className={'flex w-full justify-between mt-8'}>
-                    {/*<Link to="/editor">صفحه ی ویرایش</Link>*/}
-                    {/*<Link to="/admin">صفحه ویژه ادمین</Link>*/}
-                    {/*<Link to="/lounge">صفحه گپ الکی</Link>*/}
-                    {/*<Link to="/linkpage">صفحه ی لینک های مفید سایت</Link>*/}
-                </div>
-                <div>
-                    <button
+                    <div className=" w-fit flex  flex-wrap  gap-2">
 
-                        className={"btn-white-border-mir"}
-                        onClick={()=>{
-                            navigateTo(PAGES.adminReport)
-                        }}
+                        {menus?.filter(row => row.showItem === true).map((menu, i) => {
+                            const hasMargin = menu?.margin;
 
-                    >
-                        مشاهده گزارش مدیریتی
-                    </button>
-
-                </div>
-
-                <div className={'flex flex-wrap gap-4'}>
-
-                    {/*{reportArrayQuery?.data?.data?.reportData?.map(rowData=><ShowSingleReport {...rowData} />)}*/}
-
-
-                    {whichShow === 1 && <>
-                        {shortcuts.map((row, index) => {
-                            return <div
-                                key={index}
-                                className="max-w-sm rounded-2xl    border-2 border-dashed width__60_Percent min_height_45"
-                                draggable={true}
-                            >
-
-                                <div className="px-6 py-4">
-                                    <div className="font-bold text-xl mb-2">
-                                        <row.icon/>
-                                        عنوان
+                            return (
+                                <Link
+                                    to={menu?.link}
+                                    key={i}
+                                    className={`group flex items-center text-lg font-medium p-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ${hasMargin ? "mt-5" : ""}`}
+                                >
+                                    <div className="mr-3">
+                                        {React.createElement(menu?.icon, { size: "24" })}
                                     </div>
-                                    <p className="text-gray-700 text-base">
-                                        توضیحات
-                                    </p>
-                                </div>
-
-                            </div>
+                                    &nbsp;&nbsp;
+                                    <span>{menu?.name}</span>
+                                </Link>
+                            );
                         })}
-                    </>}
-
-                    {whichShow === 0 && shortcuts.map((row, index) => {
-
-
-                        return <Link
-                            target={"_blank"}
-                            to={row.link}
-                            key={index}
-                            className="max-w-sm rounded overflow-hidden shadow-lg border-4"
-
-                        >
-
-                            <div className="px-6 py-4">
-
-                                <div className="font-bold text-xl mb-2">
-                                    <row.icon/>
-                                    {row?.name}
-
-
-                                </div>
-                                <p className="text-gray-700 text-base">
-                                    {row?.name}
-                                </p>
-                            </div>
-
-                        </Link>
-                    })}
-                </div>
-
-
-            </section>
-        )
+                    </div>
+                </section>
+            </div>
+        );
     } catch (error) {
-        return <>{error.toString()}</>
+        return <>{error.toString()}</>;
     }
-
 };
 
 export default EmptyHomePage;
