@@ -6,12 +6,13 @@ const BillTable = ({hesabfaBillData}) => {
 
     let totalSumShow = 0
     let sumOfNumbers = 0
+    const isVerified = hesabfaBillData?.Status
 
     const dateShow = timestampToTimeFromHesabfa(hesabfaBillData?.Date)?.split(',')[0]
     const dueDateShow = timestampToTimeFromHesabfa(hesabfaBillData?.DueDate)?.split(',')[0]
     try {
         return <div className={'bill__table__css '}>
-            <div className={'flex flex-wrap my-3 justify-between bill__info'}>
+            <div className={'flex flex-wrap my-3 justify-between bill__info ' + `${isVerified ? "verifiedBill" : "unVerifiedBill"}` }>
                 <div className={'bill__info__item'}>
                     <div className={'bill__info__item_title'}>عنوان مشتری</div>
                     <div className={'bill__info__item__description'}>{hesabfaBillData?.ContactTitle}</div>
