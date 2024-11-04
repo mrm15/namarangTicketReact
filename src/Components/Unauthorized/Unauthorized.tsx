@@ -46,7 +46,10 @@ const Unauthorized = () => {
 
                 </Link></div>
                 <br/>
-                <img className="w-full h-auto" src={notFoundPhoto} alt="یافت نشد"/>
+                <div className={"w-full flex justify-center overflow-hidden "}>
+                    <img className="w-fit rounded  border-2 " src={notFoundPhoto} alt="یافت نشد"/>
+
+                </div>
             </div>
 
         </div>
