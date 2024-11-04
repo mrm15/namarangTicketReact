@@ -6,8 +6,6 @@
   padding: 1rem;
 
   .bill__info {
-    border-top: 3px solid #b2f5d6;
-    background-color: #eafbf5;
     border-radius: 8px;
     padding: 1rem;
   }
@@ -56,4 +54,12 @@
       font-size: 12px;
     }
   }
+}
+.verifiedBill{
+  border-top: 3px solid #b2f5d6;
+  background-color: #eafbf5;
+}
+.unVerifiedBill {
+  border-top: 3px solid #f5b2b4;
+  background-color: #fbeaeb;
 }
