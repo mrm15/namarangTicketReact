@@ -94,7 +94,7 @@ const dropdownOptions = [
     // {value: 'smsPending', key: "پیامک های در انتظار"},
     {value: 'smsSend', key: "ارسال دستی پیامک"},
     // دسترسی های فاکتور برای حسابفا
-    {value: 'showBillAccess', key: "مشاهده فاکتور"},
+    {value: 'showBillAccess', key: "مشاهده فاکتور - این فعلا کاربردی نداره- قرار بود که کلا اینکه بدون لاگین بتونن فاکتور رو ببینن رو اینجا محدود کنم که  فعلا با لبنک میتونن ببینند"},
     {value: 'downloadBillAsPdf', key: "دانلود به صورت پی دی اف"},
     {value: 'downloadBillAsCsv', key: "دانلود به صورت csv"},
     {value: 'submitBillInSubmitOrderForm', key: "ثبت فاکتور در فرم ثبت سفارش"},

@@ -62,11 +62,7 @@ const Pages = () => {
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
 
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>}/>
-                <Route path={`${PAGES.showBill}/`} element={
-                    <Suspense fallback={<Loader/>}>
-                        <ShowBill/>
-                    </Suspense>
-                }/>
+
                 <Route path={`${PAGES.showBill}/:factorNumber`} element={
                     <Suspense fallback={<Loader/>}>
                         <ShowBill/>
