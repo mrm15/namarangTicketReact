@@ -284,7 +284,10 @@ const TicketCreate: React.FC = () => {
                                 onChange={(e) => {
                                     assignFileToState(e.target.files[0], index)
                                 }}
-                                id={`file${index + 1}`} type="file" className="w-100 rounded border-2 hidden"/>
+                                id={`file${index + 1}`} type="file"
+                                accept={".dxf, .psd, .jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif, .svg, .ai, .pdf, .eps, .webp"}
+                                className="w-100 rounded border-2 hidden"/>
+
 
                             <div className={'flex items-center'}>
                                 <label htmlFor={`file${index + 1}`}
@@ -304,6 +307,20 @@ const TicketCreate: React.FC = () => {
                                     onClick={() => handleRemoveFile(index)}
                                     className={'text-red-600 ms-2'}/>
                             </div>
+                            <div
+                                className="mt-2 p-2 bg-gray-100 bg-opacity-30 border border-gray-300 rounded-md  ">
+                                <div>پسوند های مجاز برای آپلود فایل:</div>
+                                <div className={"ltr text-center flex flex-wrap"}>
+                                    {["dxf", "psd", "jpg", "jpeg", "png", "gif", "bmp", "tiff", "tif", "svg", "ai", "pdf", "eps", "webp"].map(
+                                        (ext, index) => (
+                                            <span key={index}
+                                                  className="text-gray-700 text-sm mr-2 bg-gray-400 bg-opacity-30 px-2 rounded my-1">.{ext}</span>
+                                        )
+                                    )}
+                                </div>
+
+                            </div>
+
                         </div>
 
                     ))}
@@ -315,9 +332,9 @@ const TicketCreate: React.FC = () => {
 
 
                     {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
-                        <div>
-                            فایل به کدام فروشنده ارجاع شود؟
-                        </div>
+                      <div>
+                        فایل به کدام فروشنده ارجاع شود؟
+                      </div>
                         {ticketData?.userList.map((singleUser, index) => {
 
                             return <button key={index}
@@ -332,7 +349,7 @@ const TicketCreate: React.FC = () => {
                             >
                                 {singleUser.name}
                                 {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
-                                    🟢
+                                  🟢
                                 </div>}
                             </button>
 
@@ -355,11 +372,11 @@ const TicketCreate: React.FC = () => {
                             value={'ارسال'}/>
                     </div>
                     {hasAccessToSubmitFactorInSubmitOrderForm && <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketTitle"> </label>
-                        <input
-                            onClick={() => clickHandler(1)}
-                            id="ticketTitle" type="button" className="btn-submit-mir"
-                            value={'ارسال و ثبت فاکتور'}/>
+                      <label htmlFor="ticketTitle"> </label>
+                      <input
+                        onClick={() => clickHandler(1)}
+                        id="ticketTitle" type="button" className="btn-submit-mir"
+                        value={'ارسال و ثبت فاکتور'}/>
                     </div>}
                     {}
                 </div>
