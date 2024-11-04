@@ -18,7 +18,7 @@ const Home = () => {
     const myOrganizationDashboard = roleAccessList?.includes('organizationDashboard');
     const departmentAdminDashboard = roleAccessList?.includes('departmentAdminDashboard')
     const myFullAdminDashboard = roleAccessList?.includes('fullAdminDashboard')
-    const hasDashboardAccess = customerDashboard || myOrganizationDashboard || departmentAdminDashboard || FullAdminDashboard;
+    const hasDashboardAccess = customerDashboard || myOrganizationDashboard || departmentAdminDashboard || myFullAdminDashboard;
 
     try {
         return <>
