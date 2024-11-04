@@ -243,12 +243,17 @@ const Pages = () => {
                                     <HesabfaTest/>
                                 </Suspense>
                             }/>
+
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.adminSettings}/>}>
                             <Route path={PAGES.admin_settings} element={
                                 <Suspense fallback={<Loader/>}>
                                     <AddSettings/>
                                 </Suspense>
                             }/>
+
                         </Route>
+
 
                         <Route element={<RequireAuth
                             allowedRoles={[...ROLES.submitBillInSubmitOrderForm, ...ROLES.submitBillInChatList]}/>}>
