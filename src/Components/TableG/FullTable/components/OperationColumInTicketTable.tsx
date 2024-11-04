@@ -35,6 +35,8 @@ const OperationColumInTicketTable = ({
 
 
     const {auth} = useAuth();
+    const hasAccessToDelete = auth?.userInfo?.roleAccessList?.includes('ticketDelete')
+    const hasAccessToForward = auth?.userInfo?.roleAccessList?.includes('forwardTickets')
     //console.log(row,url,navigateTo,myAxios,setMyData,myData)
     const changeReadStatus = useChangeTicketReadStatus()
     const openTicketHandler = async () => {
@@ -103,16 +105,16 @@ const OperationColumInTicketTable = ({
                         </button>
                         {/*{auth.userInfo?.roleAccessList?.includes('ticketDelete') &&*/}
 
-                        <button
+                        {hasAccessToDelete &&< button
                             onClick={deleteButtonHandler}
 
                             className={'text-red-600'}>
 
                             <DeleteButton/>
-                        </button>
+                            </button>}
                         {/*}*/}
                     </div>
-                    <div>
+                    {hasAccessToForward && <div>
                         <button
                             onClick={() => {
                                 // setCurrentParams(params)
@@ -124,7 +126,7 @@ const OperationColumInTicketTable = ({
                             <FaShareSquare/>
                             {/*<span>ارجاع به کاربر</span>*/}
                         </button>
-                    </div>
+                    </div>}
                 </div>
             </>
         )
