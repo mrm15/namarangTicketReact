@@ -3,6 +3,8 @@ import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {getChatListData} from "./getChatListData.tsx";
 import {useChatListContext} from "./ChatListContext.tsx";
 import LittleSpinner from "../../Loader/LittleSpinner.tsx";
+import {useNavigate} from "react-router-dom";
+import {PAGES} from "../../../Pages/Route-string.tsx";
 
 const GetChatListDataComponent = ({children}) => {
     const RequestUrl = 'ticket/chatList/';
@@ -29,8 +31,16 @@ const GetChatListDataComponent = ({children}) => {
         }
     }, [id, reload, myAxios, setData]);
 
+    const navigateTo = useNavigate()
     if (!id) {
-        return <div>مقدار آیدی نامعتبر می باشد لطفا مجددا تیکت را باز کنید</div>;
+
+        return <div
+            className={"h-screen"}
+            onClick={() => navigateTo(PAGES.DASHBOARD)}
+        >
+            مقدار آیدی نامعتبر می باشد لطفا مجددا تیکت را باز کنید
+        </div>;
+
     }
 
     return (
