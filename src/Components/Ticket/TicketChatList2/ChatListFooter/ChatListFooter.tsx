@@ -25,7 +25,7 @@ interface IInitialSendData {
 
 const ChatListFooter = () => {
 
-    const {data,setData} = useChatListContext()
+    const {data, setData} = useChatListContext()
     const initialSendData: IInitialSendData = {
         description: '',
         visibleToUser: true,
@@ -118,12 +118,12 @@ const ChatListFooter = () => {
             if (response1.data && inputNumber === 0) {
                 toast.success(response1.data?.message);
                 setSendData({...initialSendData});
-                setData({reload:randomNumberGenerator()})
+                setData({reload: randomNumberGenerator()})
             }
             if (response1.data && inputNumber === 1) {
                 toast.success(response1.data?.message);
                 setSendData({...initialSendData});
-                debugger
+
                 navigateTo(PAGES.submit_bill, {
                     state: {
                         data: {
@@ -138,22 +138,42 @@ const ChatListFooter = () => {
         }
     }
 
+    const activeHiddenMessage = (event) => {
+        if (sendHiddenMessage) {
+            event.preventDefault();
+            setSendData({visibleToUser: !sendData.visibleToUser})
+            const newText = sendData.visibleToUser ?  " فعال " : "غیر فعال "
+            const icon = sendData.visibleToUser ?  "🕵️‍♂️" : "👀"
+            toast(` حالت پیام مخفی ${newText} شد `,
+                {
+                    icon: icon,
+                    style: {
+                        borderRadius: '10px',
+                        background: '#333',
+                        color: '#fff',
+                    },
+                }
+            );
+        }
+    }
+
     return (
         <div>
             {sendData.attachments.length > 0 && <div className={"ltr flex items-center p-3 bg-white border-gray-200"}>
-                  <div className="right-4 top-1/2 transform -translate-y-1/2 flex space-x-1">
-                      {sendData.attachments.map((file, index) => (
-                          <div key={index} className="flex items-center space-x-1 bg-blue-100 p-1 rounded border border__gray">
+              <div className="right-4 top-1/2 transform -translate-y-1/2 flex space-x-1">
+                  {sendData.attachments.map((file, index) => (
+                      <div key={index}
+                           className="flex items-center space-x-1 bg-blue-100 p-1 rounded border border__gray">
 
-                              <span className="text-xs text-gray-700">{file.name}</span>
-                              &nbsp;
-                              <FaTrash
-                                  className="text-red-500 cursor-pointer"
-                                  onClick={() => handleRemoveFile(index)}
-                              />
-                          </div>
-                      ))}
-                  </div>
+                          <span className="text-xs text-gray-700">{file.name}</span>
+                          &nbsp;
+                          <FaTrash
+                              className="text-red-500 cursor-pointer"
+                              onClick={() => handleRemoveFile(index)}
+                          />
+                      </div>
+                  ))}
+              </div>
             </div>}
             <div
                 className={`ltr flex items-center p-3  border-t border-gray-200  ${sendData.visibleToUser ? "bg-white" : "bg-gray-800"}`}>
@@ -183,6 +203,7 @@ const ChatListFooter = () => {
                 <button
                     className="p-2 text-gray-500 hover:text-blue-500 focus:outline-none"
                     onClick={() => fileInputRef.current?.click()}
+                    onContextMenu={activeHiddenMessage}
                 >
                     <FaPaperclip size={24}/>
                 </button>
