@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {formatNumber} from "../../../../utils/utilsFunction.tsx";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
 import useAuth from "../../../../hooks/useAuth.tsx";
@@ -25,7 +25,7 @@ const TwoTopButtons = () => {
     const roleAccessList = auth.userInfo?.roleAccessList
     const canSaveFactorAsDraft = roleAccessList.includes(ROLES.saveBillAsDraft[0])
     const canSaveFactorAsDone = roleAccessList.includes(ROLES.saveBillAsDone[0])
-
+    const [isDisabled, setIsDisabled] = useState(false)
     const myAxiosPrivate = useAxiosPrivate()
     const RetryToast: React.FC<RetryToastProps> = ({message, onRetry}) => (
         <div className="flex items-center justify-between p-4 bg-red-600 text-white rounded-md shadow-md">
@@ -41,6 +41,13 @@ const TwoTopButtons = () => {
             </button>
         </div>
     );
+
+    useEffect(() => {
+        console.log("")
+        return () => {
+            toast.dismiss()
+        }
+    }, [])
 
     const sendFactorForSave = async (newStatus: 0 | 1) => {
         const TIMEOUT_DURATION = 10000; // 10 seconds
@@ -59,6 +66,8 @@ const TwoTopButtons = () => {
         }
 
 
+
+
         const sendRequest = async () => {
             const tId: string | undefined = toast.loading("در حال ارسال اطلاعات...");
 
@@ -69,13 +78,14 @@ const TwoTopButtons = () => {
                     <RetryToast
                         message="درخواست زمان زیادی برد! دوباره تلاش کنید."
                         onRetry={() => sendFactorForSave(newStatus)} // Retry the request on button click
-                    />
+                    />, {duration: 20000}
                 );
             }, TIMEOUT_DURATION);
 
             try {
 
 
+                setIsDisabled(true)
                 const result = await myAxiosPrivate.post(submitBill, dataToSendBackEnd);
 
                 // Clear the timeout if request completes successfully before TIMEOUT_DURATION
@@ -97,7 +107,10 @@ const TwoTopButtons = () => {
                     toast.error("ارسال اطلاعات با خطا مواجه شد.");
                     console.error("Error sending data:", error);
                 }
+            } finally {
+                setIsDisabled(false)
             }
+
         }
 
         await sendRequest();
@@ -118,9 +131,13 @@ const TwoTopButtons = () => {
             </button>
 
             {canSaveFactorAsDraft &&
-                <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}>ذخیره</button>}
+                <button onClick={() => sendFactorForSave(0)} className={'btn-submit-mir mx-1'}
+                        disabled={isDisabled}
+                >ذخیره</button>}
             {canSaveFactorAsDone &&
-                <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}>تایید </button>}
+                <button onClick={() => sendFactorForSave(1)} className={'btn-green-mir'}
+                        disabled={isDisabled}
+                >تایید </button>}
         </div>
     );
 };
