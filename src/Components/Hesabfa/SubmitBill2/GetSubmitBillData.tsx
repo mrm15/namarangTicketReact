@@ -59,7 +59,7 @@ const GetSubmitBillData = ({children}) => {
                     const newTag11 = detectTag({
                         exceptionArray: [],
                         auth,
-                        lastTag: undefined,
+                        lastTag: data.invoice.Tag,
                         ticketNumber: data.billData.ticketNumber
                     })
 
