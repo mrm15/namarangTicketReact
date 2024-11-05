@@ -32,7 +32,7 @@ const TicketChatList2 = () => {
 
     return <ChatListProvider initialData={initialDataChatList}>
         <GetChatListDataComponent>
-            <div>
+            <div className={"flex flex-col h-screen bg-gray-100"}>
                 <ChatListHeader/>
                 <ChatListBody/>
                 <ChatListFooter/>
