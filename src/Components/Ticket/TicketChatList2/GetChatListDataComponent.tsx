@@ -34,7 +34,7 @@ const GetChatListDataComponent = ({children}) => {
     }
 
     return (
-        <div>
+        <>
             {isLoading ? (
                 <div>
                     <span>Loading... <LittleSpinner/></span>
@@ -42,7 +42,7 @@ const GetChatListDataComponent = ({children}) => {
             ) : (
                 children
             )}
-        </div>
+        </>
     );
 };
 

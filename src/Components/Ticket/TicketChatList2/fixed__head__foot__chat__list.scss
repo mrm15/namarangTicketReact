@@ -1,0 +1,51 @@
+.fixed__head__foot__chat__list {
+  position: relative;
+  //background: red;
+  //padding: 10px;
+  width: 100%;
+  height: 100vh; /* Full viewport height for demonstration */
+  //padding: 5px;
+  display: flex;
+  flex-direction: column;
+  //box-shadow: 0 0 5px 1px black;
+  //border-radius: 10px;
+}
+
+.headerClass {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: blue;
+  //padding: 10px;
+  height: 50px; /* Adjust height as needed */
+  z-index: 1;
+}
+
+
+
+.bodyClass {
+  //flex-grow: 1;
+  margin-top: 30px; /* Adjusted for the sticky header */
+  margin-bottom: 10px; /* Adjusted for the sticky footer */
+  overflow-y: scroll; // Enable vertical scroll
+  //-webkit-overflow-scrolling: touch; // Smooth scrolling for mobile devices
+  //
+  //&::-webkit-scrollbar {
+  //  display: none; // Hide scrollbar in WebKit browsers
+  //}
+  //
+  //&{
+  //  -ms-overflow-style: none;  // Hide scrollbar for IE and Edge
+  //  scrollbar-width: none;  // Hide scrollbar for Firefox
+  //
+  //}
+}
+.footerClass {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  background: green; /* Example color */
+  //padding: 10px;
+  //height: 50px; /* Adjust height as needed */
+  z-index: 1;
+}
