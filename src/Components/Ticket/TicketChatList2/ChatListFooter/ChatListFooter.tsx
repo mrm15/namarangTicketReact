@@ -11,6 +11,9 @@ import {ROLES} from "../../../../Pages/ROLES.tsx";
 import {uploadFileUtil} from "../../../../utils/upload.tsx";
 import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 import {PAGES} from "../../../../Pages/Route-string.tsx";
+import {useChatListContext} from "../ChatListContext.tsx";
+import {IoNewspaperOutline, IoSend} from "react-icons/io5";
+import {HiPaperAirplane} from "react-icons/hi2";
 
 const requestUrl = '/ticketReply/create';
 
@@ -20,7 +23,9 @@ interface IInitialSendData {
     attachments: File[] | [] | any;
 }
 
-const ChatListFooter = ({chatList, setReload, reload}) => {
+const ChatListFooter = () => {
+
+    const {data,setData} = useChatListContext()
     const initialSendData: IInitialSendData = {
         description: '',
         visibleToUser: true,
@@ -75,7 +80,7 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
 
     const submitHandler = async (inputNumber: 0 | 1) => {
         if (sendData.description === '') {
-            toast.error('مقدار توضیحات نباید خالی باشد');
+            toast.error('لطفا یک پیام بنویسید');
             return;
         }
 
@@ -102,7 +107,7 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
         }
 
         const temp = {
-            ticketNumber: chatList.chatList.ticketNumber,
+            ticketNumber: data.ticketNumber,
             description: sendData.description,
             visibleToUser: sendData.visibleToUser,
             attachments
@@ -113,11 +118,12 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
             if (response1.data && inputNumber === 0) {
                 toast.success(response1.data?.message);
                 setSendData({...initialSendData});
-                setReload({value: randomNumberGenerator()});
+                setData({reload:randomNumberGenerator()})
             }
             if (response1.data && inputNumber === 1) {
                 toast.success(response1.data?.message);
                 setSendData({...initialSendData});
+                debugger
                 navigateTo(PAGES.submit_bill, {
                     state: {
                         data: {
@@ -134,12 +140,13 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
 
     return (
         <div>
-            {sendData.attachments.length > 0 && <div className={"flex items-center p-3 bg-white border-gray-200"}>
+            {sendData.attachments.length > 0 && <div className={"ltr flex items-center p-3 bg-white border-gray-200"}>
                   <div className="right-4 top-1/2 transform -translate-y-1/2 flex space-x-1">
                       {sendData.attachments.map((file, index) => (
-                          <div key={index} className="flex items-center space-x-1 bg-blue-100 p-1 rounded">
+                          <div key={index} className="flex items-center space-x-1 bg-blue-100 p-1 rounded border border__gray">
 
                               <span className="text-xs text-gray-700">{file.name}</span>
+                              &nbsp;
                               <FaTrash
                                   className="text-red-500 cursor-pointer"
                                   onClick={() => handleRemoveFile(index)}
@@ -148,15 +155,11 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
                       ))}
                   </div>
             </div>}
-            <div className={`flex items-center p-3  border-t border-gray-200  ${sendData.visibleToUser ? "bg-white" : "bg-gray-800"}`} >
+            <div
+                className={`ltr flex items-center p-3  border-t border-gray-200  ${sendData.visibleToUser ? "bg-white" : "bg-gray-800"}`}>
                 {/* Attachment Button */}
 
-                <button
-                    className="p-2 text-gray-500 hover:text-blue-500 focus:outline-none"
-                    onClick={() => fileInputRef.current?.click()}
-                >
-                    <FaPaperclip/>
-                </button>
+
                 <input
                     type="file"
                     ref={fileInputRef}
@@ -172,30 +175,37 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
                     placeholder="پیام خود را وارد کنید"
                     value={sendData.description}
                     onChange={(e) => setSendData({...sendData, description: e.target.value})}
-                    className="min-h-max w-full py-2 px-4 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:border-blue-500"
+                    className="rtl min-h-max w-full py-2 px-4 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:border-blue-500"
                 />
 
                 </div>
 
+                <button
+                    className="p-2 text-gray-500 hover:text-blue-500 focus:outline-none"
+                    onClick={() => fileInputRef.current?.click()}
+                >
+                    <FaPaperclip size={24}/>
+                </button>
                 {/* Send and Extra Options */}
-                <div className="flex flex-col items-end space-y-2">
+                <div className="flex items-end ">
                     {/* Send Button */}
                     <button
-                        className="p-2 text-blue-500 hover:bg-blue-100 rounded-full transition"
+                        className="p-2 text-blue-500 hover:bg-blue-100 rounded transition"
                         onClick={() => submitHandler(0)}
                         onContextMenu={(event) => {
                             if (sendHiddenMessage) {
                                 event.preventDefault();
-                                setSendData({visibleToUser: !sendData.visibleToUser})                            }
+                                setSendData({visibleToUser: !sendData.visibleToUser})
+                            }
                         }}
                     >
-                        <FaPaperPlane/>
+                        <IoSend size={24}/>
                     </button>
 
                     {/* Send and Submit Invoice Button (if allowed) */}
                     {hasAccessToSubmitFactorInChatList && (
                         <button
-                            className="p-2 text-green-500 hover:bg-green-100 rounded-full transition"
+                            className="p-2 text-green-500 hover:bg-green-100 rounded transition  flex"
                             onClick={() => submitHandler(1)}
                             onContextMenu={(event) => {
                                 if (sendHiddenMessage) {
@@ -204,8 +214,8 @@ const ChatListFooter = ({chatList, setReload, reload}) => {
                                 }
                             }}
                         >
-                            <FaPaperPlane/>
-                            <span className="ml-1">ارسال و ثبت فاکتور</span>
+                            <IoNewspaperOutline size={24}/>
+                            <HiPaperAirplane size={24}/>
                         </button>
                     )}
                 </div>
