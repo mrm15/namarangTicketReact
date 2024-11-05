@@ -46,7 +46,6 @@ const TicketChatList2 = () => {
 
                 {/* Fixed Footer */}
                 <div className="footerClass">
-                    {/*1231231231 123*/}
                     <ChatListFooter />
                 </div>
             </div>
