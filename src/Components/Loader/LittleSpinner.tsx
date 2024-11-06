@@ -1,8 +1,12 @@
 import React from 'react';
 
-const LittleSpinner = () => {
+const LittleSpinner = ({scale = 1}) => {
     return (
-        <div className="flex items-center justify-center">
+        <div
+            style={{
+                transform: `scale(${scale})`
+            }}
+            className="flex items-center justify-center">
             <div className="animate-spin">&#9696;</div>
         </div>
     )
