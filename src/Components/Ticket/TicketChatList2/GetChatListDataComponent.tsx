@@ -19,10 +19,7 @@ const GetChatListDataComponent = ({children}) => {
         const fetchChatData = async () => {
             try {
                 const result = await getChatListData({RequestUrl, id, myAxios});
-
-                setTimeout(()=>{
-                    setData({...result.chatList, isLoading: false});
-                },1000000)
+                setData({...result.chatList, isLoading: false});
             } catch (error) {
                 console.error("Failed to fetch chat data:", error);
                 setData(prev => ({...prev, isLoading: false}));
@@ -50,7 +47,7 @@ const GetChatListDataComponent = ({children}) => {
         <>
             {isLoading ? (
                 <div>
-                    <ChatSkeleton />
+                    <ChatSkeleton/>
                 </div>
             ) : (
                 children
