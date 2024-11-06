@@ -3,7 +3,6 @@ import {useChatListContext} from '../ChatListContext';
 import {FaFile} from 'react-icons/fa';
 import ManPerson from "../../../../assets/Svg/ManPerson.tsx";
 import "./telegram-bg-style.scss"
-import {MdOutlinePersonSearch} from "react-icons/md";
 import {PiDetectiveFill} from "react-icons/pi";
 import {RiSearchFill} from "react-icons/ri";
 import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
