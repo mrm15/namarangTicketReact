@@ -5,6 +5,7 @@ import {useChatListContext} from "./ChatListContext.tsx";
 import LittleSpinner from "../../Loader/LittleSpinner.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../../Pages/Route-string.tsx";
+import ChatSkeleton from "./ChatSkeleton/ChatSkeleton.tsx";
 
 const GetChatListDataComponent = ({children}) => {
     const RequestUrl = 'ticket/chatList/';
@@ -19,7 +20,9 @@ const GetChatListDataComponent = ({children}) => {
             try {
                 const result = await getChatListData({RequestUrl, id, myAxios});
 
-                setData({...result.chatList, isLoading: false});
+                setTimeout(()=>{
+                    setData({...result.chatList, isLoading: false});
+                },1000000)
             } catch (error) {
                 console.error("Failed to fetch chat data:", error);
                 setData(prev => ({...prev, isLoading: false}));
@@ -47,7 +50,7 @@ const GetChatListDataComponent = ({children}) => {
         <>
             {isLoading ? (
                 <div>
-                    <span>Loading... <LittleSpinner/></span>
+                    <ChatSkeleton />
                 </div>
             ) : (
                 children
