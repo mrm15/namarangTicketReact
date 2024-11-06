@@ -14,6 +14,7 @@ import {PAGES} from "../../../../Pages/Route-string.tsx";
 import {useChatListContext} from "../ChatListContext.tsx";
 import {IoNewspaperOutline, IoSend} from "react-icons/io5";
 import {HiPaperAirplane} from "react-icons/hi2";
+import LittleSpinner from "../../../Loader/LittleSpinner.tsx";
 
 const requestUrl = '/ticketReply/create';
 
@@ -36,6 +37,7 @@ const ChatListFooter = () => {
     const [sendData, setSendData] = useObjectDataHolder({...initialSendData});
     const myAxiosPrivate = useAxiosPrivate();
     const myAxiosPrivateFormData = useAxiosPrivateFormData();
+    const [ isSending , setIsSending] = useState(false)
 
     const {auth} = useAuth();
     const sendHiddenMessage = auth?.userInfo?.roleAccessList?.includes('sendHiddenMessage');
@@ -92,10 +94,15 @@ const ChatListFooter = () => {
         }
 
         const attachments = [];
+        setIsSending(true)
+        let tid
+        tid = toast.loading(<> در حال ارسال  لطفا صبر کنید...</>)
         try {
             if (sendData.attachments.length > 0) {
-                const tId = toast.loading('در حال بارگزاری فایل');
+
+
                 for (const myFile of sendData.attachments) {
+
                     try {
                         const responseOfRequest: AxiosResponse<any> | null = await uploadFileUtil(myFile, "replyTicket", myAxiosPrivateFormData);
                         if (responseOfRequest && responseOfRequest.status === 200) {
@@ -107,7 +114,6 @@ const ChatListFooter = () => {
                         attachments.push('');
                     }
                 }
-                toast.dismiss(tId);
             }
         } catch (error) {
             attachments.push('');
@@ -143,6 +149,9 @@ const ChatListFooter = () => {
         } catch (error) {
             toast.error(error.toString());
         }
+        setIsSending(false)
+        toast.dismiss(tid)
+
     }
 
     const activeHiddenMessage = (event) => {
@@ -219,7 +228,8 @@ const ChatListFooter = () => {
                 <div className="flex items-end ">
                     {/* Send Button */}
                     <button
-                        className="p-2 text-blue-500 hover:bg-blue-100 rounded transition"
+                        disabled={isSending}
+                        className="p-2 text-blue-500 hover:bg-blue-100 rounded transition disabled:cursor-not-allowed"
                         onClick={() => submitHandler(0)}
                         onContextMenu={(event) => {
                             if (sendHiddenMessage) {
@@ -234,7 +244,8 @@ const ChatListFooter = () => {
                     {/* Send and Submit Invoice Button (if allowed) */}
                     {hasAccessToSubmitFactorInChatList && (
                         <button
-                            className="p-2 text-green-500 hover:bg-green-100 rounded transition  flex"
+                            disabled={isSending}
+                            className="p-2 text-green-500 hover:bg-green-100 rounded transition  flex disabled:cursor-not-allowed"
                             onClick={() => submitHandler(1)}
                             onContextMenu={(event) => {
                                 if (sendHiddenMessage) {
