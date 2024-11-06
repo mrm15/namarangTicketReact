@@ -1,0 +1,70 @@
+.skeleton.header {
+    height: 4rem;
+    width: 100%;
+    border-radius: 0.25rem;
+}
+
+.skeleton.message {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.skeleton.message-left {
+    border-top-left-radius: 0;
+}
+
+.skeleton.message-right {
+    border-top-right-radius: 0;
+    align-self: flex-end;
+}
+
+.skeleton.footer {
+    height: 5rem;
+    border-radius: 0.5rem;
+}
+
+.skeleton.width-100 {
+    width: 100%;
+}
+
+.skeleton.width-50 {
+    width: 50%;
+}
+
+.skeleton.width-60 {
+    width: 60%;
+}
+
+.skeleton.width-40 {
+    width: 40%;
+}
+
+.skeleton.width-30 {
+    width: 30%;
+}
+
+/* Animation */
+@keyframes pulseSkeleton {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-my-skeleton {
+    animation: pulseSkeleton 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Layout */
+.chat-skeleton {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.messages-skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
