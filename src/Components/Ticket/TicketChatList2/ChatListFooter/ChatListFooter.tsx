@@ -37,7 +37,7 @@ const ChatListFooter = () => {
     const [sendData, setSendData] = useObjectDataHolder({...initialSendData});
     const myAxiosPrivate = useAxiosPrivate();
     const myAxiosPrivateFormData = useAxiosPrivateFormData();
-    const [ isSending , setIsSending] = useState(false)
+    const [isSending, setIsSending] = useState(false)
 
     const {auth} = useAuth();
     const sendHiddenMessage = auth?.userInfo?.roleAccessList?.includes('sendHiddenMessage');
@@ -96,7 +96,7 @@ const ChatListFooter = () => {
         const attachments = [];
         setIsSending(true)
         let tid
-        tid = toast.loading(<> در حال ارسال  لطفا صبر کنید...</>)
+        tid = toast.loading(<> در حال ارسال لطفا صبر کنید...</>)
         try {
             if (sendData.attachments.length > 0) {
 
@@ -158,8 +158,8 @@ const ChatListFooter = () => {
         if (sendHiddenMessage) {
             event.preventDefault();
             setSendData({visibleToUser: !sendData.visibleToUser})
-            const newText = sendData.visibleToUser ?  " فعال " : "غیر فعال "
-            const icon = sendData.visibleToUser ?  "🕵️‍♂️" : "👀"
+            const newText = sendData.visibleToUser ? " فعال " : "غیر فعال "
+            const icon = sendData.visibleToUser ? "🕵️‍♂️" : "👀"
             toast(` حالت پیام مخفی ${newText} شد `,
                 {
                     icon: icon,
@@ -172,6 +172,26 @@ const ChatListFooter = () => {
             );
         }
     }
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (event.key === 'Enter') {
+            if (event.ctrlKey) {
+                // Ctrl + Enter: Insert a new line
+                const textarea = event.target as HTMLTextAreaElement;
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                setSendData({
+                    ...sendData, description:
+                        `${sendData.description.substring(0, start)}\n${sendData.description.substring(end)}`
+                })
+                event.preventDefault();
+            } else {
+                // Enter without Ctrl: Submit
+                void submitHandler(0);
+                event.preventDefault();
+            }
+        }
+    };
+
 
     return (
         <div>
@@ -208,8 +228,10 @@ const ChatListFooter = () => {
                 {/* Message Input */}
                 <div className="flex-1 mx-2 relative">
                 <textarea
+                    onKeyDown={handleKeyDown}
                     maxLength={900}
-                    placeholder="پیام خود را وارد کنید"
+                    title={"ارسال Enter  , خط بعدی Ctrl+Enter "}
+                    placeholder={"پیام خود را وارد کنید"}
                     value={sendData.description}
                     onChange={(e) => setSendData({...sendData, description: e.target.value})}
                     className="rtl min-h-max w-full py-2 px-4 rounded border border-gray-300 bg-gray-100 focus:outline-none focus:border-blue-500"
