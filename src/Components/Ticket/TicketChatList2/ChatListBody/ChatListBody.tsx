@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useChatListContext} from '../ChatListContext';
 import {FaFile} from 'react-icons/fa';
 import ManPerson from "../../../../assets/Svg/ManPerson.tsx";
@@ -10,7 +10,19 @@ import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
 
 const ChatListBody: React.FC = () => {
     const {data} = useChatListContext();
+    const messagesEndRef = useRef(null);
 
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            setTimeout(() => {
+                messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+            }, 500)
+        }
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [data.reload]);
     return (
         <div className={"telegram__bg__style"}>
             <div className={"telegram__color__bg"}>
@@ -117,6 +129,7 @@ const ChatListBody: React.FC = () => {
                     })}
                 </div>
             </div>
+            <div ref={messagesEndRef}/>
         </div>
     );
 };
