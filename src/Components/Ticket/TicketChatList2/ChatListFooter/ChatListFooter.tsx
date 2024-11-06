@@ -57,6 +57,9 @@ const ChatListFooter = () => {
             );
             return;
         }
+        // حجم هر فایل رو هم اینحا میتونم چک کنم.
+
+
         setSendData({attachments: Array.from(files)});
     }
 
@@ -81,6 +84,10 @@ const ChatListFooter = () => {
     const submitHandler = async (inputNumber: 0 | 1) => {
         if (sendData.description === '') {
             toast.error('لطفا یک پیام بنویسید');
+            return;
+        }
+        if (sendData.description.length > 1000) {
+            toast.error('بیشترین تعداد کاراکتر در هر پیام 1000 می باشد.');
             return;
         }
 
@@ -192,6 +199,7 @@ const ChatListFooter = () => {
                 {/* Message Input */}
                 <div className="flex-1 mx-2 relative">
                 <textarea
+                    maxLength={900}
                     placeholder="پیام خود را وارد کنید"
                     value={sendData.description}
                     onChange={(e) => setSendData({...sendData, description: e.target.value})}
