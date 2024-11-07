@@ -40,6 +40,7 @@ const OperationColumInTicketTable = ({
     //console.log(row,url,navigateTo,myAxios,setMyData,myData)
     const changeReadStatus = useChangeTicketReadStatus()
     const openTicketHandler = async () => {
+
         await openTicketActions({row, changeReadStatus})
         navigateTo(PAGES.ticket_chat_list, {state: {id: myTicketId}})
     }
@@ -100,7 +101,7 @@ const OperationColumInTicketTable = ({
                     <div className={'flex gap-1 items-center justify-center'}>
                         <button
                             onClick={openTicketHandler}
-                            className={'btn-into-aggrid'}
+                            className={'btn-white-border-mir'}
                         >مشاهده
                         </button>
                         {/*{auth.userInfo?.roleAccessList?.includes('ticketDelete') &&*/}
