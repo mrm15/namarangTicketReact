@@ -7,6 +7,7 @@ import EditButton from "../../assets/icons/EditButton.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
+import useAuth from "../../hooks/useAuth.tsx";
 
 
 
@@ -208,9 +209,19 @@ function ListStatus() {
     const onCellClicked = (params) => {
         //
     }
+
+    const {auth} = useAuth();
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const showAddButton = roleAccessList?.includes('statusListCreate')
+
     try {
         return (
             <div>
+                {showAddButton && <button
+                    onClick={() => navigateTo(PAGES.STATUS_ADD_EDIT)}
+                    className={"btn-white-border-mir my-2"}
+                >                            افزودن استاتوس
+                </button>}
                 <div className={'font-bold my-3 '}>
                     <div
                         className={'bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3'}
