@@ -23,8 +23,8 @@ const ChatListBody: React.FC = () => {
         scrollToBottom();
     }, [data.reload]);
     return (
-        <div className={"telegram__bg__style"}>
-            <div className={"telegram__color__bg"}>
+        <div className={"telegram__bg__style "}>
+            <div className={"telegram__color__bg min-h-screen"}>
                 <div className=" flex-1 overflow-y-auto p-4 ltr">
                     {data?.data?.map((item:any, index) => {
                         const isSent = item.isTicketSender;
