@@ -77,12 +77,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     //     icon: FaBarsStaggered,
     //     showItem: roleAccessList?.includes('ticketReadOwnReceived'),
     // },
-    {
-        name: "کل سفارشات سامانه",
-        link: PAGES.ticket_Read_All,
-        icon: MdLocalFireDepartment,
-        showItem: roleAccessList?.includes('readAllTicketsInSystem'),
-    },
+
     {
         // اگه کاربری ادمین دپارتمان باشه میتونه اینو ببینه. به همین سادگی
         name: "ورودی دپارتمان",
@@ -112,6 +107,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         icon: RiShareForward2Fill,
         showItem: roleAccessList?.includes('assignTicketsShowAll'),
         margin:true,
+    },
+    {
+        name: "کل سفارشات سامانه",
+        link: PAGES.ticket_Read_All,
+        icon: MdLocalFireDepartment,
+        showItem: roleAccessList?.includes('readAllTicketsInSystem'),
     },
     //
     {
