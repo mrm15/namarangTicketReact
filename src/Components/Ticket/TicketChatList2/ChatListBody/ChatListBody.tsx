@@ -49,14 +49,14 @@ const ChatListBody: React.FC = () => {
                                 <div className={`${isSent ? 'text-right' : 'text-left'} w-10/12 lg:w-1/2`}>
                                     {/* User info and hidden message indicator */}
 
-                                    <div className="flex items-center mb-1">
+                                    <div className={`flex items-center mb-1 ${isSent ? "flex-row-reverse" : ""}`}>
                                         {!isSent && (
                                             <div className="w-8 h-8 mr-2">
                                                 <ManPerson/> {/* Placeholder for user avatar */}
                                             </div>
                                         )}
                                         <div
-                                            className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">{item.user_name} • {item.department_name}</div>
+                                            className={`text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded `}>{item.user_name} • {item.department_name}</div>
                                     </div>
                                     {/* Message Bubble */}
 
