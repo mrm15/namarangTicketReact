@@ -59,60 +59,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     },
 
 
-    {
-        name: "افزودن کاربر",
-        link: PAGES.USER_ADD_EDIT,
-        icon: IoPersonAddSharp,
-        showItem: roleAccessList?.includes('userCreate'),
-    },
-    {
-        name: "مشاهده کاربر",
-        link: PAGES.USER_LIST,
-        icon: BsPersonVideo2,
-        showItem: roleAccessList?.includes('userReadAll'),
-    },
-    //
-    // {
-    //     name: "افزودن نقش",
-    //     link: PAGES.ROLE_ADD_EDIT,
-    //     icon: IoShapes,
-    //     showItem: roleAccessList?.includes('rolesCreate'),
-    // },
-    {name: "لیست نقش", link: PAGES.ROLE_LIST, icon: FaShapes, showItem: roleAccessList?.includes('rolesRead'),},
-    //
-    // {
-    //     name: "افزودن دپارتمان",
-    //     link: PAGES.DEPARTMENT_ADD_EDIT,
-    //     icon: BsBuildingAdd,
-    //     showItem: roleAccessList?.includes('departmentCreate'),
-    // }, //BsBuildingAdd
-    {
-        name: "لیست دپارتمان",
-        link: PAGES.DEPARTMENT_LIST,
-        icon: BsBuildingFill,
-        showItem: roleAccessList?.includes('departmentRead'),
-    },//BsBuildingFill
-    //
-    {
-        name: "افزودن استاتوس",
-        link: PAGES.STATUS_ADD_EDIT,
-        icon: BsFillModemFill,
-        showItem: roleAccessList?.includes('statusListCreate'),
-    },//BsFillModemFill
-    {
-        name: "لیست استاتوس",
-        link: PAGES.STATUS_LIST,
-        icon: BsFillModemFill,
-        showItem: roleAccessList?.includes('statusListRead'),
-    },
-    //
-    {
-        name: "افزودن فایل",
-        link: PAGES.FILE_ADD_EDIT,
-        icon: FaFileCirclePlus,
-        showItem: roleAccessList?.includes('fileCreate'),
-    },//FaFileCirclePlus
-    {name: "لیست فایل", link: PAGES.FILE_LIST, icon: FaFileAlt, showItem: roleAccessList?.includes('fileRead'),},
+
     //
     {
         name: "ثبت سفارش",
@@ -167,6 +114,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         link: PAGES.ticket_read_assign_tickets_all,
         icon: RiShareForward2Fill,
         showItem: roleAccessList?.includes('assignTicketsShowAll'),
+        margin:true,
     },
     //
     {
@@ -175,6 +123,61 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         icon: AiFillSetting,
         showItem: roleAccessList?.includes('adminSettings'),
     },
+    // {
+    //     name: "افزودن کاربر",
+    //     link: PAGES.USER_ADD_EDIT,
+    //     icon: IoPersonAddSharp,
+    //     showItem: roleAccessList?.includes('userCreate'),
+    // },
+    {
+        name: "مشاهده کاربر",
+        link: PAGES.USER_LIST,
+        icon: BsPersonVideo2,
+        showItem: roleAccessList?.includes('userReadAll'),
+    },
+    //
+    // {
+    //     name: "افزودن نقش",
+    //     link: PAGES.ROLE_ADD_EDIT,
+    //     icon: IoShapes,
+    //     showItem: roleAccessList?.includes('rolesCreate'),
+    // },
+    {name: "لیست نقش", link: PAGES.ROLE_LIST, icon: FaShapes, showItem: roleAccessList?.includes('rolesRead'),},
+    //
+    // {
+    //     name: "افزودن دپارتمان",
+    //     link: PAGES.DEPARTMENT_ADD_EDIT,
+    //     icon: BsBuildingAdd,
+    //     showItem: roleAccessList?.includes('departmentCreate'),
+    // }, //BsBuildingAdd
+    {
+        name: "لیست دپارتمان",
+        link: PAGES.DEPARTMENT_LIST,
+        icon: BsBuildingFill,
+        showItem: roleAccessList?.includes('departmentRead'),
+    },//BsBuildingFill
+    //
+    // {
+    //     name: "افزودن استاتوس",
+    //     link: PAGES.STATUS_ADD_EDIT,
+    //     icon: BsFillModemFill,
+    //     showItem: roleAccessList?.includes('statusListCreate'),
+    // },//BsFillModemFill
+    {
+        name: "لیست استاتوس",
+        link: PAGES.STATUS_LIST,
+        icon: BsFillModemFill,
+        showItem: roleAccessList?.includes('statusListRead'),
+    },
+    //
+    // {
+    //     name: "افزودن فایل",
+    //     link: PAGES.FILE_ADD_EDIT,
+    //     icon: FaFileCirclePlus,
+    //     showItem: roleAccessList?.includes('fileCreate'),
+    // },//FaFileCirclePlus
+    {name: "لیست فایل", link: PAGES.FILE_LIST, icon: FaFileAlt, showItem: roleAccessList?.includes('fileRead'),},
+
     //
     // {
     //     name: "آرشیو پیام",
