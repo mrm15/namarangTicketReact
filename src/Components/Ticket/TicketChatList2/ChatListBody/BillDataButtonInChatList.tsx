@@ -50,20 +50,24 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
 
     return (
         <div className={'mt-3 flex flex-wrap gap-2'}>
-            <a
-                href={PAGES.showBill + "/" + billNumber}
-                target={'_blank'}
-                className={`badge-bg-blue-text-white ${billStatus === 1 ? 'bg-emerald-800' : ''}`}
+            <button
+                className={`rounded border-1 px-2 ${billStatus === 1 ? 'bg-green-400' : 'bg-red-300'}`}
             >
-                <>مشاهده فاکتور :</>
-                <>{billStatus === 0 ? <> پیش نویس</> : (billStatus === 1 ? <>تایید شده</> : <></>)}</>
-            </a>
+                <a
+                    href={PAGES.showBill + "/" + billNumber}
+                    target={'_blank'}
+
+                >
+                    <span>مشاهده فاکتور :</span>
+                    <span>{billStatus === 0 ? <> پیش نویس</> : (billStatus === 1 ? <>تایید شده</> : <></>)}</span>
+                </a>
+            </button>
             {accessToEditBill && <button
-              className={'bg-white hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 rounded shadow'}
-              onClick={editHandler}
+                className={'bg-white hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 rounded shadow'}
+                onClick={editHandler}
             > &nbsp;
-              ویرایش فاکتور
-              <small className={""}>{billNumber}</small>
+                ویرایش فاکتور
+                <small className={""}>{billNumber}</small>
             </button>}
             {accessToDeleteBill && <button
               className={'badge-bg-red-text-red'}
