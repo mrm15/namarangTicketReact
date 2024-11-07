@@ -52,15 +52,14 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
         <div className={'mt-3 flex flex-wrap gap-2'}>
             <button
                 className={`rounded border-1 px-2 ${billStatus === 1 ? 'bg-green-400' : 'bg-red-300'}`}
+                onClick={()=>{
+                    const url = PAGES.showBill + "/" + billNumber
+                    // navigateTo(url, { replace: true }); // Optional: use `navigate` for URL building
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                }}
             >
-                <a
-                    href={PAGES.showBill + "/" + billNumber}
-                    target={'_blank'}
-
-                >
                     <span>مشاهده فاکتور :</span>
                     <span>{billStatus === 0 ? <> پیش نویس</> : (billStatus === 1 ? <>تایید شده</> : <></>)}</span>
-                </a>
             </button>
             {accessToEditBill && <button
                 className={'bg-white hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 rounded shadow'}
