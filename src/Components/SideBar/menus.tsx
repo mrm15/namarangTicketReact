@@ -72,20 +72,20 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         showItem: roleAccessList?.includes('userReadAll'),
     },
     //
-    {
-        name: "افزودن نقش",
-        link: PAGES.ROLE_ADD_EDIT,
-        icon: IoShapes,
-        showItem: roleAccessList?.includes('rolesCreate'),
-    },
+    // {
+    //     name: "افزودن نقش",
+    //     link: PAGES.ROLE_ADD_EDIT,
+    //     icon: IoShapes,
+    //     showItem: roleAccessList?.includes('rolesCreate'),
+    // },
     {name: "لیست نقش", link: PAGES.ROLE_LIST, icon: FaShapes, showItem: roleAccessList?.includes('rolesRead'),},
     //
-    {
-        name: "افزودن دپارتمان",
-        link: PAGES.DEPARTMENT_ADD_EDIT,
-        icon: BsBuildingAdd,
-        showItem: roleAccessList?.includes('departmentCreate'),
-    }, //BsBuildingAdd
+    // {
+    //     name: "افزودن دپارتمان",
+    //     link: PAGES.DEPARTMENT_ADD_EDIT,
+    //     icon: BsBuildingAdd,
+    //     showItem: roleAccessList?.includes('departmentCreate'),
+    // }, //BsBuildingAdd
     {
         name: "لیست دپارتمان",
         link: PAGES.DEPARTMENT_LIST,

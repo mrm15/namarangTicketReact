@@ -8,6 +8,8 @@ import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 import TableG from "../TableG/TableG.tsx";
+import {BsBuildingAdd} from "react-icons/bs";
+import useAuth from "../../hooks/useAuth.tsx";
 
 
 function ListDepartment() {
@@ -207,11 +209,23 @@ function ListDepartment() {
     const onCellClicked = (params) => {
         // console.log(params.data)
     }
+
+    const {auth} = useAuth();
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const showAddButton = roleAccessList?.includes('departmentCreate')
     try {
         return (
-            <TableG
-                url={"/department/read"}
-            />
+            <div>
+                {showAddButton && <button
+                    onClick={() => navigateTo(PAGES.DEPARTMENT_ADD_EDIT)}
+                    className={"btn-white-border-mir my-2"}
+                >
+                    افزودن دپارتمان
+                </button>}
+                <TableG
+                    url={"/department/read"}
+                />
+            </div>
         );
     } catch (error) {
         return <>{error.toString()}</>

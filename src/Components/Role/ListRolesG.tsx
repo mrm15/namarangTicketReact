@@ -9,6 +9,7 @@ import {PAGES} from "../../Pages/Route-string.tsx";
 import {toast} from "react-toastify";
 import {HeaderItem} from "../../utils/types/types.ts";
 import TableG from "../TableG/TableG";
+import useAuth from "../../hooks/useAuth.tsx";
 
 
 function ListRoles() {
@@ -205,11 +206,28 @@ function ListRoles() {
     const onCellClicked = (params) => {
         //
     }
+    // {
+    //     name: "افزودن نقش",
+    //     link: PAGES.ROLE_ADD_EDIT,
+    //     icon: IoShapes,
+    //     showItem: roleAccessList?.includes('rolesCreate'),
+    // },
+    const {auth} = useAuth();
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const showAddButton = roleAccessList?.includes('rolesCreate')
     try {
         return (
-            <TableG
-                url={"/role/read"}
-            />
+            <div>
+                {showAddButton && <button
+                    onClick={() => navigateTo(PAGES.ROLE_ADD_EDIT)}
+                    className={"btn-white-border-mir my-2"}
+                >
+                    افزودن نقش
+                </button>}
+                <TableG
+                    url={"/role/read"}
+                />
+            </div>
         );
     } catch (error) {
         return <>{error.toString()}</>
