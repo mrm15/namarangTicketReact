@@ -3,6 +3,8 @@ import {useChatListContext} from '../ChatListContext';
 import {FaArrowLeft, FaCalendarAlt, FaBuilding, FaTicketAlt} from 'react-icons/fa';
 import {useNavigate} from "react-router-dom";
 import {AiOutlineClose, AiOutlineCloseCircle, AiOutlineCloseSquare, AiOutlineIssuesClose} from "react-icons/ai";
+import OperationColumInTicketTable from "../../../TableG/FullTable/components/OperationColumInTicketTable.tsx";
+import ForwardTicketFromChatList from "../ForwardTicketFromChatList/ForwardTicketFromChatList.tsx";
 
 const ChatListHeader: React.FC = () => {
     const {data} = useChatListContext();
@@ -45,6 +47,7 @@ const ChatListHeader: React.FC = () => {
                 {/* Creation Date with Icon */}
 
             </div>
+            <ForwardTicketFromChatList data={data} />
 
         </div>
     );
