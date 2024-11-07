@@ -41,19 +41,17 @@ const customStyles = {
     indicatorsContainer: () => ({display: 'none'}), // Hide the dropdown indicators
 };
 
-const SelectOptionListView = ({myKey, setSelectedData, myOptions}) => {
-    const [selectedOption, setSelectedOption] = useState({value: '', label: 'انتخاب کنید'}); // State to store the selected option
+const SelectOptionListView = ({myKey, setSelectedData, myOptions , defaultLabel='انتخاب کنید'}) => {
 
-
-
+    const [selectedOption, setSelectedOption] = useState({value: '', label: defaultLabel})
     let options  = [{label: '', value: ''}]
     options = myOptions?.map((item: { name: any; id: any; }) => {
         return {label: item.name, value: item.id}
     })
-    options?.unshift({value: '', label: 'انتخاب کنید'})
+    options?.unshift({value: '', label:defaultLabel})
 
     useEffect(() => {
-        setSelectedOption({value: '', label: 'انتخاب کنید'})
+        setSelectedOption({value: '', label: defaultLabel})
     }, [myOptions]);
 
 
@@ -66,7 +64,7 @@ const SelectOptionListView = ({myKey, setSelectedData, myOptions}) => {
     return (
         <div>
             <Select
-                placeholder={'یک کاربر انتخاب کنید'}
+                placeholder={defaultLabel}
                 options={options}
                 styles={customStyles}    // Apply custom styles
                 onChange={handleChange} // Handle option selection
