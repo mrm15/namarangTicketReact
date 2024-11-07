@@ -15,6 +15,8 @@ import {ROLES} from "../../../Pages/ROLES.tsx";
 import {useNavigate} from "react-router-dom";
 import {data} from "autoprefixer";
 import {PAGES} from "../../../Pages/Route-string.tsx";
+import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
+import LittleSpinner from "../../Loader/LittleSpinner.tsx";
 
 interface TicketData {
     title: string;
@@ -24,6 +26,7 @@ interface TicketData {
     destinationUserId: string;
     userList: any[];
     maxFileSize: number;
+    isSendingRequest: boolean;
 }
 
 const getSettingsRequestUrl = 'adminSettings/getSafeAdminSettings';
@@ -32,7 +35,7 @@ const TicketCreate: React.FC = () => {
     const submitTicketUrl = '/ticket/create'
     const emptyFile = new File([], 'کلیک کنید +   بکشید و رها کنید')
     const maxNumberOfFiles = 3
-    const [ticketData, setTicketData] = useState<TicketData>({
+    const [ticketData, setTicketData] = useObjectDataHolder<TicketData>({
         title: '',
         description: '',
         files: [emptyFile],
@@ -40,6 +43,7 @@ const TicketCreate: React.FC = () => {
         destinationUserId: '',
         userList: [],
         maxFileSize: 0,
+        isSendingRequest: false,
     });
 
     const navigateTo = useNavigate()
@@ -135,6 +139,7 @@ const TicketCreate: React.FC = () => {
 
 
         try {
+            setTicketData({isSendingRequest: true})
             if (myTicketData.files.length > 0) {
                 // اگه فایلی وجود داشت باید مقدار های فایل ها با آدرس شون جایگزین بشه پس اول این آرایه رو خالی میکنم
                 if (uploadFiles.length > 0) {
@@ -206,6 +211,8 @@ const TicketCreate: React.FC = () => {
         } catch (error) {
             console.log(error)
             toast.error('فرم ثبت نشد لطفا مجددا تلاش کنید.');
+        } finally {
+            setTicketData({isSendingRequest: false})
         }
     };
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -365,19 +372,30 @@ const TicketCreate: React.FC = () => {
                     {/*</MoreSetting>*/}
 
                     <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketTitle"> </label>
-                        <input
+
+                        <button
                             onClick={() => clickHandler(0)}
-                            id="ticketTitle" type="button" className="btn-submit-mir"
-                            value={'ارسال'}/>
+                            className="btn-submit-mir disabled:cursor-not-allowed"
+                            disabled={ticketData.isSendingRequest}
+                        >
+                            {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
+                                <div>در حال ثبت سفارش</div>
+                                <LittleSpinner/></div> : " ثبت سفارش"}
+
+                        </button>
                     </div>
-                    {hasAccessToSubmitFactorInSubmitOrderForm && <div className="div__group__input_select w-full">
-                      <label htmlFor="ticketTitle"> </label>
-                      <input
-                        onClick={() => clickHandler(1)}
-                        id="ticketTitle" type="button" className="btn-submit-mir"
-                        value={'ارسال و ثبت فاکتور'}/>
-                    </div>}
+                    {hasAccessToSubmitFactorInSubmitOrderForm &&
+                      <div className="div__group__input_select w-full">
+                        <button
+                          onClick={() => clickHandler(1)}
+                          className="btn-submit-mir disabled:cursor-not-allowed"
+                          disabled={ticketData.isSendingRequest}
+                        >
+                            {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
+                                <div>در حال ثبت سفارش</div>
+                                <LittleSpinner/></div> : "ارسال و ثبت فاکتور"}
+                        </button>
+                      </div>}
                     {}
                 </div>
 
