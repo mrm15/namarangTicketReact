@@ -24,11 +24,11 @@ const ReactTableDataShow: React.FC<MyProps> = ({ data, columns, TableFilterSecti
     const myWindowsSize = useWindowSize()
     return (
         <div style={{
-            width: myWindowsSize.widthWindowSize - 250,
+            // width: myWindowsSize.widthWindowSize - 250,
             overflowX: "scroll",
             opacity: "hidden",
         }}
-             className={' shadow shadow-black fontSize12'}
+             className={' shadow shadow-black fontSize12 bg-amber-300 myResponsiveWidthMenuOpen'}
         >
             <table style={{ width: '100%', borderCollapse: 'collapse' }} className={'m-1'}>
                 <thead>
