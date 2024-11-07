@@ -28,7 +28,7 @@ const ReactTableDataShow: React.FC<MyProps> = ({ data, columns, TableFilterSecti
             overflowX: "scroll",
             opacity: "hidden",
         }}
-             className={' shadow shadow-black fontSize12 bg-amber-300 myResponsiveWidthMenuOpen'}
+             className={' shadow shadow-black fontSize12  myResponsiveWidthMenuOpen'}
         >
             <table style={{ width: '100%', borderCollapse: 'collapse' }} className={'m-1'}>
                 <thead>
