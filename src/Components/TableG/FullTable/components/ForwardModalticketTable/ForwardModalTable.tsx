@@ -1,7 +1,7 @@
 import "./style.scss"
 import SelectedTicketsInModal from "./SelectedTicketsInModal.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {toast} from "react-toastify";
+import toast from "react-hot-toast";
 import React, {useEffect, useState} from "react";
 import FullAdminSection from "./FullAdminSection.tsx";
 import DepartmentAdminViewSection from "./DepartmentAdminViewSection.tsx";
@@ -33,7 +33,7 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
         staleTime: 8600000,
     });
 
-
+    const [isSending, setIsSending] = useState(false)
     const onSubmit = async () => {
 
         const tempSelectedData = {...selectedData}
@@ -52,14 +52,18 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
         tempSelectedData.ticketIdsArray = tempSelectedData.ticketIdsArray.map(row => row._id)
 
         try {
+            toast.loading("در حال ارسال...")
+            setIsSending(true)
             const myResult = await axiosPrivate.post(requestUrl, tempSelectedData);
             toast.success(myResult?.data?.message);
+            toast.dismiss()
             setReload()
             rest?.closeModal()
 
 
         } catch (error) {
             toast.error(error.toString)
+            toast.dismiss()
         }
 
     }
@@ -93,6 +97,7 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
             <div>
                 <Modal {...rest}
 
+                       showButtons={!isSending}
                        onSubmit={onSubmit}
                 >
                     <div
@@ -107,22 +112,22 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
                                 />
 
                                 {mode === 'admin' && <FullAdminSection
-                                  mode={mode}
-                                  departmentList={departmentList}
-                                  setSelectedData={setSelectedData}
-                                  userList={userList}
+                                    mode={mode}
+                                    departmentList={departmentList}
+                                    setSelectedData={setSelectedData}
+                                    userList={userList}
                                 />}
                                 {mode === 'departmentAdmin' && <DepartmentAdminViewSection
-                                  mode={mode}
-                                  departmentList={departmentList}
-                                  setSelectedData={setSelectedData}
-                                  destinationUserList={destinationUserList}
+                                    mode={mode}
+                                    departmentList={departmentList}
+                                    setSelectedData={setSelectedData}
+                                    destinationUserList={destinationUserList}
                                 />
                                 }
                                 {mode === 'usualUser' && <UsualUserViewSection
-                                  mode={mode}
-                                  setSelectedData={setSelectedData}
-                                  destinationUserList={destinationUserList}
+                                    mode={mode}
+                                    setSelectedData={setSelectedData}
+                                    destinationUserList={destinationUserList}
                                 />
                                 }
 
