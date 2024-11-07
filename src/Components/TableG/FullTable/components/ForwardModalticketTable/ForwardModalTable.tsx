@@ -9,6 +9,7 @@ import UsualUserViewSection from "./UsualUserViewSection.tsx";
 import useObjectDataHolder from "../../../../../hooks/UseObjectDataHolder.tsx";
 import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate.tsx";
 import Modal from "../../../../Modal/Modal.tsx";
+import useAuth from "../../../../../hooks/useAuth.tsx";
 
 
 function ForwardModalTable({selectedItems, setReload, ...rest}) {
@@ -27,11 +28,20 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
 
     const [userList, setUserList] = useState([])
 
+    const myAxiosPrivate= useAxiosPrivate()
+    const {auth} = useAuth()
+    const queryFn = () => {
+        return myAxiosPrivate.get('/forward/getConfig/')
+    }
+    const isEnableForwarding = auth.userInfo.roleAccessList.includes('forwardTickets')
 
-    const {data, isLoading, error} = useQuery<any>({
+    const {data, isLoading, error} =useQuery({
         queryKey: ['forwardConfig'],
-        staleTime: 8600000,
-    });
+        queryFn,
+        staleTime: 86400000,  // === 60*60*24*1000
+        enabled: isEnableForwarding,
+    })
+
 
     const [isSending, setIsSending] = useState(false)
     const onSubmit = async () => {
