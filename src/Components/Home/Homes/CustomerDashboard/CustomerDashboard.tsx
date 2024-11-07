@@ -13,7 +13,7 @@ const CustomerDashboard = () => {
             <section className="bg-white p-4 rounded-lg shadow-md mb-6">
                 <h2 className="text-xl font-semibold mb-3">میانبرها</h2>
 
-                <div className="flex gap-2" >
+                <div className="flex flex-wrap gap-2" >
                     <button
                         onClick={() => navigate(PAGES.showMyBillListForCustomer)}
                         className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-md text-lg flex items-center space-x-2 transition duration-300"
