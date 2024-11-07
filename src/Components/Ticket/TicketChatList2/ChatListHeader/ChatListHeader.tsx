@@ -23,7 +23,7 @@ const ChatListHeader: React.FC = () => {
                 <div className="text-lg font-semibold text-gray-900">{data?.title}</div>
                 <p className="text-xs text-gray-500 flex items-center">
                     <FaBuilding className="mr-1"/>
-                    <div className={"hidden lg:block"}> آخرین دپارتمان :</div>
+                    <div className={"hidden lg:block"}> اولین دپارتمان :</div>
                     {data?.lastDepartment}
                 </p>
                 <div className={"text-gray-500 flex items-center"}>
