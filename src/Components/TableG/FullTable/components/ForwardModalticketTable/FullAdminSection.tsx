@@ -1,31 +1,32 @@
 import React from 'react';
 import SelectOptionListView from "./SelectOptionListView.tsx";
 
-const FullAdminSection = ({mode, departmentList, setSelectedData, userList}) => {
+const FullAdminSection = ({ mode, departmentList, setSelectedData, userList }) => {
     return (
-        <div>
-            <div
-            title={"دسترسی به کل سازمان"}
-            >🥇</div>
-            <div className={' flex flex-wrap'}>
-                <div className={'w-full'}>
-                    <div>انتخاب دپارتمان</div>
-                    <div>
+        <div className="max-w-lg mx-auto" title={"دسترسی به کل سازمان"}>
+            <div className="flex flex-wrap ">
+                <div className="w-full ">
+                    <div className=" p-3 rounded-md ">
                         <SelectOptionListView
                             myOptions={departmentList}
-                            myKey={'department'}
+                            myKey="department"
                             setSelectedData={setSelectedData}
+                            defaultLabel={"انتخاب دپارتمان"}
                         />
                     </div>
                 </div>
-                <div className={'w-full'}>
-                    <div> انتخاب کاربر</div>
-                    {mode === 'admin' && <SelectOptionListView
-                      myOptions={userList}
-                      myKey={'user'}
-                      setSelectedData={setSelectedData}
-                    />}
-                </div>
+                {mode === 'admin' && (
+                    <div className="w-full">
+                        <div className=" p-3 rounded-md ">
+                            <SelectOptionListView
+                                myOptions={userList}
+                                myKey="user"
+                                setSelectedData={setSelectedData}
+                                defaultLabel={"انتخاب کاربر"}
+                            />
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
