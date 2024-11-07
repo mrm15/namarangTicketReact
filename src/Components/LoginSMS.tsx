@@ -36,6 +36,7 @@ const LoginSMS: React.FC = () => {
     const [sectionView, setSectionView] = useState('number') // number | code
     const [secretMode, setSecretMode] = useState(false)
     const [isLoadingForLogin , setIsLoadingForLogin] = useState(false)
+    const [isSendingCode , setIsSendingCode] = useState(false)
     /*
      مقدار
      persist
@@ -85,8 +86,9 @@ const LoginSMS: React.FC = () => {
                 // withCredentials: true, // Uncomment if needed
             };
 
+            setIsSendingCode(true)
             const response = await axios.post(LOGIN_URL, JSON.stringify(loginPayload), axiosConfig);
-
+            setIsSendingCode(false)
 
             if (response.data.status) {
                 toast.success(response?.data?.message)
@@ -231,9 +233,10 @@ const LoginSMS: React.FC = () => {
 
                     <button
                       onClick={sendLoginCode}
-                      className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'}
+                      className={'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full disabled:cursor-not-allowed'}
+                      disabled={isSendingCode}
                     >
-                      ارسال کد
+                        {isSendingCode ? "در حال ارسال پیامک ورود" : "ارسال کد ورود"}
                     </button>
 
 
