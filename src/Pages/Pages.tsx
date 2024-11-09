@@ -10,6 +10,7 @@ import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
+import AdvancedTicketCreate from "../Components/Ticket/advanedTicketCreate/AdvancedTicketCreate.tsx";
 
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
@@ -170,6 +171,14 @@ const Pages = () => {
                                 </Suspense>
                             }/>
                         </Route>
+                        {/* ticket create */}
+                        {/*<Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>*/}
+                            <Route path={PAGES.ticket_Create_advanced} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <AdvancedTicketCreate/>
+                                </Suspense>
+                            }/>
+                        {/*</Route>*/}
 
                         {/* ticket create */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>
