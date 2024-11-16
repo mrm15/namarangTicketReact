@@ -347,6 +347,18 @@ export const pivotArray = [
         countKey: "myQuantity",
     },
 
+    {
+        caption: "پلی اورتان",
+        filterTextForPivot: [
+            "چسب پلی اورتان خطی و مونتاژ حروف های رینگی و وکیوم",
+            "صاب زدن استیل و چسب پلی اورتان",
+            "چسب پلی اورتان خطی برای استحکام حروف استیل و آهن",
+        ],
+        myKey: "myItemName",
+        showSubitems: true,
+        sumKey: "myTotalAmount",
+        countKey: "myQuantity",
+    },
     // {
     //     caption: "اجرت استیکر",
     //     filterTextForPivot: [
