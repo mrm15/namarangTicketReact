@@ -153,6 +153,28 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 90,
             maxSize: 90,
         },
+        // شماره سفارش
+        {
+            id: "userPhoneNumber",
+            accessorKey: 'userPhoneNumber',
+            header: () => {
+                return  <>
+                    {/*<NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />*/}
+                    شماره تماس سفارش دهنده
+                </>
+            },
+
+
+            // cell: info => <>{info.getValue()}</>,
+            cell: (info) => {
+
+
+                return <>{info.getValue()}</>
+            },
+            size: 90,
+            minSize: 90,
+            maxSize: 90,
+        },
         // آخرین دپارتمان
         {
             id: "assignedToDepartmentIdText",
