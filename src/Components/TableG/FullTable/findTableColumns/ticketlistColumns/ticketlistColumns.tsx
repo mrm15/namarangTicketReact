@@ -160,7 +160,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => {
                 return  <>
                     {/*<NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />*/}
-                    شماره تماس سفارش دهنده
+                    شماره  سفارش دهنده
                 </>
             },
 
@@ -171,9 +171,9 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return <>{info.getValue()}</>
             },
-            size: 90,
-            minSize: 90,
-            maxSize: 90,
+            size: 120,
+            minSize: 120,
+            maxSize: 120,
         },
         // آخرین دپارتمان
         {
