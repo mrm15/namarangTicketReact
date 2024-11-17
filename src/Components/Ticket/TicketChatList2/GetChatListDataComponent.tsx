@@ -23,6 +23,7 @@ const GetChatListDataComponent = ({children}) => {
             } catch (error) {
                 console.error("Failed to fetch chat data:", error);
                 setData(prev => ({...prev, isLoading: false}));
+                navigateTo("/")
             }
         };
 
