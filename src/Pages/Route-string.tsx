@@ -45,6 +45,9 @@ export const PAGES = {
     reportBill:"/reportBill",
     basted_bandi_ersal:"/pack-send",
     adminReport:"/adminReport",
+    myBank:"/myBank",
+    allBanks:"/allBanks",
+    myBankDepartment:"/myBankDepartment",
     ////////////////////////////////
     fatherAccess:"/fatherAccess",
     ////////////////////
