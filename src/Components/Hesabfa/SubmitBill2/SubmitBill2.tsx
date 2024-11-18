@@ -28,11 +28,11 @@ const SubmitBill2 = () => {
         billType: myStateData?.billType, // it is in ticket Or in the ticketReply
         ticketId: myStateData?.ticketId,
         id: myStateData?.id,
-        billNumber: myStateData.billNumber, // if its empty  it is on Edit Mode
+        billNumber: myStateData?.billNumber || "", // if its empty  it is on Edit Mode
         ContactCode: myStateData?.contactCode, // if its empty  it is on Edit Mode
-        ContactName: myStateData?.contactName, // if its empty  it is on Edit Mode
+        ContactName: myStateData?.contactName || "", // if its empty  it is on Edit Mode
         tag: JSON.stringify(myTag), //
-        backUrl: myStateData.backUrl,
+        backUrl: myStateData?.backUrl|| -1,
     }
     const todayDate = new DateObject();
     todayDate.setHour(0)
