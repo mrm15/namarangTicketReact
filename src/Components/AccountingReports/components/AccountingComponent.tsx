@@ -29,9 +29,13 @@ const AccountingComponent = () => {
         })
 
     console.log(resultOfUseQuery)
+
     return (
         <div>
-            <ReportFilters/>
+            <ReportFilters
+            data={data}
+            setData={setData}
+            />
             {/*<button*/}
             {/*    className={"btn-submit-mir"}*/}
             {/*    onClick={handleGetData}>*/}
