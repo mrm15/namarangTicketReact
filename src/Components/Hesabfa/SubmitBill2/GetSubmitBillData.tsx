@@ -7,6 +7,7 @@ import {useSubmitBillContext} from "./submitBillContext.tsx";
 import {detectTag, makeInvoiceBaseOnHesabfaData} from "../SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
 import useAuth from "../../../hooks/useAuth.tsx";
+import {ROLES} from "../../../Pages/ROLES.tsx";
 
 const GetSubmitBillData = ({children}) => {
 
@@ -53,8 +54,10 @@ const GetSubmitBillData = ({children}) => {
                 } else {
                     // اینجا باید درخواست بزنم اطلاعات مشتری رو بگیرم که کد داره.
                     // و اونو توی بخش مخاطب بزارم
-                    const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + data.billData.ContactCode);
-                    data.invoice.Contact = ContactRequest.data.data
+                    if(data.billData.ContactCode) {
+                        const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + data.billData.ContactCode);
+                        data.invoice.Contact = ContactRequest.data.data
+                    }
                     // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
                     const newTag11 = detectTag({
                         exceptionArray: [],
@@ -81,8 +84,23 @@ const GetSubmitBillData = ({children}) => {
     }, [data.billNumber, billDetailsData?.data]);
 
 
+    let topAlert=<></>
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const hasAccessToTestFactor = roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
+
+    // اگه هیچکدوم از این مقادیر رو نداده بود میتونم براش فاکتور تستی رو باز کنم.
+    if(!data.billNumber && !data.invoice.ContactCode){
+        topAlert= <div className={"w-full text-center"}>
+            <div className={"badge-bg-blue-text-white  "}>
+                 محاسبه قیمت فاکتور ویژه مشتری VIP
+            </div>
+        </div>
+    }
+
     return (
-        <div className={`bg-white rounded mb-36 ${data?.invoice?.Status===1 ? " border border-green-600 shadow shadow-green-500" : "border border-red-200"}`}>
+        <div
+            className={`bg-white rounded mb-36 ${data?.invoice?.Status === 1 ? " border border-green-600 shadow shadow-green-500" : "border border-red-200"}`}>
+            {hasAccessToTestFactor && topAlert}
             {children}
         </div>
     );
