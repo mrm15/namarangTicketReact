@@ -80,21 +80,21 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
 
     {
         name: "قلک من",
-        link: PAGES.submit_bill,
+        link: PAGES.myBank,
         icon: BsPiggyBank,
-        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+        showItem: roleAccessList?.includes(ROLES.myBankFirstUserId[0]),
     },
     {
-        name: "قلک درآمد کلی",
-        link: PAGES.submit_bill,
+        name: "قلک کلی",
+        link: PAGES.allBanks,
         icon: MdOutlineSavings,
-        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+        showItem: roleAccessList?.includes(ROLES.allBanksFirstUserId[0]),
     },
     {
-        name: "قلک درآمد مدیر",
-        link: PAGES.submit_bill,
+        name: "قلک مدیر",
+        link: PAGES.myBankDepartment,
         icon: FaPiggyBank,
-        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+        showItem: roleAccessList?.includes(ROLES.myBankDepartment[0]),
     },
     // {
     //     name: "کل تیکت های من",
