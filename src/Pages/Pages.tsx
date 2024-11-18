@@ -31,7 +31,6 @@ const AddFiles = lazy(() => import('../Components/Files/AddFiles.tsx'));
 const ListFiles = lazy(() => import('../Components/Files/ListFiles.tsx'));
 const TicketCreate = lazy(() => import('../Components/Ticket/TicketCreate/TicketCreate.tsx'));
 const TicketRead = lazy(() => import('../Components/Ticket/TicketRead/TicketRead.tsx'));
-const TicketChatList = lazy(() => import('../Components/Ticket/TicketChatList/TicketChatList.tsx'));
 const TicketChatList2 = lazy(() => import('../Components/Ticket/TicketChatList2/TicketChatList2.tsx'));
 const AddSettings = lazy(() => import('../Components/AdminSettings/AddSettings.tsx'));
 const ShowBill = lazy(() => import('../Components/Hesabfa/ShowBill/ShowBill.tsx'));
