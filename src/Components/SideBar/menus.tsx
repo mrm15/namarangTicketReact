@@ -4,7 +4,7 @@ import {RiBillLine} from "react-icons/ri";
 import { BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "react-icons/bs";
 import {FaShapes} from "react-icons/fa6";
 import { MdAssignmentTurnedIn } from "react-icons/md";
-import { FaEnvelope } from "react-icons/fa";
+import {FaBeer, FaEnvelope} from "react-icons/fa";
 import { HiInboxArrowDown } from "react-icons/hi2";
 import { FaFileAlt, FaShareSquare} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
@@ -70,6 +70,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         link: PAGES.ticket_created_by_me,
         icon: MdAssignmentTurnedIn,
         showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
+    },
+    {
+        name: "محاسبه قیمت",
+        link: PAGES.submit_bill,
+        icon: FaBeer,
+        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
     },
     // {
     //     name: "کل تیکت های من",

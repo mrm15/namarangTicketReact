@@ -124,6 +124,7 @@ const dropdownOptions = [
     {value: "fatherAccess", key: "دسترسی Developer Mode"},
     {value: "showMyBillListForCustomer", key: "مشاهده ی منوی  فاکتور های من"},
     {value: "viewBills", key: " دکمه مشاهده فاکتور در جدول هایی که لازمه- برای مشتری و برای تایید فاکتور لازمه"},
+    {value: "testBillCalculatePrice", key: "دسترسی به فاکتور تستی بعضی از مشتری ها بتونن جهت محاسبه قیمت خودشون صفحه ی فاکتور رو ببیند تا قیمت رو محاسبه کنند و به مشتریشون قیمت بدن. ابته که باید بلد باشن فاکتور رو خودشون بزنن - توی منوی کناری آیتم محاسبه قیمت فاکتور میاد."},
     //  Dashboards
     {value: "customerDashboard", key: "داشبورد مشتری - شامل دکمه ها و سایر چیزایی که میتونم بهش اضافه کنم"},
     {value: "organizationDashboard", key: "داشبورد سازمانی کابران سازمان بهش دسترسی دارن"},

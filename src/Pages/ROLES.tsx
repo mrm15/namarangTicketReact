@@ -1,4 +1,5 @@
 export const ROLES = {
+    testBillCalculatePrice:["testBillCalculatePrice"],
     viewBills:["viewBills"],
     showMyBillListForCustomer:["showMyBillListForCustomer"],
     fatherAccess:["fatherAccess"],
