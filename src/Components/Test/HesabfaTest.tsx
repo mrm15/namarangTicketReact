@@ -76,7 +76,7 @@ const HesabfaTest = () => {
         const result112 = confirm("این کار یه پیامک میده اوکی؟؟؟")
         if (result112) {
             const result = await myAxiosPrivate.get('reports/todayReportSms')
-            debugger
+
             showToast(result)
         }
 
