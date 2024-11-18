@@ -42,6 +42,9 @@ class ErrorBoundary extends React.Component<Props, State> {
             return (
                 <div className="flex justify-center">
                     <div className="w-full h-screen bg-red-950 text-white fontSize14 font-mono whitespace-break-spaces absolute p-5 ltr">
+                        <pre>
+                            {this.state.errorData.toString()}
+                        </pre>
                         <div className="rtl">
                             <div>
                                 یه موردی پیش اومد،
