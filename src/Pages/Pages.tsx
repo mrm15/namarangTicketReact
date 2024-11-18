@@ -35,7 +35,6 @@ const TicketChatList = lazy(() => import('../Components/Ticket/TicketChatList/Ti
 const TicketChatList2 = lazy(() => import('../Components/Ticket/TicketChatList2/TicketChatList2.tsx'));
 const AddSettings = lazy(() => import('../Components/AdminSettings/AddSettings.tsx'));
 const ShowBill = lazy(() => import('../Components/Hesabfa/ShowBill/ShowBill.tsx'));
-const SubmitBill = lazy(() => import('../Components/Hesabfa/SubmitBill/SubmitBill.tsx'));
 const SubmitBill2 = lazy(() => import('../Components/Hesabfa/SubmitBill2/SubmitBill2.tsx'));
 const ReportBill = lazy(() => import('../ReportBill/ReportBill.tsx'));
 const AdminReportCP = lazy(() => import('../Components/AdminReport/AdminReportCP.tsx'));
