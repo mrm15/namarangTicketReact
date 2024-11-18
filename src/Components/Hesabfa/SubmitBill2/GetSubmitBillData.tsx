@@ -8,6 +8,8 @@ import {detectTag, makeInvoiceBaseOnHesabfaData} from "../SubmitBill/functions.t
 import {toast} from "react-toastify";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
+import {useNavigate} from "react-router-dom";
+import {PAGES} from "../../../Pages/Route-string.tsx";
 
 const GetSubmitBillData = ({children}) => {
 
@@ -87,9 +89,10 @@ const GetSubmitBillData = ({children}) => {
     let topAlert=<></>
     const roleAccessList = auth.userInfo?.roleAccessList;
     const hasAccessToTestFactor = roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
+    const testBillCalculatePrice = roleAccessList?.includes(ROLES.testBillCalculatePrice[0])
 
     // اگه هیچکدوم از این مقادیر رو نداده بود میتونم براش فاکتور تستی رو باز کنم.
-    if(!data.billNumber && !data.invoice.ContactCode){
+    if(!data.billNumber && !data.invoice.ContactCode && hasAccessToTestFactor){
         topAlert= <div className={"w-full text-center"}>
             <div className={"badge-bg-blue-text-white  "}>
                  محاسبه قیمت فاکتور ویژه مشتری VIP
@@ -97,10 +100,16 @@ const GetSubmitBillData = ({children}) => {
         </div>
     }
 
+    const navigateTo = useNavigate()
+    if(!data.billNumber && !data.invoice.ContactCode && !testBillCalculatePrice){
+        navigateTo(PAGES.DASHBOARD)
+        return null
+    }
+
     return (
         <div
             className={`bg-white rounded mb-36 ${data?.invoice?.Status === 1 ? " border border-green-600 shadow shadow-green-500" : "border border-red-200"}`}>
-            {hasAccessToTestFactor && topAlert}
+            {hasAccessToTestFactor && testBillCalculatePrice && topAlert}
             {children}
         </div>
     );
