@@ -6,15 +6,21 @@ import "./telegram-bg-style.scss"
 import {PiDetectiveFill} from "react-icons/pi";
 import {RiSearchFill} from "react-icons/ri";
 import BillDataButtonInChatList from "./BillDataButtonInChatList.tsx";
+import DeleteButton from "../../../../assets/icons/DeleteButton.tsx";
+import useAuth from "../../../../hooks/useAuth.tsx";
+import {ROLES} from "../../../../Pages/ROLES.tsx";
+import toast from "react-hot-toast";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
+import {nanoid} from "@reduxjs/toolkit";
 
 const ChatListBody: React.FC = () => {
-    const {data} = useChatListContext();
+    const {setData, data} = useChatListContext();
     const messagesEndRef = useRef(null);
 
     const scrollToBottom = () => {
         if (messagesEndRef.current) {
             setTimeout(() => {
-                messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+                messagesEndRef.current.scrollIntoView({behavior: 'smooth'});
             }, 500)
         }
     };
@@ -22,11 +28,54 @@ const ChatListBody: React.FC = () => {
     useEffect(() => {
         scrollToBottom();
     }, [data.reload]);
+
+    const {auth} = useAuth()
+    const roleAccessList = auth.userInfo?.roleAccessList;
+    const hasFatherAccess = roleAccessList.includes(ROLES.fatherAccess[0]);
+    const myAxios = useAxiosPrivate()
+    const deleteOneReply = async (item) => {
+
+
+
+        const isOk = confirm(`
+        داری یه پیام رو از توی چت لیست حذف میکنی؟
+        ${item.description}
+        
+        مطمئنی که میخوای حذف بشه؟  چون دیگه اره برگشتی نیست.
+        `)
+        if (!isOk) {
+            return
+        }
+        if(item.type!=="ticketReply"){
+            toast.error("اولین پیام رو نمیشه حذف کرد اطلاعات خود تیکت اینجا ذخیره شده! ")
+            return
+        }
+
+
+
+        const url = "ticketReply/delete/" + item.id
+        const tid = toast.loading("در حال حذف پیام")
+        try {
+            const response = await myAxios.delete(url)
+
+            if (response.data) {
+
+                toast.success(response?.data?.message)
+                setData({reload: nanoid(5)})
+            }
+
+        } catch (error) {
+            console.log(error)
+        } finally {
+            toast.dismiss(tid)
+        }
+
+    }
     return (
         <div className={"telegram__bg__style "}>
             <div className={"telegram__color__bg min-h-screen"}>
                 <div className=" flex-1 overflow-y-auto p-4 ltr">
-                    {data?.data?.map((item:any, index) => {
+                    {data?.data?.map((item: any, index) => {
                         const isSent = item.isTicketSender;
                         const isHidden = item.visibleToUser === false;
 
@@ -62,8 +111,8 @@ const ChatListBody: React.FC = () => {
 
                                     <div className={"transform transition-transform duration-300 hover:translate-x-4"}>
                                         {isHidden && <div className=" flex justify-end">
-                                          <RiSearchFill size={24} color="black"/>
-                                          <PiDetectiveFill size={24} color="black"/>
+                                            <RiSearchFill size={24} color="black"/>
+                                            <PiDetectiveFill size={24} color="black"/>
                                         </div>}
                                     </div>
                                     <div
@@ -115,10 +164,22 @@ const ChatListBody: React.FC = () => {
                                             />}
 
                                         </div>
+
+                                        {/* delete */}
+
+                                        {hasFatherAccess &&
+                                            <div
+                                                className={"text-red-600 shadow-white bg-white w-fit p-1 rounded cursor-pointer"}
+                                                onClick={() => deleteOneReply(item)}
+                                            >
+                                                <DeleteButton/>
+                                            </div>}
+
                                         {/* Timestamp */}
                                         <div className="text-xs text-gray-400 mt-1 w-fit">
                                             {item.createAt}
                                         </div>
+
                                     </div>
 
 
