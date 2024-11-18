@@ -1,10 +1,10 @@
-import { MdAssignmentAdd, MdLocalFireDepartment, MdOutlineDashboard} from "react-icons/md";
+import {MdAssignmentAdd, MdLocalFireDepartment, MdOutlineDashboard, MdOutlineSavings} from "react-icons/md";
 import {PAGES} from "../../Pages/Route-string";
 import {RiBillLine} from "react-icons/ri";
-import { BsBuildingFill, BsFillModemFill, BsPersonVideo2} from "react-icons/bs";
+import {BsBuildingFill, BsFillModemFill, BsPersonVideo2, BsPiggyBank} from "react-icons/bs";
 import {FaShapes} from "react-icons/fa6";
 import { MdAssignmentTurnedIn } from "react-icons/md";
-import {FaBeer, FaEnvelope} from "react-icons/fa";
+import {FaBeer, FaEnvelope, FaPiggyBank} from "react-icons/fa";
 import { HiInboxArrowDown } from "react-icons/hi2";
 import { FaFileAlt, FaShareSquare} from "react-icons/fa";
 import {AiFillSetting} from "react-icons/ai";
@@ -75,6 +75,25 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         name: "محاسبه قیمت",
         link: PAGES.submit_bill,
         icon: FaBeer,
+        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+    },
+
+    {
+        name: "قلک من",
+        link: PAGES.submit_bill,
+        icon: BsPiggyBank,
+        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+    },
+    {
+        name: "قلک درآمد کلی",
+        link: PAGES.submit_bill,
+        icon: MdOutlineSavings,
+        showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
+    },
+    {
+        name: "قلک درآمد مدیر",
+        link: PAGES.submit_bill,
+        icon: FaPiggyBank,
         showItem: roleAccessList?.includes(ROLES.testBillCalculatePrice[0]),
     },
     // {

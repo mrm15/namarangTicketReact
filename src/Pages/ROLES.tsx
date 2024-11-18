@@ -1,4 +1,7 @@
 export const ROLES = {
+    myBankFirstUserId:["myBankFirstUserId"],
+    allBanksFirstUserId:["allBanksFirstUserId"],
+    myBankDepartment:["myBankDepartment"],
     testBillCalculatePrice:["testBillCalculatePrice"],
     viewBills:["viewBills"],
     showMyBillListForCustomer:["showMyBillListForCustomer"],
