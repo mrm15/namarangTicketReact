@@ -2,8 +2,7 @@ import React from 'react';
 import MyDatePicker2 from '../../myDatePicker2/MyDatePicker2.tsx';
 import { useAccountingReportsContext } from '../AccountingReportsContext.tsx';
 
-const ReportFilters = () => {
-    const { data, setData } = useAccountingReportsContext();
+const ReportFilters = ({ data, setData }) => {
 
     const filterData = {
         startDate: data?.filters?.find(r => r['uniqId'] === 'startDate')?.showValue || null,
