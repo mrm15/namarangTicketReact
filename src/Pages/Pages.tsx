@@ -41,6 +41,7 @@ const HesabfaTest = lazy(() => import('../Components/Test/HesabfaTest.tsx'));
 const Missing = lazy(() => import('../Components/Missing'));
 const Index = lazy(() => import("../Components/GetMoreActiveContacts/Index.tsx"))
 const EditProfileInfo = lazy(() => import("../Components/User/EditProfileInfo/EditProfileInfo.tsx"))
+const Bank = lazy(() => import("../Components/Bank/Bank.tsx"))
 
 
 const Pages = () => {
@@ -323,6 +324,29 @@ const Pages = () => {
                             <Route path={PAGES.screenshot} element={
                                 <Suspense fallback={<Loader/>}>
                                     <ScreenShotBill/>
+                                </Suspense>
+                            }/>
+                        </Route>
+
+                        {/* Bank */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.myBankFirstUserId[0]}/>}>
+                            <Route path={PAGES.myBank} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <Bank/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.myBankDepartment[0]}/>}>
+                            <Route path={PAGES.myBankDepartment} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <Bank/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.allBanksFirstUserId[0]}/>}>
+                            <Route path={PAGES.allBanks} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <Bank/>
                                 </Suspense>
                             }/>
                         </Route>
