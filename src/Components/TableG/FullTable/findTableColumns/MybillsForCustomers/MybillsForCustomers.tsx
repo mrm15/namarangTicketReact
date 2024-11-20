@@ -287,7 +287,6 @@ export const MybillsForCustomers = (inputs: IInputObject): ColumnDef<any>[] => {
                     }</div>
                 </>
             },
-            hidden:true,
 
 
         },
@@ -322,7 +321,6 @@ export const MybillsForCustomers = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 150,
             maxSize: 150,
             // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
-            hidden:true,
         },
     ];
 
