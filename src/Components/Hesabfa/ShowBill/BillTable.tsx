@@ -68,7 +68,7 @@ const BillTable = ({hesabfaBillData}) => {
                         <thead>
                         <tr className="">
                             <th className="border border-b-2 border-gray-300 px-4 py-2">ردیف</th>
-                            <th className="border border-b-2 border-gray-300 px-4 py-2">توضیح</th>
+                            <th className="border border-b-2 border-gray-300 px-4 py-2">نام</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">تعداد</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">واحد</th>
                             <th className="border border-b-2 border-gray-300 px-4 py-2">قیمت واحد</th>
@@ -86,12 +86,13 @@ const BillTable = ({hesabfaBillData}) => {
                                 Sum,
                                 TotalAmount,
                             } = row;
+                            const itemName= row?.Item?.Name
                             const isEven = (index % 2 === 0)
                             totalSumShow += TotalAmount
                             sumOfNumbers += Quantity
                             return <tr className={isEven ? 'bg-gray-100' : 'bg-white'}>
                                 <td className="border border-gray-300 px-4 py-2 text-center">{RowNumber + 1}</td>
-                                <td className="border border-gray-300 px-4 py-2">{Description}</td>
+                                <td className="border border-gray-300 px-4 py-2">{itemName}</td>
                                 <td className="border border-gray-300 px-4 py-2">{Quantity}</td>
                                 <td className="border border-gray-300 px-4 py-2">{Unit}</td>
                                 <td className="border border-gray-300 px-4 py-2">{formattedNumber(UnitPrice)}</td>
