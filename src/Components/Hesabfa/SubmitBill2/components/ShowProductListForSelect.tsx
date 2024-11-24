@@ -50,7 +50,9 @@ const ShowProductListForSelect = () => {
         const productList: any[] = productListUseQuery.data?.data?.List;
 
         if (productList?.length > 0) {
-            const productListNormalized = productList.map(row => {
+            const ActiveProducts = productList.filter(({ Active }) => Active) // Keep only active products
+                .filter((product) => product.SellPrice > 0);
+            const productListNormalized = ActiveProducts.map(row => {
                 return {
                     Id: row.Id,
                     Description: row.Description || row.SalesTitle,
