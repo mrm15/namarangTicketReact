@@ -9,7 +9,7 @@ import useAxiosPrivateFormData from "../../../../hooks/useAxiosPrivateFormData.t
 import useAuth from "../../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../../Pages/ROLES.tsx";
 import {uploadFileUtil} from "../../../../utils/upload.tsx";
-import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
+import {handleDragOver, randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
 import {PAGES} from "../../../../Pages/Route-string.tsx";
 import {useChatListContext} from "../ChatListContext.tsx";
 import {IoNewspaperOutline, IoSend} from "react-icons/io5";
@@ -34,6 +34,7 @@ const ChatListFooter = () => {
     }
     const navigateTo = useNavigate();
     const fileInputRef = useRef(null);
+    const textareaRef = useRef(null);
     const [sendData, setSendData] = useObjectDataHolder({...initialSendData});
     const myAxiosPrivate = useAxiosPrivate();
     const myAxiosPrivateFormData = useAxiosPrivateFormData();
@@ -75,7 +76,6 @@ const ChatListFooter = () => {
         event.preventDefault();
         const droppedFiles = Array.from(event.dataTransfer.files);
         if (droppedFiles.length > 3) {
-            toast.error("This didn't work.")
 
             toast.error('فقط سه فایل در هر تیکت میتوانید ارسال کنید');
             return;
@@ -95,8 +95,7 @@ const ChatListFooter = () => {
 
         const attachments = [];
         setIsSending(true)
-        let tid
-        tid = toast.loading(<> در حال ارسال لطفا صبر کنید...</>)
+        const tid = toast.loading(<> در حال ارسال لطفا صبر کنید...</>)
         try {
             if (sendData.attachments.length > 0) {
 
@@ -193,6 +192,29 @@ const ChatListFooter = () => {
     };
 
 
+    useEffect(() => {
+        const handlePaste = (event: ClipboardEvent) => {
+            if (event.clipboardData && event.clipboardData.files.length > 0) {
+                const pastedFiles = Array.from(event.clipboardData.files)//.filter(file => file.type.startsWith('image/'));
+                if (pastedFiles.length > 0) {
+                    toast("فایل ضمیمه شد.")
+                    setSendData({ attachments: [...sendData.attachments, ...pastedFiles] });
+                }
+            }
+        };
+
+        const textarea = textareaRef.current;
+        if (textarea) {
+            textarea.addEventListener('paste', handlePaste);
+        }
+
+        return () => {
+            if (textarea) {
+                textarea.removeEventListener('paste', handlePaste);
+            }
+        };
+    }, [sendData.attachments]);
+
     return (
         <div>
             {sendData.attachments.length > 0 && <div className={"ltr flex items-center p-3 bg-white border-gray-200"}>
@@ -212,7 +234,10 @@ const ChatListFooter = () => {
               </div>
             </div>}
             <div
-                className={`ltr flex items-center p-3  border-t border-gray-200  ${sendData.visibleToUser ? "bg-white" : "bg-gray-800"}`}>
+                className={`ltr flex items-center p-3  border-t border-gray-200  ${sendData.visibleToUser ? "bg-white" : "bg-gray-800"}`}
+                onDrop={handleDrop}
+                onDragOver={handleDragOver}
+            >
                 {/* Attachment Button */}
 
 
@@ -228,6 +253,7 @@ const ChatListFooter = () => {
                 {/* Message Input */}
                 <div className="flex-1 mx-2 relative">
                 <textarea
+                    ref={textareaRef}
                     onKeyDown={handleKeyDown}
                     maxLength={900}
                     title={"ارسال Enter  , خط بعدی Ctrl+Enter "}
