@@ -95,8 +95,12 @@ const ShowProductListForSelect = () => {
 
     const filterOption = (option, inputValue) => {
         // Normalize the input and option label to lowercase
-        const normalizedInput = inputValue.toLowerCase();
-        const normalizedLabel = option.label.toLowerCase();
+        // نقطه و سایر علائم رو در نظر نمیگیرم تا اگه کاربر
+        // 123
+        // یا 1.2.3
+        // رو زد بازم چسب 1.2.3 رو توی لیستش ببینه
+        const normalizedInput = inputValue.toLowerCase().replace(/[.,;!?]/g, "");
+        const normalizedLabel = option.label.toLowerCase().replace(/[.,;!?]/g, "");
         // Split the input into individual words
         const inputWords = normalizedInput.split(' ');
         // Check if all input words are present in the option label
