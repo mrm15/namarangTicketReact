@@ -239,7 +239,7 @@ export const pivotArray = [
 
         ],
         myKey: "myItemName",
-        // showSubitems: true,
+        showSubitems: true,
         sumKey: "myTotalAmount",
         countKey: "myQuantity",
     },
