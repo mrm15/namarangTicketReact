@@ -83,6 +83,12 @@ const HesabfaTest = () => {
 
     }
 
+    const sendNotificationTest = async () => {
+        //
+        const result = await myAxiosPrivate.get('subscribe/test')
+        showToast(result)
+    }
+
 
     return (
 
@@ -93,7 +99,7 @@ const HesabfaTest = () => {
             </div>
             <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
 
-                <UpdateLocalBills />
+                <UpdateLocalBills/>
                 <div>
                     <button
                         onClick={handleGetProduct}
@@ -175,6 +181,17 @@ const HesabfaTest = () => {
                         className={'btn-submit-mir bg-red-900'}
                     >
                         ارسال گزارش مدیریتی
+                    </button>
+                </div>
+
+                <br/>
+                <br/>
+                <div>
+                    <button
+                        onClick={sendNotificationTest}
+                        className={'btn-submit-mir bg-red-900'}
+                    >
+                        تست نوتیفیکشن سایت برای شماره خودم!!
                     </button>
                 </div>
 
