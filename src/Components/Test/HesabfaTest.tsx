@@ -85,7 +85,7 @@ const HesabfaTest = () => {
 
     const sendNotificationTest = async () => {
         //
-        const result = await myAxiosPrivate.get('subscribe/test')
+        const result = await myAxiosPrivate.post('subscribe/test', {data:"15"})
         showToast(result)
     }
 
