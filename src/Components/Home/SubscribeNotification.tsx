@@ -9,7 +9,7 @@ const SubscribeNotification = () => {
     const getDeviceId = () => {
         let deviceId = localStorage.getItem('deviceId');
         if (!deviceId) {
-            deviceId = uuidV4(); // Generate a UUID
+            deviceId = uuidV4();
             localStorage.setItem('deviceId', deviceId);
         }
         return deviceId;
@@ -34,9 +34,15 @@ const SubscribeNotification = () => {
         try {
             const registration = await navigator.serviceWorker.ready;
 
+            const vapidPublicKey = process.env.REACT_APP_PUBLIC_VAPID_KEY;
+            if (!vapidPublicKey) {
+                throw new Error('VAPID Public Key is missing');
+            }
+
+
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
-                applicationServerKey: urlBase64ToUint8Array('BFwnHq2aI1MFaLa6rbf4nV7f-A6bjfenDdR-X12LaoVOISVI5KKVYnetEvsNk-jteDf4COKwXyZ-kUaR3KvgtdY')
+                applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
             });
 
             console.log('User subscribed:', subscription);
@@ -60,8 +66,9 @@ const SubscribeNotification = () => {
             const response = await myAxios.post(url, data);
 
 
-            if (!response.ok) {
-                throw new Error('Failed to store subscription on the server');
+            // Check if response is successful
+            if (response.status !== 200 && response.status !== 201) {
+                throw new Error(`Server responded with status ${response.status}`);
             }
             toast.success("نوتیفیکشن سایت برای شما فعال شد.")
         } catch (error) {
@@ -114,7 +121,7 @@ const SubscribeNotification = () => {
             const registration = await navigator.serviceWorker.ready;
             const subscription = await registration.pushManager.getSubscription();
 
-            debugger
+
             if (subscription) {
                 console.log('User is already subscribed:', subscription);
                 // Optionally, show a message to the user that they are already subscribed
