@@ -98,7 +98,6 @@ const HesabfaTest = () => {
                 دسترسی فقط مدیر کل سایت
             </div>
             <div className={'p-32 font-light flex flex-wrap gap-2 animate-pulse'}>
-
                 <UpdateLocalBills/>
                 <div>
                     <button
