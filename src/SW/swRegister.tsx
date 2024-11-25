@@ -100,7 +100,7 @@ const swRegister = () => {
             navigator.serviceWorker.register('/service-worker.js')
                 .then(registration => {
                     // Call the function to request notification permission
-                    requestNotificationPermission()
+                    // requestNotificationPermission()
                     console.log('Service Worker registered with scope:', registration.scope);
                 })
                 .catch(error => {

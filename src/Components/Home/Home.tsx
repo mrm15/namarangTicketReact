@@ -5,6 +5,8 @@ import CustomerDashboard from "./Homes/CustomerDashboard/CustomerDashboard.tsx";
 import OrganizationDashboard from "./Homes/OrganizationDashboard/OrganizationDashboard.tsx";
 import DepartmentAdminDashboard from "./Homes/DepartmentAdminDashboard/DepartmentAdminDashboard.tsx";
 import FullAdminDashboard from "./Homes/FullAdminDashboard/FullAdminDashboard.tsx";
+import {useEffect} from "react";
+import SubscribeNotification from "./SubscribeNotification.tsx";
 
 
 const Home = () => {
@@ -22,6 +24,7 @@ const Home = () => {
 
     try {
         return <>
+            <><SubscribeNotification /></>
             {customerDashboard && <CustomerDashboard/>}
             {myOrganizationDashboard && <OrganizationDashboard/>}
             {departmentAdminDashboard && <DepartmentAdminDashboard/>}
