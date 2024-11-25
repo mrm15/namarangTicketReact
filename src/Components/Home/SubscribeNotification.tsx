@@ -68,9 +68,11 @@ const SubscribeNotification = () => {
 
             // Check if response is successful
             if (response.status !== 200 && response.status !== 201) {
+                setShowButton(true)
+
                 throw new Error(`Server responded with status ${response.status}`);
             }
-            toast.success("نوتیفیکشن سایت برای شما فعال شد.")
+            toast.success("اعلان های سایت برای شما فعال شد.")
         } catch (error) {
             console.error(error);
         }
@@ -124,13 +126,14 @@ const SubscribeNotification = () => {
 
             if (subscription) {
                 console.log('User is already subscribed:', subscription);
+
                 // Optionally, show a message to the user that they are already subscribed
             } else {
-                setShowButton(true)
 
                 console.log('User is not subscribed, prompting for subscription...');
                 // If not subscribed, we will prompt them to subscribe
                 requestNotificationPermission();
+
 
             }
         } catch (error) {
@@ -159,7 +162,7 @@ const SubscribeNotification = () => {
                 onClick={() => {
                     requestNotificationPermission()
                 }}
-            >فعالسازی نوتیف</button>}
+            >فعالسازی اعلان های سایت</button>}
         </div>
     );
 };
