@@ -92,7 +92,7 @@ const HesabfaTest = () => {
 
     return (
 
-        <div className={"bg-black  rounded overflow-hidden h-screen"}>
+        <div className={"bg-black  rounded h-screen overflow-scroll"}>
 
             <div className={"bg-black text-red-600 text-center fontSize22 ltr "}>
                 دسترسی فقط مدیر کل سایت
