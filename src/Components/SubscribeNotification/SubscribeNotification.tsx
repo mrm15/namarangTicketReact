@@ -158,11 +158,13 @@ const SubscribeNotification = () => {
     return (
         <div>
 
-            {showButton && <button
+            {/*{showButton && */}
+                <button
                 onClick={() => {
                     requestNotificationPermission()
                 }}
-            >فعالسازی اعلان های سایت</button>}
+            >فعالسازی اعلان های سایت</button>
+            {/*}*/}
         </div>
     );
 };
