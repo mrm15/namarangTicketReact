@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v2000006'; // Change the version number whenever you update the app
+const CACHE_NAME = 'my-app-cache-v2000007'; // Change the version number whenever you update the app
 const ASSETS_TO_CACHE = [
   // '/',
   // '/index.html', // Ensure this exists in public
@@ -53,24 +53,29 @@ const responseCacheOnFetch = (event) => {
     return response || fetch(event.request);
   }).catch(error => {
     console.log("به نظر میرسه که بله نت نداریم و همه چی قطع شده!")
-    caches.match('offline.html')
+    return caches.match('offline.html')
   })
 }
 const handlePushNotification = event => {
   const data = event.data ? event.data.json() : {};
   const title = data.title || 'Default title';
   const options = {
-    body: data.body || 'Default body', icon: '/android-chrome-192x192.png', badge: '/favicon-32x32.png',
+    body: data.body || 'Default body',
+    icon: '/android-chrome-192x192.png',
+    badge: '/favicon-32x32.png',
+    data: { url: data.url || '/' } // Pass URL with the notification
   };
   event.waitUntil(self.registration.showNotification(title, options));
-}
+};
+
 const handleClickOnNotification = event => {
   event.notification.close();
-  event.waitUntil(clients.openWindow('/'));
-}
-
+  event.waitUntil(clients.openWindow(event.notification.data.url));
+};
 // Install event
 self.addEventListener('install', event => {
+  console.log('Service Worker installing...');
+  self.skipWaiting(); // Force activation of the new SW immediately
   event.waitUntil(openCacheOnInstall(CACHE_NAME));
 });
 
