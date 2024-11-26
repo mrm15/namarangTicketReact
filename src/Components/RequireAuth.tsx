@@ -1,6 +1,7 @@
 import {useLocation, Navigate, Outlet} from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import {PAGES} from "../Pages/Route-string.tsx";
+import SubscribeNotification from "./SubscribeNotification/SubscribeNotification.tsx";
 
 const RequireAuth = ({allowedRoles}) => {
 
@@ -21,7 +22,10 @@ const RequireAuth = ({allowedRoles}) => {
 
     return (
         isAllowed
-            ? <Outlet/>
+            ? <>
+                <Outlet/>
+                <SubscribeNotification/>
+            </>
             : auth?.accessToken //changed from user to accessToken to persist login after refresh
                 ? <Navigate to="/unauthorized" state={{from: location}} replace/>
                 : <Navigate to={PAGES.LOGIN} state={{from: location}} replace/>
