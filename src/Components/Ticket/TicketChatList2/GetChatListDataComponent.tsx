@@ -36,8 +36,9 @@ const GetChatListDataComponent = ({children}) => {
     if (!id) {
 
         return <div
-            className={"h-screen"}
+            className={"h-screen bg-gradient-to-b flex items-center justify-center font-bold fontSize22"}
             onClick={() => navigateTo(PAGES.DASHBOARD)}
+
         >
             مقدار آیدی نامعتبر می باشد لطفا مجددا تیکت را باز کنید
         </div>;
