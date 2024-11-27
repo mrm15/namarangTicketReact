@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-app-cache-v2000008'; // Change the version number whenever you update the app
+const CACHE_NAME = 'my-app-cache-v20000099'; // Change the version number whenever you update the app
 const ASSETS_TO_CACHE = [
   // '/',
   // '/index.html', // Ensure this exists in public
@@ -94,4 +94,11 @@ self.addEventListener('push', handlePushNotification);
 
 // Handle notification click
 self.addEventListener('notificationclick', handleClickOnNotification);
+
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.action === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
+
 
