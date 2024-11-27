@@ -82,7 +82,9 @@ const SubscribeNotification = () => {
 
         const subscription = await subscribeUserToPush()
         if (subscription) {
+            const tid = toast.loading("در حال بررسی...")
             await sendSubscriptionToServer(subscription)
+            toast.dismiss(tid)
         }
     };
 
@@ -160,6 +162,7 @@ const SubscribeNotification = () => {
 
             {/*{showButton && */}
                 <button
+                    className={"btn-green-mir"}
                 onClick={() => {
                     requestNotificationPermission()
                 }}
