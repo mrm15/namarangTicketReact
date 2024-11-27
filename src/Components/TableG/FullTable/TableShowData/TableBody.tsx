@@ -14,8 +14,8 @@ const TableBody = ({table}) => {
         const isRowBold = myData?.boldRowCondition(row)
 
         return <ul key={row.id}
-                   className={` ${isEven ? " bg-gray-50  " : " bg-gray-100"} table-row-g table__row__hover`  }
-                   style={{fontWeight: isRowBold ? "bold" : "normal"}}
+                   className={` ${isEven ? " bg-gray-50 " : " bg-gray-100"} table-row-g table__row__hover`  }
+                   style={{fontWeight: isRowBold ? "bold " : "normal" , backgroundColor: isRowBold && "#ffc4c4"}}
         >
             {row.getVisibleCells().map((cell,index) => {
                 const { columnDef } = cell.column;
