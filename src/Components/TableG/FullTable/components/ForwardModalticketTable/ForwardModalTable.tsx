@@ -62,11 +62,11 @@ function ForwardModalTable({selectedItems, setReload, ...rest}) {
         tempSelectedData.ticketIdsArray = tempSelectedData.ticketIdsArray.map(row => row._id)
 
         try {
-            toast.loading("در حال ارسال...")
+            const tid= toast.loading("در حال ارسال...")
             setIsSending(true)
             const myResult = await axiosPrivate.post(requestUrl, tempSelectedData);
             toast.success(myResult?.data?.message);
-            toast.dismiss()
+            toast.dismiss(tid)
             setReload()
             rest?.closeModal()
 
