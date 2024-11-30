@@ -260,6 +260,7 @@ const TicketCreate: React.FC = () => {
     // @ts-ignore
     const {auth} = useAuth();
     const hasAccessToSubmitFactorInSubmitOrderForm = auth?.userInfo?.roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
+    const acceptedFormats = [".cdr", ".jpg", ".jpeg", ".png", ".gif", ".tiff", ".tif", ".svg", ".pdf", ".eps"];
     try {
         return (
             <div className="flex justify-center ">
@@ -292,7 +293,7 @@ const TicketCreate: React.FC = () => {
                                     assignFileToState(e.target.files[0], index)
                                 }}
                                 id={`file${index + 1}`} type="file"
-                                accept={".dxf, .psd, .jpg, .jpeg, .png, .gif, .bmp, .tiff, .tif, .svg, .ai, .pdf, .eps, .webp"}
+                                accept={acceptedFormats.join(", ")}
                                 className="w-100 rounded border-2 hidden"/>
 
 
@@ -318,12 +319,14 @@ const TicketCreate: React.FC = () => {
                                 className="mt-2 p-2 bg-gray-100 bg-opacity-30 border border-gray-300 rounded-md  ">
                                 <div>پسوند های مجاز برای آپلود فایل:</div>
                                 <div className={"ltr text-center flex flex-wrap"}>
-                                    {["dxf", "psd", "jpg", "jpeg", "png", "gif", "bmp", "tiff", "tif", "svg", "ai", "pdf", "eps", "webp"].map(
-                                        (ext, index) => (
-                                            <span key={index}
-                                                  className="text-gray-700 text-sm mr-2 bg-gray-400 bg-opacity-30 px-2 rounded my-1">.{ext}</span>
-                                        )
-                                    )}
+                                    {acceptedFormats.map((ext, index) => (
+                                        <span
+                                            key={index}
+                                            className="text-gray-700 text-sm mr-2 bg-gray-400 bg-opacity-30 px-2 rounded my-1"
+                                        >
+                                          {ext}
+                                        </span>
+                                    ))}
                                 </div>
 
                             </div>
@@ -339,9 +342,9 @@ const TicketCreate: React.FC = () => {
 
 
                     {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
-                      <div>
-                        فایل به کدام فروشنده ارجاع شود؟
-                      </div>
+                        <div>
+                            فایل به کدام فروشنده ارجاع شود؟
+                        </div>
                         {ticketData?.userList.map((singleUser, index) => {
 
                             return <button key={index}
@@ -356,7 +359,7 @@ const TicketCreate: React.FC = () => {
                             >
                                 {singleUser.name}
                                 {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
-                                  🟢
+                                    🟢
                                 </div>}
                             </button>
 
@@ -385,17 +388,17 @@ const TicketCreate: React.FC = () => {
                         </button>
                     </div>
                     {hasAccessToSubmitFactorInSubmitOrderForm &&
-                      <div className="div__group__input_select w-full">
-                        <button
-                          onClick={() => clickHandler(1)}
-                          className="btn-submit-mir disabled:cursor-not-allowed"
-                          disabled={ticketData.isSendingRequest}
-                        >
-                            {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
-                                <div>در حال ثبت سفارش</div>
-                                <LittleSpinner/></div> : "ارسال و ثبت فاکتور"}
-                        </button>
-                      </div>}
+                        <div className="div__group__input_select w-full">
+                            <button
+                                onClick={() => clickHandler(1)}
+                                className="btn-submit-mir disabled:cursor-not-allowed"
+                                disabled={ticketData.isSendingRequest}
+                            >
+                                {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
+                                    <div>در حال ثبت سفارش</div>
+                                    <LittleSpinner/></div> : "ارسال و ثبت فاکتور"}
+                            </button>
+                        </div>}
                     {}
                 </div>
 
