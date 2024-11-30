@@ -13,6 +13,7 @@ import NamarangLogoSvg from "../../../../assets/Svg/NamarangLogoSvg.tsx";
 const ShowProductListForSelect = () => {
 
     const {data, setData} = useSubmitBillContext()
+    const [selectedOption, setSelectedOption] = useState<any>(null); // state جدید برای ذخیره انتخاب
     // Refactored function
     /************************************************************/
     const myAxiosGetProducts = useAxiosPrivate();
@@ -42,6 +43,7 @@ const ShowProductListForSelect = () => {
             setData({invoice: {...data.invoice, InvoiceItems: temp2}})
 
         }
+        setSelectedOption(null)
     }
 
 
@@ -139,6 +141,7 @@ const ShowProductListForSelect = () => {
                         :
                         <div className="w-full">
                             <Select
+                                value={selectedOption} // اینجا مقدار selectedOption رو برای نمایش در Select میدی
                                 onChange={addProductToTable}
                                 options={myOptions}
                                 placeholder={'انتخاب کالا'}
