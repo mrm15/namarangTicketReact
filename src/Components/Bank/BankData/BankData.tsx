@@ -54,7 +54,7 @@ const BankData = () => {
     };
 
     // Use React Query to fetch data
-    const {data: queryResult, refetch, isError, error, isFetching} = useQuery({
+    const {data: queryResultData, refetch, isError, error, isFetching} = useQuery({
         queryKey: [data.requestUrl, data.filters, data.reload], // Include `requestUrl` directly in the key
         queryFn: fetchData,
         staleTime: 86400000, // Cache for 24 hours
@@ -82,7 +82,7 @@ const BankData = () => {
             </div>
 
             {/* Table Data */}
-            <ShowTableData data={queryResult}/>
+            <ShowTableData data={queryResultData}/>
         </div>
     );
 };
