@@ -34,14 +34,14 @@ class ErrorBoundary extends React.Component<Props, State> {
         setTimeout(() => {
             this.props.navigate("/");
             window.location.reload()
-        }, 3000); // بعد از 3 ثانیه هدایت شود
+        }, 500); // بعد از 500 میلی ثانیه هدایت شود
     }
 
     render() {
         if (this.state.hasError) {
             return (
                 <div className="flex justify-center">
-                    <div className="w-full h-screen bg-red-950 text-white fontSize14 font-mono whitespace-break-spaces absolute p-5 ltr">
+                    <div className="w-full h-screen text-white fontSize14 font-mono whitespace-break-spaces absolute p-5 ltr">
                         <pre>
                             {this.state.errorData.toString()}
                         </pre>
@@ -49,7 +49,7 @@ class ErrorBoundary extends React.Component<Props, State> {
                             <div>
                                 یه موردی پیش اومد،
                                 <br/><br/>
-                                سیسستم هوشمند نمارنگ داره این مشکل رو برای مدیر سایت میفرسته تا دیگه تکرار نشه.
+                                سیسستم هوشمند نمارنگ
                                 <br/><br/>
                                 بیا بریم توی داشبورد سایت و از اول شروع کنیم! صبر کن عزیزم .. 😘
                             </div>
