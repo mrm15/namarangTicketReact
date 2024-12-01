@@ -92,7 +92,6 @@ export const userListTableColumns = (inputs: IInputObject) => {
         },
         {accessorKey: 'accountingCode', header: 'کدحسابداری'},
         {accessorKey: 'company', header: 'شرکت'},
-        {accessorKey: 'title', header: 'عنوان'},
         {
             accessorKey: 'name',
             header: () => {
@@ -100,15 +99,23 @@ export const userListTableColumns = (inputs: IInputObject) => {
                     <StringFilter uniqueId={"name"} operator={"*"} property={"name"} placeHolder={"نام "}/>
                 </>
             },
-            size: 350,
-            minSize: 350,
+            size: 200,
+            minSize: 200,
             cell: (value: any) => <div
                 style={{
-                    minWidth: 350
+                    minWidth: 200
                 }}
             >{value.getValue()}</div>
         },
-        {accessorKey: 'familyName', header: 'نام خانوادگی', size: 250},
+        {accessorKey: 'familyName', size: 200,
+            header: () => {
+                return <>
+                    <StringFilter uniqueId={"familyName"} operator={"*"} property={"familyName"} placeHolder={"نام خانوادگی "}/>
+                </>
+            },
+        },
+        {accessorKey: 'roleName', header: 'نقش', size: 250},
+
         {accessorKey: 'contactCode',
             header: () => {
                 return <>
@@ -121,26 +128,27 @@ export const userListTableColumns = (inputs: IInputObject) => {
         {accessorKey: 'middleName', header: 'نام مستعار'},
         {accessorKey: 'phoneNumber', header: 'شماره تماس', size: 250},
         {accessorKey: 'mobile', header: 'موبایل'},
-        {accessorKey: 'fax', header: 'فکس'},
+        // {accessorKey: 'fax', header: 'فکس'},
         {accessorKey: 'phoneNumber1', header: 'شماره تماس1'},
         {accessorKey: 'phoneNumber2', header: 'شماره تماس2 '},
         {accessorKey: 'phoneNumber3', header: 'شماره تماس3 '},
-        {accessorKey: 'email', header: 'ایمیل'},
-        {accessorKey: 'website', header: 'سایت'},
-        {accessorKey: 'bankName', header: 'نام بانک'},
-        {accessorKey: 'accountNumber', header: 'شماره حساب'},
-        {accessorKey: 'cardNumber', header: 'شماره کارت'},
-        {accessorKey: 'SHABA_Number', header: 'شماره شبا'},
-        {accessorKey: 'economicCodeCompany', header: 'کد اقتصادی'},
-        {accessorKey: 'nationalCodeCompany', header: 'شناسه ملی شرکت'},
-        {accessorKey: 'registerNumberCompany', header: 'کد ثبت شرکت'},
-        {accessorKey: 'description', header: 'توضیحات'},
-        {accessorKey: 'address', header: 'آدرس'},
-        {accessorKey: 'country', header: 'کشور'},
-        {accessorKey: 'province', header: 'استان'},
-        {accessorKey: 'city', header: 'شهر'},
+        // {accessorKey: 'email', header: 'ایمیل'},
+        // {accessorKey: 'title', header: 'عنوان'},
+        // {accessorKey: 'website', header: 'سایت'},
+        // {accessorKey: 'bankName', header: 'نام بانک'},
+        // {accessorKey: 'accountNumber', header: 'شماره حساب'},
+        // {accessorKey: 'cardNumber', header: 'شماره کارت'},
+        // {accessorKey: 'SHABA_Number', header: 'شماره شبا'},
+        // {accessorKey: 'economicCodeCompany', header: 'کد اقتصادی'},
+        // {accessorKey: 'nationalCodeCompany', header: 'شناسه ملی شرکت'},
+        // {accessorKey: 'registerNumberCompany', header: 'کد ثبت شرکت'},
+        // {accessorKey: 'description', header: 'توضیحات'},
+        // {accessorKey: 'address', header: 'آدرس'},
+        // {accessorKey: 'country', header: 'کشور'},
+        // {accessorKey: 'province', header: 'استان'},
+        // {accessorKey: 'city', header: 'شهر'},
         // {accessorKey: 'profilePictureUrl', header: 'Profile Picture URL'},
-        {accessorKey: 'postalCode', header: 'کد پستی'},
+        // {accessorKey: 'postalCode', header: 'کد پستی'},
         {
             accessorKey: 'isActive', header: 'وضیعت',
             cell: (value: any) => <>{value ? "فعال" : "غیرفعال"}</>
