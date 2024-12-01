@@ -10,6 +10,7 @@ import ShowTableData from "./ShowTableData.tsx";
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate.tsx";
 import {PAGES} from "../../../Pages/Route-string.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
+import toast from "react-hot-toast";
 
 const BankData = () => {
     const {data, setData} = useBankContext();
@@ -50,6 +51,7 @@ const BankData = () => {
         }
 
         console.log("API Response:", response.data); // Debugging the response
+        toast.success(response?.data?.message)
         return response.data;
     };
 
