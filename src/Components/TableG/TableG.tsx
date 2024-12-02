@@ -16,7 +16,7 @@ const TableG = ({
         url: url,
         boldRowCondition: boldRowCondition,
         pageNumber: 1,
-        numberOfRows: 5,
+        numberOfRows: 20,
         columns: [],
         tableData: [],
         filters: filters,
