@@ -10,6 +10,7 @@ import OtherCostsInBill from "./OtherCostsInBill.tsx";
 import calculateTotalSumOfAll from "./calculateTotalSumOfAll.tsx";
 import {FaSortAlphaDown, FaSortAlphaUp} from "react-icons/fa";
 import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
+import RowNumber from "./RowNumber/RowNumber.tsx";
 
 
 const InvoiceTable = () => {
@@ -167,7 +168,8 @@ const InvoiceTable = () => {
 
                                 return <tr key={index}>
                                     <td>
-                                        <div>{row.RowId}</div>
+                                        <div>
+                                            <RowNumber text={row.RowId} Id={row.Id} /> </div>
                                     </td>
                                     <td>
                                         <div>{row.Name ?? <section><ShowProductListForSelect/></section>}</div>
