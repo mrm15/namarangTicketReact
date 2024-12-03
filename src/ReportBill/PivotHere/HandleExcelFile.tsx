@@ -16,16 +16,18 @@ export const HandleExcelFile = (totalData) => {
         const temp = calculatePivot({filterTextForPivot, totalData, myKey, sumKey, countKey});
 
         resultArray.push([row.caption]); // i need to merge two rows here
+        const itemCode = "کد"
         const nameText = "نام"
         const countText = "تعداد"
-        resultArray.push([nameText, countText])
+        resultArray.push([itemCode, nameText, countText])
 
 
         temp.forEach((resultRow: any) => {
+            const itemCodeText = resultRow?.myItemCode || "";
             const nameText = resultRow[myKey]
             const countKeyText = resultRow[countKey]
-            sumOfQuantity+=countKeyText
-            resultArray.push([nameText, countKeyText])
+            sumOfQuantity += countKeyText
+            resultArray.push([itemCodeText,nameText, countKeyText])
             if (row.showSubitems) {
 
                 const subRowKey = "myContactTitle";
@@ -33,12 +35,12 @@ export const HandleExcelFile = (totalData) => {
                 resultRow.rowData.forEach(rr => {
                     const rowDataNameText = rr[subRowKey]
                     const rowDataSumKeyText = rr[subRowValue]
-                    resultArray.push([rowDataNameText, rowDataSumKeyText])
+                    resultArray.push(["",rowDataNameText, rowDataSumKeyText])
                 })
             }
         })
 
-        resultArray.push(["جمع",sumOfQuantity])
+        resultArray.push(["","جمع", sumOfQuantity])
         resultArray.push([])
 
 
@@ -53,8 +55,6 @@ export const HandleExcelFile = (totalData) => {
             {RTL: true}
         ]
     };
-
-
 
 
     // Sheet 1 data
@@ -82,8 +82,9 @@ export const HandleExcelFile = (totalData) => {
     // Set sheet direction to RTL
     ws1['!dir'] = 'rtl';
     ws1['!cols'] = [
-        { wpx: 250 }, // Column A width in pixels
-        { wpx: 100 }, // Column B width in pixels
+        {wpx: 50}, // Column A width in pixels
+        {wpx: 250}, // Column B width in pixels
+        {wpx: 100}, // Column C width in pixels
     ];
 
     // Merging cells A1 and B1
@@ -97,19 +98,29 @@ export const HandleExcelFile = (totalData) => {
     // Iterate through resultArray to find captions and merge
     resultArray.forEach((row, rowIndex) => {
         if (row.length === 1) { // Caption is a single element in a row
+
+            // Initialize !merges array if it doesn't exist
+            ws1['!merges'] = ws1['!merges'] || [];
+
+            // Add merge instruction for merging 3 cells
             ws1['!merges'].push({
-                s: { r: rowIndex, c: 0 }, // Start at rowIndex, column 0
-                e: { r: rowIndex, c: 1 }  // End at rowIndex, column 1 (merge two columns)
+                s: {r: rowIndex, c: 0}, // Start at rowIndex, column 0
+                e: {r: rowIndex, c: 2}  // End at rowIndex, column 2 (merge three columns)
             });
 
+            // Get the cell address to apply styles
+            const cellAddress = XLSX.utils.encode_cell({r: rowIndex, c: 0});
 
-            // Apply bold and centered alignment to the merged cell
-            const cellAddress = XLSX.utils.encode_cell({ r: rowIndex, c: 0 });
-
-            ws1[cellAddress].s = {
-                font: { bold: true }, // Make the text bold
-                alignment: { horizontal: "center", vertical: "center" } // Center the text
+            // Initialize the cell if it doesn't exist yet
+            if (!ws1[cellAddress]) {
+                ws1[cellAddress] = {};
             }
+
+            // Apply styles to the merged cell
+            ws1[cellAddress].s = {
+                font: {bold: true}, // Make the text bold
+                alignment: {horizontal: "center", vertical: "center"} // Center the text
+            };
         }
     });
 
