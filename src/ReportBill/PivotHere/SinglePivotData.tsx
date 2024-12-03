@@ -16,7 +16,7 @@ const SinglePivotData = ({
 
 
     const resultArray = calculatePivot({filterTextForPivot, totalData, myKey, sumKey, countKey})
-
+        debugger
 
     const mySum = {
         sumKey: 0,
@@ -35,6 +35,8 @@ const SinglePivotData = ({
                 <thead>
                 <tr>
                     {/*<th scope="col" className={"fontSize10 border "}>ردیف</th>*/}
+
+                    <th scope="col" className={"fontSize10 border "}>کد کالا</th>
                     <th scope="col" className={"fontSize10 border "}>نام</th>
                     {/*<th scope="col" className={"fontSize10 border "}>جمع</th>*/}
                     <th scope="col" className={"fontSize10 border "}> تعداد</th>
@@ -49,19 +51,22 @@ const SinglePivotData = ({
 
                     if (showSubitems) {
                         return <Fragment key={index}>
-                            <tr >
+                            <tr>
 
                                 {/*<td className={' border px-1  whitespace-nowrap  fontSize10 font-medium text-gray-900'}>{index + 1}</td>*/}
+                                <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row?.myItemCode || ""}</td>
+
                                 <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row[myKey]}</td>
                                 {/*<td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{formatNumber(row[sumKey])}</td>*/}
                                 <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{formatFloat(row[countKey])}</td>
                             </tr>
-                            {row.rowData.map((subRow:any,index2) => <tr  key={index2}>
+                            {row.rowData.map((subRow: any, index2) => <tr key={index2}>
                                 {/*<td className={' border px-1 ps-2  whitespace-nowrap  fontSize8 font-medium text-gray-900'}>*/}
                                 {/*    <div className={"rtl"}>*/}
                                 {/*        {(index+1) + ". "+ (index2 + 1)}*/}
                                 {/*    </div>*/}
                                 {/*</td>*/}
+                                <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}></td>
                                 <td className={' border px-1  whitespace-nowrap fontSize8 font-medium text-gray-900'}>{subRow[subRowKey]}</td>
                                 {/*<td className={' border px-1  whitespace-nowrap fontSize8 font-medium text-gray-900'}>{formatNumber(subRow[sumKey])}</td>*/}
                                 <td className={' border px-1  whitespace-nowrap fontSize8 font-medium text-gray-900'}>{formatFloat(subRow[subRowValue])}</td>
@@ -71,6 +76,7 @@ const SinglePivotData = ({
                         return <tr key={index}>
 
                             {/*<td className={' border px-1  whitespace-nowrap  fontSize10 font-medium text-gray-900'}>{index + 1}</td>*/}
+                            <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row?.myItemCode || "" }</td>
                             <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{row[myKey]}</td>
                             {/*<td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{formatNumber(row[sumKey])}</td>*/}
                             <td className={' border px-1  whitespace-nowrap fontSize10 font-medium text-gray-900'}>{formatFloat(row[countKey])}</td>
