@@ -5,11 +5,11 @@ export const calculatePivot = ({filterTextForPivot, totalData, myKey, sumKey, co
         return filterTextForPivot.some((singleWord) => row[myKey].includes(singleWord));
     }).map((row) => {
         // Return only the specified keys
-
         return {
             [myKey]: row[myKey],
             [sumKey]: row[sumKey],
             [countKey]: row[countKey],
+            myItemCode:row.myItemCode,
             rowHolder: {...row}
         };
     });
@@ -22,6 +22,7 @@ export const calculatePivot = ({filterTextForPivot, totalData, myKey, sumKey, co
             existingRow["counter"] += 1;
             existingRow[sumKey] += row[sumKey];
             existingRow[countKey] += row[countKey];
+            existingRow.myItemCode = row.myItemCode;
             existingRow["rowData"].push(row.rowHolder)
         } else {
             acc.push({
@@ -29,6 +30,7 @@ export const calculatePivot = ({filterTextForPivot, totalData, myKey, sumKey, co
                 [sumKey]: row[sumKey],
                 [countKey]: row[countKey],
                 counter: 1,
+                myItemCode:row.myItemCode,
                 rowData : [{...row.rowHolder}],
             });
         }
