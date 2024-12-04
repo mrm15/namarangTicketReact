@@ -52,12 +52,13 @@ const ShowProductListForSelect = () => {
         const productList: any[] = productListUseQuery.data?.data?.List;
 
         if (productList?.length > 0) {
-            const ActiveProducts = productList.filter(({ Active }) => Active) // Keep only active products
+            const ActiveProducts = productList.filter(({Active}) => Active) // Keep only active products
                 .filter((product) => product.SellPrice > 0);
             const productListNormalized = ActiveProducts.map(row => {
                 return {
                     Id: row.Id,
                     Description: row.Description || row.SalesTitle,
+                    NodeFamily: row.NodeFamily || "",
                     ItemCode: row.Code,
                     Unit: row.Unit,
                     Quantity: 1,
@@ -78,7 +79,8 @@ const ShowProductListForSelect = () => {
             })
 
             const temp = productListNormalized.map((row: any) => {
-                const label = "" + " " + row.Name + " " + row.ItemCode + " ";
+
+                const label = "" + " " + row.Name + " " + row.ItemCode + "  __ " + row.Description + " __" + row.NodeFamily;
                 const value = row.Id;
                 return {value, label, ...row};
             });
@@ -101,6 +103,7 @@ const ShowProductListForSelect = () => {
         // 123
         // یا 1.2.3
         // رو زد بازم چسب 1.2.3 رو توی لیستش ببینه
+
         const normalizedInput = inputValue.toLowerCase().replace(/[.,;!?]/g, "");
         const normalizedLabel = option.label.toLowerCase().replace(/[.,;!?]/g, "");
         // Split the input into individual words
@@ -112,9 +115,13 @@ const ShowProductListForSelect = () => {
         <components.Option {...props}>
             <div className={"flex  gap-2 fontSize10 w-80"}>
                 <div className={" rounded border border-gray-400"}><NamarangLogoSvg width={50} height={50}/></div>
-                <div className={"flex flex-col justify-around"} >
+                <div className={"flex flex-col justify-around"}>
                     <div>
-                        {props.data.label}
+                        {props.data.label.split("__")[0]}
+                    </div>
+                    <div className={"fontSize10 text-gray-700"}>
+                        {props.data.NodeFamily}
+
                     </div>
                     <div className={"flex  items-center"}>
                         <div className={"badge-bg-blue-text-white"}>
@@ -124,6 +131,7 @@ const ShowProductListForSelect = () => {
                             {formatNumber(props.data.fixedPrice)}
                             &nbsp; تومان
                         </div>
+
                     </div>
                 </div>
             </div>
