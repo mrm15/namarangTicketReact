@@ -298,6 +298,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             size: 150,
             minSize: 150,
             maxSize: 150,
+            hidden:true,
         },
 
         // تعداد فایل ضمیمه
