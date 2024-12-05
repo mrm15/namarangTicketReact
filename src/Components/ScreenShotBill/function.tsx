@@ -116,7 +116,7 @@ const foundNewItemsBasedOnColData = (invoiceItems, colData) => {
 
             const foundItem = invoiceItems.find(invoiceItem => {
                 if (category.title === "ترانس") {
-                    debugger
+                    //
                 }
                 return invoiceItem.Item.Code === item.code
             })

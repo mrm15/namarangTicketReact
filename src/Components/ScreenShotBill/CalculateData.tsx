@@ -8,17 +8,26 @@ const CalculateData = () => {
     const myLocation = useLocation();
     const {setData, data} = useScreenshotContext()
 
+
     useEffect(() => {
+        const myDateOnScreenShot = localStorage.getItem("dateOnScreenShot")
+
+        if (!myDateOnScreenShot) {
+            localStorage.setItem("dateOnScreenShot", getTomorrowDate())
+        }
         const billObject = myLocation?.state?.data?.bill
         data.billData = billObject
         data.tableColumnArray = findNewItemArray(billObject)
         data.fileName = billObject.ContactTitle;
-        data.dateOnScreenShot = getTomorrowDate()
+        data.dateOnScreenShot = myDateOnScreenShot
 
         setData(data)
     }, [myLocation])
 
-    const handleChangeDate = (dateOnScreenShot: any) => setData({dateOnScreenShot})
+    const handleChangeDate = (dateOnScreenShot: any) => {
+        localStorage.setItem("dateOnScreenShot", dateOnScreenShot)
+        setData({dateOnScreenShot})
+    }
     return <>
 
         <div className={'div__group__input_select'}>
