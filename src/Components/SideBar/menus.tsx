@@ -7,7 +7,7 @@ import { MdAssignmentTurnedIn } from "react-icons/md";
 import {FaBeer, FaEnvelope, FaPiggyBank} from "react-icons/fa";
 import { HiInboxArrowDown } from "react-icons/hi2";
 import { FaFileAlt, FaShareSquare} from "react-icons/fa";
-import {AiFillSetting} from "react-icons/ai";
+import {AiFillSetting, AiOutlineOrderedList} from "react-icons/ai";
 import {IconType} from "react-icons";
 import {ROLES} from "../../Pages/ROLES.tsx";
 import { RiShareForward2Fill } from "react-icons/ri";
@@ -111,9 +111,13 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         showItem: isDepartmentAdmin,
     },
     {
-        // assignTicketsInboxCanDelete
-        // assignTicketsOutBoxCanDelete
-        // assignTicketsShowAll
+        name: "لیست سفارش ها",
+        // link: PAGES.ticket_Read_Own,
+        link: PAGES.MyTicketList,
+        icon: AiOutlineOrderedList ,
+        showItem: roleAccessList?.includes('showMyTicketList'),
+    },
+    {
         name: "صندوق ورودی",
         // link: PAGES.ticket_Read_Own,
         link: PAGES.ticket_read_assign_tickets_inbox,
