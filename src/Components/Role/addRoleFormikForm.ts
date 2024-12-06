@@ -135,6 +135,7 @@ const dropdownOptions = [
     {value: "organizationDashboard", key: "داشبورد سازمانی کابران سازمان بهش دسترسی دارن"},
     {value: "departmentAdminDashboard", key: "داشبورد مدیر دپارتمان"},
     {value: "fullAdminDashboard", key: "داشبورد مدیر کل با دسترسی های فول"},
+    {value: "showMyTicketList", key: "تیکت های من منحصر به فرد (مخصوص بچه های سفارش گیری که بتونن منحصر ب فرد چک کنند و ببین در کل چه تعداد سفارش براشون اومده و یا ببینند جوابی برای اون تیکت اومده یا نه. اینجوری کنترلش آسون تر میشه."},
 
 
 ]

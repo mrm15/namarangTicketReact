@@ -12,6 +12,7 @@ import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
 import AdvancedTicketCreate from "../Components/Ticket/advanedTicketCreate/AdvancedTicketCreate.tsx";
 
+const MyTicketList = lazy(() => import('../Components/MyTicketList/MyTicketList.tsx'))
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
 const PackSend = lazy(() => import("../Components/PackSend/PackSend.tsx"))
@@ -198,6 +199,14 @@ const Pages = () => {
                             <Route path={PAGES.ticket_Read_All} element={
                                 <Suspense fallback={<Loader/>}>
                                     <TicketRead view={'read'}/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        {/* ticket my Ticket List */}
+                        <Route element={<RequireAuth allowedRoles={ROLES.showMyTicketList}/>}>
+                            <Route path={PAGES.MyTicketList} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <MyTicketList />
                                 </Suspense>
                             }/>
                         </Route>

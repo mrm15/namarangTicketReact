@@ -25,6 +25,7 @@ export const PAGES = {
     ticket_created_by_me: '/ticket-sent', // show list Of sent Tickets
     // all tickets for Admin
     ticket_Read_All: '/ticket-list', // show list Of all tickets just admin
+    my_ticket_list: '/my-ticket-list', // show list Of all myTickets
     ticket_chat_list: '/ticket-chat-list', // ad new ticket
     ticket_Update: '/ticket-new', // change ticket text file description ( just Admin)
     // assignment Tickets
@@ -52,6 +53,7 @@ export const PAGES = {
     fatherAccess:"/fatherAccess",
     ////////////////////
     showMyBillListForCustomer:"/myBills",
+    MyTicketList:"/MyTicketList",
 
 
 };
