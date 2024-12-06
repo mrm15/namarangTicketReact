@@ -27,6 +27,7 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     "/ticket/readSentTickets": ticketlistColumns, //ارسالی ها
     "/ticket/read": ticketlistColumns, // همه ی تیکت ها
+    "/ticket/myTicketList": ticketlistColumns, // سفارش گیر بتونه ببینه
 
     // تیکت هایی که من فوروارد کردم.
     "/ticket/readMyForwardedTickets": ticketAssignmentListColumns,
