@@ -89,6 +89,12 @@ const HesabfaTest = () => {
         showToast(result)
     }
 
+    const saveProductsListIntoPool = async () => {
+        //
+        const result = await myAxiosPrivate.post('hesabfa/saveProductsAsFilePool', {})
+        showToast(result)
+    }
+
 
     try {
 
@@ -178,6 +184,14 @@ const HesabfaTest = () => {
                             className="btn-submit-mir bg-red-900 w-full sm:w-auto"
                         >
                             تست نوتیفیکشن سایت برای شماره خودم!!
+                        </button>
+                    </div>
+                    <div className="w-full sm:w-auto">
+                        <button
+                            onClick={saveProductsListIntoPool}
+                            className="btn-submit-mir bg-red-900 w-full sm:w-auto"
+                        >
+                           کالا های حسابفا رو توی سرور ذخیره کن
                         </button>
                     </div>
                 </div>
