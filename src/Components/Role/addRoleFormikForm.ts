@@ -22,8 +22,6 @@ const dropdownOptions = [
     {value: 'readAllTicketsInSystem', key: "خواندن همه تیکت های موجود در سیستم - دسترسی فقط ادمین کل سیستم"},
 
     {value: 'ticketChatList', key: "خواندن چت لیست تیکت"},
-    {value: 'ticketReadOwn', key: "خواندن تیکت های خودم که طبیعیه- سفارشاتی که من ثبت کردم - این مورد برای دپارتمان مشتریان هست"},
-    // {value: 'ticketReadOwnReceived', key: "مشاهده تمام تیکت هایی که من بهشون دسترسی دارم-؟؟؟؟"},
     {value: 'ticketUpdate', key: "به روز رسانی مشخصات یک تیکت"},
     {value: 'ticketDelete', key: "حذف دائم یک تیکت"},
     {value: 'themeCreate', key: "ایجاد تم جدید در آینده"},
