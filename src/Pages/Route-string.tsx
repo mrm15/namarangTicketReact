@@ -1,4 +1,5 @@
 export const PAGES = {
+    PriceListPage:"priceList",
     SMS: '/sms',
     LOGIN: '/login',
     DASHBOARD: '/',
