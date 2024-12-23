@@ -151,6 +151,20 @@ const SendStatus = ({
                 />
               </div>
             }
+            {hasAccessToGetScreenShotBills &&
+              <div>
+                {/*<ChangeStatus*/}
+                {/*  className={"btn-small-edit"}*/}
+                {/*  buttonCaption={" شات"}*/}
+                {/*  value={billNumber} NewPage={PAGES.screenshot}*/}
+                {/*  options={{*/}
+                {/*      state: {*/}
+                {/*          data: {bill: billObject}*/}
+                {/*      }*/}
+                {/*  }}*/}
+                {/*/>*/}
+              </div>
+            }
 
 
         </div>

@@ -12,6 +12,7 @@ import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFil
 import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
+import ShowContactBedBes from "./ShowContactBedBes.tsx";
 
 
 const NameShow = ({info}) => {
@@ -206,12 +207,7 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             id: "Sum",
             accessorKey: 'Sum',
             header: () => <div>
-                {/*<NumberFilterInTableG*/}
-                {/*    uniqueId={"Number"}*/}
-                {/*    placeHolder={"شماره فاکتور"}*/}
-                {/*    property={"Number"}*/}
-                {/*    operator={"*"}*/}
-                {/*/>*/}
+
                 جمع مبلغ (تومان)
             </div>,
 
@@ -222,6 +218,21 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <div className={"text-left pl-2 font-bold"}>
                     {temp}
                 </div>
+            },
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
+            hidden:!hasAccessToVerifyBill,
+        },
+        {
+            id: "ContactCredits",
+            accessorKey: 'ContactCredits',
+            header: () => <div>
+                تراز
+            </div>,
+            cell: (info:any) => {
+                // const constIsVerified = info.row.original.Status === 1
+                return <ShowContactBedBes info={info} />
             },
             size: 100,
             minSize: 100,
