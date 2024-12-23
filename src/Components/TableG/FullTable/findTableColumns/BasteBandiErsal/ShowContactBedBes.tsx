@@ -9,7 +9,6 @@ const ShowContactBedBes = ({info}) => {
     try {
         const contactCredit = info?.row?.original?.Contact?.Credits
         const contactLiability = info?.row?.original?.Contact?.Liability
-        const result = contactCredit - contactLiability
 
 
         const userBedOrBesValue = contactCredit - contactLiability
