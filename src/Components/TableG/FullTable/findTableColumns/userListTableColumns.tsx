@@ -115,6 +115,13 @@ export const userListTableColumns = (inputs: IInputObject) => {
             },
         },
         {accessorKey: 'roleName', header: 'نقش', size: 250},
+        {accessorKey: 'city',
+            header: () => {
+                return <>
+                    <StringFilter uniqueId={"city"} operator={"*"} property={"city"} placeHolder={"شهر"}/>
+                </>
+            },
+            size: 250},
 
         {accessorKey: 'contactCode',
             header: () => {
