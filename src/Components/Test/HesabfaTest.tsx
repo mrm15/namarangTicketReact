@@ -61,16 +61,7 @@ const HesabfaTest = () => {
         }
 
     }
-    const updateProductsFromHesabfaToSite = async () => {
 
-        const result112 = confirm("این کار یه فایلو جا به جا میکنه حواست هست؟")
-        if (result112) {
-            const result = await myAxiosPrivate.get('hesabfa/saveProductsAsFile')
-            showToast(result)
-        }
-
-
-    }
     const sendSmsCurrentReport = async () => {
 
         const result112 = confirm("این کار یه پیامک میده اوکی؟؟؟")
@@ -160,14 +151,6 @@ const HesabfaTest = () => {
                             className="btn-submit-mir w-full sm:w-auto"
                         >
                             همگام سازی مخاطبین
-                        </button>
-                    </div>
-                    <div className="w-full sm:w-auto">
-                        <button
-                            onClick={updateProductsFromHesabfaToSite}
-                            className="btn-submit-mir bg-red-900 w-full sm:w-auto"
-                        >
-                            به روز رسانی کالاهای حسابفا و سایت
                         </button>
                     </div>
                     <div className="w-full sm:w-auto">
