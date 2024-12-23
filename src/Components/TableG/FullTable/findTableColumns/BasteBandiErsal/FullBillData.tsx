@@ -313,6 +313,23 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
         },
         {
 
+            accessorKey: 'sn',
+            header: () => <div>
+                <StringFilter
+                    uniqueId={"Tag"}
+                    placeHolder={"وضعیت"}
+                    property={"Tag"}
+                    operator={"*"}
+                />
+            </div>,
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
+
+
+        },
+        {
+
             accessorKey: 'des',
             header: 'توضیحات',
             size: 150,
