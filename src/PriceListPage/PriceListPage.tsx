@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import axios from "../api/axios.tsx";
-import useAxiosPrivate from "../hooks/useAxiosPrivate.tsx";
 import {useQuery} from "@tanstack/react-query";
-import {getBillData} from "../config/api.tsx";
+import ProductListTable from "./ProductList.tsx";
+import NamarangLogoSvg from "../assets/Svg/NamarangLogoSvg.tsx";
+import Loader3 from "../Components/Loader/Loader3.tsx";
+
 
 const PriceListPage = () => {
     const [productList, setProductList] = useState([])
@@ -19,20 +21,20 @@ const PriceListPage = () => {
         const result = await axios.get("/public/productList")
         return result.data;
     }
-    const {refetch,data,isError,isFetching,isLoading} = useQuery({
+    const {refetch, data, isError, isFetching, isLoading} = useQuery({
         queryKey: ["billDetailsData"],
         queryFn: queryFnProductList,
         staleTime: 100000,  // === 60*60*24*1000
     })
-
-
-
     return (
         <div>
-            123
-            <pre>
-                {JSON.stringify(productList)}
-            </pre>
+
+            <NamarangLogoSvg height={150} width={150}/>
+
+            {isLoading ? <Loader3/> : <ProductListTable products={data?.data?.List}/>}
+            {isError && <div
+              onClick={() => window.location.reload()}
+            > خطایی رخ داد </div>}
         </div>
     );
 };

@@ -53,9 +53,9 @@ const App: React.FC = () => {
                 draggable
                 pauseOnHover
             />
-            <ErrorBoundary>
+            {/*<ErrorBoundary>*/}
                 <Pages/>
-            </ErrorBoundary>
+            {/*</ErrorBoundary>*/}
         </>
     );
 };
