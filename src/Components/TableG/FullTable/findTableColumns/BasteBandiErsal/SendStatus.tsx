@@ -10,6 +10,7 @@ import {PAGES} from "../../../../../Pages/Route-string.tsx";
 import ForwardOnClick from "../../../../../ReportBill/ForwardOnClick.tsx";
 import DeleteBill from "./DeleteBill.tsx";
 import {TableGContext} from "../../../TableGContext.tsx";
+import ChangeBillStatus from "./ChangeBillStatus/ChangeBillStatus.tsx";
 
 const SendStatus = ({
                         info,
@@ -97,6 +98,7 @@ const SendStatus = ({
 
     return (
         <div className={"flex flex-wrap items-center gap-1 "}>
+            <ChangeBillStatus setMyData={setMyData} info={info} />
             {hasAccessBastebandi && <div className={" flex items-center"}>
               <input
                 id={rnd}
