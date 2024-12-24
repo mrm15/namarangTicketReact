@@ -85,7 +85,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
                 >
                     <div className={"w-96"}>
                         <div>
-                            <div className={"badge-bg-blue-text-white w-fit "}>{billTitle}</div>
+                            <div className={"border-blue-500 border rounded py-2 w-full text-center"}>{billTitle}</div>
                             <div className={"w-full text-center font-bold "}>{phoneNumber}</div>
                         </div>
                         <div className="flex flex-col justify-end items-start gap-4">
@@ -137,7 +137,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
             )}
             <button
                 onClick={openModal}
-                className={"btn-small-edit"}>
+                className={"bg-blue-500 text-white  py-1 px-3 text-xs border border-blue-600 rounded hover:cursor-pointer hover:bg-blue-700"}>
                 تغییر وضعیت
             </button>
         </div>
