@@ -14,7 +14,6 @@ import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
 import ShowContactBedBes from "./ShowContactBedBes.tsx";
 
-
 const NameShow = ({info}) => {
 
 
@@ -35,7 +34,7 @@ const RowNumberShow = ({info}) => {
 };
 // Define the columns with the appropriate structure
 export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
-    const {url, navigateTo, myAxios, setMyData, myData,auth} = inputs;
+    const {url, navigateTo, myAxios, setMyData, myData, auth} = inputs;
 
     const hasAccessToVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const temp: ICustomColumn<any>[] = [
@@ -138,9 +137,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
                     {/*/>*/}
                     <DatesFilter
-                            property={"Date"}
-                            model ={"advanced"}
-                            dateFormatValue ={"hesabfa"}
+                        property={"Date"}
+                        model={"advanced"}
+                        dateFormatValue={"hesabfa"}
                     />
                 </div>
             },
@@ -222,7 +221,7 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             size: 100,
             minSize: 100,
             maxSize: 100,
-            hidden:!hasAccessToVerifyBill,
+            hidden: !hasAccessToVerifyBill,
         },
         {
             id: "ContactCredits",
@@ -230,14 +229,14 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 تراز
             </div>,
-            cell: (info:any) => {
+            cell: (info: any) => {
                 // const constIsVerified = info.row.original.Status === 1
-                return <ShowContactBedBes info={info} />
+                return <ShowContactBedBes info={info}/>
             },
             size: 100,
             minSize: 100,
             maxSize: 100,
-            hidden:!hasAccessToVerifyBill,
+            hidden: !hasAccessToVerifyBill,
         },
 
         {
@@ -301,43 +300,38 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
         },
         {
-
-            accessorKey: 'db',
-            header: 'تاریخ بسته بندی',
-            size: 100,
-            minSize: 100,
-            maxSize: 100,
-
-
-        },
-
-        {
-
-            accessorKey: 'ds',
-            header: 'تاریخ ارسال',
-            size: 100,
-            minSize: 100,
-            maxSize: 100,
-            // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
-
-
-        },
-        {
-
             accessorKey: 'sn',
             header: () => <div>
-                <StringFilter
+                <SelectOptionFilter
                     uniqueId={"Tag"}
-                    placeHolder={"وضعیت"}
                     property={"Tag"}
                     operator={"*"}
+                    optionsForSelectOption={[
+                        {key: "بسته بندی", value: "5710"},
+                        {key: "تسویه شده", value: "5711",},
+                        {key: "آماده ارسال", value: "5712",},
+                        {key: "ارسال شده", value: "5713",},
+                    ]}
+                    placeHolder={"وضعیت"}
                 />
             </div>,
+
+            cell: (info) => {
+
+                const billStatusText = {
+                    "5710": "بسته بندی شده",
+                    "5711": "تسویه شده",
+                    "5712": "آماده ارسال",
+                    "5713": "ارسال شده",
+                }
+
+                const value = info.getValue()
+                // @ts-ignore
+                return <div> {value && billStatusText[value]}</div>
+            },
             size: 100,
             minSize: 100,
             maxSize: 100,
-
-
         },
         {
 
