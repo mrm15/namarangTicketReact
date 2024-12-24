@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate.tsx";
 import useAuth from "../../../../../../hooks/useAuth.tsx";
 import Modal from "../../../../../Modal/Modal.tsx";
-import {getCurrentDate, randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
+import { randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
 import {makeInvoiceBaseOnHesabfaData} from "../../../../../Hesabfa/SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
-import {LoaderIcon} from "react-hot-toast";
 
 
 const ChangeBillStatus = ({info, setMyData}) => {
@@ -38,6 +37,10 @@ const ChangeBillStatus = ({info, setMyData}) => {
         setNewStatus(info?.row?.original?.sn)
     }, [info?.row?.original?.sn]);
 
+    useEffect(() => {
+        setNewDescription(info?.row?.original?.des)
+    }, [info?.row?.original?.des]);
+
     const handleChangeStatus = async () => {
 
 
@@ -60,48 +63,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
             toast(error?.toString)
         } finally {
             setIsSendingRequest(false)
-
         }
-
-
-        // let message = "";
-        // if (e.target.checked) {
-        //     // message = `تغییر وضعیت  ${orderName} به حالت بسته بندی شده `
-        //     // statusNumber = 8;
-        //
-        // } else {
-        //     message = `تغییر وضعیت  ${orderName} به حالت بسته بندی  «نشده» `
-        //     statusNumber = 7;
-        //     date = "-"
-        //     // اینجا حالتیه که چک رو برداشته و اگه دسترسی به حالت قبل برگرداندن داره اجاره داره از اینجا ب بعد ادامه پیدا کنه
-        //     // اگه دسترسی نداره همینجا ریترن میکنم
-        //     const hasAccessToUnCheckedSendPackages = auth?.userInfo?.roleAccessList?.includes(ROLES.hasAccessToUnCheckedSendPackages[0])
-        //     if (!hasAccessToUnCheckedSendPackages) {
-        //         toast.dismiss()
-        //         toast.error("شما مجوز تغییر سفارش به حالت ارسال نشده را ندارید.")
-        //         return;
-        //     }
-        //
-        // }
-
-
-        // const isConfirm = confirm(message);
-
-        // if (isConfirm) {
-        //     const invoice = makeInvoiceBaseOnHesabfaData(info?.row?.original)
-        //     const result = await myAxiosP.post("/hesabfa/updatePackStatusTo8",
-        //         {
-        //             invoice,
-        //             date,
-        //             statusNumber,
-        //         })
-        //
-        //     if (result.status === 200) {
-        //         toast.success(result.data.message)
-        //         setMyData({reload: randomNumberGenerator()})
-        //     }
-        // }
-
     }
 
     const [isOpenModal, setIsOpenModal] = useState(false);
