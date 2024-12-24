@@ -245,7 +245,6 @@ export const MybillsForCustomers = (inputs: IInputObject): ColumnDef<any>[] => {
 
         },
         {
-
             accessorKey: 'ss',
             // header: 'وضعیت ',
             header: () => <div>
@@ -290,17 +289,7 @@ export const MybillsForCustomers = (inputs: IInputObject): ColumnDef<any>[] => {
 
 
         },
-        {
 
-            accessorKey: 'db',
-            header: 'تاریخ بسته بندی',
-            size: 100,
-            minSize: 100,
-            maxSize: 100,
-            hidden:true,
-
-
-        },
 
         {
 
