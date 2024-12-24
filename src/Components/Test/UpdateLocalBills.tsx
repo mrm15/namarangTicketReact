@@ -2,12 +2,16 @@ import {useState} from 'react';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import MyDatePicker2 from "../myDatePicker2/MyDatePicker2";
 import {toast} from "react-toastify";
+import useObjectDataHolder from "../../hooks/UseObjectDataHolder.tsx";
 
 const UpdateLocalBills = () => {
 
     const myAxios = useAxiosPrivate()
 
-    const [requestDate, setRequestDate] = useState(null)
+    const [requestDate, setRequestDate] = useObjectDataHolder<any>({
+        startDate:"",
+        endDate:"",
+    })
 
     const updateBills = async () => {
 
@@ -30,12 +34,13 @@ const UpdateLocalBills = () => {
 
     }
     return (
-        <div>
-            <MyDatePicker2 value={requestDate} onChange={(d) => setRequestDate(d.jsDate)}/>
+        <div className={"border-2 rounded border-red-500 p-3 "} >
+            <MyDatePicker2 value={requestDate.startDate} onChange={(d) => setRequestDate({startDate:d.jsDate})}/>
+            <MyDatePicker2 value={requestDate.endDate} onChange={(d) => setRequestDate({endDate:d.jsDate})}/>
             <div
                 onClick={updateBills}
                 className={"btn-green-mir"}>
-                درخواست بارگیری کلی فاکتور از حسابفا
+                 بارگیری کلی فاکتور
             </div>
 
         </div>

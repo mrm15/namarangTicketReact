@@ -11,6 +11,7 @@ import {
 import useAxiosPrivate from "../../hooks/useAxiosPrivate.tsx";
 import {toast} from "react-toastify";
 import UpdateLocalBills from "./UpdateLocalBills.tsx";
+import UpdateLocalBillsDayByDay from "./UpdateLocalBillsDayByDay.tsx";
 
 const HesabfaTest = () => {
 
@@ -97,6 +98,8 @@ const HesabfaTest = () => {
                 </div>
                 <div className="p-4 sm:p-8 font-light flex flex-wrap gap-4 justify-center">
                     <UpdateLocalBills/>
+
+                    <UpdateLocalBillsDayByDay />
                     <div className="w-full sm:w-auto">
                         <button
                             onClick={handleGetProduct}
