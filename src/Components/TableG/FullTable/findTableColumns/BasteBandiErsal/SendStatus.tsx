@@ -81,8 +81,7 @@ const SendStatus = ({
     }
 
 
-    const hasAccessBastebandi = auth?.userInfo?.roleAccessList?.includes("basteBandi")
-    const hasAccessErsal = auth?.userInfo?.roleAccessList?.includes("ersal")
+    const canSetSeeChangeBillStatusButton = auth?.userInfo?.roleAccessList?.includes("canSetSeeChangeBillStatusButton")
     const hasAccessVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const hasAccessDraftBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDraft[0])
     const hasAccessToGetScreenShotBills = auth?.userInfo?.roleAccessList?.includes(ROLES.screenShotBills[0])
@@ -98,23 +97,8 @@ const SendStatus = ({
 
     return (
         <div className={"flex flex-wrap items-center gap-1 "}>
-            <ChangeBillStatus setMyData={setMyData} info={info} />
-            {hasAccessBastebandi && <div className={" flex items-center"}>
-              <input
-                id={rnd}
-                type="checkbox"
-                checked={sendStatus >= 8}
-                onChange={handleChangePack}
-              />
-              <label htmlFor={rnd}>بسته بندی</label>
-            </div>}
-            {hasAccessErsal && <div>
-              {/*<ErsalInPackSendTable*/}
-              {/*  info={info}*/}
-              {/*  sendStatus={sendStatus}*/}
-              {/*  setMyData={setMyData}*/}
-              {/*/>*/}
-            </div>}
+            {canSetSeeChangeBillStatusButton && <ChangeBillStatus setMyData={setMyData} info={info}/>}
+
 
               <div className={"flex flex-wrap gap-1"}>
                   {hasAccessViewBills && <a className={"btn-small-show"} target={"_blank"}
