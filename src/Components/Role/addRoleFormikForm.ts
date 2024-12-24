@@ -134,6 +134,15 @@ const dropdownOptions = [
     {value: "departmentAdminDashboard", key: "داشبورد مدیر دپارتمان"},
     {value: "fullAdminDashboard", key: "داشبورد مدیر کل با دسترسی های فول"},
     {value: "showMyTicketList", key: "تیکت های من منحصر به فرد (مخصوص بچه های سفارش گیری که بتونن منحصر ب فرد چک کنند و ببین در کل چه تعداد سفارش براشون اومده و یا ببینند جوابی برای اون تیکت اومده یا نه. اینجوری کنترلش آسون تر میشه."},
+    /////////////////////////////////////////////////
+    
+    {value: "canSetSeeChangeBillStatusButton", key: `توی بخش عملیات توی لیست فاکتورها دکمه ی تغییر وضعیت رو ببینه ؟`},
+    {value: "canSetTextIntoBillStatus", key: `توی بخش عملیات توی لیست فاکتورها بتونه (متن) وارد کنه ؟`},
+    {value: "canSetStatusBillToBasteBandi", key: `توی بخش عملیات توی لیست فاکتورها بتونه (بسته بندی) رو انتخاب کنه؟`},
+    {value: "canSetStatusBillToTasvieShode", key: `توی بخش عملیات توی لیست فاکتورها بتونه (تسویه شده) رو انتخاب کنه؟`},
+    {value: "canSetStatusBillToAmadeErsal", key: `توی بخش عملیات توی لیست فاکتورها بتونه (آماده ارسال) رو انتخاب کنه؟`},
+    {value: "canSetStatusBillToErsalShode", key: `توی بخش عملیات توی لیست فاکتورها بتونه ( ارسال شده) رو انتخاب کنه؟`},
+
 
 
 ]
