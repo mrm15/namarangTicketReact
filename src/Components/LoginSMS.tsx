@@ -223,12 +223,14 @@ const LoginSMS: React.FC = () => {
                     <label htmlFor="username">شماره موبایل:</label>
                     <input
                       className={"ltr"}
-                      type="text"
+                      type="tel"
                       id="username"
                       ref={userRef}
                       autoComplete="off"
                       {...userAttribs}
                       required
+                      pattern="[0-9]{11}"
+                      inputMode="numeric"
                     />
 
                     <button
