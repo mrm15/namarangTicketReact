@@ -2,10 +2,22 @@ import React, {useEffect, useState} from 'react';
 import useAxiosPrivate from "../../../../../../hooks/useAxiosPrivate.tsx";
 import useAuth from "../../../../../../hooks/useAuth.tsx";
 import Modal from "../../../../../Modal/Modal.tsx";
-import { randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
+import {randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
 import {makeInvoiceBaseOnHesabfaData} from "../../../../../Hesabfa/SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
 
+const textListArray = [
+    {id: 1, text: " بار بری وطن",},
+    {id: 2, text: " باربری شاهین",},
+    {id: 3, text: " باربری پیام شمس",},
+    {id: 4, text: " باربری زاهدان بار",},
+    {id: 5, text: " باربری جهان بار",},
+    {id: 6, text: " باربری سعادت ",},
+    {id: 7, text: " باربری پیک ترابر",},
+    {id: 8, text: " اتوبوس ",},
+    {id: 9, text: " هوایی ",},
+    {id: 10, text: "",},
+]
 
 const ChangeBillStatus = ({info, setMyData}) => {
 
@@ -100,6 +112,16 @@ const ChangeBillStatus = ({info, setMyData}) => {
                                     {row.title}
                                 </button>
                             })}
+                        </div>
+
+                        <div
+                            className={"w-full flex flex-wrap my-2"}
+                        >
+                            {canSetTextIntoBillStatus &&
+                                textListArray.map(row => <div
+                                    className={"w-1/5  border border- whitespace-nowrap p-1 fontSize10 cursor-pointer"}
+                                    onClick={() => setNewDescription(lastDES + " " + row.text)}
+                                    key={row.id}>{row.text}</div>)}
                         </div>
                         <div className={"div__group__input_select w-full"}>
                             <label htmlFor="">پیام</label>
