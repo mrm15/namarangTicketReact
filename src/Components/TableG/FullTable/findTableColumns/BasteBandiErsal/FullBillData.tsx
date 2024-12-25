@@ -236,7 +236,7 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             size: 100,
             minSize: 100,
             maxSize: 100,
-            hidden: !hasAccessToVerifyBill,
+            hidden: false,
         },
 
         {

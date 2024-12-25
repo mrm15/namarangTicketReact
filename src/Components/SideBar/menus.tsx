@@ -44,7 +44,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     },
     {
         name: "لیست فاکتور",
-        link: PAGES.basted_bandi_ersal,
+        link: PAGES.showFactorListInMenu,
         icon: RiBillLine,
         showItem: roleAccessList?.includes('showFactorListInMenu'),
     },
