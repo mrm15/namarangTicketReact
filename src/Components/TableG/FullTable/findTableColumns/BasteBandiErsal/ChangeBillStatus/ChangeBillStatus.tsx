@@ -5,6 +5,7 @@ import Modal from "../../../../../Modal/Modal.tsx";
 import {randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
 import {makeInvoiceBaseOnHesabfaData} from "../../../../../Hesabfa/SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
+import ShowContactBedBes from "../ShowContactBedBes.tsx";
 
 const textListArray = [
     {id: 1, text: " بار بری وطن",},
@@ -41,6 +42,10 @@ const ChangeBillStatus = ({info, setMyData}) => {
     const lastSN = info?.row?.original?.sn
     const lastDES = info?.row?.original?.des
     const billTitle = info?.row?.original?.ContactTitle
+    const city = info?.row?.original?.Contact?.city ?? "";
+    const customerName = info?.row?.original?.Contact?.Name ?? "";
+    const nameFamilyNameCity = `${customerName} ${city}`;
+
     const phoneNumber = info?.row?.original?.Contact?.Mobile
     const myAxiosP = useAxiosPrivate();
     const [newStatus, setNewStatus] = useState(lastSN)
@@ -98,7 +103,8 @@ const ChangeBillStatus = ({info, setMyData}) => {
                     <div className={"w-96"}>
                         <div>
                             <div className={"border-blue-500 border rounded py-2 w-full text-center"}>{billTitle}</div>
-                            <div className={"w-full text-center font-bold "}>{phoneNumber}</div>
+                            <div className={"w-full text-center font-bold flex  justify-center"}> {nameFamilyNameCity} &nbsp; {phoneNumber} &nbsp; <ShowContactBedBes info={info}/></div>
+
                         </div>
                         <div className="flex flex-col justify-end items-start gap-4">
                             {stringArray.map((row) => {
