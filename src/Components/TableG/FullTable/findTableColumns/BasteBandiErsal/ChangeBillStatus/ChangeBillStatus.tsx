@@ -14,9 +14,9 @@ const textListArray = [
     {id: 5, text: " باربری جهان بار",},
     {id: 6, text: " باربری سعادت ",},
     {id: 7, text: " باربری پیک ترابر",},
-    {id: 8, text: " اتوبوس ",},
-    {id: 9, text: " هوایی ",},
-    {id: 10, text: "",},
+    {id: 8, text: " باربری حبیبی",},
+    {id: 9, text: " اتوبوس ",},
+    {id: 10, text: " هوایی ",},
 ]
 
 const ChangeBillStatus = ({info, setMyData}) => {
@@ -131,14 +131,17 @@ const ChangeBillStatus = ({info, setMyData}) => {
                                 type="text"
                                 value={newDescription} // Keep lastDES as part of the state
                                 onChange={(e) => {
+
                                     const newText = e.target.value; // Capture the full value
-                                    if (!newText.startsWith(lastDES)) {
-                                        // Ensure lastDES remains as the prefix
-                                        setNewDescription(lastDES + " " + newText);
-                                    } else {
-                                        // Update newDescription while keeping lastDES intact
-                                        setNewDescription(newText);
-                                    }
+                                    setNewDescription(newText);
+
+                                    // if (!newText.startsWith(lastDES)) {
+                                    //     // Ensure lastDES remains as the prefix
+                                    //     setNewDescription(lastDES + " " + newText);
+                                    // } else {
+                                    //     // Update newDescription while keeping lastDES intact
+                                    //     setNewDescription(newText);
+                                    // }
                                 }}
                             />
                         </div>
