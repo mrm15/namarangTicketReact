@@ -137,10 +137,8 @@ const ChangeBillStatus = ({info, setMyData}) => {
                                 type="text"
                                 value={newDescription} // Keep lastDES as part of the state
                                 onChange={(e) => {
-
                                     const newText = e.target.value; // Capture the full value
                                     setNewDescription(newText);
-
                                     // if (!newText.startsWith(lastDES)) {
                                     //     // Ensure lastDES remains as the prefix
                                     //     setNewDescription(lastDES + " " + newText);
@@ -150,6 +148,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
                                     // }
                                 }}
                             />
+                            <div className={"absolute left-2 top-3 text-red-700 cursor-pointer p-1"} onClick={()=>setNewDescription("")}>&#xd7;</div>
                         </div>
                         {isSendingRequest ?
                             <div className={"border-gray-400 border-2 p-2  rounded my-2 text-center"}>در حال
