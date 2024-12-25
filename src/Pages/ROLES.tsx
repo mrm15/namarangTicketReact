@@ -96,6 +96,7 @@ export const ROLES = {
     smsSend:['smsSend'],
     // hesabfa
     showBillAccess:['showBillAccess'],
+    showFactorListInMenu:['showFactorListInMenu'],
     downloadBillAsPdf:['downloadBillAsPdf'],
     downloadBillAsCsv:['downloadBillAsCsv'],
     submitBillInSubmitOrderForm:['submitBillInSubmitOrderForm'],

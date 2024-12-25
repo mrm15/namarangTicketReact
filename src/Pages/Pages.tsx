@@ -312,8 +312,8 @@ const Pages = () => {
                         </Route>
 
                         <Route element={<RequireAuth
-                            allowedRoles={[...ROLES.basted_bandi_ersal, ...ROLES.screenShotBills]}/>}>
-                            <Route path={PAGES.basted_bandi_ersal} element={
+                            allowedRoles={[...ROLES.showFactorListInMenu]}/>}>
+                            <Route path={PAGES.showFactorListInMenu} element={
                                 <Suspense fallback={<>
                                     <Skeleton classes="text width-100"/>
                                     <Skeleton classes="text width-100"/>

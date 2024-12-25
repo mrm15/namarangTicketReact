@@ -46,7 +46,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         name: "لیست فاکتور",
         link: PAGES.basted_bandi_ersal,
         icon: RiBillLine,
-        showItem: roleAccessList?.includes('basteBandi') || roleAccessList?.includes('ersal') || (roleAccessList?.includes(ROLES.screenShotBills[0])) ,
+        showItem: roleAccessList?.includes('showFactorListInMenu'),
     },
     {
         name: "فاکتورهای من",

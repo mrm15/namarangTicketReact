@@ -45,7 +45,7 @@ export const PAGES = {
     screenshot:"/screenshot",
     ////////////////////////////////////
     reportBill:"/reportBill",
-    basted_bandi_ersal:"/pack-send",
+    showFactorListInMenu:"/pack-send",
     adminReport:"/adminReport",
     myBank:"/myBank",
     allBanks:"/allBanks",

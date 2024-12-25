@@ -104,8 +104,7 @@ const dropdownOptions = [
     {value: 'allContactsWhenSubmitBill', key: "لیست کامل مشتری ها هنگام صدور فاکتور"},
     {value: 'showReportBillList', key: "لیست فاکتور فروش و گرفتن پیوت و اکسل"},
     {value: 'adminReport', key: "گزارش مدیریتی"},
-    {value: 'basteBandi', key: "دسترسی به فاکتور ها برای بسته بندی"},
-    {value: 'ersal', key: "دسترسی به فاکتور ها برای ارسال"},
+    {value: 'showFactorListInMenu', key: "مشاهده ی دکمه ی لیست فاکتور ها در منوی کناری و مشاهده فاکتور ها"},
     {value: 'hasAccessToUnCheckedSendPackages', key: "تغییر وضعیت سفارش به ارسال نشده!!!"},
     // report widget
     // widgetTotalBillsLast3Days
