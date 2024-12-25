@@ -34,7 +34,7 @@ const UpdateLocalBillsDayByDay = () => {
 
         const tId = toast.loading("در حال بارگیری فاکتورها...");
 
-        while (currentStartDate < today) {
+        while (currentStartDate <= today) {
             const nextDay = new Date(currentStartDate);
             nextDay.setDate(currentStartDate.getDate() + 1);
 
