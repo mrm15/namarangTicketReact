@@ -3,6 +3,8 @@ import ModalView from "./ModalView.tsx";
 
 const Modal = (props) => {
     const {closeModal} = props
+    const isMobile = window.innerWidth <= 768
+
     return (
         <Portal>
             <div
@@ -19,7 +21,7 @@ const Modal = (props) => {
                 onClick={closeModal}
             />
             <div
-                className={'ease-in-out'}
+                className={'ease-in-out ' +   `  ${isMobile &&  "w-full overflow-scroll"}`}
                 style={{
                     position: "fixed",
                     top: "50%",
