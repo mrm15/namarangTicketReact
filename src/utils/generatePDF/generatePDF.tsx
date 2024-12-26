@@ -49,7 +49,7 @@ export const generatePDF = ({
             doc.text(title, pageWidth / 2, 10, { align: 'center' });
 
             // اضافه کردن شماره صفحه به پایین هر صفحه
-            const pageNumber = doc.internal?.getNumberOfPages();
+            const pageNumber = doc.getNumberOfPages(); // بدون ارور
             // const totalPages = doc.internal?.pageSize;
             doc.setFontSize(8);
             doc.text(`صفحه ${pageNumber} از ${"123"}`, pageWidth - 20, pageHeight - 10, { align: 'right' });
