@@ -4,7 +4,7 @@ import {TableGContext} from "../../TableG/TableGContext.tsx";
 import {billStatusText} from "../../CONSTANTS/billStatusText.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
 
-const DownloadTable: React.FC = () => {
+const DownloadPdfErsal: React.FC = () => {
 
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
@@ -46,8 +46,9 @@ const DownloadTable: React.FC = () => {
 
 
         const currentDate = new Date();
-        const formattedDate = currentDate.toLocaleDateString("fa-IR"); // فرمت تاریخ به شکل 1402-01-01
-        const formattedTime = currentDate.toLocaleTimeString("fa-IR"); // فرمت زمان به شکل 10-15-45
+        const dateString = +new Date
+        const formattedDate = currentDate.toLocaleDateString("fa-IR");
+        const formattedTime = currentDate.toLocaleTimeString("fa-IR");
         const title = `پنل کاربری سایت نمارنگ - جدول فاکتورها  
 ${userName}  تاریخ: ${formattedDate}  ساعت: ${formattedTime}`;
         generatePDF(
@@ -55,7 +56,7 @@ ${userName}  تاریخ: ${formattedDate}  ساعت: ${formattedTime}`;
                 title,
                 columns:columns,
                 rows:newData,
-                fileName : 'table.pdf'
+                fileName : `table-${dateString}.pdf`
 
             }
            );
@@ -70,4 +71,4 @@ ${userName}  تاریخ: ${formattedDate}  ساعت: ${formattedTime}`;
     );
 };
 
-export default DownloadTable;
+export default DownloadPdfErsal;
