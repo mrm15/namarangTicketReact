@@ -13,6 +13,7 @@ import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
 import ShowContactBedBes from "./ShowContactBedBes.tsx";
+import {billStatusText} from "../../../../CONSTANTS/billStatusText.tsx";
 
 const NameShow = ({info}) => {
 
@@ -317,14 +318,6 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             </div>,
 
             cell: (info) => {
-
-                const billStatusText = {
-                    "5710": "بسته بندی شده",
-                    "5711": "تسویه شده",
-                    "5712": "آماده ارسال",
-                    "5713": "ارسال شده",
-                }
-
                 const value = info.getValue()
                 // @ts-ignore
                 return <div> {value && billStatusText[value]}</div>
