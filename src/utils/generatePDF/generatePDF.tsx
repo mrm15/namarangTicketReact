@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import vazirFont from './vazirFont'; // فونت فارسی Base64
+import vazirFont from './vazirFont';// فونت فارسی Base64
+import {logoBase64} from "./logoBase64.tsx";
 
 interface TableColumn {
     header: string;
@@ -42,12 +43,13 @@ export const generatePDF = ({
     autoTable(doc, {
         head: [columns.map((col) => col.header)], // عناوین ستون‌ها
         body: rows.map((row) => columns.map((col) => row[col.dataKey] ?? ' _')), // داده‌های جدول
-        startY: 20,
+        startY: 30,
         margin: { top: 30 }, // فاصله از بالای صفحه
         didDrawPage: (data) => {
-            // اضافه کردن عنوان به بالای هر صفحه
-            doc.setFontSize(8); // فونت عنوان
-            doc.text(title, pageWidth / 2, 10, { align: 'center' });
+            // اضافه کردن لوگو به بالای هر صفحه
+            doc.addImage(logoBase64, 'PNG', 10, 5, 20, 20); // لوگو در مختصات (10, 5) با عرض و ارتفاع (20x20)
+            // اضافه کردن عنوان در کنار تصویر
+            doc.text(title, pageWidth / 2, 15, { align: 'center' });
         },
         styles: {
             lineWidth: 0.1, // ضخامت خطوط سلول‌ها
