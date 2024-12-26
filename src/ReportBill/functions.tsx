@@ -2,23 +2,28 @@ import {randomNumberGenerator, timestampToTimeFromHesabfa} from "../utils/utilsF
 import {p2e} from "../utils/NumericFunction.tsx";
 import {toast} from "react-toastify";
 import {getBillList} from "../config/api.tsx";
+import {billStatusText} from "../Components/CONSTANTS/billStatusText.tsx";
 
 interface inputTypes {
     tableData: any[];
     currentPageNumber: number;
     totalRowsInPage: number;
 }
+
 export const DateToEnglish = (inputText: any) => {
     let result = timestampToTimeFromHesabfa(inputText)
     result = p2e(result);
     return result
 }
 
- export const changeTextTo = (inputNumber: any) => {
+export const changeTextTo = (inputNumber: any) => {
 
     return inputNumber === 0 ? "پیشنویس" : "تایید شده"
 }
+export const changeTextToTagSn = (inputNumber: any) => {
 
+    return billStatusText[inputNumber]
+}
 
 
 export const makeRowIdBasedOnPageNumber = ({
@@ -34,13 +39,13 @@ export const makeRowIdBasedOnPageNumber = ({
     return table
 }
 
-export const getHeaderAndRows = (incomeData:any) => {
+export const getHeaderAndRows = (incomeData: any) => {
 
     const dataSheet1 = incomeData.map((rr: any) => {
 
-        const {City, State,Name,Mobile,Phone ,} = rr.Contact
+        const {City, State, Name, Mobile, Phone,} = rr.Contact
 
-        const row = {...rr , City, State,Name,Mobile,Phone}
+        const row = {...rr, City, State, Name, Mobile, Phone}
 
 
         try {
@@ -115,7 +120,7 @@ export const getHeaderAndRows = (incomeData:any) => {
                 mySeller,
                 myTicketNumber,
                 myTax: rowItem?.Tax,
-                myTotalAmount:rowItem?.TotalAmount, // اینحا ما جمع مربوط به همون آیتم رو فقط لازم داریم. نه جمع کل
+                myTotalAmount: rowItem?.TotalAmount, // اینحا ما جمع مربوط به همون آیتم رو فقط لازم داریم. نه جمع کل
                 myStatus: row.Status,
                 myCurrency: row.Currency,
             })
@@ -156,7 +161,7 @@ export const getHeaderAndRows = (incomeData:any) => {
 
 }
 
-export const getDataFromHesabfaBasedOnFilterState = async (filterItems,myAxios)=>{
+export const getDataFromHesabfaBasedOnFilterState = async (filterItems, myAxios) => {
 
     const queryInfo = {
         SortBy: 'Date',
