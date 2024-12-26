@@ -10,6 +10,7 @@ interface TableColumn {
 interface TableRow {
     [key: string]: any;
 }
+
 interface inputType {
     title: string;
     columns: TableColumn[];
@@ -33,8 +34,8 @@ export const generatePDF = ({
     doc.addFileToVFS('Vazir.ttf', vazirFont);
     doc.addFont('Vazir.ttf', 'Vazir', 'normal');
     doc.setFont('Vazir');
+    doc.setFontSize(8); // تنظیم سایز فونت کلی
 
-    // اضافه کردن شماره صفحه و عنوان به هر صفحه
     const pageWidth = doc.internal.pageSize.width; // عرض صفحه
     const pageHeight = doc.internal.pageSize.height; // ارتفاع صفحه
 
@@ -45,19 +46,15 @@ export const generatePDF = ({
         margin: { top: 30 }, // فاصله از بالای صفحه
         didDrawPage: (data) => {
             // اضافه کردن عنوان به بالای هر صفحه
-            doc.setFontSize(8);
+            doc.setFontSize(8); // فونت عنوان
             doc.text(title, pageWidth / 2, 10, { align: 'center' });
-
-            // اضافه کردن شماره صفحه به پایین هر صفحه
-            const pageNumber = doc.getNumberOfPages(); // بدون ارور
-            // const totalPages = doc.internal?.pageSize;
-            doc.setFontSize(8);
-            doc.text(`صفحه ${pageNumber} از ${"123"}`, pageWidth - 20, pageHeight - 10, { align: 'right' });
         },
         styles: {
+            lineWidth: 0.1, // ضخامت خطوط سلول‌ها
+            lineColor:[0,0,0,],
             font: 'Vazir', // استفاده از فونت فارسی
             fontStyle: 'normal',
-            fontSize: 10, // سایز فونت بدنه جدول
+            fontSize: 8, // سایز فونت بدنه جدول
             textColor: [0, 0, 0],
         },
         headStyles: {
@@ -66,10 +63,23 @@ export const generatePDF = ({
             halign: 'right', // راست‌چین هدر
         },
         bodyStyles: {
-            fontSize: 9, // سایز فونت برای بدنه جدول
+            fontSize: 8, // سایز فونت برای بدنه جدول
             halign: 'right', // راست‌چین داده‌ها
         },
     });
+
+    // اضافه کردن شماره صفحات بعد از رندر کامل
+    const totalPages = doc.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(
+            `صفحه ${i} از ${totalPages}`,
+            pageWidth - 20,
+            pageHeight - 10,
+            { align: 'right' }
+        );
+    }
 
     // ذخیره فایل PDF
     doc.save(fileName);
