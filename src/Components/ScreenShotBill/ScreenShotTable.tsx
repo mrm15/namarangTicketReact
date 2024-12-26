@@ -1,13 +1,11 @@
 import React, {useEffect} from 'react';
 import {useScreenshotContext} from "./ScreenShotContext.tsx";
-import {findNewItemArray} from "./function.tsx";
-import {useLocation} from "react-router-dom";
-import MyDatePicker from "../MyDatePicker";
 
 const ScreenShotTable = () => {
 
     const {setData, data} = useScreenshotContext()
 
+    const currentDate= +new Date
 
     return (
         <div className={"text-center"}>
@@ -58,6 +56,12 @@ const ScreenShotTable = () => {
 
                     </tbody>
                 </table>
+                <div className={"flex justify-between"}>
+                   <div className={"text-left fontSize14"}> شماره فاکتور:
+                       {data?.billData?.Number}</div>
+                   <div className={"text-right fontSize14"}>
+                       {currentDate}</div>
+                </div>
             </div>
         </div>
     );
