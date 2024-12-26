@@ -91,6 +91,8 @@ const ChangeBillStatus = ({info, setMyData}) => {
 
     }
     const openModal = () => setIsOpenModal(true);
+    const isMobile=  window.innerWidth <= 768
+    const classNameOfModal = isMobile ? "w-full" : "w-96"
 
     return (
         <div>
@@ -100,7 +102,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
                     closeModal={closeModal}
                     title={"تغییر وضعیت فاکتور"}
                 >
-                    <div className={"w-96"}>
+                    <div className={classNameOfModal}>
                         <div>
                             <div className={"border-blue-500 border rounded py-2 w-full text-center"}>{billTitle}</div>
                             <div className={"w-full text-center font-bold flex  justify-center"}> {nameFamilyNameCity} &nbsp; {phoneNumber} &nbsp; <ShowContactBedBes info={info}/></div>
