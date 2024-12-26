@@ -7,6 +7,7 @@ import {formatDateForBackend} from "../../utils/utilsFunction.tsx";
 import {PackSendContext} from "./PackSendContext";
 import PackSendMain from "./PackSendMain/PackSendMain.tsx";
 import TableG from "../TableG/TableG.tsx";
+import TopTableComponentOnBillList from "./TopTableComponentOnBillList/TopTableComponentOnBillList.tsx";
 
 const PackSend = () => {
     const today = new Date();
@@ -30,6 +31,7 @@ const PackSend = () => {
 
     return (<div>
         <TableG
+            TopTableComponent={TopTableComponentOnBillList}
             url={"/hesabfa/getBillListData"}
         />
     </div>)
