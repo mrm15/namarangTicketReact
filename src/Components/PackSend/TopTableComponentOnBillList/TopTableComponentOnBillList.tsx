@@ -1,10 +1,12 @@
 import React from 'react';
-import DownloadTable from "./DownloadTable.tsx";
+import DownloadPdfErsal from "./DownloadPdfErsal.tsx";
+import DownloadExcelTable from "./DownloadExcelTable.tsx";
 
 const TopTableComponentOnBillList = () => {
     return (
-        <div>
-            <DownloadTable  />
+        <div className={"w-full flex justify-end gap-1 "}>
+            <DownloadPdfErsal  />
+            <DownloadExcelTable  />
         </div>
     );
 };
