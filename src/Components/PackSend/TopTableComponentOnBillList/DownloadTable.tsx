@@ -49,7 +49,7 @@ const DownloadTable: React.FC = () => {
         const formattedDate = currentDate.toLocaleDateString("fa-IR"); // فرمت تاریخ به شکل 1402-01-01
         const formattedTime = currentDate.toLocaleTimeString("fa-IR"); // فرمت زمان به شکل 10-15-45
         const title = `پنل کاربری سایت نمارنگ - جدول فاکتورها  
-${userName} | تاریخ: ${formattedDate} | ساعت: ${formattedTime}`;
+${userName}  تاریخ: ${formattedDate}  ساعت: ${formattedTime}`;
         generatePDF(
             {
                 title,
