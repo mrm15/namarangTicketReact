@@ -3,6 +3,7 @@ import {requestToGetCategoryListReducer} from "./requestTogetCategoryList.tsx";
 import {productListReducer} from "./ProductList/ProductList.tsx";
 import {sellFactorSlice} from "./SellFactor/SellFactor.tsx";
 import {sidebarReducer} from "./sidebarReducer/sidebarReducer.tsx";
+import websocketSlice from "./websocket/websocketSlice.tsx";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,8 @@ const store = configureStore({
         productListReducer: productListReducer.reducer,
         sellFactorReducer:sellFactorSlice.reducer,
         sidebarReducer : sidebarReducer.reducer,
+        websocketReducer: websocketSlice, // اضافه کردن WebSocket Slice
+
 
 
     }
