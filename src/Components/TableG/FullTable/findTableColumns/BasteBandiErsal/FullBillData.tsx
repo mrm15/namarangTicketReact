@@ -14,6 +14,8 @@ import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
 import ShowContactBedBes from "./ShowContactBedBes.tsx";
 import {billStatusText} from "../../../../CONSTANTS/billStatusText.tsx";
+import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
+import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 
 const NameShow = ({info}) => {
 
@@ -53,6 +55,27 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             cell: (info) => <RowNumberShow info={info}/>,
             hidden: false,
 
+        },
+        {
+            // توی فاکتور ها مقدار  آیدی با آی بزرگ هست که منحصر ب فرد هست
+            id: "select",
+            accessorKey: 'select',
+            type:"select",
+            uniqId:"Id", // وقتی چک باکس داریم این مورد اجباریه
+            // showCheckBoxInHeader:true,
+            header: (info) => {
+                return <>
+                    <CheckBoxHeader
+                        info={info}
+
+                    />
+                </>
+            },
+            cell: (info) => {
+
+
+                return  <CheckBoxCell cellInfo={info} />
+            },
         },
 
         {
