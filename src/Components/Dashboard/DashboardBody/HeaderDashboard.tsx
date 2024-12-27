@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {sidebarActions} from "../../../store/sidebarReducer/sidebarReducer.tsx";
 import ProfileInHeader from "./ProfileInHeader.tsx";
 import UserStatus from "./UserStatus.tsx";
+import UserCreditInHeader from "./UserCreditInHeader/UserCreditInHeader.tsx";
 
 
 const HeaderDashboard = () => {
@@ -71,13 +72,14 @@ const HeaderDashboard = () => {
                     </div>
 
 
-                    <div className={'flex gap-2'}>
+                    <div className={'flex gap-2 items-center'}>
                         <h6 className={"fontSize075rem"}>
                             {userNameToShow}
                             &nbsp;
                             عزیز
                         </h6>
                         {showUserStatus ? <UserStatus/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
+                        {showUserStatus ? <UserCreditInHeader/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
 
                     </div>
                     <ProfileInHeader/>
