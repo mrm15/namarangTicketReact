@@ -8,6 +8,8 @@ import {toast} from "react-toastify";
 import ShowContactBedBes from "../ShowContactBedBes.tsx";
 import {TableGContext} from "../../../../TableGContext.tsx";
 import {billStatusText} from "../../../../../CONSTANTS/billStatusText.tsx";
+import sleep from "../../../../../../utils/sleep.tsx";
+import {MdOutlinePublishedWithChanges} from "react-icons/md";
 
 const textListArray = [
     {id: 1, text: " بار بری وطن",},
@@ -22,7 +24,7 @@ const textListArray = [
     {id: 10, text: " هوایی ",},
 ]
 
-const ChangeBillStatusGroup = ({info=undefined}) => {
+const ChangeBillStatusGroup = ({info = undefined}) => {
 
 
     const context = useContext(TableGContext);
@@ -30,7 +32,7 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
 
     const billsArray = myData?.checkedItems;
 
-
+    const [showResult, setShowResult] = useState([])
     const [isSendingRequest, setIsSendingRequest] = useState(false)
     const {auth} = useAuth();
     const canSetTextIntoBillStatus = auth?.userInfo?.roleAccessList?.includes("canSetTextIntoBillStatus")
@@ -78,6 +80,7 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
         try {
             setIsSendingRequest(true);
 
+            const resultArrayTemp = []
             for (const [index, bill] of billsArray.entries()) {
                 const invoice = makeInvoiceBaseOnHesabfaData(bill);
 
@@ -98,8 +101,10 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
                             autoClose: 3000,
                         });
                     }
+                    await sleep(1000)
                 } catch (error: any) {
                     // Update the toast for error
+                    resultArrayTemp.push(bill.ContactTitle + " " + error.toString())
                     toast.update(toastId, {
                         render: `خطا در تغییر وضعیت فاکتور ${index + 1} (${bill?.id || "نامشخص"}): ${error?.message || error.toString()}`,
                         type: "error",
@@ -118,8 +123,12 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
             });
 
             // Refresh data or state after processing
-            setMyData({ reload: randomNumberGenerator() });
-            closeModal();
+            setMyData({reload: randomNumberGenerator()});
+            setShowResult(resultArrayTemp)
+            // اگه خطا نداشت ینی آرایه خالیه و مودال رو ببند
+            if (resultArrayTemp.length === 0) {
+                closeModal();
+            }
         } catch (globalError: any) {
             // Update the toast for global error
             toast.update(toastId, {
@@ -141,7 +150,7 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
 
     }
     const openModal = () => setIsOpenModal(true);
-    const isMobile=  window.innerWidth <= 768
+    const isMobile = window.innerWidth <= 768
     const classNameOfModal = isMobile ? "w-full" : "w-96"
 
     return (
@@ -150,7 +159,7 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
                 <Modal
                     showButtons={false}
                     closeModal={closeModal}
-                    title={"تغییر وضعیت فاکتور"}
+                    title={"    تغییر وضعیت فاکتور گروهی  ⚠️"}
                 >
                     <div className={classNameOfModal}>
                         <div>
@@ -172,6 +181,11 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
                             })}
                         </div>
 
+                        {showResult.map(row => {
+                            return <div>
+                                {JSON.stringify(row?.Tag)}
+                            </div>
+                        })}
                         <div
                             className={"w-full flex flex-wrap my-2"}
                         >
@@ -200,7 +214,8 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
                                     // }
                                 }}
                             />
-                            <div className={"absolute left-2 top-3 text-red-700 cursor-pointer p-1"} onClick={()=>setNewDescription("")}>&#xd7;</div>
+                            <div className={"absolute left-2 top-3 text-red-700 cursor-pointer p-1"}
+                                 onClick={() => setNewDescription("")}>&#xd7;</div>
                         </div>
                         {isSendingRequest ?
                             <div className={"border-gray-400 border-2 p-2  rounded my-2 text-center"}>در حال
@@ -216,11 +231,11 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
 
                     </div>
                     <div className={"h-32 overflow-y-scroll"}>
-                        {billsArray.map((row,index)=>{
+                        {billsArray.map((row, index) => {
 
                             return <div key={row.Id}>
-                                <ul className={"flex justify-between fontSize10 " + `${index%2===0 ? "bg-gray-200" : " "}`}>
-                                    <li className={" w-4 border-gray-400 px-1 border-l "}>{index+1}</li>
+                                <ul className={"flex justify-between fontSize10 " + `${index % 2 === 0 ? "bg-gray-200" : " "}`}>
+                                    <li className={" w-4 border-gray-400 px-1 border-l "}>{index + 1}</li>
                                     <li className={" w-24 border-gray-400 px-1 border-l "}>{row.ContactTitle}</li>
                                     <li className={" w-24 border-gray-400 px-1 border-l "}>{row.Number}</li>
                                     <li className={" w-24 px-1"}>{billStatusText[row.sn]}</li>
@@ -231,9 +246,10 @@ const ChangeBillStatusGroup = ({info=undefined}) => {
                 </Modal>
             )}
             <button
+                title={"تغییر وضعیت چندتایی"}
                 onClick={openModal}
-                className={"bg-blue-500 text-white  py-1 px-3 text-xs border border-blue-600 rounded hover:cursor-pointer hover:bg-blue-700"}>
-                تغییر وضعیت
+                className={""}>
+                <MdOutlinePublishedWithChanges size={24}  className={"text-red-700"} />
             </button>
         </div>
     );
