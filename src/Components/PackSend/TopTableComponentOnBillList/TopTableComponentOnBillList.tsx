@@ -4,7 +4,7 @@ import DownloadExcelTable from "./DownloadExcelTable.tsx";
 
 const TopTableComponentOnBillList = () => {
     return (
-        <div className={"w-full flex justify-end gap-1 "}>
+        <div className={"w-full flex justify-end gap-1 py-1"}>
             <DownloadPdfErsal  />
             <DownloadExcelTable  />
         </div>

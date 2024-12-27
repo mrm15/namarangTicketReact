@@ -5,6 +5,7 @@ import useAuth from "../../../hooks/useAuth.tsx";
 import {changeTextTo, changeTextToTagSn, DateToEnglish} from "../../../ReportBill/functions.tsx";
 import {timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
 import {p2e} from "../../../utils/NumericFunction.tsx";
+import {RiFileExcel2Line} from "react-icons/ri";
 
 const DownloadExcelTable = () => {
     const context = useContext(TableGContext);
@@ -58,11 +59,11 @@ const DownloadExcelTable = () => {
         <div>
             <div>
                 <button
-                    className={"btn-submit-mir"}
-
+                    className={"px-2"}
                     onClick={handleDownload}
-
-                >دانلود اکسل
+                    title={"دانلود اکسل Excel"}
+                >
+                    <RiFileExcel2Line className={"text-green-600"} size={25} />
                 </button>
             </div>
         </div>

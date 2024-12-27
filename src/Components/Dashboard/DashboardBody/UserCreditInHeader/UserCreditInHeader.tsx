@@ -35,12 +35,12 @@ const UserCreditInHeader = () => {
     const userBedOrBesValue = userData?.Credits - userData?.Liability
     const userBedOrBesStatus = userBedOrBesValue > 0 ?
         <div className={"flex"}>
-            <span>&nbsp;بس</span>
+            <span>&nbsp;بستانکار</span>
             <span><FiChevronsUp/></span>
         </div>
         : userBedOrBesValue < 0 ?
             <div className={"flex"}>
-                <div>&nbsp;بد</div>
+                <div>&nbsp;بدهکار</div>
                 <div><FiChevronsDown/></div>
             </div> :
             <><AiOutlineCheckCircle/></>
@@ -53,9 +53,10 @@ const UserCreditInHeader = () => {
             {resultOfUseQuery.isLoading && <><LittleSpinner/></>}
             {resultOfUseQuery.isFetched && resultOfUseQuery.data &&
               <span style={{color: userBedOrBesColor, fontWeight: "bold"}}
-                    className={"flex bg-gray-100 rounded px-2 py-1"}
+                    className={"flex bg-gray-300 rounded px-2 py-1 select-none"}
+                    title={"وضعیت حساب شما در سیستم"}
               >
-                            <div>تراز:</div>
+                            {/*<div>تراز:</div>*/}
                             <div className={"ltr"}>&nbsp;{formatNumber(userBedOrBesValue)} &nbsp;</div>
                              <div className={"flex"}> <div>{Currency}</div> <div>{userBedOrBesStatus}</div></div>
 

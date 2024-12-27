@@ -3,6 +3,8 @@ import {generatePDF} from "../../../utils/generatePDF/generatePDF.tsx";
 import {TableGContext} from "../../TableG/TableGContext.tsx";
 import {billStatusText} from "../../CONSTANTS/billStatusText.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
+import {FaFilePdf} from "react-icons/fa";
+import {FaRegFilePdf} from "react-icons/fa6";
 
 const DownloadPdfErsal: React.FC = () => {
 
@@ -65,8 +67,11 @@ ${userName}  تاریخ: ${formattedDate}  ساعت: ${formattedTime}`;
     return (
         <div>
             <button
-                className={"btn-submit-mir"}
-                onClick={handleDownload}>دانلود pdf ارسال</button>
+                className={"px-2"}
+                title={"دانلود پی دی اف ارسال بار pdf"}
+                onClick={handleDownload}>
+                <FaRegFilePdf  size={25} className={"text-orange-500"} />
+            </button>
         </div>
     );
 };
