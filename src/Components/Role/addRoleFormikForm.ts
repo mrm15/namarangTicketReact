@@ -135,12 +135,36 @@ const dropdownOptions = [
     {value: "showMyTicketList", key: "تیکت های من منحصر به فرد (مخصوص بچه های سفارش گیری که بتونن منحصر ب فرد چک کنند و ببین در کل چه تعداد سفارش براشون اومده و یا ببینند جوابی برای اون تیکت اومده یا نه. اینجوری کنترلش آسون تر میشه."},
     /////////////////////////////////////////////////
     
-    {value: "canSetSeeChangeBillStatusButton", key: `توی بخش عملیات توی لیست فاکتورها دکمه ی تغییر وضعیت رو ببینه ؟`},
+    {value: "canSeeChangeBillStatusButton", key: `توی بخش عملیات توی لیست فاکتورها دکمه ی تغییر وضعیت رو ببینه ؟`},
     {value: "canSetTextIntoBillStatus", key: `توی بخش عملیات توی لیست فاکتورها بتونه (متن) وارد کنه ؟`},
-    {value: "canSetStatusBillToBasteBandi", key: `توی بخش عملیات توی لیست فاکتورها بتونه (بسته بندی) رو انتخاب کنه؟`},
-    {value: "canSetStatusBillToTasvieShode", key: `توی بخش عملیات توی لیست فاکتورها بتونه (تسویه شده) رو انتخاب کنه؟`},
-    {value: "canSetStatusBillToAmadeErsal", key: `توی بخش عملیات توی لیست فاکتورها بتونه (آماده ارسال) رو انتخاب کنه؟`},
-    {value: "canSetStatusBillToErsalShode", key: `توی بخش عملیات توی لیست فاکتورها بتونه ( ارسال شده) رو انتخاب کنه؟`},
+
+    {value:"canChangeStatusFromNothingToBasteBandiShode",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد بسته بندی - آیا بتونه از حالت هیچی به حالت بسته بندی شده تغییر بده؟`},
+
+    {value:"canChangeStatusFromAmadeErsalToErsalShode",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد بسته بندی - آیا بتونه از حالت آماده ارسال به حالت ارسال شده تغییر بده`},
+
+    {value:"canChangeStatusFromBasteBandiShodeToTasvieShode",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد مالی - آیا بتونه از حالت بسته بندی شدی به حالت تسویه شده تغییر بده`},
+
+    {value:"canChangeStatusFromBasteBandiShodeToTasvieNaShode",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد مالی - آیا بتونه از حالت بسته بندی شده به حالت تسویه نــــــشده تغییر بده`},
+
+    {value:"canChangeStatusFromTasvieNaShodeToPeigiriShode",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد پیگیری - آیا بتونه از حالت تسویه نــــــشده به حالت پیگیری تغییر بده`},
+//
+    {value:"canChangeStatusFromTasfieShodeToAmadeErsal",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد پیگیری - آیا بتونه از حالت  تسویه شده به حالت آماده ارسال   تغییر بده`},
+// ادمین
+    {value:"canChangeStatusFromEverythingToEverything",key:`
+       توی بخش عملیات توی لیست فاکتورها 
+       واحد ادمین - آیا بتونه از حالت هر حالتی به هر حالتی   تغییر بده`},
 
 
 

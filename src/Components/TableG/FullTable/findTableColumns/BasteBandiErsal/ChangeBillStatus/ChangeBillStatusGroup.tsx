@@ -43,10 +43,12 @@ const ChangeBillStatusGroup = ({info = undefined}) => {
 
 
     const stringArray = [
-        {title: "بسته بندی", number: "5710", disable: !canSetStatusBillToBasteBandi,},
-        {title: "تسویه شده", number: "5711", disable: !canSetStatusBillToTasvieShode,},
-        {title: "آماده ارسال", number: "5712", disable: !canSetStatusBillToAmadeErsal,},
-        {title: "ارسال شده", number: "5713", disable: !canSetStatusBillToErsalShode,},
+        {title: "بدون وضعیت", number: "0", disable: false},
+
+        // {title: "بسته بندی", number: "5710", disable: !canSetStatusBillToBasteBandi,},
+        // {title: "تسویه شده", number: "5711", disable: !canSetStatusBillToTasvieShode,},
+        // {title: "آماده ارسال", number: "5712", disable: !canSetStatusBillToAmadeErsal,},
+        {title: "ارسال شده", number: "5713", disable: false},
     ]
 
 

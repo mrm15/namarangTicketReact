@@ -13,7 +13,7 @@ import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 import {formatNumber} from "../../../../../utils/utilsFunction.tsx";
 import {ROLES} from "../../../../../Pages/ROLES.tsx";
 import ShowContactBedBes from "./ShowContactBedBes.tsx";
-import {billStatusText} from "../../../../CONSTANTS/billStatusText.tsx";
+import {billStatusText, convertObjectToArrayKeyValue} from "../../../../CONSTANTS/billStatusText.tsx";
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 
@@ -338,12 +338,7 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
                     uniqueId={"Tag"}
                     property={"Tag"}
                     operator={"*"}
-                    optionsForSelectOption={[
-                        {key: "بسته بندی", value: "5710"},
-                        {key: "تسویه شده", value: "5711",},
-                        {key: "آماده ارسال", value: "5712",},
-                        {key: "ارسال شده", value: "5713",},
-                    ]}
+                    optionsForSelectOption={convertObjectToArrayKeyValue(billStatusText)}
                     placeHolder={"وضعیت"}
                 />
             </div>,

@@ -3,7 +3,6 @@ import {generatePDF} from "../../../utils/generatePDF/generatePDF.tsx";
 import {TableGContext} from "../../TableG/TableGContext.tsx";
 import {billStatusText} from "../../CONSTANTS/billStatusText.tsx";
 import useAuth from "../../../hooks/useAuth.tsx";
-import {FaFilePdf} from "react-icons/fa";
 import {FaRegFilePdf} from "react-icons/fa6";
 
 const DownloadPdfErsal: React.FC = () => {

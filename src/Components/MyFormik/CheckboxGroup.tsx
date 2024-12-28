@@ -5,7 +5,7 @@ function CheckboxGroup(props) {
     const {label, name, options, ...rest} = props
     try {
         return (
-            <div className='div__group__input_select select-none'>
+            <div className='div__group__input_select '>
                 <label>{label}</label>
                 <Field name={name}>
                     {({field}) => {

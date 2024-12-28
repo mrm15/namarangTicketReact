@@ -1,9 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import {addMessage} from "../store/websocket/websocketSlice"; // ایمپورت اکشن برای اضافه کردن پیام
+import {addMessage} from "../store/websocket/websocketSlice";
+import useAuth from "./useAuth.tsx"; // ایمپورت اکشن برای اضافه کردن پیام
 
 
 const useWebSocket = (url: string) => {
+    const {auth} = useAuth();
+    // const phoneNumber = auth?.userInfo?.userData?.phoneNumber || 0
+    const userId = auth?.userInfo?.userData?.userId
+
     const socketRef = useRef<WebSocket | null>(null);
     const dispatch = useDispatch();
 
@@ -14,6 +19,8 @@ const useWebSocket = (url: string) => {
 
         socket.onopen = () => {
             console.log('WebSocket connected');
+            socket.send(JSON.stringify({ type: 'identify', data: { userId: userId } }));
+
         };
 
         socket.onmessage = (event) => {

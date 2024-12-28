@@ -6,6 +6,7 @@ import {randomNumberGenerator} from "../../../../../../utils/utilsFunction.tsx";
 import {makeInvoiceBaseOnHesabfaData} from "../../../../../Hesabfa/SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
 import ShowContactBedBes from "../ShowContactBedBes.tsx";
+import {accessFunction} from "./accessFunction.tsx";
 
 const textListArray = [
     {id: 1, text: " بار بری وطن",},
@@ -24,18 +25,22 @@ const ChangeBillStatus = ({info, setMyData}) => {
 
     const [isSendingRequest, setIsSendingRequest] = useState(false)
     const {auth} = useAuth();
-    const canSetTextIntoBillStatus = auth?.userInfo?.roleAccessList?.includes("canSetTextIntoBillStatus")
-    const canSetStatusBillToBasteBandi = auth?.userInfo?.roleAccessList?.includes("canSetStatusBillToBasteBandi")
-    const canSetStatusBillToTasvieShode = auth?.userInfo?.roleAccessList?.includes("canSetStatusBillToTasvieShode")
-    const canSetStatusBillToAmadeErsal = auth?.userInfo?.roleAccessList?.includes("canSetStatusBillToAmadeErsal")
-    const canSetStatusBillToErsalShode = auth?.userInfo?.roleAccessList?.includes("canSetStatusBillToErsalShode")
+
+
+    console.log(info.original)
+    const currentStatus = info?.row?.original?.sn
+
+    const myAccessList = accessFunction(auth, currentStatus)
+    const canSetTextIntoBillStatus = auth?.userInfo?.roleAccessList.includes("canSetTextIntoBillStatus")
 
 
     const stringArray = [
-        {title: "بسته بندی", number: "5710", disable: !canSetStatusBillToBasteBandi,},
-        {title: "تسویه شده", number: "5711", disable: !canSetStatusBillToTasvieShode,},
-        {title: "آماده ارسال", number: "5712", disable: !canSetStatusBillToAmadeErsal,},
-        {title: "ارسال شده", number: "5713", disable: !canSetStatusBillToErsalShode,},
+        {title: "بسته بندی", number: "5710", disable: !myAccessList.canSetStatusBillToBasteBandiShode,},
+        {title: "تسویه شده 😊", number: "5711", disable: !myAccessList.canSetStatusBillToTasvieShode,},
+        {title: "تسویه نــشده ☹️", number: "5714", disable: !myAccessList.canSetStatusBillToTasvieNahode,},
+        {title: "پیگیری شده 📞", number: "5715", disable: !myAccessList.canSetStatusBillToPeigiriShode,},
+        {title: "آماده ارسال", number: "5712", disable: !myAccessList.canSetStatusBillToAmadeErsal,},
+        {title: "ارسال شده", number: "5713", disable: !myAccessList.canSetStatusBillToErsalShode,},
     ]
 
 
@@ -91,7 +96,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
 
     }
     const openModal = () => setIsOpenModal(true);
-    const isMobile=  window.innerWidth <= 768
+    const isMobile = window.innerWidth <= 768
     const classNameOfModal = isMobile ? "w-full" : "w-96"
 
     return (
@@ -105,11 +110,17 @@ const ChangeBillStatus = ({info, setMyData}) => {
                     <div className={classNameOfModal}>
                         <div>
                             <div className={"border-blue-500 border rounded py-2 w-full text-center"}>{billTitle}</div>
-                            <div className={"w-full text-center font-bold flex  justify-center"}> {nameFamilyNameCity} &nbsp; {phoneNumber} &nbsp; <ShowContactBedBes info={info}/></div>
+                            <div
+                                className={"w-full text-center font-bold flex  justify-center"}> {nameFamilyNameCity} &nbsp; {phoneNumber} &nbsp;
+                                <ShowContactBedBes info={info}/></div>
 
                         </div>
                         <div className="flex flex-col justify-end items-start gap-4">
                             {stringArray.map((row) => {
+
+                                if (row.disable){
+                                    return  <></>
+                                }
                                 return <button
                                     disabled={row.disable}
                                     className={`disabled:cursor-not-allowed w-3/4 mx-auto border-gray-400 border px-2 py-1  rounded  ${newStatus === row.number ? " bg-green-400 " : " "}`}
@@ -141,16 +152,10 @@ const ChangeBillStatus = ({info, setMyData}) => {
                                 onChange={(e) => {
                                     const newText = e.target.value; // Capture the full value
                                     setNewDescription(newText);
-                                    // if (!newText.startsWith(lastDES)) {
-                                    //     // Ensure lastDES remains as the prefix
-                                    //     setNewDescription(lastDES + " " + newText);
-                                    // } else {
-                                    //     // Update newDescription while keeping lastDES intact
-                                    //     setNewDescription(newText);
-                                    // }
                                 }}
                             />
-                            <div className={"absolute left-2 top-3 text-red-700 cursor-pointer p-1"} onClick={()=>setNewDescription("")}>&#xd7;</div>
+                            <div className={"absolute left-2 top-3 text-red-700 cursor-pointer p-1"}
+                                 onClick={() => setNewDescription("")}>&#xd7;</div>
                         </div>
                         {isSendingRequest ?
                             <div className={"border-gray-400 border-2 p-2  rounded my-2 text-center"}>در حال

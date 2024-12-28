@@ -3,6 +3,7 @@ import {useEffect, useRef, useState} from "react";
 import {FaUserCircle} from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {BASE_URL} from "../../../api/axios.tsx";
+import WebSocketComponent from "../../WebSocketComponent/WebSocketComponent.tsx";
 
 
 function ProfileInHeader() {
@@ -10,6 +11,7 @@ function ProfileInHeader() {
     const containerRef = useRef(null);
     const {auth} = useAuth();
     const profilePhoto = auth?.userInfo?.userData?.profilePictureUrl
+    const isUserLoggedIn = auth?.userInfo?.userData ?? undefined
     // const profilePhoto = false
 
 
@@ -70,6 +72,7 @@ function ProfileInHeader() {
                     //onMouseLeave={() => setOpenMenu(false)}
                 >
 
+                    {/*{isUserLoggedIn && <WebSocketComponent/>}*/}
                     <div className={openMenu ? '' : 'hidden'}>
                         <HeaderMenu setOpenMenu={setOpenMenu}/>
                     </div>

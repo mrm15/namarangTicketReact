@@ -32,8 +32,8 @@ const SendStatus = ({
 
     const billNumber = info?.row?.original?.Number
 
-
-    const canSetSeeChangeBillStatusButton = auth?.userInfo?.roleAccessList?.includes("canSetSeeChangeBillStatusButton")
+    // آیا بتونه دکمه ی تغییر وضعیت رو ببینه؟
+    const canSeeChangeBillStatusButton = auth?.userInfo?.roleAccessList?.includes("canSeeChangeBillStatusButton")
     const hasAccessToGetScreenShotBills = auth?.userInfo?.roleAccessList?.includes(ROLES.screenShotBills[0])
     const hasAccessViewBills = auth?.userInfo?.roleAccessList?.includes(ROLES.viewBills[0])
     const hasAccessToEditBillInChatList = auth?.userInfo?.roleAccessList?.includes(ROLES.editBillInChatList[0])
@@ -46,7 +46,7 @@ const SendStatus = ({
 
     return (
         <div className={"flex flex-wrap items-center gap-1 "}>
-            {canSetSeeChangeBillStatusButton && <ChangeBillStatus setMyData={setMyData} info={info}/>}
+            {canSeeChangeBillStatusButton && <ChangeBillStatus setMyData={setMyData} info={info}/>}
               <div className={"flex flex-wrap gap-1"}>
                   {hasAccessViewBills && <a className={"btn-small-show"} target={"_blank"}
                                             href={PAGES.showBill + "/" + billNumber}>{"مشاهده"}</a>}
