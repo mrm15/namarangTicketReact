@@ -5,7 +5,7 @@ const ScreenShotTable = () => {
 
     const {setData, data} = useScreenshotContext()
 
-    const currentDate= +new Date
+    const currentDate = +new Date
 
     return (
         <div className={"text-center"}>
@@ -56,11 +56,16 @@ const ScreenShotTable = () => {
 
                     </tbody>
                 </table>
-                <div className={"flex justify-between"}>
-                   <div className={"text-left fontSize14"}> شماره فاکتور:
-                       {data?.billData?.Number}</div>
-                   <div className={"text-right fontSize14"}>
-                       {currentDate}</div>
+                <div className={"flex w-full justify-between fontSize14"}>
+                    <div className={"text-left flex gap-2"}>
+                        <div>شماره فاکتور:
+                        </div>
+                        <div>
+                            {data?.billData?.Number}
+                        </div>
+                    </div>
+                    <div className={"text-right "}>
+                        {currentDate}</div>
                 </div>
             </div>
         </div>
