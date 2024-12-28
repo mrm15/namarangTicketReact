@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {TableGContext} from "../TableGContext.tsx";
 import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 
@@ -7,6 +7,14 @@ const Pagination = () => {
     const reload = randomNumberGenerator()
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
+
+    useEffect(() => {
+        //  کاربر هر شماره صفحه ای انتخاب کرد  توی لوکال استوریج ذخیره کن برای همیشه
+        // وقتی سری اول باز کرد برو توی لوکال استوریج رو نگاه کن و ععدش رواینجا تنظیم کن
+        const numberOfRowsTableG = localStorage.getItem("numberOfRowsTableG") ?? myData?.numberOfRows
+        // اینجا تایپش رو  عددی میکنم پشتش یه  به_علاوه گذاشتم
+        setMyData({numberOfRows: (+numberOfRowsTableG), pageNumber: 1, reload})
+    }, [setMyData]);
 
 
     if (!context) {
@@ -58,6 +66,7 @@ const Pagination = () => {
                             if (myData.numberOfRows === singleNumber) {
                                 // i am not a senior Developer Don't Expect me act like Pro!!
                             } else {
+                                localStorage.setItem("numberOfRowsTableG", singleNumber + "");
                                 setMyData({numberOfRows: singleNumber, pageNumber: 1, reload})
                             }
 
