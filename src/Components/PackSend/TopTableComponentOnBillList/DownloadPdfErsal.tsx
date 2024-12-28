@@ -31,7 +31,8 @@ const DownloadPdfErsal: React.FC = () => {
         }).map((row,index)=>{
             return {
                 ...row,
-                rowNumber:index+1
+                rowNumber:index+1,
+                Mobile: row.Contact.Mobile
             }
         })
 
@@ -41,6 +42,7 @@ const DownloadPdfErsal: React.FC = () => {
         { header: 'توضیحات', dataKey: 'des' },
         { header: 'شماره فاکتور', dataKey: 'Number' },
         { header: 'عنوان مشتری', dataKey: 'ContactTitle' },
+        { header: 'موبایل', dataKey: 'Mobile' },
         { header: 'ردیف', dataKey: 'rowNumber'},
     ];
 
