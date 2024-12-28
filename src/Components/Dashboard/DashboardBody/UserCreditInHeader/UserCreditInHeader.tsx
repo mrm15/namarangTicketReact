@@ -17,6 +17,9 @@ const UserCreditInHeader = () => {
     const queryFn = async () => {
 
 
+        if(!contactCode){
+            return  undefined
+        }
         const myResult = await myAxios.get("/hesabfa/getContactData/"+contactCode)
         return myResult.data?.data
     }
