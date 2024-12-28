@@ -76,6 +76,9 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
 
                 return  <CheckBoxCell cellInfo={info} />
             },
+            size: 20,
+            minSize: 20,
+            maxSize: 20,
         },
 
         {
@@ -117,16 +120,21 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             // header: 'شماره تماس',
             // چون توی آبجکت اصلی نیست نمیتونمیم فیلتر بزاریم//
 
-            header: () => <div>
-                <div>شماره تماس</div>
-            </div>,
+            // header: () => <div>
+            //     <div>شماره تماس</div>
+            // </div>,
             id: "contactNumber",
             accessorKey: 'contactNumber',
-            // header: (info) => {
-            //     return <>
-            //         ردیف
-            //     </>
-            // },
+            header: (info) => {
+                return <>
+                    <StringFilter
+                        uniqueId={"ContactMobile"}
+                        operator={"*"}
+                        property={"Contact.Mobile"}
+                        placeHolder={"شماره تماس"}
+                    />
+                </>
+            },
             cell: (cellInfo) => {
 
                 return <ContactNumber
