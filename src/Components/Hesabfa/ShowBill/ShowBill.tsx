@@ -79,36 +79,20 @@ const ShowBill = () => {
 
     try {
         return (
-            <>
-                <DownloadPDF fileName={hesabfaBillData?.Number + "" || "billNamarang"}>
+            <div>
+                {/*<DownloadPDF fileName={hesabfaBillData?.Number + "" || "billNamarang"}>*/}
                     {isLoading ? <Loader/> :
                         <div className={'m-3'}>
                             <div className={'font-bold text-center '}>
                                 کارخانه حروف سازی نمارنگ
                             </div>
-                            {/*<div className={"bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3"}>*/}
-                            {/*    اینجا قراره یه فاکتور با استایل جدید نمایش داده بشه.*/}
-                            {/*    <hr/>*/}
-                            {/*    معرکه نیست؟*/}
-                            {/*    <hr/>*/}
-                            {/*    خلق یک اثر جدید*/}
-                            {/*    <hr/>*/}
-                            {/*</div>*/}
-                            {/*<pre dir={'ltr'}>*/}
-                            {/*      ✅      hasAccessToDownloadPdf is {hasAccessToDownloadPdf ? "Active" : "inActive"}*/}
-                            {/*    <hr/>*/}
-                            {/*      ✅      hasAccessToDownloadCSV is {hasAccessToDownloadCSV ? "Active" : "inActive"}*/}
-                            {/*    <hr/>*/}
-                            {/*      ✅      orderCode is {orderCode || 'کد سفارش مشخص نیست'}*/}
-                            {/*    <hr/>*/}
-                            {/*</pre>*/}
                             <div>
                                 <BillTable hesabfaBillData={hesabfaBillData}/>
                             </div>
                         </div>
                     }
-                </DownloadPDF>
-            </>
+                {/*</DownloadPDF>*/}
+            </div>
         );
     } catch (error) {
         return <pre>{error.toString()}</pre>
