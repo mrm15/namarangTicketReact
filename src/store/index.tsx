@@ -11,7 +11,7 @@ const store = configureStore({
         productListReducer: productListReducer.reducer,
         sellFactorReducer:sellFactorSlice.reducer,
         sidebarReducer : sidebarReducer.reducer,
-        websocketReducer: websocketSlice, // اضافه کردن WebSocket Slice
+        websocket: websocketSlice, // اضافه کردن WebSocket Slice
 
 
 
@@ -19,3 +19,4 @@ const store = configureStore({
 });
 
 export default store;
+export type RootState = ReturnType<typeof store.getState>;
