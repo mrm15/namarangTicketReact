@@ -1,30 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// تعریف نوع استیت وب‌سوکت
+// Define the WebSocket state type
 interface WebSocketState {
-    messages: any[]; // آرایه‌ای برای ذخیره پیام‌های دریافتی
+    messages: any[]; // Array to store received messages
 }
 
-// مقدار اولیه استیت
+// Initial state for WebSocket slice
 const initialState: WebSocketState = {
     messages: [],
 };
 
-// ساخت WebSocket Slice
+// WebSocket slice to handle messages
 const websocketSlice = createSlice({
     name: 'websocket',
     initialState,
     reducers: {
-        // اضافه کردن پیام جدید
+        // Add a new message to the state
         addMessage: (state, action: PayloadAction<any>) => {
             state.messages.push(action.payload);
         },
-        // پاک کردن تمام پیام‌ها
+        // Clear all messages from the state
         clearMessages: (state) => {
             state.messages = [];
         },
     },
 });
 
+// Export actions
 export const { addMessage, clearMessages } = websocketSlice.actions;
 export default websocketSlice.reducer;
