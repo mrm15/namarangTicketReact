@@ -1,9 +1,10 @@
 .bill__table__css {
-  max-width: 70%;
+  width: 70%;
+  font-size: 14px;
   margin: 0 auto;
   background-color: #f7f7f7;
   border-radius: 8px;
-  padding: 1rem;
+  //padding: 1rem;
 
   .bill__info {
     border-radius: 8px;
@@ -21,14 +22,31 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
     .bill__info__item_title {
-      font-size: 16px;
-      font-weight: bold;
+      //font-weight: bold;
       color: #4e4edd;
     }
 
     .bill__info__item__description {
       color: #555;
-      font-size: 14px;
+      //font-size: 14px;
+    }
+  }
+
+
+  ul {
+    width: 100%;
+    display: flex ;
+    li{
+      display: flex;
+      flex-wrap: wrap;
+      //width: 19%;
+      height: 45px;
+      &:nth-child(1){width: 5%; text-align: center; display: flex;padding: 3px; align-items: center; }
+      &:nth-child(2){width: 35%}
+      &:nth-child(3){width: 10%}
+      &:nth-child(4){width: 15%}
+      &:nth-child(5){width: 20%}
+      &:nth-child(6){width: 20%}
     }
   }
 }
@@ -36,8 +54,9 @@
 // Mobile-specific styles
 @media (max-width: 768px) {
   .bill__table__css {
-    font-size: 10px;
     max-width: 100%;
+    font-size: 8px;
+
     padding: 0.5rem;
   }
 
@@ -48,10 +67,10 @@
   .bill__info__item {
     padding: 0.25rem;
     .bill__info__item_title {
-      font-size: 14px;
+      //font-size: 14px;
     }
     .bill__info__item__description {
-      font-size: 12px;
+      //font-size: 12px;
     }
   }
 }
