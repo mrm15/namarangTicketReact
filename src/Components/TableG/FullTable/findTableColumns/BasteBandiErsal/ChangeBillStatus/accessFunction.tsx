@@ -72,7 +72,7 @@ export const accessFunction = (auth, currentStatus) => {
 
     // Check permissions for transitioning from "تسویه شده" to "آماده ارسال".
     if (currentStatus === "5711") { // "5711" represents "تسویه شده"
-        if (accessListFromAuth.includes("canSetStatusBillToAmadeErsal")) {
+        if (accessListFromAuth.includes("canChangeStatusFromTasfieShodeToAmadeErsal")) {
             userAccessList.canSetStatusBillToAmadeErsal = true;
         }
     }
