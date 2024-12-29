@@ -169,7 +169,7 @@ const ChangeBillStatusGroup = ({info = undefined}) => {
                             {/*<div className={"w-full text-center font-bold flex  justify-center"}> {nameFamilyNameCity} &nbsp; {phoneNumber} &nbsp; <ShowContactBedBes info={info}/></div>*/}
 
                         </div>
-                        <div className="flex flex-wrap justify-end items-start ">
+                        <div className="flex flex-wrap justify-end items-start whitespace-nowrap ">
                             {stringArray.map((row) => {
                                 return <button
                                     disabled={row.disable}

@@ -16,6 +16,7 @@ import ShowContactBedBes from "./ShowContactBedBes.tsx";
 import {billStatusText, convertObjectToArrayKeyValue} from "../../../../CONSTANTS/billStatusText.tsx";
 import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
+import DateShowLtr from "../../components/DateShowltr.tsx";
 
 const NameShow = ({info}) => {
 
@@ -361,6 +362,24 @@ export const FullBillData = (inputs: IInputObject): ColumnDef<any>[] => {
             maxSize: 150,
             // cell:(cellInfo)=><ShowDateFromHesabfa info={cellInfo} />
 
+        },
+        {
+
+            accessorKey: 'db',
+            header: 'تاریخ بسته بندی',
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
+            cell:(cellInfo)=><DateShowLtr info={cellInfo} />
+        },
+        {
+
+            accessorKey: 'ds',
+            header: 'تاریخ ارسال',
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
+            cell:(cellInfo)=><DateShowLtr info={cellInfo} />
         },
     ];
 
