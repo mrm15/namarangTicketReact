@@ -1,60 +1,48 @@
 import { useEffect, useRef } from 'react';
+import { io, Socket } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import {addMessage} from "../store/websocket/websocketSlice";
-import useAuth from "./useAuth.tsx"; // ایمپورت اکشن برای اضافه کردن پیام
-
+import { addMessage } from '../store/websocket/websocketSlice';
+import useAuth from './useAuth.tsx';
 
 const useWebSocket = (url: string) => {
-    const {auth} = useAuth();
-    // const phoneNumber = auth?.userInfo?.userData?.phoneNumber || 0
-    const userId = auth?.userInfo?.userData?.userId
-
-    const socketRef = useRef<WebSocket | null>(null);
+    const { auth } = useAuth();
+    const userId = auth?.userInfo?.userData?.userId;
+    const socketRef = useRef<Socket | null>(null);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // اتصال به وب‌سوکت
-        const socket = new WebSocket(url);
+        // Connect to the Socket.IO server
+        const socket = io(url, {
+            transports: ['websocket'], // Use WebSocket as the transport
+        });
         socketRef.current = socket;
 
-        socket.onopen = () => {
-            console.log('WebSocket connected');
-            socket.send(JSON.stringify({ type: 'identify', data: { userId: userId } }));
+        socket.on('connect', () => {
+            console.log('Socket.IO connected');
+            socket.emit('identify', { userId });
+        });
 
-        };
+        socket.on('response', (message) => {
+            console.log('Received message from server:', message);
+            dispatch(addMessage(message)); // Add message to Redux store
+        });
 
-        socket.onmessage = (event) => {
-            const message = JSON.parse(event.data);
-            console.log('Received message:', message);
-
-            // اضافه کردن پیام به استیت Redux
-            dispatch(addMessage(message));
-        };
-
-        socket.onclose = () => {
-            console.log('WebSocket disconnected');
-        };
-
-        socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
-
-        // بستن اتصال هنگام خروج از کامپوننت
+        // Clean up on unmount
         return () => {
-            socket.close();
+            socket.disconnect();
         };
-    }, [url, dispatch]);
+    }, [url, dispatch, userId]);
 
-    // تابعی برای ارسال پیام
+    // Function to send messages
     const sendMessage = (message: any) => {
-        if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-            socketRef.current.send(JSON.stringify(message));
+        if (socketRef.current) {
+            socketRef.current.emit('message', message);
         } else {
-            console.warn('WebSocket is not connected');
+            console.warn('Socket.IO is not connected');
         }
     };
 
-    return { sendMessage }; // فقط تابع ارسال پیام بازگردانده می‌شود
+    return { sendMessage };
 };
 
 export default useWebSocket;
