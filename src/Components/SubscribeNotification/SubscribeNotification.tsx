@@ -127,7 +127,7 @@ const SubscribeNotification = () => {
 
 
             if (subscription) {
-                console.log('User is already subscribed:', subscription);
+                //console.log('User is already subscribed:', subscription);
 
                 // Optionally, show a message to the user that they are already subscribed
             } else {
