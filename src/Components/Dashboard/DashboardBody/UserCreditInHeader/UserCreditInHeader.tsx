@@ -10,7 +10,7 @@ import useAuth from "../../../../hooks/useAuth.tsx";
 const UserCreditInHeader = () => {
 
     const {auth} = useAuth()
-    console.log(auth)
+
    const contactCode = auth?.userInfo?.userData?.contactCode
 
     const myAxios = useAxiosPrivate()
