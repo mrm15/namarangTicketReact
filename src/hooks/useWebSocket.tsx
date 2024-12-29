@@ -14,6 +14,9 @@ const useWebSocket = (url: string) => {
         // Connect to the Socket.IO server
         const socket = io(url, {
             transports: ['websocket'], // Use WebSocket as the transport
+            // auth: {
+            //     token: `Bearer ${auth?.accessToken}`, // Attach the token here
+            // },
         });
         socketRef.current = socket;
 
