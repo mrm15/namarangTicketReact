@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {formatNumber} from "../../../../utils/utilsFunction";
 import {FiChevronsDown, FiChevronsUp} from "react-icons/fi";
 import {AiOutlineCheckCircle} from "react-icons/ai";
@@ -52,17 +52,16 @@ const UserCreditInHeader = () => {
     // const Currency = userData?.Currency === "IRT" ? "ريال" : "تومان"
     const Currency =  "تومان"
     return (
-        <div>
+        <div className={"fontSize10"}>
             {resultOfUseQuery.isLoading && <><LittleSpinner/></>}
             {resultOfUseQuery.isFetched && resultOfUseQuery.data &&
-              <span style={{color: userBedOrBesColor, fontWeight: "bold"}}
+              <span style={{color: userBedOrBesColor}}
                     className={"flex bg-gray-300 rounded px-2 py-1 select-none"}
                     title={"وضعیت حساب شما در سیستم"}
               >
                             {/*<div>تراز:</div>*/}
                             <div className={"ltr"}>&nbsp;{formatNumber(userBedOrBesValue)} &nbsp;</div>
                              <div className={"flex"}> <div>{Currency}</div> <div>{userBedOrBesStatus}</div></div>
-
                         </span>}
             {resultOfUseQuery.isError && <span>___</span>}
         </div>
