@@ -3,6 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../store/websocket/websocketSlice';
 import useAuth from './useAuth.tsx';
+import {playNotificationSound} from "../utils/playNotificationSound/playNotificationSound.tsx";
 
 const useWebSocket = (url: string) => {
     const { auth } = useAuth();
@@ -26,6 +27,7 @@ const useWebSocket = (url: string) => {
         });
 
         socket.on('response', (message) => {
+            playNotificationSound()
             console.log('Received message from server:', message);
             dispatch(addMessage(message)); // Add message to Redux store
         });
