@@ -16,6 +16,7 @@ const HeaderDashboard = () => {
     const {auth} = useAuth();
 
     const showUserStatus = auth?.userInfo?.roleAccessList?.includes('userStatusInDashboard')
+    const canViewCreditLibertyInHeader = auth?.userInfo?.roleAccessList?.includes('canViewCreditLibertyInHeader')
     const location = useLocation();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
     // const title = location.state?.title !== undefined ? location.state.title : "پیشخوان";
@@ -79,14 +80,10 @@ const HeaderDashboard = () => {
                             عزیز
                         </h6>
                         {showUserStatus ? <UserStatus/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
-                        {showUserStatus ? <UserCreditInHeader/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
-
+                        {canViewCreditLibertyInHeader ? <UserCreditInHeader/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
                     </div>
                     <ProfileInHeader/>
-
                 </div>
-
-
                 <hr/>
             </div>
         );
