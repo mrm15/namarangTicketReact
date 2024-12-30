@@ -115,7 +115,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         // link: PAGES.ticket_Read_Own,
         link: PAGES.MyTicketList,
         icon: AiOutlineOrderedList ,
-        showItem: roleAccessList?.includes('showMyTicketList'),
+        showItem: roleAccessList?.includes('readAllOfTicketsAssignedToMe'),
     },
     {
         name: "صندوق ورودی",

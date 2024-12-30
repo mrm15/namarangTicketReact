@@ -1,5 +1,5 @@
 export const ROLES = {
-    showMyTicketList:["showMyTicketList"],
+    readAllOfTicketsAssignedToMe:["readAllOfTicketsAssignedToMe"],
     myBankFirstUserId:["myBankFirstUserId"],
     allBanksFirstUserId:["allBanksFirstUserId"],
     myBankDepartment:["myBankDepartment"],
