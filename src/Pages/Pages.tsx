@@ -206,7 +206,7 @@ const Pages = () => {
                             }/>
                         </Route>
                         {/* ticket my Ticket List */}
-                        <Route element={<RequireAuth allowedRoles={ROLES.showMyTicketList}/>}>
+                        <Route element={<RequireAuth allowedRoles={ROLES.readAllOfTicketsAssignedToMe}/>}>
                             <Route path={PAGES.MyTicketList} element={
                                 <Suspense fallback={<Loader/>}>
                                     <MyTicketList />
