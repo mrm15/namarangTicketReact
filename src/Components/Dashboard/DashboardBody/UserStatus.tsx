@@ -28,12 +28,21 @@ function UserStatus() {
         return result.data; // Make sure to return the correct data structure
     };
 
+    const [shouldFetch, setShouldFetch] = useState(false);
+    useEffect(() => {
+        // Delay the query activation by 10 seconds
+        const timer = setTimeout(() => {
+            setShouldFetch(true);
+        }, 3000); // 10 seconds
+
+        return () => clearTimeout(timer); // Cleanup on unmount
+    }, [])
     // UseQuery hook with loading and error handling
     const { data, isLoading, isError, refetch , isFetching , isRefetching } = useQuery({
         queryKey: ["userStatus"],
         queryFn,
         staleTime: 0,
-        enabled: true,
+        enabled: shouldFetch,
         refetchOnWindowFocus: false,
     });
 
