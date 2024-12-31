@@ -15,6 +15,7 @@ import {PAGES} from "../../../Pages/Route-string.tsx";
 import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 import LittleSpinner from "../../Loader/LittleSpinner.tsx";
 import SelectSenderUser from "./SelectSenderUser.tsx";
+
 const getSettingsRequestUrl = 'adminSettings/getSafeAdminSettings';
 const getDestinationRequestUrl = '/department/userList';
 const AdvancedTicketCreate: React.FC = () => {
@@ -23,7 +24,7 @@ const AdvancedTicketCreate: React.FC = () => {
     const maxNumberOfFiles = 3
     const [ticketData, setTicketData] = useObjectDataHolder<any>({
 
-        senderTicketUserId:"",
+        senderTicketUserId: "",
         title: '',
         description: '',
         files: [emptyFile],
@@ -250,131 +251,146 @@ const AdvancedTicketCreate: React.FC = () => {
     const hasAccessToSubmitFactorInSubmitOrderForm = auth?.userInfo?.roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
     try {
         return (
-            <div className="flex justify-center ">
-                <div className="sm:w-100 md:w-96 ">
-                    <SelectSenderUser />
-                    <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketTitle">عنوان سفارش</label>
-                        <input
-                            name={'title'}
-                            onChange={handleChange}
-                            value={ticketData.title}
-                            id="ticketTitle" type="text" className="w-100 rounded border-2"
-                            placeholder="تابلو نئون دکتر محمدی"/>
-                    </div>
-                    <div className="div__group__input_select w-full">
-                        <label htmlFor="ticketDescription">توضیحات</label>
-                        <textarea
-
-                            value={ticketData.description}
-                            name={'description'}
-                            onChange={handleChange}
-                            id="ticketDescription" className="w-100 rounded border-2"
-                            placeholder="مثلا: فایل چلنیوم تک لبه رینگ به رنگ سبز زیمنسی"/>
-                    </div>
-                    {ticketData?.files?.map((file: File, index) => (
-
-                        <div key={index} className="div__group__input_select w-full">
-                            <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
+            <div>
+                <pre className={" w-full fontFamilyIranSans shadow p-6 text-center"}>
+                    باید برای هر تیکت وضعیت  بزارم  _ که بچه ها توی چت لیست تغییرش بدن
+                    <br/>
+                    بعدش باید برای هر چت لیست وضعیت پیام رو بزارم که هر پیام بتونه یه وضعیت بگیره که سیستم شات رو خودکار کنم.
+                    <br/>
+                    بعدش هم میام اینجا
+                    هنگام  ثبت سفارش اسکرین شات رو میگیرم.  وضعیت رو میزارم اسکرین شات
+                    توضیحات رو میگیرم وضعیت رو میزارم توضیحات
+                    و بعدش میفرستم واسه فاکتور که اونجا بره فاکتورش رو بزننن
+                </pre>
+                <div className="flex justify-center ">
+                    <div className="sm:w-100 md:w-96 ">
+                        <SelectSenderUser/>
+                        <div className="div__group__input_select w-full">
+                            <label htmlFor="ticketTitle">عنوان سفارش</label>
                             <input
-                                onChange={(e) => {
-                                    assignFileToState(e.target.files[0], index)
-                                }}
-                                id={`file${index + 1}`} type="file"
-                                className="w-100 rounded border-2 hidden"/>
+                                name={'title'}
+                                onChange={handleChange}
+                                value={ticketData.title}
+                                id="ticketTitle" type="text" className="w-100 rounded border-2"
+                                placeholder="تابلو نئون دکتر محمدی"/>
+                        </div>
+                        <div className="div__group__input_select w-full">
+                            <label htmlFor="ticketDescription">توضیحات</label>
+                            <textarea
+
+                                value={ticketData.description}
+                                name={'description'}
+                                onChange={handleChange}
+                                id="ticketDescription" className="w-100 rounded border-2"
+                                placeholder="مثلا: فایل چلنیوم تک لبه رینگ به رنگ سبز زیمنسی"/>
+                        </div>
+                        {ticketData?.files?.map((file: File, index) => (
+
+                            <div key={index} className="div__group__input_select w-full">
+                                <label htmlFor={`file${index + 1}`}>بارگزاری فایل</label>
+                                <input
+                                    onChange={(e) => {
+                                        assignFileToState(e.target.files[0], index)
+                                    }}
+                                    id={`file${index + 1}`} type="file"
+                                    className="w-100 rounded border-2 hidden"/>
 
 
-                            <div className={'flex items-center'}>
-                                <label htmlFor={`file${index + 1}`}
-                                       className={'customFileLabel cursor-pointer w-full'}
-                                >
-                                    <div
-                                        id={`file${index + 1}`}
-                                        className="same__input w-full"
-                                        onDrop={e => handleDrop(e, index)}
-                                        onDragOver={handleDragOver}>
-                                        <div>
-                                            {file?.name}
+                                <div className={'flex items-center'}>
+                                    <label htmlFor={`file${index + 1}`}
+                                           className={'customFileLabel cursor-pointer w-full '}
+                                    >
+                                        <div
+                                            id={`file${index + 1}`}
+                                            className="same__input w-full h-32"
+                                            onDrop={e => handleDrop(e, index)}
+                                            onDragOver={handleDragOver}>
+                                            <div>
+                                                {file?.name}
+                                            </div>
                                         </div>
+                                    </label>
+                                    <div className={"p-2 cursor-pointer"}
+                                         onClick={() => handleRemoveFile(index)}
+                                    >
+                                        <FaTrash
+
+                                            className={'text-red-600 ms-2'}/>
                                     </div>
-                                </label>
-                                <FaTrash
-                                    onClick={() => handleRemoveFile(index)}
-                                    className={'text-red-600 ms-2'}/>
+                                </div>
+
+
                             </div>
 
-
+                        ))}
+                        <div onClick={addNewFileHandler}
+                             className="flex  items-center rounded border-2 my-2 w-32 p-2 cursor-pointer select-none">
+                            <div className="mx-1">افزودن فایل</div>
+                            <FaPlus/>
                         </div>
 
-                    ))}
-                    <div onClick={addNewFileHandler}
-                         className="flex  items-center rounded border-2 my-2 w-32 p-2 cursor-pointer select-none">
-                        <div className="mx-1">افزودن فایل</div>
-                        <FaPlus/>
-                    </div>
 
+                        {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
+                          <div>
+                            فایل به کدام فروشنده ارجاع شود؟
+                          </div>
+                            {ticketData?.userList.map((singleUser, index) => {
 
-                    {isShowSendTicketToUserSection && <div className={'flex flex-col gap-2'}>
-                      <div>
-                        فایل به کدام فروشنده ارجاع شود؟
-                      </div>
-                        {ticketData?.userList.map((singleUser, index) => {
-
-                            return <button key={index}
-                                           className={` flex  justify-center cursor-pointer w-full border p-3 rounded   ${singleUser._id === ticketData.destinationUserId && 'bg-blue-200'} 
+                                return <button key={index}
+                                               className={` flex  justify-center cursor-pointer w-full border p-3 rounded   ${singleUser._id === ticketData.destinationUserId && 'bg-blue-200'} 
                                            `}
 
-                                           onClick={() => setTicketData({
-                                               ...ticketData,
-                                               destinationUserId: singleUser._id
-                                           })}
+                                               onClick={() => setTicketData({
+                                                   ...ticketData,
+                                                   destinationUserId: singleUser._id
+                                               })}
 
+                                >
+                                    {singleUser.name}
+                                    {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
+                                      🟢
+                                    </div>}
+                                </button>
+
+                            })}
+                        </div>}
+
+                        {/*<MoreSetting title={'تنظیمات بیشتر'}>*/}
+                        {/*    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،*/}
+                        {/*    چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی*/}
+                        {/*    مورد*/}
+
+
+                        {/*</MoreSetting>*/}
+
+                        <div className="div__group__input_select w-full">
+
+                            <button
+                                onClick={() => clickHandler(0)}
+                                className="btn-submit-mir disabled:cursor-not-allowed"
+                                disabled={ticketData.isSendingRequest}
                             >
-                                {singleUser.name}
-                                {singleUser.userStatus === 'online' && <div title={'آنلاین'}>
-                                  🟢
-                                </div>}
+                                {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
+                                    <div>در حال ثبت سفارش</div>
+                                    <LittleSpinner/></div> : " ثبت سفارش"}
+
                             </button>
-
-                        })}
-                    </div>}
-
-                    {/*<MoreSetting title={'تنظیمات بیشتر'}>*/}
-                    {/*    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،*/}
-                    {/*    چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی*/}
-                    {/*    مورد*/}
-
-
-                    {/*</MoreSetting>*/}
-
-                    <div className="div__group__input_select w-full">
-
-                        <button
-                            onClick={() => clickHandler(0)}
-                            className="btn-submit-mir disabled:cursor-not-allowed"
-                            disabled={ticketData.isSendingRequest}
-                        >
-                            {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
-                                <div>در حال ثبت سفارش</div>
-                                <LittleSpinner/></div> : " ثبت سفارش"}
-
-                        </button>
+                        </div>
+                        {hasAccessToSubmitFactorInSubmitOrderForm &&
+                          <div className="div__group__input_select w-full">
+                            <button
+                              onClick={() => clickHandler(1)}
+                              className="btn-submit-mir disabled:cursor-not-allowed"
+                              disabled={ticketData.isSendingRequest}
+                            >
+                                {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
+                                    <div>در حال ثبت سفارش</div>
+                                    <LittleSpinner/></div> : "ارسال و ثبت فاکتور"}
+                            </button>
+                          </div>}
+                        {}
                     </div>
-                    {hasAccessToSubmitFactorInSubmitOrderForm &&
-                      <div className="div__group__input_select w-full">
-                        <button
-                          onClick={() => clickHandler(1)}
-                          className="btn-submit-mir disabled:cursor-not-allowed"
-                          disabled={ticketData.isSendingRequest}
-                        >
-                            {ticketData.isSendingRequest ? <div className={"flex justify-center"}>
-                                <div>در حال ثبت سفارش</div>
-                                <LittleSpinner/></div> : "ارسال و ثبت فاکتور"}
-                        </button>
-                      </div>}
-                    {}
                 </div>
-
             </div>
         );
     } catch (error) {
