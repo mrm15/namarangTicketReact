@@ -56,8 +56,8 @@ const ScreenShotTable = () => {
 
                     </tbody>
                 </table>
-                <div className={"flex w-full justify-between fontSize14"}>
-                    <div className={"text-left flex gap-2"}>
+                <div className={"flex w-full justify-between fontSize24 "}>
+                    <div className={"text-left flex gap-2 "}>
                         <div>شماره فاکتور:
                         </div>
                         <div>
