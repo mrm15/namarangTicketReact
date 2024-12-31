@@ -1,4 +1,10 @@
-import {MdAssignmentAdd, MdLocalFireDepartment, MdOutlineDashboard, MdOutlineSavings} from "react-icons/md";
+import {
+    MdAssignmentAdd,
+    MdAssignmentReturn,
+    MdLocalFireDepartment,
+    MdOutlineDashboard,
+    MdOutlineSavings
+} from "react-icons/md";
 import {PAGES} from "../../Pages/Route-string";
 import {RiBillLine} from "react-icons/ri";
 import {BsBuildingFill, BsFillModemFill, BsPersonVideo2, BsPiggyBank} from "react-icons/bs";
@@ -63,6 +69,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         link: PAGES.ticket_Create,
         icon: MdAssignmentAdd,
         showItem: roleAccessList?.includes(ROLES.ticketCreate[0]),
+    },
+    {
+        name: "ثبت سفارش",
+        link: PAGES.ticket_Create_advanced,
+        icon: MdAssignmentReturn,
+        showItem: roleAccessList?.includes(ROLES.ticketCreateAdvanced[0]),
     },
     {
         // اگه دسترسی ثبت سفارسش داشت پس باید دسترسی پیگیری سفارش هم داشته باشه

@@ -175,13 +175,13 @@ const Pages = () => {
                             }/>
                         </Route>
                         {/* ticket create */}
-                        {/*<Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>*/}
+                        <Route element={<RequireAuth allowedRoles={ROLES.ticketCreateAdvanced}/>}>
                             <Route path={PAGES.ticket_Create_advanced} element={
                                 <Suspense fallback={<Loader/>}>
                                     <AdvancedTicketCreate/>
                                 </Suspense>
                             }/>
-                        {/*</Route>*/}
+                        </Route>
 
                         {/* ticket create */}
                         <Route element={<RequireAuth allowedRoles={ROLES.ticketCreate}/>}>

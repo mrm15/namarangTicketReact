@@ -24,6 +24,7 @@ export const ROLES = {
     ],
 
     ticketCreate: ['ticketCreate'], // برای دسترسی به:ثبت سفارش و پیگیری سفارش
+    ticketCreateAdvanced: ['ticketCreateAdvanced'], // دسترسی برای بچه های سفارش گیری که بجایس مشتری ثبت سفارش کنند.
     readAllTicketsInSystem: ['readAllTicketsInSystem'], // کل تیکت های سیستم رو ببینه
 
     ticket_read_assign_tickets_outbox:['assignTicketsOutBox'],
