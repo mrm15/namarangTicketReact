@@ -89,6 +89,9 @@ html {
     url("./assets/Font/IRANSans/WebFonts/fonts/woff/IRANSansWeb(FaNum)_Bold.woff") format("woff"),
     url("./assets/Font/IRANSans/WebFonts/fonts/ttf/IRANSansWeb(FaNum)_Bold.ttf") format("ttf");
 }
+.fontFamilyIranSans {
+  font-family: IranSans, serif !important;
+}
 .fontSize8 {
     font-size: 8px !important;
 }
