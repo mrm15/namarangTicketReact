@@ -19,6 +19,9 @@ const dropdownOptions = [
     {value: 'statusListDelete', key: "حذف از جدول استاتوس ها"},
 
     {value: 'ticketCreate', key: "ثبت سفارش جدید - ایجاد تیکت - و همچنین دسترسی به پیگیری سفارشات هم داره - در منو بار گزینه ی پیگیری سفارش ظاهر میشه "},
+
+    {value: 'ticketCreateAdvanced', key: "فقط صفحه ی ثبت سفارش پیشرفته که بچه های ثبت سفارش فقط دسترسی دارن و میتونن بجای مشتری سفارش ثبت کنند و اسکرین شات بزارن "},
+
     {value: 'readAllTicketsInSystem', key: "خواندن همه تیکت های موجود در سیستم - دسترسی فقط ادمین کل سیستم"},
     {value: 'readAllOfTicketsAssignedToMe', key: `
     خواندن همه ی تیکت هایی که  من مقصدشون هستم
