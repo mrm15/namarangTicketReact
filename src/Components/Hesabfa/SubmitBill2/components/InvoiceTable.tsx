@@ -40,9 +40,13 @@ const InvoiceTable = () => {
     }
 
 
-    const changeHandler = (invoiceItemsRowId, value) => {
+    const changeHandler = (invoiceItemsRowId, e) => {
+        const unitText = e.target.name
+        const value = e.target.value
+        debugger
         // بضعی از آیتم ها هستن که  باید نحوه محاسبه قیمتشون باید اینجوری باشه که قیمت تقسیم به یه عدد بشه و محاسبه بشه
         // ینی اینجا اگه تغییری داد باید برم قیمت واحد رو عوض کنم
+
         setInvoice({
             InvoiceItems: calculateSumOfEachRow(invoice.InvoiceItems.map(row => {
                 const temp = {...row};
@@ -50,6 +54,7 @@ const InvoiceTable = () => {
                     // temp.selectedUnit = value;
                     temp.dividedBy = value;
                     temp.UnitPrice = Number((row.fixedPrice / value).toFixed(0));
+                    temp.unit= unitText
                 }
                 return temp
             }))
@@ -179,9 +184,10 @@ const InvoiceTable = () => {
                                     </td>
                                     <td>
                                         {(row.SubUnit && row.SubUnit !== '') ? <select
-                                            onChange={e => changeHandler(row.Id, e.target.value)}
+                                            onChange={e => changeHandler(row.Id, e)}
                                             className={'select__in__table'}
-                                            name={row.SubUnit} id={row.RowId}
+                                            name={row.SubUnit}
+                                            id={row.RowId}
                                             value={row.dividedBy}
                                         >
                                             {row?.Units?.map((unitRow, index) => <option key={index}
