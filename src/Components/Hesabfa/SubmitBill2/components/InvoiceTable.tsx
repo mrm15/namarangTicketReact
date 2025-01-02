@@ -41,9 +41,9 @@ const InvoiceTable = () => {
 
 
     const changeHandler = (invoiceItemsRowId, e) => {
-        const unitText = e.target.name
+        const unitText = e.target.options[e.target.selectedIndex].text
         const value = e.target.value
-        debugger
+
         // بضعی از آیتم ها هستن که  باید نحوه محاسبه قیمتشون باید اینجوری باشه که قیمت تقسیم به یه عدد بشه و محاسبه بشه
         // ینی اینجا اگه تغییری داد باید برم قیمت واحد رو عوض کنم
 
