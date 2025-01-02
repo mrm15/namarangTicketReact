@@ -17,6 +17,7 @@ export interface IInvoiceItem {
     Id?: number;
     Description?: string;
     ItemCode?: string;
+    Item:{[key:string]:any},
     Unit?: string;
     Quantity?: number;
     UnitPrice?: number;
