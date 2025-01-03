@@ -3,18 +3,21 @@ import {flexRender} from "@tanstack/react-table";
 import {TableGContext} from "../../TableGContext.tsx";
 
 const TableBody = ({table}) => {
-
+    const uniqueKey = "_id"
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
-
+    const checkedItemsArray = myData?.checkedItems
     return table.getRowModel().rows.map((row, index) => {
+
+        const isThisRowSelected = checkedItemsArray?.find(checkedRow=>checkedRow[uniqueKey]===row.original[uniqueKey])
+        console.log(isThisRowSelected)
 
         const isEven = index % 2 === 0
 
         const isRowBold = myData?.boldRowCondition(row)
 
         return <ul key={row.id}
-                   className={` ${isEven ? " bg-gray-50 " : " bg-gray-100"} table-row-g table__row__hover`  }
+                   className={` ${isThisRowSelected ? "bg-blue-200" : isEven ? " bg-gray-50 " : " bg-gray-100"} table-row-g table__row__hover`  }
                    style={{fontWeight: isRowBold ? "bold " : "normal" , backgroundColor: isRowBold && "#ffc4c4"}}
         >
             {row.getVisibleCells().map((cell,index) => {
