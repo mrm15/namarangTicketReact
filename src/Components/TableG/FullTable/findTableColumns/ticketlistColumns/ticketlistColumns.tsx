@@ -59,6 +59,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             // showCheckBoxInHeader:true,
             header: (info) => {
                 return <>
+
                     <CheckBoxHeader
                         info={info}
 
@@ -153,35 +154,13 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 90,
             maxSize: 90,
         },
-        // شماره سفارش
-        {
-            id: "userPhoneNumber",
-            accessorKey: 'userPhoneNumber',
-            header: () => {
-                return  <>
-                    {/*<NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />*/}
-                    شماره  سفارش دهنده
-                </>
-            },
-
-
-            // cell: info => <>{info.getValue()}</>,
-            cell: (info) => {
-
-
-                return <>{info.getValue()}</>
-            },
-            size: 120,
-            minSize: 120,
-            maxSize: 120,
-        },
         // آخرین دپارتمان
         {
-            id: "assignedToDepartmentIdText",
-            accessorKey: 'assignedToDepartmentIdText',
+            id: "lastAssignedDepartmentName",
+            accessorKey: 'lastAssignedDepartmentName',
             header: (info) => {
                 return <>
-                    <div>دپارتمان</div>
+                    <div>آخرین دپارتمان</div>
                     {/*<FilterTextInTable*/}
                     {/*    placeHolder={"دپارتمان"}*/}
                     {/*    filterKey={"assignedToDepartmentIdText"}*/}
@@ -194,8 +173,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
         },
         //آخرین کاربر
         {
-            id: "assignToUserIdText",
-            accessorKey: 'assignToUserIdText',
+            id: "lastAssignedUserName",
+            accessorKey: 'lastAssignedUserName',
             header: (info) => {
                 return <>
                     <div>آخرین کاربر</div>
@@ -211,8 +190,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
         },
         // تاریخ ایجاد سفارش
         {
-            id: "dateCreate",
-            accessorKey: 'dateCreate',
+            id: "createAt",
+            accessorKey: 'createAt',
             // header: "dateCreate",
             header: () => {
 
@@ -242,13 +221,12 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             maxSize: 170,
         },
 
-        // تاریخ آخرین تغییر
         {
-            id: "lastChangeTimeStamp",
-            accessorKey: 'lastChangeTimeStamp',
+            id: "statusName",
+            accessorKey: 'statusName',
             header: (info) => {
                 return <>
-                    <div> تاریخ آخرین تغییر</div>
+                    <div>وضعیت</div>
                     {/*<FilterTextInTable*/}
                     {/*    placeHolder={"lastChangeTimeStamp"}*/}
                     {/*    filterKey={"lastChangeTimeStamp"}*/}
@@ -259,7 +237,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             size: 200,
             minSize: 200,
             maxSize: 200,
-            hidden: true
+            // hidden: false
 
 
         },
@@ -276,6 +254,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             size: 150,
             minSize: 150,
             maxSize: 150,
+            hidden:true,
 
 
         },
