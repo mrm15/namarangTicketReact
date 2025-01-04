@@ -1,7 +1,6 @@
 import React from 'react';
 import {addRowIdtoTable, formatNumber, iso8601ToDateObject} from "../../../../utils/utilsFunction.tsx";
 import MyDatePicker2 from "../../../myDatePicker2/MyDatePicker2.tsx";
-import {IProjectList} from "../../SubmitBill/initialData.tsx";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
 import ProjectListInBillData from "./ProjectListInBillData.tsx";
 import {AiOutlineCheckCircle} from "react-icons/ai";
