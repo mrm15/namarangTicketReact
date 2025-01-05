@@ -29,6 +29,7 @@ const SubmitBill2 = () => {
         ContactCode: myStateData?.contactCode, // if its empty  it is on Edit Mode
         ContactName: myStateData?.contactName || "", // if its empty  it is on Edit Mode
         backUrl: myStateData?.backUrl|| -1,
+        ticketNumber:myStateData.ticketNumber ?? "ندارد",
     }
     const todayDate = new DateObject();
     todayDate.setHour(0)
