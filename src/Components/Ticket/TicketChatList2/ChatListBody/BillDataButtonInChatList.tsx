@@ -7,6 +7,9 @@ import {PAGES} from "../../../../Pages/Route-string.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {deleteBill} from "../../../../config/api.tsx";
 import useAuth from "../../../../hooks/useAuth.tsx";
+import {AiOutlineEye} from "react-icons/ai";
+import {FaFileInvoice} from "react-icons/fa";
+import {HiDocumentText} from "react-icons/hi";
 
 const BillDataButtonInChatList = ({billData,setReload}) => {
 
@@ -51,15 +54,16 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
     return (
         <div className={'mt-3 flex flex-wrap gap-2'}>
             <button
-                className={`rounded border-1 px-2 ${billStatus === 1 ? 'bg-green-400' : 'bg-red-300'}`}
-                onClick={()=>{
+                className={` flex items-center rounded outline outline-white px-2 py-2 ${billStatus === 1 ? 'bg-green-400' : 'bg-red-300'}`}
+                onClick={() => {
                     const url = PAGES.showBill + "/" + billNumber
                     // navigateTo(url, { replace: true }); // Optional: use `navigate` for URL building
                     window.open(url, '_blank', 'noopener,noreferrer');
                 }}
             >
-                    <span>مشاهده فاکتور :</span>
-                    <span>{billStatus === 0 ? <> پیش نویس</> : (billStatus === 1 ? <>تایید شده</> : <></>)}</span>
+                <div>مشاهده فاکتور :</div>
+                <div>{billStatus === 0 ? <> پیش نویس</> : (billStatus === 1 ? <>تایید شده</> : <></>)}</div>
+                <div><AiOutlineEye size={25}/></div>
             </button>
             {accessToEditBill && <button
                 className={'bg-white hover:bg-gray-100 text-gray-800  py-2 px-4 border border-gray-400 rounded shadow'}
