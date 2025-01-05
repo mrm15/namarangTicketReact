@@ -176,13 +176,17 @@ export const detectTagInEditMode = ({exceptionArray = [], auth , lastTag = undef
     const {userData} = userInfo || {};
     const {name = "نام کاربر", familyName="", phoneNumber, departmentId} = userData;
     // اول یک تگ خالی ایجاد میکنم و بعدش پرش میکنم با اطلاعات تگ قبلی
-    const myNewTag = makeEmptyTagObject();
+    let myNewTag = makeEmptyTagObject();
     const newNameInTag =  (name ?? "" ) + (familyName ?? "") + " " + phoneNumber;
     if (lastTag) {
 
         let tempTag;
         try {
             tempTag = JSON.parse(lastTag);
+            myNewTag = {
+                ...myNewTag,
+                ...tempTag
+            }
         } catch (error) {
             console.log(error)
         }
