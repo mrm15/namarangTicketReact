@@ -19,10 +19,7 @@ const SubmitBill2 = () => {
 
     const myLocation = useLocation();
     const myStateData = myLocation?.state?.data;
-    const myTag = {
-        tn: myStateData?.ticketNumber,
-        n: auth?.userInfo?.userData?.name // اگه سری اول داره ثبت میکنه که تگ رو کاربر میدم  و اگه  ویرایش بود هم کاربری که این فرم رو باز کرده- اگه توی استثناها بود هم آخرین کاربر
-    }
+
 
     const componentInfo = {
         billType: myStateData?.billType, // it is in ticket Or in the ticketReply
@@ -31,7 +28,6 @@ const SubmitBill2 = () => {
         billNumber: myStateData?.billNumber || "", // if its empty  it is on Edit Mode
         ContactCode: myStateData?.contactCode, // if its empty  it is on Edit Mode
         ContactName: myStateData?.contactName || "", // if its empty  it is on Edit Mode
-        tag: JSON.stringify(myTag), //
         backUrl: myStateData?.backUrl|| -1,
     }
     const todayDate = new DateObject();
@@ -41,6 +37,7 @@ const SubmitBill2 = () => {
     todayDate.setMillisecond(0)
 
     const todayIsoDate = dateObjectToIso8601(todayDate)
+
     const invoice = {
         Contact: {},
         Number: componentInfo.billNumber + "",
@@ -52,7 +49,7 @@ const SubmitBill2 = () => {
         Note: '',
         InvoiceType: 0,
         Status: 0, // پیش نویس
-        Tag: componentInfo.tag, // تگ
+        Tag: "", // تگ
         InvoiceItems: [],
         Others: [],
         Currency: "IRT",
