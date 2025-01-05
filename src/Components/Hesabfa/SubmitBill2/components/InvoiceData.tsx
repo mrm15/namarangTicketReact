@@ -62,27 +62,27 @@ const InvoiceData = () => {
 
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> شماره فاکتور </label>
-                        <input onChange={() => {
-                            console.log(invoice.Number)
-                        }
-                        } type="text" value={invoice.Number} disabled={true}/>
+                        {/*<input  type="text" value={invoice.Number+""} disabled={true}/>*/}
+                        <div className={" same__input"}> {invoice.Number || "خودکار"} &nbsp;</div>
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> کد مشتری </label>
-                        <input
-                            type="text"
-                            onChange={() => {
-                                console.log(invoice.Number)
-                            }
-                            }
-                            value={invoice.ContactCode} disabled={true}
-                        />
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    onChange={() => {*/}
+                        {/*        console.log(invoice.Number)*/}
+                        {/*    }*/}
+                        {/*    }*/}
+                        {/*    value={invoice.ContactCode} disabled={true}*/}
+                        {/*/>*/}
+                        <div className={" same__input"}>{invoice.ContactCode ||"..."}</div>
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor=""> نام مشتری </label>
-                        <input
+                        {/*<input*/}
 
-                            type="text" value={invoice?.Contact?.Name} disabled={true}/>
+                        {/*    type="text" value={invoice?.Contact?.Name} disabled={true}/>*/}
+                        <div className={" same__input"}>{invoice?.Contact?.Name|| "ندارد"}</div>
                         <span style={{color: userBedOrBesColor, fontWeight: "bold"}}
                               className={"flex"}
                         >
@@ -120,25 +120,33 @@ const InvoiceData = () => {
                     <ProjectListInBillData/>
                     <div className={'div__group__input_select'}>
                         <label htmlFor="">تگ </label>
-                        <input
-                            type="text"
-                            value={showTagName}
-                            disabled={true}
-                        />
+                        <div className={" same__input"}>
+                            {showTagName|| "ندارد"}
+                        </div>
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    value={showTagName}*/}
+                        {/*    disabled={true}*/}
+                        {/*/>*/}
                     </div>
                     <div className={'div__group__input_select'}>
                         <label htmlFor="">شماره سفارش </label>
-                        <input
-                            type="text"
-                            value={showTicketNumber}
-                            disabled={true}
-                        />
+                        {/*<input*/}
+                        {/*    type="text"*/}
+                        {/*    value={showTicketNumber}*/}
+                        {/*    disabled={true}*/}
+                        {/*/>*/}
+                        <div className={" same__input"}>{showTicketNumber || "ندارد"}</div>
                     </div>
                     <div className={'div__group__input_select fontSize075rem'}>
-                        <a href={`tel:${ContactMobile}`}>
-                            <div>شماره تماس مشتری</div>
-                            <div>{ContactMobile}</div>
-                        </a>
+
+                        <label>شماره تماس مشتری</label>
+                        <div className={"same__input"}>
+                            <a className={"block"} href={`tel:${ContactMobile}`}>
+                                {ContactMobile || "ندارد"}
+                            </a>
+                        </div>
+
 
                     </div>
 
