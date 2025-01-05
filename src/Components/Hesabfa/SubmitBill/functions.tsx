@@ -156,3 +156,46 @@ export const detectTag = ({exceptionArray = [], auth = {}, lastTag = undefined, 
     // return exceptionArray.includes(departmentId) ? lastTag : resultAfter;
 
 };
+
+export const detectTagInAddMode = ({auth, ticketNumber}) => {
+    // در حالت ادد چون سری اوله اصلا نیازی نیست که استثنا رو چک کنیم
+    const {userInfo} = auth || {};
+    const {userData} = userInfo || {};
+    const {name ,familyName} = userData;
+    const myNewTag = makeEmptyTagObject();
+    myNewTag.n =  (name ?? "" ) + (familyName ?? "")
+    myNewTag.tn = ticketNumber;
+    return JSON.stringify(myNewTag)
+};
+export const detectTagInEditMode = ({exceptionArray = [], auth , lastTag = undefined}) => {
+     // اینجا توی حالت ادیت هستیم و احتمالا از قبل  توی تگ  نام کاربر و شماره سفارش هست و اگه نبود هم ما خالی میزاریم.
+    //  حالا اکه کاربری که اینو روی حالت ویرایش باز کرده باید چک کنیم که
+    // اگه دپارتانش روی استثناها نبود پس میتونیم اسم رو عوض کنیم.
+    // ولی کد سفارش رو نمیتونیم عوض کنیم. و اینجا اجاره نمیدم
+    const {userInfo} = auth || {};
+    const {userData} = userInfo || {};
+    const {name = "نام کاربر", familyName="", phoneNumber, departmentId} = userData;
+    // اول یک تگ خالی ایجاد میکنم و بعدش پرش میکنم با اطلاعات تگ قبلی
+    const myNewTag = makeEmptyTagObject();
+    const newNameInTag =  (name ?? "" ) + (familyName ?? "") + " " + phoneNumber;
+    if (lastTag) {
+
+        let tempTag;
+        try {
+            tempTag = JSON.parse(lastTag);
+        } catch (error) {
+            console.log(error)
+        }
+
+        myNewTag.n = exceptionArray.includes(departmentId) ? (tempTag?.n || "ندارد") : newNameInTag;
+        // myNewTag.tn = ticketNumber;
+        return JSON.stringify(myNewTag)
+
+
+    } else {
+        myNewTag.n = newNameInTag;
+        myNewTag.tn = "ندارد";
+        return JSON.stringify(myNewTag)
+    }
+
+};
