@@ -4,7 +4,11 @@ import {useQuery} from "@tanstack/react-query";
 import {getBillData, getProductList, getProjectList} from "../../../config/api.tsx";
 
 import {useSubmitBillContext} from "./submitBillContext.tsx";
-import {detectTag, makeInvoiceBaseOnHesabfaData} from "../SubmitBill/functions.tsx";
+import {
+    detectTagInAddMode,
+    detectTagInEditMode,
+    makeInvoiceBaseOnHesabfaData
+} from "../SubmitBill/functions.tsx";
 import {toast} from "react-toastify";
 import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
@@ -29,6 +33,9 @@ const GetSubmitBillData = ({children}) => {
 
     const myAxios = useAxiosPrivate()
     useEffect(() => {
+        //اگه روی حالت ادیت بود؟ باید  اطلاعات کد سفارش رو از روی  تگ خود فاکتور بزنم
+        // اگه روی حالت ادد بود باید تک رو بسازم
+
         const getData = async () => {
             try {
                 // اگه بیل نامبر رو فرستاده بود ینی داره ادیت میکنه
@@ -42,14 +49,12 @@ const GetSubmitBillData = ({children}) => {
                         const myInvoice = makeInvoiceBaseOnHesabfaData(incomingData.data)
 
                         // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                        const newTag = detectTag({
+                        const newTag = detectTagInEditMode({
                             exceptionArray: incomingData?.exceptionArray,
                             auth,
                             lastTag: myInvoice.Tag,
-                            ticketNumber: data.billData.ticketNumber
+                            // ticketNumber: data.billData.ticketNumber
                         })
-
-                        debugger
                         setData({
                             invoice: {...myInvoice, Tag: newTag}
                         })
@@ -62,15 +67,17 @@ const GetSubmitBillData = ({children}) => {
                         data.invoice.Contact = ContactRequest.data.data
                     }
                     // اینجا چک کنم ببینم  کاربر من توی دپارتمان های استثنا هست یا نه؟ و تگی که باید بخوره رو پیدا کنم و بزارم
-                    const newTag11 = detectTag({
-                        exceptionArray: [],
-                        auth,
-                        lastTag: data.invoice.Tag,
-                        ticketNumber: data.billData.ticketNumber
-                    })
+                    // const newTag11 = detectTag({
+                    //     exceptionArray: [],
+                    //     auth,
+                    //     lastTag: data.invoice.Tag,
+                    //     ticketNumber: data.billData.ticketNumber
+                    // })
+
+                    const newTag12= detectTagInAddMode({auth,ticketNumber: data.billData.ticketNumber})
 
                     setData({
-                        invoice: {...data.invoice, Tag: newTag11}
+                        invoice: {...data.invoice, Tag: newTag12}
                     })
                 }
             } catch (error) {
