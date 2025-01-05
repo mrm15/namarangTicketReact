@@ -12,6 +12,7 @@ import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
 import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG.tsx";
+import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 
 
 // Define the columns with the appropriate structure
@@ -95,12 +96,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'userCreateThisOrder',
             header: (info) => {
                 return <>
-                    <div>کاربر ایجاد کننده سفارش</div>
-
-                    {/*<FilterTextInTable*/}
-                    {/*    placeHolder={"کاربر ایجاد کننده سفارش"}*/}
-                    {/*    filterKey={"userCreateThisOrder"}*/}
-                    {/*/>*/}
+                    {/*<div>کاربر ایجاد کننده سفارش</div>*/}
+                    <StringFilter uniqueId={"userCreateThisOrder"} operator={"*"} property={"userCreateThisOrder"} placeHolder={"کاربر ایجاد کننده سفارش"} />
                 </>
             },
             size: 200,
@@ -160,11 +157,9 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'lastAssignedDepartmentName',
             header: (info) => {
                 return <>
-                    <div>آخرین دپارتمان</div>
-                    {/*<FilterTextInTable*/}
-                    {/*    placeHolder={"دپارتمان"}*/}
-                    {/*    filterKey={"assignedToDepartmentIdText"}*/}
-                    {/*/>*/}
+                    {/*<div>آخرین دپارتمان</div>*/}
+                    <StringFilter uniqueId={"lastAssignedDepartmentName"} operator={"*"} property={"lastAssignedDepartmentName"} placeHolder={"آخرین دپارتمان"} />
+
                 </>
             },
             size: 150,
@@ -177,11 +172,8 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'lastAssignedUserName',
             header: (info) => {
                 return <>
-                    <div>آخرین کاربر</div>
-                    {/*<FilterTextInTable*/}
-                    {/*    placeHolder={"آخرین کاربر"}*/}
-                    {/*    filterKey={"assignToUserIdText"}*/}
-                    {/*/>*/}
+                    {/*<div>آخرین کاربر</div>*/}
+                    <StringFilter uniqueId={"lastAssignedUserName"} operator={"*"} property={"lastAssignedUserName"} placeHolder={"آخرین کاربر"} />
                 </>
             },
             size: 150,
@@ -196,14 +188,12 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => {
 
                 return <div>
-                    <div>تاریخ ثبت سفارش</div>
-                    {/*<FilterTextInTable*/}
-                    {/*    placeHolder={"تاریخ ثبت سفارش"}*/}
-                    {/*    filterKey={"dateCreate"}*/}
-                    {/*    operator={"="}*/}
-                    {/*    filterType={"date"}*/}
-
-                    {/*/>*/}
+                    {/*<div>تاریخ ثبت سفارش</div>*/}
+                    <DatesFilter
+                        property={"createAt"}
+                        model = {"advanced"}
+                        dateFormatValue = {"jsDate"}
+                    />
                 </div>
             },
 
