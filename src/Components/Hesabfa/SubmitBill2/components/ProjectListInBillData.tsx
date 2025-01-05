@@ -32,22 +32,23 @@ const ProjectListInBillData = () => {
 
     return (
         <div>
-
-            {projectListUseQuery.isLoading ? <LittleSpinner/> :
-                <div className={'div__group__input_select'}>
-                    <label htmlFor="">پروژه</label>
-                    <select
-                        onChange={(e) => handleInputChange(e.target.value, 'Project')}
-                        value={data.invoice.Project}
-                        name="" id="">
-                        <option value={''}>انتخاب کنید</option>
-                        {projectListUseQuery?.data?.data.filter((row: IProjectList) => row.Active === true)
-                            .map((row: IProjectList, index: React.Key) =>
-                                <option key={index}
-                                        value={row.Title}>{row.Title}</option>)}
-                    </select>
-                </div>
-            }
+            <div className={'div__group__input_select'}>
+                <label htmlFor="">پروژه</label>
+                {projectListUseQuery.isLoading ?
+                    <div className={"same__input flex"}><div>در حال بارگزاری...</div><LittleSpinner/></div> :
+                    <>
+                        <select
+                            onChange={(e) => handleInputChange(e.target.value, 'Project')}
+                            value={data.invoice.Project}
+                            name="" id="">
+                            <option value={''}>انتخاب کنید</option>
+                            {projectListUseQuery?.data?.data.filter((row: IProjectList) => row.Active === true)
+                                .map((row: IProjectList, index: React.Key) =>
+                                    <option key={index}
+                                            value={row.Title}>{row.Title}</option>)}
+                        </select>
+                    </>}
+            </div>
         </div>
     );
 };
