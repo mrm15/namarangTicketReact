@@ -3,13 +3,13 @@ import {flexRender} from "@tanstack/react-table";
 import {TableGContext} from "../../TableGContext.tsx";
 
 const TableBody = ({table}) => {
-    const uniqueKey = "_id"
     const context = useContext(TableGContext);
     const {myData, setMyData} = context;
+    const rowUniqId = myData.rowUniqId
     const checkedItemsArray = myData?.checkedItems
     return table.getRowModel().rows.map((row, index) => {
 
-        const isThisRowSelected = checkedItemsArray?.find(checkedRow=>checkedRow[uniqueKey]===row.original[uniqueKey])
+        const isThisRowSelected = checkedItemsArray?.find(checkedRow=>checkedRow[rowUniqId]===row.original[rowUniqId])
         console.log(isThisRowSelected)
 
         const isEven = index % 2 === 0
