@@ -8,6 +8,8 @@ import {sidebarActions} from "../../../store/sidebarReducer/sidebarReducer.tsx";
 import ProfileInHeader from "./ProfileInHeader.tsx";
 import UserStatus from "./UserStatus.tsx";
 import UserCreditInHeader from "./UserCreditInHeader/UserCreditInHeader.tsx";
+import WebSocketComponent from "../../WebSocketComponent/WebSocketComponent.tsx";
+import React from "react";
 
 
 const HeaderDashboard = () => {
@@ -81,6 +83,7 @@ const HeaderDashboard = () => {
                         </h6>
                         {showUserStatus ? <UserStatus/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
                         {canViewCreditLibertyInHeader ? <UserCreditInHeader/> :  <span>&nbsp;&nbsp;&nbsp;</span>}
+                        <div>{!!auth?.userInfo  && <WebSocketComponent />}</div>
                     </div>
                     <ProfileInHeader/>
                 </div>
