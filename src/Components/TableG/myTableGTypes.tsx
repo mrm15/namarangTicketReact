@@ -31,6 +31,7 @@ export interface filterOfDataTypeObject {
 
 export interface IMyData {
     url: string;
+    rowUniqId:string;
     boldRowCondition: any;
     columns: ICustomColumn[]; // Use the updated ICustomColumn type
     pageNumber: number;
