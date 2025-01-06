@@ -22,20 +22,20 @@ const WebSocketComponent = () => {
 
     return (
         <div className={"ltr"}>
-            <h1>Socket.IO Messages</h1>
-            <ul>
-                {messages.map((message, index) => (
-                    <li key={index}>{JSON.stringify(message)}</li>
-                ))}
-            </ul>
-            <input
-                type="text"
-                value={messageInput}
-                onChange={handleInputChange}
-                placeholder="Type a message"
-            />
-            <button className={"btn-submit-mir "} onClick={handleSendMessage}>Send Message</button>
-            <button className={"btn-submit-mir "} onClick={() => playNotificationSound()}>Send Message2</button>
+            {/*<h1>Socket.IO Messages</h1>*/}
+            {/*<ul>*/}
+            {/*    {messages.map((message, index) => (*/}
+            {/*        <li key={index}>{JSON.stringify(message)}</li>*/}
+            {/*    ))}*/}
+            {/*</ul>*/}
+            {/*<input*/}
+            {/*    type="text"*/}
+            {/*    value={messageInput}*/}
+            {/*    onChange={handleInputChange}*/}
+            {/*    placeholder="Type a message"*/}
+            {/*/>*/}
+            {/*<button className={"btn-submit-mir "} onClick={handleSendMessage}>Send Message</button>*/}
+            {/*<button className={"btn-submit-mir "} onClick={() => playNotificationSound()}>Send Message2</button>*/}
         </div>
     );
 };
