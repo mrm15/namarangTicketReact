@@ -7,7 +7,8 @@ import {playNotificationSound} from "../../utils/playNotificationSound/playNotif
 const WebSocketComponent = () => {
     const messages = useSelector((state: RootState) => state.websocket.messages);
     const [messageInput, setMessageInput] = useState('');
-    const {sendMessage} = useWebSocket('http://localhost:3001'); // Adjust URL to match your backend server
+    const webSocketUrl = process.env.REACT_APP_SOCKET_URL
+    const {sendMessage} = useWebSocket(webSocketUrl); // Adjust URL to match your backend server
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setMessageInput(e.target.value);
