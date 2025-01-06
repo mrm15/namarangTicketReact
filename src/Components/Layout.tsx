@@ -7,6 +7,7 @@ import useWindowSize from "../hooks/useWindowSize.tsx";
 import React from "react";
 import DummyData from "./DummyData.tsx";
 import {useDispatch, useSelector} from "react-redux";
+import WebSocketComponent from "./WebSocketComponent/WebSocketComponent.tsx";
 
 const Layout = () => {
 
@@ -41,6 +42,7 @@ const Layout = () => {
                             className={ isOpenMenu ? " myResponsiveWidthMenuOpen" : " myResponsiveWidth" }
                         >
                             <Outlet/>
+                            <WebSocketComponent />
                             {/*<DummyData/>*/}
 
                         </div>
