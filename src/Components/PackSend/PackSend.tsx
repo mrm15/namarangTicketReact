@@ -33,6 +33,7 @@ const PackSend = () => {
         <TableG
             TopTableComponent={TopTableComponentOnBillList}
             url={"/hesabfa/getBillListData"}
+            rowUniqId={"Id"}
         />
     </div>)
 };
