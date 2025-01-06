@@ -42,7 +42,6 @@ const Layout = () => {
                             className={ isOpenMenu ? " myResponsiveWidthMenuOpen" : " myResponsiveWidth" }
                         >
                             <Outlet/>
-                            <WebSocketComponent />
                             {/*<DummyData/>*/}
 
                         </div>
