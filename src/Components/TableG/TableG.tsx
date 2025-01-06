@@ -10,10 +10,11 @@ import {randomNumberGenerator} from "../../utils/utilsFunction.tsx";
 
 const TableG = ({
                     url = "/user/read", TopTableComponent = undefined, boldRowCondition = () => false,
-                    filters = [],
+                    filters = [],rowUniqId="_id"
                 }) => {
     const [myData, setMyData] = useObjectDataHolder<IMyData>({
         url: url,
+        rowUniqId:rowUniqId,
         boldRowCondition: boldRowCondition,
         pageNumber: 1,
         numberOfRows: 20,
