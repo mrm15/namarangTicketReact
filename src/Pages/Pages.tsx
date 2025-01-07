@@ -13,6 +13,7 @@ import useAuth from "../hooks/useAuth.tsx";
 import AdvancedTicketCreate from "../Components/Ticket/advanedTicketCreate/AdvancedTicketCreate.tsx";
 import PriceListPage from "../PriceListPage/PriceListPage.tsx";
 import Tttttt from "../Components/Tttttt/Tttttt.tsx";
+import PublicPages from "./PublicPages.tsx";
 
 const MyTicketList = lazy(() => import('../Components/MyTicketList/MyTicketList.tsx'))
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
@@ -67,7 +68,7 @@ const Pages = () => {
 
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>} />
                 <Route path={PAGES.PriceListPage} element={<PriceListPage/>} />
-
+                <Route path="public/*" element={<PublicPages />} />
 
 
 
