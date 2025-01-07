@@ -76,10 +76,18 @@ const ShowMenuAndSubMenus = ({data}) => {
 
     const selectedSubmenu = totalItems.find(row => row.id === selectedMenuId.menuId)?.subMenu
     const submenuRefs = useRef({}); // Store refs for each submenu item
+    const itemsRef = useRef({})
     useEffect(() => {
         const currentSubmenu = submenuRefs.current[selectedMenuId.subMenuId];
         if (currentSubmenu) {
             currentSubmenu.scrollIntoView({behavior: "smooth", block: "nearest"});
+        }
+
+        const rnd = Math.floor(Math.random()*1000)
+        const currentItemsRef = itemsRef.current[rnd];
+        if(currentItemsRef){
+            console.log(rnd)
+            currentItemsRef.scrollIntoView({behavior: "smooth" , block:"start"});
         }
     }, [selectedMenuId.subMenuId, selectedMenuId.menuId]);
 
@@ -148,12 +156,14 @@ const ShowMenuAndSubMenus = ({data}) => {
                             <div className="">
                                 {data?.data?.List?.map((product) => (
                                     <div
+                                        ref={(el) => (itemsRef.current[product.Id] = el) }
                                         key={product.Id}
                                         className="bg-white shadow rounded  p-4 border border-gray-200 my-1"
                                     >
                                         <div className="flex justify-between">
                                             <h3 className="text-sm font-medium text-gray-700">
                                                 {product.Name}
+                                                <div>{product.Id}</div>
                                             </h3>
                                             <span className="text-xs font-medium text-gray-500">
                                     #{product.Code}
