@@ -1,6 +1,7 @@
 import React from 'react';
 import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 import {nanoid} from "@reduxjs/toolkit";
+import NamarangLogoSvg from "../../../assets/Svg/NamarangLogoSvg.tsx";
 
 const ItemList = ({data}) => {
 
@@ -10,7 +11,7 @@ const ItemList = ({data}) => {
                 {data?.items?.map((items, index) => {
                     const uuid = nanoid(15)
                     return <div
-                          key={uuid}
+                        key={uuid}
                         className="bg-white shadow rounded  p-4 border border-gray-200 my-1"
                     >
                         <div className="flex justify-between">
@@ -18,9 +19,10 @@ const ItemList = ({data}) => {
                                 {items?.Name}
                                 <div>{items.Id}</div>
                             </h3>
-                            <span className="text-xs font-medium text-gray-500">
-                                    #{items?.Code}
-                                </span>
+                            <div className="text-xs font-medium text-gray-500">
+                                <div>#{items?.Code}</div>
+                                <NamarangLogoSvg height={100} width={100}/>
+                            </div>
                         </div>
                         <div className="mt-2">
                             <p className="text-xs text-gray-600">
