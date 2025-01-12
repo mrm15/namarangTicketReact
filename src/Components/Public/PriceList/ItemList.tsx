@@ -3,7 +3,7 @@ import {randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
 import {nanoid} from "@reduxjs/toolkit";
 
 const ItemList = ({data}) => {
-    console.log(data?.items)
+
     try {
         return (
             <div>
