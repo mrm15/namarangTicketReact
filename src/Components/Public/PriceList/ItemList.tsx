@@ -50,7 +50,7 @@ const ItemList = ({data}) => {
                                 <div className={"border border-gray-200 rounded text-center"}>
                                     <NamarangLogoSvg height={100} width={100}/>
                                 </div>
-                                <div>#{items?.Code}</div>
+                                <div className={"font-poppins fontSize12"}>{items?.Code}</div>
                             </div>
                         </div>
                     </div>
