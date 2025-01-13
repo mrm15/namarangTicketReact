@@ -26,7 +26,7 @@ const ItemList = ({data}) => {
                                     <p className="text-xs text-gray-600">
                                         قیمت: {items?.SellPrice?.toLocaleString()} تومان
                                     </p>
-                                    <p className="text-xs text-gray-600">
+                                    <div className="text-xs text-gray-600">
                                         {items?.SubUnit &&
                                           <div className={" border-t my-2"}>
                                             واحد:
@@ -38,7 +38,7 @@ const ItemList = ({data}) => {
                                             تومان
                                           </div>
                                         }
-                                    </p>
+                                    </div>
                                 </div>
                                 {/*<div className="mt-2">*/}
                                 {/*    <p className="text-xs text-gray-500">*/}
@@ -46,12 +46,12 @@ const ItemList = ({data}) => {
                                 {/*    </p>*/}
                                 {/*</div>*/}
                             </div>
-                            <div className={"text-center"}>
-                                <div className={"border border-gray-200 rounded text-center"}>
-                                    <NamarangLogoSvg height={100} width={100}/>
-                                </div>
-                                <div className={"font-poppins fontSize12"}>{items?.Code}</div>
-                            </div>
+                            {/*<div className={"text-center"}>*/}
+                            {/*    /!*<div className={"border border-gray-200 rounded text-center"}>*!/*/}
+                            {/*    /!*    <NamarangLogoSvg height={100} width={100}/>*!/*/}
+                            {/*    /!*</div>*!/*/}
+                            {/*    /!*<div className={"font-poppins fontSize12"}>{items?.Code}</div>*!/*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 })}
