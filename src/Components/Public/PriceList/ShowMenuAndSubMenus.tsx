@@ -4,7 +4,6 @@ import ProductListTable from "../../../PriceListPage/ProductList.tsx";
 import axios from "../../../api/axios.tsx";
 import {useQuery} from "@tanstack/react-query";
 import ItemList from "./ItemList.tsx";
-import NamarangLogoSvg from "../../../assets/Svg/NamarangLogoSvg.tsx";
 
 const ShowMenuAndSubMenus = () => {
 
