@@ -1,5 +1,5 @@
 import React from 'react';
-import {formatNumber, randomNumberGenerator} from "../../../utils/utilsFunction.tsx";
+import {formatNumber} from "../../../utils/utilsFunction.tsx";
 import {nanoid} from "@reduxjs/toolkit";
 import NamarangLogoSvg from "../../../assets/Svg/NamarangLogoSvg.tsx";
 
@@ -26,18 +26,16 @@ const ItemList = ({data}) => {
                                     <p className="text-xs text-gray-600">
                                         قیمت: {items?.SellPrice?.toLocaleString()} تومان
                                     </p>
-
                                     <p className="text-xs text-gray-600">
                                         {items?.SubUnit &&
                                           <div className={" border-t my-2"}>
-                                             واحد:
+                                            واحد:
                                               {items?.SubUnit}
                                             <br/>
                                             قیمت:
                                               {formatNumber((items.SellPrice / items.ConversionFactor).toFixed(2))}
-&nbsp;
+                                            &nbsp;
                                             تومان
-
                                           </div>
                                         }
                                     </p>
@@ -55,8 +53,6 @@ const ItemList = ({data}) => {
                                 <div>#{items?.Code}</div>
                             </div>
                         </div>
-
-
                     </div>
                 })}
 
