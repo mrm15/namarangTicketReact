@@ -1,6 +1,5 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React from 'react';
 import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
-import ProductListTable from "../../../PriceListPage/ProductList.tsx";
 import axios from "../../../api/axios.tsx";
 import {useQuery} from "@tanstack/react-query";
 import ItemList from "./ItemList.tsx";
