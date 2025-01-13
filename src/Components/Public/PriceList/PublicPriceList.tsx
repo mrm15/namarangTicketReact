@@ -6,9 +6,7 @@ import ShowMenuAndSubMenus from "./ShowMenuAndSubMenus.tsx";
 const PublicPriceList = () => {
 
     return (
-        <div className={"p-2"}>
             <div><ShowMenuAndSubMenus/></div>
-        </div>
     );
 };
 
