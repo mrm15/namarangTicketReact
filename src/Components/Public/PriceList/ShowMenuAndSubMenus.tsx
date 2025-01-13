@@ -3,6 +3,7 @@ import useObjectDataHolder from "../../../hooks/UseObjectDataHolder.tsx";
 import axios from "../../../api/axios.tsx";
 import {useQuery} from "@tanstack/react-query";
 import ItemList from "./ItemList.tsx";
+import Skeleton from "../../Skeleton/Skeleton.tsx";
 
 const ShowMenuAndSubMenus = () => {
 
@@ -23,9 +24,26 @@ const ShowMenuAndSubMenus = () => {
 
     const selectedSubmenu = data?.find(row => row.id === selectedMenuId.menuId)?.subMenu
 
-    const showedItems = selectedSubmenu?.find(row=>row.id===selectedMenuId.subMenuId)
+    const showedItems = selectedSubmenu?.find(row => row.id === selectedMenuId.subMenuId)
 
+    if (isLoading) {
+        return  <div>
+            <div className="messages-skeleton">
+                <Skeleton classes="skeleton  w-full h-6 "/>
+                <Skeleton classes="skeleton  w-full h-14 "/>
+                <Skeleton classes="skeleton  w-full h-14 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+                <Skeleton classes="skeleton  w-full h-16 "/>
+            </div>
+        </div>
+    }
     try {
+
         return (
             <div>
                 <div className="w-full lg:w-1024 mx-auto  ">
@@ -53,7 +71,7 @@ const ShowMenuAndSubMenus = () => {
                                         })
                                     }
                                     key={row.id}
-                                    className={ ` flex items-center justify-center  w-32 whitespace-nowrap h-16 px-2 py-1 rounded text-gray-800 font-bold   ${
+                                    className={` flex items-center justify-center  w-32 whitespace-nowrap h-16 px-2 py-1 rounded text-gray-800 font-bold   ${
                                         selectedMenuId.menuId === row.id ? " bg-blue-200 " : " bg-gray-100 "
                                     } `}
                                 >
@@ -99,7 +117,7 @@ const ShowMenuAndSubMenus = () => {
                         <div>
                             <div className="">
                                 {/*{JSON.stringify(showedItems)}*/}
-                                <ItemList data={showedItems} />
+                                <ItemList data={showedItems}/>
                             </div>
                         </div>
                     </div>
@@ -111,7 +129,7 @@ const ShowMenuAndSubMenus = () => {
         );
 
     } catch (error: any) {
-        return <>{error.toString()}</>
+        return <>چیزی نیست!</>
     }
 };
 export default ShowMenuAndSubMenus;
