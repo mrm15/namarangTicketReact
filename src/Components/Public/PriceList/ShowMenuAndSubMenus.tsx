@@ -25,25 +25,6 @@ const ShowMenuAndSubMenus = () => {
 
     const showedItems = selectedSubmenu?.find(row=>row.id===selectedMenuId.subMenuId)
 
-    // useEffect(() => {
-    //     const currentSubmenu = submenuRefs.current[selectedMenuId.subMenuId];
-    //     if (currentSubmenu) {
-    //         currentSubmenu.scrollIntoView({behavior: "smooth", block: "nearest"});
-    //     }
-    //
-    //     const rnd = Math.floor(Math.random() * 1000)
-    //     const currentItemsRef = itemsRef.current[rnd];
-    //     if (currentItemsRef) {
-    //         console.log(rnd)
-    //         currentItemsRef.scrollIntoView({behavior: "smooth", block: "start"});
-    //     }
-    // }, [selectedMenuId.subMenuId, selectedMenuId.menuId]);
-
-
-    // return <pre  className={"ltr"} >
-    // {JSON.stringify(data)}
-    // </pre>
-
     try {
         return (
             <div>
