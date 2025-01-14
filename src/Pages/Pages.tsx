@@ -14,6 +14,7 @@ import AdvancedTicketCreate from "../Components/Ticket/advanedTicketCreate/Advan
 import PriceListPage from "../PriceListPage/PriceListPage.tsx";
 import Tttttt from "../Components/Tttttt/Tttttt.tsx";
 import PublicPages from "./PublicPages.tsx";
+import LogTableList from "../Components/LogTableList/LogTableList.tsx";
 
 const MyTicketList = lazy(() => import('../Components/MyTicketList/MyTicketList.tsx'))
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
@@ -265,6 +266,7 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.fatherAccess}/>}>
                             {/* لیست فاکتور  بده تا نام تحویل بده*/}
                             <Route path={`tttttt`} element={<Tttttt/>}/>
+                            <Route path={`log`} element={<LogTableList/>}/>
 
                             <Route path={PAGES.fatherAccess} element={
                                 <Suspense fallback={<Loader/>}>
