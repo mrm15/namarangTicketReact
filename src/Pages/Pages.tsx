@@ -266,7 +266,7 @@ const Pages = () => {
                         <Route element={<RequireAuth allowedRoles={ROLES.fatherAccess}/>}>
                             {/* لیست فاکتور  بده تا نام تحویل بده*/}
                             <Route path={`tttttt`} element={<Tttttt/>}/>
-                            <Route path={`log`} element={<LogTableList/>}/>
+                            <Route path={PAGES.Logs} element={<LogTableList/>}/>
 
                             <Route path={PAGES.fatherAccess} element={
                                 <Suspense fallback={<Loader/>}>
