@@ -27,7 +27,7 @@ const ShowMenuAndSubMenus = () => {
     const showedItems = selectedSubmenu?.find(row => row.id === selectedMenuId.subMenuId)
 
     if (isLoading) {
-        return <div>
+        return <div className="w-full px-4 py-2 lg:w-1024 mx-auto  " >
             <div className="messages-skeleton">
                 <Skeleton classes="skeleton  w-full h-6 "/>
                 <Skeleton classes="skeleton  w-full h-14 "/>
