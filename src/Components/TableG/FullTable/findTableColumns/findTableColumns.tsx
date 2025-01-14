@@ -6,6 +6,7 @@ import {FullBillData} from "./BasteBandiErsal/FullBillData.tsx";
 import {ticketlistColumns} from "./ticketlistColumns/ticketlistColumns.tsx";
 import {ticketAssignmentListColumns} from "./ticketAssignmentListColumns/ticketAssignmentListColumns.tsx";
 import {MybillsForCustomers} from "./MybillsForCustomers/MybillsForCustomers.tsx";
+import {readLogs} from "./readLogs/readLogs.tsx";
 
 
 // Define the interface for the input object
@@ -43,7 +44,7 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
     // فاکتورهای من
     "/hesabfa/getBillListData?": MybillsForCustomers,
     // مشاهده ی صفحه ی لاگ های کاربران در سیستم!
-    "/logs/read": MybillsForCustomers,
+    "/logs/read": readLogs,
 
 
 
