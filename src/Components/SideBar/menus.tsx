@@ -17,6 +17,7 @@ import {AiFillSetting, AiOutlineOrderedList} from "react-icons/ai";
 import {IconType} from "react-icons";
 import {ROLES} from "../../Pages/ROLES.tsx";
 import { RiShareForward2Fill } from "react-icons/ri";
+import {PiDetectiveFill} from "react-icons/pi";
 
 
 type CustomIconType = {
@@ -216,6 +217,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     //     showItem: roleAccessList?.includes('fileCreate'),
     // },//FaFileCirclePlus
     {name: "لیست فایل", link: PAGES.FILE_LIST, icon: FaFileAlt, showItem: roleAccessList?.includes('fileRead'),},
+    {name: "لاگ های سیستم", link: PAGES.Logs, icon: PiDetectiveFill, showItem: roleAccessList?.includes(ROLES.fatherAccess[0]),},
 
     //
     // {
