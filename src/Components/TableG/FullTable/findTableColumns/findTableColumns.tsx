@@ -42,6 +42,9 @@ const tableColumns: { [key: string]: (inputObject: IInputObject) => any } = {
 
     // فاکتورهای من
     "/hesabfa/getBillListData?": MybillsForCustomers,
+    // مشاهده ی صفحه ی لاگ های کاربران در سیستم!
+    "/logs/read": MybillsForCustomers,
+
 
 
 
