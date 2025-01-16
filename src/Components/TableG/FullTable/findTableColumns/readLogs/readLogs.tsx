@@ -73,11 +73,32 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
         },
 
         {
-            // accessorKey: 'عنوان سفارش',
-            // header: 'عنوان سفارش',
+            header: () => <div>
+                <StringFilter
+                    uniqueId={"name"}
+                    operator={"="}
+                    property={"name"}
+                    placeHolder={"نام کاربر در لحظه ثبت"}
+                />
+            </div>,
+            id: "name",
+            accessorKey: 'name',
+            cell: (cellInfo) => {
+
+                return <>
+                    <RowNumberShow
+                        info={cellInfo}
+                    />
+                </>
+            },
+            size: 50,
+            minSize: 50,
+            maxSize: 50,
+
+        },
+        {
             header: () => <div>
 
-                {/*<div>  عنوان سفارش</div>*/}
                 <StringFilter
                     uniqueId={"phoneNumber"}
                     operator={"="}
@@ -87,11 +108,6 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
             </div>,
             id: "phoneNumber",
             accessorKey: 'phoneNumber',
-            // header: (info) => {
-            //     return <>
-            //         ردیف
-            //     </>
-            // },
             cell: (cellInfo) => {
 
                 return <>
@@ -172,17 +188,33 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
             header: 'ip Address',
             id: "ipAddress",
             accessorKey: 'ipAddress',
-
-            // cell: (cellInfo) => {
-            //
-            //     const city = cellInfo.row.original?.Contact?.City || "";
-            //     const state = cellInfo.row.original?.Contact?.State || "";
-            //
-            //     return <>{state + " " + city}</>
-            // },
             size: 90,
             minSize: 90,
             maxSize: 90,
+        },
+        {
+            header: 'os',
+            id: "os",
+            accessorKey: 'os',
+            size: 90,
+            minSize: 90,
+            maxSize: 90,
+        },
+        {
+            header: 'route',
+            id: "route",
+            accessorKey: 'route',
+            size: 90,
+            minSize: 90,
+            maxSize: 90,
+        },
+        {
+            header: 'deviceType',
+            id: "deviceType",
+            accessorKey: 'deviceType',
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
         },
 
 
