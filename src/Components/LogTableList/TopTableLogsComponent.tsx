@@ -16,10 +16,16 @@ const TopTableLogsComponent = () => {
 
     const myAxios = useAxiosPrivate()
     const deleteLogsHandler = async () => {
+
+        if (!confirm("آیا مطمئنی که می‌خواهی حذف کنی؟ این عمل قابل بازگشت نیست!")) return;
+        if (!confirm("این آخرین تأییدیه است. آیا واقعاً می‌خواهی ادامه دهی؟")) return;
+
+
         try {
             const idsArray = myData?.checkedItems.map(row => {
                 return row._id
             })
+
 
             const secondItem = {
                 data: {
@@ -59,8 +65,8 @@ const TopTableLogsComponent = () => {
                 {
                     hasFatherAccess && <div>
                     <button
-                      className={"btn-white-border-mir flex  text-center justify-center"}
-
+                      className={"btn-white-border-mir flex  text-center justify-center disabled:bg-gray-100"}
+                      disabled={myData?.checkedItems?.length === 0}
                       onClick={deleteLogsHandler}
                     >
                       حذف منتخب
