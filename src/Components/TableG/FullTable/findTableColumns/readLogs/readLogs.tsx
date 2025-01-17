@@ -12,6 +12,9 @@ import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import DateShowLtr from "../../components/DateShowltr.tsx";
 import toast from "react-hot-toast";
+import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
+import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
+import React from "react";
 
 
 const NameShow = ({info}) => {
@@ -56,6 +59,29 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
 
     const hasAccessToVerifyBill = auth?.userInfo?.roleAccessList?.includes(ROLES.saveBillAsDone[0])
     const temp: ICustomColumn<any>[] = [
+        {
+            id: "select",
+            accessorKey: 'select',
+            type:"select",
+            uniqId:"_id", // وقتی چک باکس داریم این مورد اجباریه
+            // showCheckBoxInHeader:true,
+            header: (info) => {
+                return <>
+                    <CheckBoxHeader
+                        info={info}
+
+                    />
+                </>
+            },
+            cell: (info) => {
+
+
+                return  <CheckBoxCell cellInfo={info} />
+            },
+            size: 30,
+            minSize: 30,
+            maxSize: 30,
+        },
         {
             id: "rowNumber",
             accessorKey: 'rowNumber',
@@ -142,28 +168,6 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
             minSize: 150,
             maxSize: 150,
         },
-        {
-            header: () => <div>
-                <div>توضیحات</div>
-            </div>,
-            id: "description",
-            accessorKey: 'description',
-            cell: (cellInfo) => {
-
-                return <div>
-                    <CopyOnClick
-                        info={cellInfo}
-                    />
-
-                </div>
-            },
-
-            size: 150,
-            minSize: 150,
-            maxSize: 150,
-        },
-
-
         {
             // header: 'تاریخ ثبت',
             id: "timestamp",
