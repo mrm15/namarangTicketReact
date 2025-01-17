@@ -34,8 +34,6 @@ const TopTableLogsComponent = () => {
                 toast.error(` استاتوس:` + result.status + " " + result?.data?.message)
             }
 
-
-            // do something
         } catch (error) {
             console.log(error)
         }
