@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {FaShareSquare} from "react-icons/fa";
 import ForwardModalTable from "../ForwardModalticketTable/ForwardModalTable.tsx";
 import {randomNumberGenerator} from "../../../../../utils/utilsFunction.tsx";
+import {FiCheckSquare} from "react-icons/fi";
 
-const ForwardTicketSection = ({row, setMyData}) => {
+const ChangeTicketStatusInTable = ({row,setMyData}) => {
 
 
     const [openForwardModal, setOpenForwardModal] = useState(false)
@@ -13,7 +13,6 @@ const ForwardTicketSection = ({row, setMyData}) => {
         <div>
             {openForwardModal &&
               <>
-
                 <ForwardModalTable
                     // currentParams={currentParams}
                   selectedItems={[row?.original]}
@@ -29,15 +28,16 @@ const ForwardTicketSection = ({row, setMyData}) => {
                     // console.log(params)
                     openModal()
                 }}
-                title={"ارجاع سفارش"}
-
                 className={'mx-1 flex items-center gap-1 p-2 justify-center border border-1 rounded '}
+                title={"تغییر وضعیت"}
             >
-                <FaShareSquare/>
+                <FiCheckSquare />
+
                 {/*<span>ارجاع به کاربر</span>*/}
             </button>
         </div>
     );
-};
+}
 
-export default ForwardTicketSection;
+export default ChangeTicketStatusInTable;
+
