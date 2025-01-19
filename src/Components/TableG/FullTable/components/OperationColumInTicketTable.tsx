@@ -10,6 +10,8 @@ import ForwardModal from "../../../Ticket/ForwardModal/ForwardModal.tsx";
 import ForwardModalTable from "./ForwardModalticketTable/ForwardModalTable.tsx";
 import useChangeTicketReadStatus from "../../../../hooks/useChangeTicketReadStatus.tsx";
 import openTicketActions from "./openTicketActions.tsx";
+import ChangeTicketStatusInTable from "./ChangeTicketStatusInTable/ChangeTicketStatusInTable.tsx";
+import ForwardTicketSection from "./ForwardTicketSection/ForwardTicketSection.tsx";
 
 const OperationColumInTicketTable = ({
                                          row,
@@ -25,9 +27,6 @@ const OperationColumInTicketTable = ({
     // اگه کاربر من توی صفحه ی صندوق ورودی خودش بود یا اینکه توی صفحه ی صندوق ورودی دپارتمان بود پس باید بعد از اینکه روی گزینه ی مشاهده کلیک کرد. باید یه تابع رو اجرا کنم.
 
 
-    const [openForwardModal, setOpenForwardModal] = useState(false)
-    const openModal = () => setOpenForwardModal(true)
-    const closeModal = () => setOpenForwardModal(false)
 
     const myUniqId = row?.original[uniqId]
     const myTicketId = row?.original?._id
@@ -85,18 +84,6 @@ const OperationColumInTicketTable = ({
 
     try {
         return (<>
-                {openForwardModal &&
-                  <>
-
-                    <ForwardModalTable
-                        // currentParams={currentParams}
-                      selectedItems={[row?.original]}
-                      closeModal={closeModal}
-                      title={'ارجاع تیکت'}
-                      setReload={() => setMyData({reload: randomNumberGenerator()})}
-                    />
-                  </>
-                }
                 <div className={"flex "}>
                     <div className={'flex gap-1 items-center justify-center'}>
                         <button
@@ -108,7 +95,6 @@ const OperationColumInTicketTable = ({
 
                         {hasAccessToDelete &&< button
                             onClick={deleteButtonHandler}
-
                             className={'text-red-600'}>
 
                             <DeleteButton/>
@@ -116,17 +102,15 @@ const OperationColumInTicketTable = ({
                         {/*}*/}
                     </div>
                     {hasAccessToForward && <div>
-                        <button
-                            onClick={() => {
-                                // setCurrentParams(params)
-                                // console.log(params)
-                                openModal()
-                            }}
-                            className={'mx-1 flex items-center gap-1 p-2 justify-center border border-1 rounded '}
-                        >
-                            <FaShareSquare/>
-                            {/*<span>ارجاع به کاربر</span>*/}
-                        </button>
+                      <ForwardTicketSection
+                          row={row}
+                          setMyData={setMyData}
+                      />
+                    </div>}
+                    {hasAccessToForward && <div>
+                        <ChangeTicketStatusInTable
+                          row={row}
+                        />
                     </div>}
                 </div>
             </>
