@@ -110,6 +110,7 @@ const OperationColumInTicketTable = ({
                     {hasAccessToForward && <div>
                         <ChangeTicketStatusInTable
                           row={row}
+                          setMyData={setMyData}
                         />
                     </div>}
                 </div>
