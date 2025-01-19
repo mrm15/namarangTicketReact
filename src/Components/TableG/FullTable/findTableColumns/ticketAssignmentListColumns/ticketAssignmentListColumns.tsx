@@ -120,9 +120,9 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
 
             accessorKey: 'edit',
             header: 'عملیات',
-            size: 120,
-            minSize: 120,
-            maxSize: 120,
+            size: 150,
+            minSize: 150,
+            maxSize: 150,
             cell: ({row}) => {
                 return <>
                     <OperationColumInTicketTable
