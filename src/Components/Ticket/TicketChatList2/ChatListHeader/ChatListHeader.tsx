@@ -5,9 +5,10 @@ import {useNavigate} from "react-router-dom";
 import {AiOutlineClose, AiOutlineCloseCircle, AiOutlineCloseSquare, AiOutlineIssuesClose} from "react-icons/ai";
 import OperationColumInTicketTable from "../../../TableG/FullTable/components/OperationColumInTicketTable.tsx";
 import ForwardTicketFromChatList from "../ForwardTicketFromChatList/ForwardTicketFromChatList.tsx";
+import ChangeTicketStatusInChatList from "../ChangeTicketStatusInChatList/ChangeTicketStatusInChatList.tsx";
 
 const ChatListHeader: React.FC = () => {
-    const {data} = useChatListContext();
+    const {data,setData} = useChatListContext();
 
     const navigateTo = useNavigate()
     return (
@@ -25,8 +26,8 @@ const ChatListHeader: React.FC = () => {
                 <div className="text-lg font-semibold text-gray-900">{data?.title}</div>
                 <div className="text-xs text-gray-500 flex items-center">
                     <FaBuilding className="mr-1"/>
-                    <div className={"hidden lg:block"}> اولین دپارتمان :</div>
-                    {data?.lastDepartment}
+                    <div className={"hidden lg:block"}> وضعیت سفارش :</div>
+                    {data?.statusName}
                 </div>
                 <div className={"text-gray-500 flex items-center"}>
                     <FaTicketAlt
@@ -48,6 +49,8 @@ const ChatListHeader: React.FC = () => {
 
             </div>
             <ForwardTicketFromChatList data={data} />
+            <ChangeTicketStatusInChatList data={data} setData={setData} />
+
 
         </div>
     );
