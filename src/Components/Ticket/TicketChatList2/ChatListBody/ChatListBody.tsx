@@ -12,6 +12,7 @@ import {ROLES} from "../../../../Pages/ROLES.tsx";
 import toast from "react-hot-toast";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {nanoid} from "@reduxjs/toolkit";
+import MessageTagger from "./MessageTagger/MessageTagger.tsx";
 
 const ChatListBody: React.FC = () => {
     const {setData, data} = useChatListContext();
@@ -92,7 +93,7 @@ const ChatListBody: React.FC = () => {
                         }
 
                         return (
-                            <div key={index} className={` flex ${isSent ? 'justify-end' : 'justify-start'} mb-4`}
+                            <div key={index} className={` flex ${isSent ? 'justify-end' : 'justify-start'} mb-4 `}
 
                             >
                                 <div className={`${isSent ? 'text-right' : 'text-left'} w-10/12 lg:w-1/2`}>
@@ -174,10 +175,18 @@ const ChatListBody: React.FC = () => {
                                             >
                                                 <DeleteButton/>
                                             </div>}
-
-                                        {/* Timestamp */}
-                                        <div className="text-xs text-gray-400 mt-1 w-fit">
-                                            {item.createAt}
+                                        <div className={"flex justify-between rtl  select-none"}>
+                                            <div>
+                                                {/*<MessageTagger*/}
+                                                {/*    // ticketId={}*/}
+                                                {/*    // replyId={}*/}
+                                                {/*    item={item}*/}
+                                                {/*    currentTag={undefined} tags={undefined} />*/}
+                                            </div>
+                                            {/* Timestamp */}
+                                            <div className="text-xs text-gray-400 mt-1 w-fit">
+                                                {item.createAt}
+                                            </div>
                                         </div>
 
                                     </div>
