@@ -19,7 +19,7 @@ const ForwardTicketSection = ({row, setMyData}) => {
                   selectedItems={[row?.original]}
                   closeModal={closeModal}
                   title={'ارجاع تیکت'}
-                  setReload={() => setMyData({reload: randomNumberGenerator()})}
+                  setReload={() => setMyData({reload: randomNumberGenerator(),checkedItems:[]})}
                 />
               </>
             }
