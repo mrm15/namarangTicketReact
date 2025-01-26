@@ -15,6 +15,7 @@ const TicketChatList2 = () => {
 
     const initialDataChatList: TicketType = {
         createAt: "",
+        statusName:"",
         data: [],
         lastChangeTimeStamp: "",
         lastDepartment: "",
