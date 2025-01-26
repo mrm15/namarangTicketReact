@@ -23,6 +23,7 @@ interface MessageType {
 export interface TicketType {
     ticketId: string;
     ticketNumber: number;
+    statusName:string;
     title: string;
     createAt: string;
     lastChangeTimeStamp: string;
