@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ForwardModalTable from "../ForwardModalticketTable/ForwardModalTable.tsx";
 import {randomNumberGenerator} from "../../../../../utils/utilsFunction.tsx";
 import {FiCheckSquare} from "react-icons/fi";
+import ChangeTicketStatusModal from "../ChangeTicketStatusModal/ChangeTicketStatusModal.tsx";
 
 const ChangeTicketStatusInTable = ({row,setMyData}) => {
 
@@ -13,12 +14,12 @@ const ChangeTicketStatusInTable = ({row,setMyData}) => {
         <div>
             {openForwardModal &&
               <>
-                <ForwardModalTable
+                <ChangeTicketStatusModal
                     // currentParams={currentParams}
                   selectedItems={[row?.original]}
                   closeModal={closeModal}
                   title={'ارجاع تیکت'}
-                  setReload={() => setMyData({reload: randomNumberGenerator()})}
+                  setReload={() => setMyData({reload: randomNumberGenerator() , checkedItems:[]})}
                 />
               </>
             }
@@ -32,8 +33,6 @@ const ChangeTicketStatusInTable = ({row,setMyData}) => {
                 title={"تغییر وضعیت"}
             >
                 <FiCheckSquare />
-
-                {/*<span>ارجاع به کاربر</span>*/}
             </button>
         </div>
     );
