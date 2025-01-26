@@ -3,6 +3,7 @@ import ForwardModal from "../../ForwardModal/ForwardModal.tsx";
 import {TableGContext} from "../../../TableG/TableGContext.tsx";
 import ForwardModalTable from "../../../TableG/FullTable/components/ForwardModalticketTable/ForwardModalTable.tsx";
 import {randomNumberGenerator} from "../../../../utils/utilsFunction.tsx";
+import ChangeStatusGroup from "./ChangeStatusGroup.tsx";
 
 const ForwardTicketContainer = () => {
 
@@ -16,7 +17,7 @@ const ForwardTicketContainer = () => {
     }
 
     return (
-        <div>
+        <div className={"flex gap-1"}>
 
             <button
                 onClick={openModal}
@@ -34,6 +35,7 @@ const ForwardTicketContainer = () => {
 
 
             />}
+            <ChangeStatusGroup />
         </div>
     );
 };
