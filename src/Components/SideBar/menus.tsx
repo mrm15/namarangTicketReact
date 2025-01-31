@@ -8,7 +8,7 @@ import {
 import {PAGES} from "../../Pages/Route-string";
 import {RiBillLine} from "react-icons/ri";
 import {BsBuildingFill, BsFillModemFill, BsPersonVideo2, BsPiggyBank} from "react-icons/bs";
-import {FaShapes} from "react-icons/fa6";
+import {FaHashtag, FaShapes} from "react-icons/fa6";
 import { MdAssignmentTurnedIn } from "react-icons/md";
 import {FaBeer, FaEnvelope, FaPiggyBank} from "react-icons/fa";
 import { HiInboxArrowDown } from "react-icons/hi2";
@@ -217,6 +217,7 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     //     showItem: roleAccessList?.includes('fileCreate'),
     // },//FaFileCirclePlus
     {name: "لیست فایل", link: PAGES.FILE_LIST, icon: FaFileAlt, showItem: roleAccessList?.includes('fileRead'),},
+    {name: "تگ پیام ها", link: PAGES.messageTagList, icon: FaHashtag , showItem: roleAccessList?.includes(ROLES.messageTagCollection[0]),},
     {name: "لاگ های سیستم", link: PAGES.Logs, icon: PiDetectiveFill, showItem: roleAccessList?.includes(ROLES.fatherAccess[0]),},
 
     //

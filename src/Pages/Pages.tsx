@@ -47,7 +47,8 @@ const Missing = lazy(() => import('../Components/Missing'));
 const Index = lazy(() => import("../Components/GetMoreActiveContacts/Index.tsx"))
 const EditProfileInfo = lazy(() => import("../Components/User/EditProfileInfo/EditProfileInfo.tsx"))
 const Bank = lazy(() => import("../Components/Bank/Bank.tsx"))
-
+const ListMessageTagG = lazy(() => import('../Components/MessageTag/ListMessageTagG.tsx'));
+const AddMessageTag = lazy(() => import('../Components/MessageTag/AddMessageTag.tsx'));
 
 const Pages = () => {
 
@@ -111,7 +112,18 @@ const Pages = () => {
                                 <EditProfileInfo/>
                             </Suspense>
                         }/>
-
+                        <Route element={<RequireAuth allowedRoles={ROLES.messageTagCollection}/>}>
+                            <Route path={PAGES.messageTag_add_edit} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <AddMessageTag/>
+                                </Suspense>
+                            }/>
+                            <Route path={PAGES.messageTagList} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <ListMessageTagG/>
+                                </Suspense>
+                            }/>
+                        </Route>
                         <Route element={<RequireAuth allowedRoles={ROLES.user}/>}>
                             <Route path={PAGES.USER_ADD_EDIT} element={
                                 <Suspense fallback={<Loader/>}>

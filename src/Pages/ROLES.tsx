@@ -1,4 +1,5 @@
 export const ROLES = {
+    messageTagCollection:["messageTagCollection"],
     readAllOfTicketsAssignedToMe:["readAllOfTicketsAssignedToMe"],
     myBankFirstUserId:["myBankFirstUserId"],
     allBanksFirstUserId:["allBanksFirstUserId"],
