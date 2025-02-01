@@ -139,6 +139,25 @@ export const messageTags = (inputs: IInputObject): ColumnDef<any>[] => {
             maxSize: 150,
 
         },
+        {
+            header: () => <div>
+                کد ترتیب
+            </div>,
+            id: "messageTagCode",
+            accessorKey: 'messageTagCode',
+            cell: (cellInfo) => {
+
+                return <>
+                    <RowNumberShow
+                        info={cellInfo}
+                    />
+                </>
+            },
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
+
+        },
 
         {
             header: () => <div>
