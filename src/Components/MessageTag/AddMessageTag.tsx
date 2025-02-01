@@ -91,19 +91,7 @@ const AddMessageTag = () => {
 
 
 
-        // Simulate async operation, e.g., fetching form config
-        // getRoleList().then(roleList =>{
-            updatedFormConfig = updatedFormConfig.map(r=>{
-                const row = {...r}
 
-                if(row.name==='role'){
-                    row.options = getRoleList
-                }
-                if(row.name==='departmentId'){
-                    row.options = getDepartmentList
-                }
-                return row
-            })
 
 
             setMyInitialValuesAddUser(temp)
