@@ -1,4 +1,5 @@
 export const ROLES = {
+    setMessageTagOnRepliesInChat:["setMessageTagOnRepliesInChat"],
     messageTagCollection:["messageTagCollection"],
     readAllOfTicketsAssignedToMe:["readAllOfTicketsAssignedToMe"],
     myBankFirstUserId:["myBankFirstUserId"],
