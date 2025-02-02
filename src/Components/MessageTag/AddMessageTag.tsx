@@ -27,23 +27,8 @@ const AddMessageTag = () => {
     const [myFormikFormAddUser, setMyFormikFormAddUser] = useState([])
     const [myInitialValuesAddUser, setMyInitialValuesAddUser] = useState({})
     // ///////////////////////////////////////////
-
     //////////////////////////////
-
-
-    // @ts-ignore
     const {auth} = useAuth();
-    const myAxiosPrivate = useAxiosPrivate()
-    const getRoleList1 = async () => {
-
-
-        const res = await myAxiosPrivate.get("/role/roleList");
-        return res?.data?.roleList || []
-
-    }
-
-    const getDepartmentList = useList("department/departmentList")
-    const getRoleList = useList("/role/roleList")
 
     useEffect(() => {
 
@@ -104,7 +89,7 @@ const AddMessageTag = () => {
         // setMyFormikFormAddUser(updatedFormConfig);
         // setIsLoading(false);
 
-    }, [auth?.userInfo?.roleAccessList , getDepartmentList , getRoleList]); // Depend on user's role list to re-evaluate form config on change
+    }, [auth?.userInfo?.roleAccessList]); // Depend on user's role list to re-evaluate form config on change
 
 
     const navigateTo = useNavigate()
