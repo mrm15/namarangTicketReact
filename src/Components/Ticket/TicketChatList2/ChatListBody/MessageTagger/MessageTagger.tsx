@@ -2,18 +2,23 @@ import React, {useState} from 'react';
 import {FaTag} from "react-icons/fa6";
 import {useChatListContext} from "../../ChatListContext.tsx";
 import useList from "../../../../../hooks/useList.tsx";
+import useAxiosPrivate from "../../../../../hooks/useAxiosPrivate.tsx";
+import {toast} from "react-hot-toast";
+import {nanoid} from "@reduxjs/toolkit";
 
-const MessageTagger = ({currentTag, item}) => {
+const MessageTagger = ({type, id, currentTag, item}) => {
 
     const {setData, data} = useChatListContext();
     console.log(data)
     const [isOpen, setIsOpen] = useState(false)
 
     const tags = useList("/messageTag/tagsList")
+    console.log(tags)
     const openMenu = () => setIsOpen(true)
     const closeMenu = () => setIsOpen(false)
 
-    const handleChangeTag = (row) => {
+    const myAxios = useAxiosPrivate()
+    const handleChangeTag = async (row) => {
 
         const name = row?.key;
         const value = row?.value;
@@ -27,7 +32,22 @@ const MessageTagger = ({currentTag, item}) => {
             return
         }
 
-        console.log(name)
+        console.log(item)
+        // item.type ===  ticketId  or  ticketReply
+        const url = item.type + "/newTag"
+        const data = {id: item.id, tagId: row.value}
+
+        try {
+            const result = await myAxios.post(url, data);
+            if (result.status === 200) {
+                toast.success(result.data.message)
+                setData({reload: nanoid(12)})
+            } else {
+                toast.error(" کد بازگشتی " + result.status)
+            }
+        } catch (error: any) {
+            toast.error(error?.toString)
+        }
 
 
     }
@@ -40,8 +60,8 @@ const MessageTagger = ({currentTag, item}) => {
                 {isOpen && <div>
                     {tags.map(row => <button
                         onClick={() => handleChangeTag(row)}
-                        className={`mx-1 rounded px-2 ${(currentTag?.id === row?.id) ? " bg-blue-400 " : "  bg-white"}`}
-                        key={row?.id}
+                        className={`mx-1 rounded px-2 ${(currentTag?.value === row?.value) ? " bg-blue-400 " : "  bg-white"}`}
+                        key={row?.value}
                     >{row?.key}</button>)}
                 </div>}
             </div>
