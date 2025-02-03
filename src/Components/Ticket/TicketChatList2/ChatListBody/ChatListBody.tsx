@@ -33,9 +33,9 @@ const ChatListBody: React.FC = () => {
     const {auth} = useAuth()
     const roleAccessList = auth.userInfo?.roleAccessList;
     const hasFatherAccess = roleAccessList.includes(ROLES.fatherAccess[0]);
+    const accessSetMessageTagOnRepliesInChat = roleAccessList.includes(ROLES.setMessageTagOnRepliesInChat[0]);
     const myAxios = useAxiosPrivate()
     const deleteOneReply = async (item) => {
-
 
 
         const isOk = confirm(`
@@ -47,11 +47,10 @@ const ChatListBody: React.FC = () => {
         if (!isOk) {
             return
         }
-        if(item.type!=="ticketReply"){
+        if (item.type !== "ticketReply") {
             toast.error("اولین پیام رو نمیشه حذف کرد اطلاعات خود تیکت اینجا ذخیره شده! ")
             return
         }
-
 
 
         const url = "ticketReply/delete/" + item.id
@@ -112,8 +111,8 @@ const ChatListBody: React.FC = () => {
 
                                     <div className={"transform transition-transform duration-300 hover:translate-x-4"}>
                                         {isHidden && <div className=" flex justify-end">
-                                            <RiSearchFill size={24} color="black"/>
-                                            <PiDetectiveFill size={24} color="black"/>
+                                          <RiSearchFill size={24} color="black"/>
+                                          <PiDetectiveFill size={24} color="black"/>
                                         </div>}
                                     </div>
                                     <div
@@ -169,19 +168,22 @@ const ChatListBody: React.FC = () => {
                                         {/* delete */}
 
                                         {hasFatherAccess &&
-                                            <div
-                                                className={"text-red-600 shadow-white bg-white w-fit p-1 rounded cursor-pointer"}
-                                                onClick={() => deleteOneReply(item)}
-                                            >
-                                                <DeleteButton/>
-                                            </div>}
+                                          <div
+                                            className={"text-red-600 shadow-white bg-white w-fit p-1 rounded cursor-pointer"}
+                                            onClick={() => deleteOneReply(item)}
+                                          >
+                                            <DeleteButton/>
+                                          </div>}
                                         <div className={"flex justify-between rtl  select-none"}>
                                             <div>
-                                                {/*<MessageTagger*/}
-                                                {/*    // ticketId={}*/}
-                                                {/*    // replyId={}*/}
-                                                {/*    item={item}*/}
-                                                {/*    currentTag={undefined} tags={undefined} />*/}
+                                                {accessSetMessageTagOnRepliesInChat &&
+                                                    <MessageTagger
+                                                        type={type}
+                                                        id={id}
+                                                        currentTag={undefined}
+                                                        item={item}
+
+                                                    />}
                                             </div>
                                             {/* Timestamp */}
                                             <div className="text-xs text-gray-400 mt-1 w-fit">
