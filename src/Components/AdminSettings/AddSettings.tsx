@@ -12,6 +12,7 @@ import ForwardTicketsAfterVerify from "./Sections/ForwardTicketsAfterVerify.tsx"
 import {IAdminSettingData} from "./Initial.tsx";
 import SendSMSAfterVerifyBill from "./Sections/SendSMSAfterVerifyBill.tsx";
 import ExceptionListDepartments from "./Sections/ExceptionListDepartments/ExceptionListDepartments.tsx";
+import MessageIdTag from "./Sections/MessageIdTag/MessageIdTag.tsx";
 
 const AddSettings = props => {
 
@@ -35,6 +36,10 @@ const AddSettings = props => {
         sendSMSAfterVerifyBill: false,
         exceptionFromChangeFactorTagList: "",
         loginCodeHack: "",
+        mainFileMessageTagId:"",
+        screenShotMessageTagId:"",
+        billMessageTagId:"",
+        nodeFileMessageId:"",
 
     });
 
@@ -213,7 +218,12 @@ const AddSettings = props => {
                                    onChange={e => setAdminSettingData({loginCodeHack: e.target.value})}
                             />
                         </div>
-
+                        <div className={"border rounded mt-2 px-3"}>
+                            <MessageIdTag stateKey={"mainFileMessageTagId"} title={"تگ مسیج فایل اصلی"} adminSettingData={adminSettingData} setAdminSettingData={setAdminSettingData} />
+                            <MessageIdTag stateKey={"screenShotMessageTagId"} title={"تگ مسیج اسکرین شات"} adminSettingData={adminSettingData} setAdminSettingData={setAdminSettingData} />
+                            <MessageIdTag stateKey={"billMessageTagId"} title={"تگ مسیج فاکتور نهایی"} adminSettingData={adminSettingData} setAdminSettingData={setAdminSettingData} />
+                            <MessageIdTag stateKey={"nodeFileMessageId"} title={"تگ مسیج فایل نودگیری شده"} adminSettingData={adminSettingData} setAdminSettingData={setAdminSettingData} />
+                        </div>
                         <div
                             className={'w-full text-center'}
                         >
