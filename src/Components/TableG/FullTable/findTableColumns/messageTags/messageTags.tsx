@@ -2,18 +2,10 @@ import {IInputObject} from "../findTableColumns";
 import {ROLES} from "../../../../../Pages/ROLES";
 import {ICustomColumn} from "../../../myTableGTypes";
 import {ColumnDef} from "@tanstack/react-table";
-import ContactNumber from "../BasteBandiErsal/ContactNumber";
-import ShowDateFromHesabfa from "../BasteBandiErsal/ShowDateFromHesabfa";
-import NumberFilterInTableG from "../../Filters/NumberFilter/NumberFilterInTableG";
-import {formatNumber, randomNumberGenerator} from "../../../../../utils/utilsFunction";
-import SendStatus from "../BasteBandiErsal/SendStatus";
-import SelectOptionFilter from "../../Filters/SelectOptionFilter/SelectOptionFilter";
-import DatesFilter from "../../Filters/DatesFilter/DatesFilter.tsx";
+import { randomNumberGenerator} from "../../../../../utils/utilsFunction";
 import StringFilter from "../../Filters/StringFilter/StringFilter.tsx";
 import DateShowLtr from "../../components/DateShowltr.tsx";
 import toast from "react-hot-toast";
-import CheckBoxHeader from "../../components/CheckBoxHeader/CheckBoxHeader.tsx";
-import CheckBoxCell from "../../components/CheckBoxCell/CheckBoxCell.tsx";
 import React from "react";
 import {PAGES} from "../../../../../Pages/Route-string.tsx";
 
@@ -152,6 +144,21 @@ export const messageTags = (inputs: IInputObject): ColumnDef<any>[] => {
                         info={cellInfo}
                     />
                 </>
+            },
+            size: 100,
+            minSize: 100,
+            maxSize: 100,
+
+        },
+        {
+            header: () => <div>
+                isActive
+            </div>,
+            id: "isActive",
+            accessorKey: 'isActive',
+            cell: (cellInfo) => {
+
+                return <>{cellInfo.getValue()? "true" : "false"}</>
             },
             size: 100,
             minSize: 100,
