@@ -71,6 +71,28 @@ const ChatListBody: React.FC = () => {
         }
 
     }
+    const removeTag = async (item) => {
+
+        const yes = confirm("آیا از حذف این مورد مطمئنی؟")
+        if (!yes) {
+            return
+        }
+
+        const url = item.type + "/newTag"
+        const data = {id: item.id, tagId: null}
+        try {
+            const result = await myAxios.post(url, data);
+            if (result.status === 200) {
+                toast.success(result.data.message)
+                setData({reload: nanoid(12)})
+            } else {
+                toast.error(" کد بازگشتی " + result.status)
+            }
+        } catch (error: any) {
+            toast.error(error?.toString)
+        }
+
+    }
     return (
         <div className={"telegram__bg__style "}>
             <div className={"telegram__color__bg min-h-screen"}>
@@ -124,6 +146,16 @@ const ChatListBody: React.FC = () => {
                                     >
 
 
+                                        <div className={"w-fit flex "}>
+                                            {item?.messageTagName && <>
+                                              <p
+                                                className={" badge-bg-green-text-white rtl"}>#{item?.messageTagName}</p>
+                                              <button
+                                                onClick={() => removeTag(item)}
+                                                className={"text-red-700"}>&times;</button>
+                                            </>
+                                            }
+                                        </div>
                                         <p>{item.description}</p>
 
                                         {/* File Attachments */}
@@ -177,13 +209,13 @@ const ChatListBody: React.FC = () => {
                                         <div className={"flex justify-between rtl  select-none"}>
                                             <div>
                                                 {accessSetMessageTagOnRepliesInChat &&
-                                                    <MessageTagger
-                                                        type={type}
-                                                        id={id}
-                                                        currentTag={undefined}
-                                                        item={item}
+                                                  <MessageTagger
+                                                    type={type}
+                                                    id={id}
+                                                    currentTag={undefined}
+                                                    item={item}
 
-                                                    />}
+                                                  />}
                                             </div>
                                             {/* Timestamp */}
                                             <div className="text-xs text-gray-400 mt-1 w-fit">
