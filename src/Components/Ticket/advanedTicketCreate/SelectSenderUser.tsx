@@ -21,13 +21,13 @@ const SelectSenderUser = () => {
         enabled: true,
     })
 
-    useEffect(() => {
-
-
-        console.log(query?.data?.data?.list)
-        debugger
-
-    }, [query.data])
+    // useEffect(() => {
+    //
+    //
+    //     console.log(query?.data?.data?.list)
+    //     debugger
+    //
+    // }, [query.data])
 
 
 

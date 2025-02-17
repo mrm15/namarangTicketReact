@@ -48,7 +48,9 @@ const DownloadExcelTable = () => {
             {title: "وضعیت", key: "Status", task: changeTextTo},
             {title: "وضعیت سفارش", key: "Status", task: changeTextToTagSn},
             {title: "توضیحات", key: "des",},
+            {title: "تاریخ بسته بندی", key: "db",},
         ]
+
         excelExport({
             data: newData,
             headers,
