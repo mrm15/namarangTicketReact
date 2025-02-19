@@ -15,6 +15,7 @@ const AdvancedTicketCreateComponent = () => {
                 <FileUploadAdvancedTicket
                     titleOfSection={"آپلود فایل نهایی- تک فایل"}
                     myKey={"files"}
+                    acceptedFormats={[".cdr"]}
                 />
                 <div className={"mt-2"}>&nbsp;</div>
                 <hr/>
