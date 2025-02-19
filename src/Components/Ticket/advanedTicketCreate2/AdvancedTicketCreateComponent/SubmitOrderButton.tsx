@@ -7,145 +7,152 @@ import {uploadFileUtil} from "../../../../utils/upload.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {initialDataAdvancedTicketCreate2} from "../AdvancedTicketTypes.tsx";
 
-const sendUrl = "/ticket/createAdvanced"
+const sendUrl = "/ticket/createAdvanced";
+
 const SubmitOrderButton = () => {
-    const {data, setData} = useAdvancedTicketContext()
-    const myAxiosPrivateFormData = useAxiosPrivateFormData()
-    const myAxios = useAxiosPrivate()
+    const {data, setData} = useAdvancedTicketContext();
+    const myAxiosPrivateFormData = useAxiosPrivateFormData();
+    const myAxios = useAxiosPrivate();
 
     const handleSubmit = async () => {
         console.log(data);
-        const myData = {...data}
+        const myData = {...data};
 
-
+        // Validate required fields
         if (!myData.senderUserId) {
-            toast.error("لطفا یک مشتری انتخاب کنید.")
-            return
+            toast.error("لطفا یک مشتری انتخاب کنید.");
+            return;
         }
         if (!myData.title) {
-            toast.error("عنوان را وارد کنید.")
-            return
+            toast.error("عنوان را وارد کنید.");
+            return;
         }
         if (!myData.description) {
-            toast.error("توضیحات را وارد کنید.")
-            return
+            toast.error("توضیحات را وارد کنید.");
+            return;
         }
         if (myData.files.length === 0) {
-            toast.error("فایل نهایی را بارگزاری کنید.")
-            return
+            toast.error("فایل نهایی را بارگزاری کنید.");
+            return;
         }
         if (myData.files.length > 1) {
-            toast.error("فقط یه فایل به عنوان فایل نهایی قرار دهید.")
-            return
+            toast.error("فقط یه فایل به عنوان فایل نهایی قرار دهید.");
+            return;
         }
         if (myData.screenShot.length === 0) {
-            toast.error("اسکرین شات سفارش را بارگزاری کنید.")
-            return
+            toast.error("اسکرین شات سفارش را بارگزاری کنید.");
+            return;
         }
-        const shotNames = myData.screenShot.map(file => {
-            return file?.name + ","
-        })
 
-        const yes = confirm(`
-          نام مشتری: ${myData.senderUserData}        
+        // Prepare screenshot file names for confirmation
+        const shotNames = myData.screenShot.map(file => file?.name + ",");
+        const confirmMessage = `
+      نام مشتری: ${myData.senderUserData}        
 ------------------------------------------------------------------------  
-        عنوان:   ${myData?.title}
+      عنوان:   ${myData.title}
 ------------------------------------------------------------------------
-        توضیحات:   ${myData?.description}
+      توضیحات:   ${myData.description}
 ------------------------------------------------------------------------
+      فایل:  ${myData.files[0]?.name}
+      سایز:  ${myData.files[0]?.size}
+------------------------------------------------------------------------
+      اسکرین شات:  ${shotNames}
+------------------------------------------------------------------------
+    `;
+        if (!confirm(confirmMessage)) return;
 
-        فایل:  ${myData.files[0]?.name}
-        سایز:  ${myData.files[0]?.size}
-------------------------------------------------------------------------
+        const tempScreenShotUploads: string[] = [];
+        const tempFileUpload: string[] = [];
+        let loadingId;
 
-        اسکرین شات:  ${shotNames}
-------------------------------------------------------------------------
-        `)
-        if (!yes) return;
-        const tempScreenShotUploads = []
-        const tempFileUpload = []
-        let tId;
         try {
-            setData({isSendingRequest: true})
-            // بریم واسه آپلود فایل ها
-            // در این مرحله میریم واسه آپلود فایل ها
-            tId = toast.loading("در حال بارگزاری فایل ها...")
-            for (const myFile of myData.screenShot) {
+            setData({isSendingRequest: true});
+            loadingId = toast.loading("در حال بارگزاری فایل ها...");
+
+            // Upload screenshots
+            for (const shotFile of myData.screenShot) {
                 try {
-                    const responseOfRequest: AxiosResponse<any> | null = await uploadFileUtil(myFile, "screenShotFromAdvancedTicket", myAxiosPrivateFormData);
-                    if (responseOfRequest && responseOfRequest.status === 200) {
-                        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
-                        const fileId: string | undefined = responseOfRequest?.data?.id;
+                    const response: AxiosResponse<any> | null = await uploadFileUtil(
+                        shotFile,
+                        "screenShotFromAdvancedTicket",
+                        myAxiosPrivateFormData
+                    );
+                    if (response && response.status === 200) {
+                        const fileId: string | undefined = response.data?.id;
                         if (fileId) {
                             tempScreenShotUploads.push(fileId);
                         } else {
-                            toast(" شناسه اسکرین شات تعریف نشده")
+                            toast("شناسه اسکرین شات تعریف نشده");
                             return;
                         }
                     } else {
-                        toast(" خطا در بارگزاری شات")
+                        toast("خطا در بارگزاری شات");
                         return;
                     }
                 } catch (error) {
-                    toast(" خطا در بارگزاری شات ----2")
+                    toast("خطا در بارگزاری شات ----2");
                     return;
                 }
             }
+
+            // Upload main file
             try {
-                const singleMainFile = myData.files[0]
-                const responseOfRequest: AxiosResponse<any> | null = await uploadFileUtil(singleMainFile, "mainFileFromAdvancedTicket", myAxiosPrivateFormData);
-                if (responseOfRequest && responseOfRequest.status === 200) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
-                    const fileId: string | undefined = responseOfRequest?.data?.id;
+                const mainFile = myData.files[0];
+                const response: AxiosResponse<any> | null = await uploadFileUtil(
+                    mainFile,
+                    "mainFileFromAdvancedTicket",
+                    myAxiosPrivateFormData
+                );
+                if (response && response.status === 200) {
+                    const fileId: string | undefined = response.data?.id;
                     if (fileId) {
                         tempFileUpload.push(fileId);
                     } else {
-                        toast(" شناسه فایل نهایی تعریف نشده")
+                        toast("شناسه فایل نهایی تعریف نشده");
                         return;
                     }
                 } else {
-                    toast(" خطا در بارگزاری فایل نهایی")
+                    toast("خطا در بارگزاری فایل نهایی");
                     return;
                 }
             } catch (error) {
-                toast(" خطا در بارگزاری فایل نهایی----2")
+                toast("خطا در بارگزاری فایل نهایی----2");
                 return;
             }
 
-            toast.dismiss(tId)
-            console.log(tempScreenShotUploads)
-            console.log(tempFileUpload)
+            toast.dismiss(loadingId);
+            console.log(tempScreenShotUploads, tempFileUpload);
 
-            // بعدش آیدی رو میگیرم میزاریم توی متغیر و سایر اطلاعات رو میفرستیم سمت بک ااند
-            const tIdSubmitOrder = toast.loading("در حال ثبت سفارش...")
+            // Submit order with file upload IDs
+            const submitLoadingId = toast.loading("در حال ثبت سفارش...");
             myData.filesUploadId = tempFileUpload;
             myData.screenShotUploadId = tempScreenShotUploads;
-            const result = await myAxios.post(sendUrl, myData);
-            toast.dismiss(tIdSubmitOrder)
+            const {senderUserData, files, screenShot, ...restObject} = myData;
+            const result = await myAxios.post(sendUrl, {myData: restObject});
+            toast.dismiss(submitLoadingId);
+
             if (result.status === 200) {
-                toast.success(result?.data?.message || "اطلاعات ثبت شد")
-                setData(initialDataAdvancedTicketCreate2)
+                toast.success(result.data?.message || "اطلاعات ثبت شد");
+                setData(initialDataAdvancedTicketCreate2);
             } else {
-                toast.error(result?.data?.message || "اطلاعات ثبت نشد")
+                toast.error(result.data?.message || "اطلاعات ثبت نشد");
             }
         } catch (error) {
-            toast.error(error.toString())
-            console.log(error)
+            toast.error(error.toString());
+            console.log(error);
         }
-
-
-    }
+    };
 
     const handleReset = () => {
-        setData(initialDataAdvancedTicketCreate2)
+        setData(initialDataAdvancedTicketCreate2);
+    };
 
-    }
     return (
-        <div className={" flex justify-center my-3.5"}>
-            <button className={"btn-submit-mir"} onClick={handleSubmit}>
+        <div className="flex justify-center my-3.5">
+            <button className="btn-submit-mir" onClick={handleSubmit}>
                 تایید و ارسال برای فاکتور
             </button>
-            <button className={"btn-gay-mir"} onClick={handleReset}>
+            <button className="btn-gay-mir" onClick={handleReset}>
                 حذف فرم
             </button>
         </div>
