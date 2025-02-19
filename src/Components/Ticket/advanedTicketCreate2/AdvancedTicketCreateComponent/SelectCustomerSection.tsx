@@ -8,7 +8,7 @@ import {useAdvancedTicketContext} from "../AdvancedTicketContext.tsx";
 const SelectCustomerSection = () => {
 
 
-    const {data,setData} = useAdvancedTicketContext()
+    const {data, setData} = useAdvancedTicketContext()
 
     const [myOptions, setMyOptions] = useState([]);
     const userListDetails = useList("user/userListDetails")
@@ -19,9 +19,9 @@ const SelectCustomerSection = () => {
         console.log(userListDetails)
         const temp = userListDetails?.map((row: any) => {
 
-            const label = "" + " " + (row?.name ?? "" )+ " _ " + (row?.familyName ?? "" ) + " _ " + row?.phoneNumber + " _ " + row?.country+ " _ " + row?.province+ " _ " + row?.city;
+            const label = "" + " " + (row?.name ?? "") + " _ " + (row?.familyName ?? "") + " _ " + row?.phoneNumber + " _ " + row?.country + " _ " + row?.province + " _ " + row?.city;
             const value = row._id;
-            return {value, label };
+            return {value, label};
         });
         console.log(temp)
         setMyOptions(temp)
@@ -29,12 +29,17 @@ const SelectCustomerSection = () => {
     }, [userListDetails])
 
     const addToState = (row: any) => {
-
         if (row) {
-            setData({senderUserId:row?._id , senderUserData: row.name + " " + row.familyName + " " +  row.phoneNumber +  " " + (row.city ?? " ") + " "
-                    + (row?.province ?? " ")+ " " +  (row?.country ?? " ")} )
-        }else {
-            setData({senderUserId:"" , senderUserData: ""} )
+            setData({
+                senderUserId: row?.value,
+                senderUserData:
+                // row.name + " " + row.familyName + " " +  row.phoneNumber +  " " + (row.city ?? " ") + " "
+                // + (row?.province ?? " ")+ " " +  (row?.country ?? " ")
+                row.label
+
+            })
+        } else {
+            setData({senderUserId: "", senderUserData: ""})
         }
     }
 
@@ -66,32 +71,36 @@ const SelectCustomerSection = () => {
     );
 
 
-    return (
-        <div>
-            {
-                (!userListDetails) ?
-                    <LittleSpinner/>
-                    :
-                    <div className="w-full">
-                        <Select
-                            value={data.senderUserId}
-                            onChange={addToState}
-                            options={myOptions}
-                            placeholder={'انتخاب مشتری'}
-                            className="z__index2"
-                            isDisabled={false}
-                            isLoading={false}
-                            isClearable={true}
-                            isRtl={true}
-                            // styles={customStyles}
-                            isSearchable={true}
-                            components={{Option: CustomOption}}
-                            // filterOption={filterOption}
+    try {
+        return (
+            <div>
+                {
+                    (!userListDetails) ?
+                        <LittleSpinner/>
+                        :
+                        <div className="w-full">
+                            <Select
+                                value={myOptions?.find(option => option.value === data.senderUserId) || null}
+                                onChange={addToState}
+                                options={myOptions}
+                                placeholder={'انتخاب مشتری'}
+                                className="z__index2"
+                                isDisabled={false}
+                                isLoading={false}
+                                isClearable={true}
+                                isRtl={true}
+                                // styles={customStyles}
+                                isSearchable={true}
+                                components={{Option: CustomOption}}
+                                // filterOption={filterOption}
 
-                        />
-                    </div>}
-        </div>
-    );
+                            />
+                        </div>}
+            </div>
+        );
+    } catch (error) {
+        return <>{error?.toString()}</>
+    }
 };
 
 export default SelectCustomerSection;

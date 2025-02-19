@@ -4,105 +4,160 @@ import {FaTrash} from "react-icons/fa";
 import {toast} from "react-toastify";
 import {useAdvancedTicketContext} from "../AdvancedTicketContext.tsx";
 
-const FileUploadAdvancedTicket = () => {
+const FileUploadAdvancedTicket = ({
+                                      titleOfSection = "بارگزاری فایل",
+                                      acceptedFormats = [".cdr", ".jpg", ".jpeg", ".png", ".gif", ".tiff", ".tif", ".svg", ".pdf", ".eps"],
+                                      myKey = "files",
+
+                                  }) => {
 
 
+    const {data, setData} = useAdvancedTicketContext()
 
+    const assignFileToState = (newFiles: File[]) => {
+        if (!newFiles || newFiles.length === 0) return;
 
-    const {data,setData} = useAdvancedTicketContext()
-    const acceptedFormats = [".cdr", ".jpg", ".jpeg", ".png", ".gif", ".tiff", ".tif", ".svg", ".pdf", ".eps"];
+        const existingFiles = data[myKey]
+        const maxFileSize = data.maxFileSize; // Maximum file size in MB
 
-    const assignFileToState = (singleFile: File) => {
-
-        // جچم فایل رو چک کنیم اگه از ماکزیمم زیاد تر بود بگم شرمنده آپلود نمیشه
-        if (singleFile) {
-            const fileSizeInMb = bytesToMegabytes(singleFile.size)
-            // if (fileSizeInMb > data.maxFileSize) {
-            //     toast.error(`حجم فایل نمیتواند بیشتر از ${data.maxFileSize} مگابایت باشد`);
-            //     return
+        // Filter out files that are too large
+        const validFiles = newFiles.filter(file => {
+            const fileSizeInMb = bytesToMegabytes(file.size);
+            // if (fileSizeInMb > maxFileSize) {
+            //     toast.error(`حجم فایل "${file.name}" نمیتواند بیشتر از ${maxFileSize} مگابایت باشد`);
+            //     return false;
             // }
-        }
-        const files = [...data.files];
-        files.push(singleFile)
-        setData({...data, files});
-    }
-    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-        event.preventDefault();
-        debugger
-        const droppedFiles = Array.from(event.dataTransfer.files);
-        if (droppedFiles.length > 1) {
-            toast.info('لطفاً فقط یک فایل انتخاب کنید');
+            return true;
+        });
+
+        if (validFiles.length === 0) return;
+
+        // Filter out duplicate files
+        const uniqueFiles = validFiles.filter(newFile =>
+            !existingFiles.some(existingFile =>
+                existingFile.name === newFile.name && existingFile.size === newFile.size
+            )
+        );
+
+        if (uniqueFiles.length === 0) {
+            toast.warning("همه فایل‌های انتخاب‌شده قبلاً آپلود شده‌اند");
             return;
         }
-        const singleFile = droppedFiles[0]
+
+        // Add new unique files to the state
+        setData({[myKey]: [...existingFiles, ...uniqueFiles]});
+    };
+
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+
+        const droppedFiles = Array.from(event.dataTransfer.files);
+        // if (droppedFiles.length > 1) {
+        //     toast.info('لطفاً فقط یک فایل انتخاب کنید');
+        //     return;
+        // }
+        // const singleFile = droppedFiles[0]
         // const files = [...ticketData.files, ...droppedFiles];
         // setTicketData({...ticketData, files});
-        assignFileToState(singleFile)
+        assignFileToState(droppedFiles)
 
     };
 
     const handleRemoveFile = (index: number) => {
-        const files = data.files
+        const files = data[myKey]
         files.splice(index, 1)
-        setData({...data, files})
+        setData({[myKey]: files})
 
     }
 
     return (
         <div>
-            <div
-                className="mt-2 p-2 bg-gray-100 bg-opacity-30 border border-gray-300 rounded-md  ">
-                <div>پسوند های مجاز برای آپلود فایل:</div>
-                <div className={"ltr text-center flex flex-wrap"}>
-                    {acceptedFormats.map((ext, index) => (
-                        <span
-                            key={index}
-                            className="text-gray-700 text-sm mr-2 bg-gray-400 bg-opacity-30 px-2 rounded my-1"
-                        >{ext}</span>
-                    ))}
-                </div>
-
-            </div>
-            <div className={"flex gap-2 items-center  bg-white p-2 ltr"}>
-                {data?.files?.map((file: any, index: any) => <div key={index}
-                                                                  className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center"}
-                ><FaTrash
-                    onClick={() => handleRemoveFile(index)}
-                    className={'text-red-600'}/>
-                    <div>{file?.name}</div>
-                </div>)}
-            </div>
             <div className="div__group__input_select w-full">
-                <label htmlFor={`file912`}>بارگزاری فایل</label>
+                <label htmlFor={`file912${myKey}`}>{titleOfSection}</label>
                 <input
+                    id={`file912${myKey}`}
                     onChange={(e) => {
-                        assignFileToState(e.target.files[0])
-                    }}                    multiple={true}
-                    id={`file912`} type="file"
+                        if (e.target.files) {
+                            assignFileToState(Array.from(e.target.files));
+                            e.target.value = ""; // Clear the input to allow re-selection of the same files
+                        }
+                    }}
+
+                    multiple={true}
+
+                    type="file"
                     accept={acceptedFormats.join(", ")}
                     className="w-100 rounded border-2 hidden"
 
                 />
 
 
-                <div className={'flex items-center'}>
-                    <label htmlFor={`file912`}
-                           className={'customFileLabel cursor-pointer w-full'}
+                <div className={' border-2 rounded flex justify-center items-center'}>
+                    <label htmlFor={`file912${myKey}`}
+                           className={'cursor-pointer w-full'}
                     >
                         <div
-                            className="same__input w-full "
+                            className="w-full flex gap-2 my-4  items-center"
                             onDrop={handleDrop}
                             onDragOver={handleDragOver}>
-                            بکشید و رها کنید...
+                            <div className={"w-36"}>
+                                <input
+                                    className={"same__input w-32"}
+                                    placeholder={" فایل ها رو Paste کنید."}
+                                    type="text"
+                                    onChange={e => {
+                                        console.log("")
+                                    }}
+                                    value={""}
+                                    onPaste={(e) => {
+                                        const items = e.clipboardData?.items;
+                                        const files: File[] = [];
+                                        if (items) {
+                                            for (const item of items) {
+                                                if (item.kind === "file") {
+                                                    const file = item.getAsFile();
+                                                    if (file) files.push(file);
+                                                }
+                                            }
+                                        }
+
+                                        if (files.length > 0) {
+                                            assignFileToState(files); // Ensure an array is passed
+                                        }
+                                    }}
+                                />
+                            </div>
+
+                            <div className={"bg-gray-200 border-2 border-gray-500 w-80 px-3 py-2.5 rounded "}>
+                                <div className={"opacity-50"}>کلیک کنید یا بکشید و رها کنید...</div>
+                            </div>
                         </div>
-
                     </label>
+                    <div className={"flex gap-2 items-center   p-2 ltr select-none"}>
+                        {data?.[myKey]?.map((file: any, index: any) => <div key={index}
+                                                                            className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center"}
+                        ><FaTrash
+                            onClick={() => handleRemoveFile(index)}
+                            className={'text-red-600'}/>
 
-
+                            {file.type.startsWith("image/") ? (
+                                <a target="_blank" rel="noopener noreferrer" href={URL.createObjectURL(file)}>
+                                    <img src={URL.createObjectURL(file)} alt={file.name}
+                                         className="w-32 h-32 object-cover rounded ml-2"/>
+                                </a>
+                            ) : (
+                                <a href={URL.createObjectURL(file)} download={file.name}
+                                   className="text-blue-500 underline">
+                                    {file?.name}
+                                </a>
+                            )}
+                        </div>)}
+                    </div>
                 </div>
 
 
             </div>
+
         </div>
     );
 };

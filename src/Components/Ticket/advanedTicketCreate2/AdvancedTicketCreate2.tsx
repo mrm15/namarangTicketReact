@@ -12,6 +12,7 @@ const AdvancedTicketCreate2 = () => {
         description: '',
         // فایل نهایی یا فایل های نهایی
         files: [],
+        filesUploadId: [],
         // فایل رو کی فرستاده و قراره توی پنل کی نشون بدیم که این فایل مال تو بوده ینی فرستنده فایل
         senderUserId: '',
         senderUserData: "",
@@ -21,6 +22,7 @@ const AdvancedTicketCreate2 = () => {
         maxFileSize: 0,
         // فایل های شات
         screenShot: [],
+        screenShotUploadId: [],
         // آیا پروسه داره آپلود میشه؟
         isSendingRequest: false,
     }

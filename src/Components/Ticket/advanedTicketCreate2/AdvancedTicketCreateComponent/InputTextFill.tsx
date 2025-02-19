@@ -8,7 +8,7 @@ const InputTextFill = ({myKey, placeholder = "" , title}) => {
 
     return (
         <div>
-            <div className="div__group__input_select w-full mt-8">
+            <div className="div__group__input_select w-full ">
                 <label htmlFor={myKey}>{title}</label>
                 <input
                     name={myKey}
