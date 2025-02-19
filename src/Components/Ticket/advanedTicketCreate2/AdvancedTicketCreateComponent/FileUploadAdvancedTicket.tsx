@@ -132,8 +132,9 @@ const FileUploadAdvancedTicket = ({
                         </div>
                     </label>
                     <div className={"flex gap-2 items-center   p-2 ltr select-none"}>
-                        {data?.[myKey]?.map((file: any, index: any) => <div key={index}
-                                                                            className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center"}
+                        {data?.[myKey]?.map((file: any, index: any) => <div
+                            key={index}
+                            className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center w-fit whitespace-nowrap  max-w-md"}
                         >
                             <div>
                                 <FaTrash
