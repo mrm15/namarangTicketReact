@@ -82,9 +82,7 @@ const FileUploadAdvancedTicket = ({
                             e.target.value = ""; // Clear the input to allow re-selection of the same files
                         }
                     }}
-
                     multiple={true}
-
                     type="file"
                     accept={acceptedFormats.join(", ")}
                     className="w-100 rounded border-2 hidden"
@@ -136,10 +134,12 @@ const FileUploadAdvancedTicket = ({
                     <div className={"flex gap-2 items-center   p-2 ltr select-none"}>
                         {data?.[myKey]?.map((file: any, index: any) => <div key={index}
                                                                             className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center"}
-                        ><FaTrash
-                            onClick={() => handleRemoveFile(index)}
-                            className={'text-red-600'}/>
-
+                        >
+                            <div>
+                                <FaTrash
+                                    onClick={() => handleRemoveFile(index)}
+                                    className={'text-red-600'}/>
+                            </div>
                             {file.type.startsWith("image/") ? (
                                 <a target="_blank" rel="noopener noreferrer" href={URL.createObjectURL(file)}>
                                     <img src={URL.createObjectURL(file)} alt={file.name}
