@@ -5,6 +5,7 @@ import useAxiosPrivateFormData from "../../../../hooks/useAxiosPrivateFormData.t
 import {AxiosResponse} from "axios";
 import {uploadFileUtil} from "../../../../utils/upload.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
+import {initialDataAdvancedTicketCreate2} from "../AdvancedTicketTypes.tsx";
 
 const sendUrl = "/ticket/createAdvanced"
 const SubmitOrderButton = () => {
@@ -26,7 +27,7 @@ const SubmitOrderButton = () => {
             return
         }
         if (!myData.description) {
-            toast.error("عنوان را وارد کنید.")
+            toast.error("توضیحات را وارد کنید.")
             return
         }
         if (myData.files.length === 0) {
@@ -123,6 +124,7 @@ const SubmitOrderButton = () => {
             toast.dismiss(tIdSubmitOrder)
             if (result.status === 200) {
                 toast.success(result?.data?.message || "اطلاعات ثبت شد")
+                setData(initialDataAdvancedTicketCreate2)
             } else {
                 toast.error(result?.data?.message || "اطلاعات ثبت نشد")
             }
@@ -133,10 +135,18 @@ const SubmitOrderButton = () => {
 
 
     }
+
+    const handleReset = () => {
+        setData(initialDataAdvancedTicketCreate2)
+
+    }
     return (
         <div className={" flex justify-center my-3.5"}>
             <button className={"btn-submit-mir"} onClick={handleSubmit}>
                 تایید و ارسال برای فاکتور
+            </button>
+            <button className={"btn-gay-mir"} onClick={handleReset}>
+                حذف فرم
             </button>
         </div>
     );
