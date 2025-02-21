@@ -7,7 +7,7 @@ import SubmitOrderButton from "./SubmitOrderButton.tsx";
 const AdvancedTicketCreateComponent = () => {
     return (
         <div className={"flex justify-center"}>
-            <div className={"sm:w-100 md:w-1024 p-3 border-2 "}>
+            <div className={"sm:w-100 md:w-1280 p-3 border-2 "}>
                 <SelectCustomerSection/>
                 <InputTextFill myKey={"title"} placeholder={"عنوان سفارش را وارد کنید"} title={"عنوان سفارش"}/>
                 <InputTextFill myKey={"description"} placeholder={"توضیحات سفارش را اینجا وارد کنید"}
