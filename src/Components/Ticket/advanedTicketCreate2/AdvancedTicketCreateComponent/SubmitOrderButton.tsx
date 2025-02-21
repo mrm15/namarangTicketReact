@@ -144,6 +144,19 @@ const SubmitOrderButton = () => {
     };
 
     const handleReset = () => {
+
+        const yes = confirm(` مطمئن هستی که میخوای کل فرم رو پاک کنی؟؟؟
+        
+        کل فرم پاک میشه و  باید از اول اطلاعات رو وارد کنی.
+        
+        `)
+
+
+        if (!yes) {
+            return
+        }
+
+
         setData(initialDataAdvancedTicketCreate2);
     };
 
