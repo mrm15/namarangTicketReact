@@ -24,6 +24,7 @@ const AddSettings = props => {
     const [isLoading, setIsLoading] = useState(true);
     const [adminSettingData, setAdminSettingData] = useObjectDataHolder<IAdminSettingData>({
         firstDestinationForTickets: '',
+        billDepartmentId: '',
         showUsersListInSendTicketForm: true,
         firstStatusTicket: '', // وضعیت اولیه تیکت ها
         maxFileSize: '',
@@ -115,6 +116,19 @@ const AddSettings = props => {
                                 value={adminSettingData.firstDestinationForTickets}
                                 onChange={event => setAdminSettingData({firstDestinationForTickets: event.target.value})}
                                 name="firstDestinationOfTickets" id="firstDestinationOfTickets">
+                                <option value="">انتخاب کنید</option>
+                                {departmentList.map((row: {
+                                    value: string | number | readonly string[];
+                                    key: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal;
+                                }, index: React.Key) => <option key={index} value={row.value}>{row?.key}</option>)}
+                            </select>
+                        </div>
+                        <div className='div__group__input_select'>
+                            <label htmlFor={'billDepartmentId'}>{'دپارتمان فاکتورها چه نامی داره؟؟؟ جاهایی که توی  سیستم لازم داریم از اینجا میگیریم.'}</label>
+                            <select
+                                value={adminSettingData.billDepartmentId}
+                                onChange={event => setAdminSettingData({billDepartmentId: event.target.value})}
+                                name="billDepartmentId" id="billDepartmentId">
                                 <option value="">انتخاب کنید</option>
                                 {departmentList.map((row: {
                                     value: string | number | readonly string[];
