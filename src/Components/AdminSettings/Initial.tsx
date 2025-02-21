@@ -1,5 +1,6 @@
 export interface IAdminSettingData {
     firstDestinationForTickets: string;
+    billDepartmentId: string;
     showUsersListInSendTicketForm: boolean,
     firstStatusTicket: string;
     maxFileSize: string;
