@@ -126,12 +126,12 @@ const FileUploadAdvancedTicket = ({
                                 />
                             </div>
 
-                            <div className={"bg-gray-200 border-2 border-gray-500 w-80 px-3 py-2.5 rounded "}>
+                            <div className={"bg-gray-200 border-2 border-gray-500 w-52 px-3 py-2.5 rounded "}>
                                 <div className={"opacity-50"}>کلیک کنید یا بکشید و رها کنید...</div>
                             </div>
                         </div>
                     </label>
-                    <div className={"flex gap-2 items-center   p-2 ltr select-none"}>
+                    <div className={"flex flex-wrap gap-2 items-center   p-2 ltr select-none"}>
                         {data?.[myKey]?.map((file: any, index: any) => <div
                             key={index}
                             className={"py-2 rounded border-2 px-2 ltr font-mono flex items-center w-fit whitespace-nowrap  max-w-md"}
