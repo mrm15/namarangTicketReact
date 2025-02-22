@@ -6,6 +6,7 @@ import {AxiosResponse} from "axios";
 import {uploadFileUtil} from "../../../../utils/upload.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
 import {initialDataAdvancedTicketCreate2} from "../AdvancedTicketTypes.tsx";
+import LittleSpinner from "../../../Loader/LittleSpinner.tsx";
 
 const sendUrl = "/ticket/createAdvanced";
 
@@ -13,6 +14,14 @@ const SubmitOrderButton = () => {
     const {data, setData} = useAdvancedTicketContext();
     const myAxiosPrivateFormData = useAxiosPrivateFormData();
     const myAxios = useAxiosPrivate();
+
+
+    // تبدیل سایز فایل به فرمت خوانا (KB/MB)
+    const formatFileSize = (size: number) => {
+        const kb = size / 1024;
+        return kb < 1024 ? `${kb.toFixed(2)} KB` : `${(kb / 1024).toFixed(2)} MB`;
+    };
+
 
     const handleSubmit = async () => {
         console.log(data);
@@ -44,58 +53,59 @@ const SubmitOrderButton = () => {
             return;
         }
 
-        // Prepare screenshot file names for confirmation
-        const shotNames = myData.screenShot.map(file => file?.name + ",");
+        // Prepare a confirmation message to let the user review the order details
+        const shotNames = myData.screenShot.map(file => file?.name).join(", ");
         const confirmMessage = `
-      نام مشتری: ${myData.senderUserData}        
-------------------------------------------------------------------------  
-      عنوان:   ${myData.title}
-------------------------------------------------------------------------
-      توضیحات:   ${myData.description}
-------------------------------------------------------------------------
-      فایل:  ${myData.files[0]?.name}
-      سایز:  ${myData.files[0]?.size}
-------------------------------------------------------------------------
-      اسکرین شات:  ${shotNames}
-------------------------------------------------------------------------
-    `;
+    نام مشتری: ${myData.senderUserData}        
+------------------------------------------------------------
+    عنوان:   ${myData.title}
+------------------------------------------------------------
+    توضیحات:   ${myData.description}
+------------------------------------------------------------
+    فایل:  ${myData.files[0]?.name}
+    
+     - سایز: ${formatFileSize(myData.files[0]?.size)}
+------------------------------------------------------------
+    اسکرین شات:  ${shotNames}
+------------------------------------------------------------
+  `;
         if (!confirm(confirmMessage)) return;
 
+        // Temporary arrays to hold uploaded file IDs
         const tempScreenShotUploads: string[] = [];
         const tempFileUpload: string[] = [];
-        let loadingId;
+
+        let loadingId: string;
+        let submitLoadingId: string;
 
         try {
+            // Set a flag to indicate the request is in progress
             setData({isSendingRequest: true});
             loadingId = toast.loading("در حال بارگزاری فایل ها...");
 
-            // Upload screenshots
-            for (const shotFile of myData.screenShot) {
+            // Upload screenshots in parallel using Promise.all
+            const screenshotUploadPromises = myData.screenShot.map(async (shotFile) => {
                 try {
                     const response: AxiosResponse<any> | null = await uploadFileUtil(
                         shotFile,
                         "screenShotFromAdvancedTicket",
                         myAxiosPrivateFormData
                     );
-                    if (response && response.status === 200) {
-                        const fileId: string | undefined = response.data?.id;
-                        if (fileId) {
-                            tempScreenShotUploads.push(fileId);
-                        } else {
-                            toast("شناسه اسکرین شات تعریف نشده");
-                            return;
-                        }
+                    if (response && response.status === 200 && response.data?.id) {
+                        return response.data.id;
                     } else {
-                        toast("خطا در بارگزاری شات");
-                        return;
+                        throw new Error("خطا در بارگزاری شات");
                     }
                 } catch (error) {
-                    toast("خطا در بارگزاری شات ----2");
-                    return;
+                    throw new Error("خطا در بارگزاری شات ----2");
                 }
-            }
+            });
 
-            // Upload main file
+            // Wait for all screenshots to upload
+            const uploadedScreenShots = await Promise.all(screenshotUploadPromises);
+            tempScreenShotUploads.push(...uploadedScreenShots);
+
+            // Upload the main file
             try {
                 const mainFile = myData.files[0];
                 const response: AxiosResponse<any> | null = await uploadFileUtil(
@@ -103,34 +113,37 @@ const SubmitOrderButton = () => {
                     "mainFileFromAdvancedTicket",
                     myAxiosPrivateFormData
                 );
-                if (response && response.status === 200) {
-                    const fileId: string | undefined = response.data?.id;
-                    if (fileId) {
-                        tempFileUpload.push(fileId);
-                    } else {
-                        toast("شناسه فایل نهایی تعریف نشده");
-                        return;
-                    }
+                if (response && response.status === 200 && response.data?.id) {
+                    tempFileUpload.push(response.data.id);
                 } else {
-                    toast("خطا در بارگزاری فایل نهایی");
+                    toast.error("خطا در بارگزاری فایل نهایی");
                     return;
                 }
             } catch (error) {
-                toast("خطا در بارگزاری فایل نهایی----2");
+                toast.error("خطا در بارگزاری فایل نهایی----2");
                 return;
             }
 
             toast.dismiss(loadingId);
             console.log(tempScreenShotUploads, tempFileUpload);
 
-            // Submit order with file upload IDs
-            const submitLoadingId = toast.loading("در حال ثبت سفارش...");
+            // Prepare data for order submission with the uploaded file IDs
             myData.filesUploadId = tempFileUpload;
             myData.screenShotUploadId = tempScreenShotUploads;
-            const {senderUserData, files, screenShot, ...restObject} = myData;
-            const result = await myAxios.post(sendUrl, {myData: restObject});
+            const payload = {
+                title: myData.title,
+                description: myData.description,
+                filesUploadId: myData.filesUploadId,
+                senderUserId: myData.senderUserId,
+                screenShotUploadId: myData.screenShotUploadId,
+            };
+
+            // Submit the order
+            submitLoadingId = toast.loading("در حال ثبت سفارش...");
+            const result = await myAxios.post(sendUrl, {myData: payload});
             toast.dismiss(submitLoadingId);
 
+            // Notify user based on response status
             if (result.status === 200) {
                 toast.success(result.data?.message || "اطلاعات ثبت شد");
                 setData(initialDataAdvancedTicketCreate2);
@@ -139,7 +152,12 @@ const SubmitOrderButton = () => {
             }
         } catch (error) {
             toast.error(error.toString());
-            console.log(error);
+            console.error(error);
+        } finally {
+            // Ensure we turn off the loading state
+            toast.dismiss(loadingId)
+            toast.dismiss(submitLoadingId)
+            setData({isSendingRequest: false});
         }
     };
 
@@ -162,10 +180,18 @@ const SubmitOrderButton = () => {
 
     return (
         <div className="flex justify-center my-3.5">
-            <button className="btn-submit-mir" onClick={handleSubmit}>
-                تایید و ارسال برای فاکتور
+            <button className="btn-submit-mir flex gap-2" onClick={handleSubmit}
+                    disabled={data.isSendingRequest}
+            ><>
+                <div></div>
+                {data.isSendingRequest ? <div className="flex gap-2"> در حال ارسال اطلاعات<LittleSpinner/></div>:
+                <>تایید و ارسال برای فاکتور</>
+                }</>
+
             </button>
-            <button className="btn-gay-mir" onClick={handleReset}>
+            <button className="btn-gay-mir" onClick={handleReset}
+                    disabled={data.isSendingRequest}
+            >
                 حذف فرم
             </button>
         </div>
