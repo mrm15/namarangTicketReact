@@ -27,7 +27,9 @@ const Modal = (props) => {
                     top: "50%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    zIndex: 101
+                    zIndex: 101,
+                    maxHeight: "100vh",
+                    overflowY:"auto",
 
                 }}
             >
