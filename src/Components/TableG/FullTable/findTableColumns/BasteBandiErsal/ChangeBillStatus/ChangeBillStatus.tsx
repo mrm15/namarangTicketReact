@@ -134,19 +134,26 @@ const ChangeBillStatus = ({info, setMyData}) => {
                         </div>
 
                         <div
-                            className={"w-full flex flex-wrap my-2"}
+                            className={"w-full flex flex-col my-2 justify-center items-center "}
                         >
                             {canSetTextIntoBillStatus &&
-                                textListArray.map(row => <div
-                                    className={"w-1/5  border border- whitespace-nowrap p-1 fontSize10 cursor-pointer"}
-                                    onClick={() => setNewDescription(lastDES + " " + row.text)}
-                                    key={row.id}>{row.text}</div>)}
+                                textListArray.map(row => <button
+                                    className={"w-1/3 text-center py-1 my-1 rounded  border  whitespace-nowrap p-1 fontSize12 cursor-pointer hover:bg-blue-100"}
+
+                                    onClick={(e) => {
+                                        if (e.detail === 2) {
+                                            setNewDescription(lastDES + " " + row.text)
+                                        }
+
+                                    }}
+
+                                    key={row.id}>{row.text}</button>)}
                         </div>
                         <div className={"div__group__input_select w-full"}>
                             <label htmlFor="">پیام</label>
                             <input
                                 disabled={!canSetTextIntoBillStatus}
-                                className={"w-full "}
+                                className={"w-full fontSize14"}
                                 type="text"
                                 value={newDescription} // Keep lastDES as part of the state
                                 onChange={(e) => {
