@@ -8,6 +8,21 @@ const CalculateData = () => {
     const myLocation = useLocation();
     const {setData, data} = useScreenshotContext()
 
+    const getTicketNumber = (tag:string) => {
+        let ticketNumber = "";
+        try {
+            const tagObject = JSON.parse(tag)
+            ticketNumber = tagObject?.tn || ""
+        } catch (error) {
+            /**/
+        } finally {
+            /**/
+        }
+
+        return ticketNumber
+
+    }
+
 
     useEffect(() => {
         const myDateOnScreenShot = localStorage.getItem("dateOnScreenShot")
@@ -20,6 +35,7 @@ const CalculateData = () => {
         data.tableColumnArray = findNewItemArray(billObject)
         data.fileName = billObject.ContactTitle;
         data.dateOnScreenShot = myDateOnScreenShot
+        data.orderNumber = getTicketNumber(billObject.Tag)
 
         setData(data)
     }, [myLocation])
