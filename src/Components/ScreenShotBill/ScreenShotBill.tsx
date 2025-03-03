@@ -19,6 +19,7 @@ const ScreenShotBill = () => {
         fileNumberText: "",
         fileNameUnique: "",
         tableColumnArray: [],
+        orderNumber:"",
 
     }
 
