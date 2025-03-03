@@ -136,7 +136,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
             accessorKey: 'ticketNumber',
             header: () => {
                 return  <>
-                    <NumberFilterInTableG uniqueId={"ticketNumber"} operator={"="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
+                    <NumberFilterInTableG uniqueId={"ticketNumber"} operator={"==="} property={"ticketNumber"} placeHolder={"شماره تیکت  "} />
                 </>
             },
 
