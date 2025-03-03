@@ -5,11 +5,10 @@ import {toast} from "react-toastify";
 import {ROLES} from "../../../../Pages/ROLES.tsx";
 import {PAGES} from "../../../../Pages/Route-string.tsx";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate.tsx";
-import {deleteBill} from "../../../../config/api.tsx";
+import {deleteBill, getBillData} from "../../../../config/api.tsx";
 import useAuth from "../../../../hooks/useAuth.tsx";
 import {AiOutlineEye} from "react-icons/ai";
-import {FaFileInvoice} from "react-icons/fa";
-import {HiDocumentText} from "react-icons/hi";
+import {FaCamera} from "react-icons/fa";
 
 const BillDataButtonInChatList = ({billData,setReload}) => {
 
@@ -20,6 +19,7 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
     const roleAccessList = auth.userInfo?.roleAccessList;
     const accessToEditBill = roleAccessList.includes(ROLES.editBillInChatList[0])
     const accessToDeleteBill = roleAccessList.includes(ROLES.deleteBill[0])
+    const accessToScreenshot = roleAccessList.includes(ROLES.screenShotBills[0])
 
     const editHandler = () => {
 
@@ -51,6 +51,29 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
         }
     }
 
+    const getBillInvoiceToShot = async (billNumberHere:number)=>{
+
+        // اینجا میریم و اطلاعات فاکتور رو میگیرم که بفرستیم واسه شات
+        let tId;
+
+        try {
+            tId = toast.loading("در حال دریافت اطلاعات اسکرین شات...")
+            const result  = await myAxios.get(getBillData+ billNumberHere);
+
+            if (result.status===200){
+                navigateTo(PAGES.screenshot, {state: {data: {bill: result?.data?.data}}})
+            }else {
+                toast.error(result?.data?.message)
+            }
+
+        }catch (error){
+            toast.error(error.toString)
+        }finally {
+            toast.dismiss(tId)
+        }
+
+    }
+
     return (
         <div className={'mt-3 flex flex-wrap gap-2'}>
             <button
@@ -77,6 +100,17 @@ const BillDataButtonInChatList = ({billData,setReload}) => {
               onClick={deleteHandler}
             > &nbsp;
               حذف فاکتور
+              <small className={''}>{billNumber}</small>
+            </button>}
+            {accessToScreenshot && billStatus===1 &&
+              <button
+              onClick={()=>getBillInvoiceToShot(billNumber)}
+              className={'bg-green-400 text-white rounded p-2 items-center border-green-800  flex gap-1'}
+            >
+                <div><FaCamera size={20} /></div>
+             <div>
+               اسکرین شات فاکتور
+             </div>
               <small className={''}>{billNumber}</small>
             </button>}
 
