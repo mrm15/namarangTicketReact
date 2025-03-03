@@ -27,7 +27,7 @@ const ChangeBillStatus = ({info, setMyData}) => {
     const {auth} = useAuth();
 
 
-    console.log(info.original)
+    //console.log(info.original)
     const currentStatus = info?.row?.original?.sn
 
     const myAccessList = accessFunction(auth, currentStatus)
