@@ -10,6 +10,7 @@ interface IScreenshotBill {
     fileNameUnique: string,
     fileNumberText: string,
     tableColumnArray: any[],
+    orderNumber: string,
 }
 
 export const {
