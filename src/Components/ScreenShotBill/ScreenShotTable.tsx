@@ -64,6 +64,13 @@ const ScreenShotTable = () => {
                             {data?.billData?.Number}
                         </div>
                     </div>
+                    <div className={"text-left flex gap-2 "}>
+                        <div>کد سفارش:
+                        </div>
+                        <div>
+                            {data?.orderNumber}
+                        </div>
+                    </div>
                     <div className={"text-right "}>
                         {currentDate}</div>
                 </div>
