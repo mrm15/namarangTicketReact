@@ -1,125 +1,102 @@
 import React from 'react';
-import {formattedNumber, timestampToTimeFromHesabfa} from "../../../utils/utilsFunction.tsx";
+import { formattedNumber, timestampToTimeFromHesabfa } from "../../../utils/utilsFunction.tsx";
+import Num2persian from 'num2persian';
 import "./billTable.scss"
 
-const BillTable = ({hesabfaBillData}) => {
 
-    let totalSumShow = 0
-    let sumOfNumbers = 0
-    const isVerified = hesabfaBillData?.Status
 
-    const dateShow = timestampToTimeFromHesabfa(hesabfaBillData?.Date)?.split(',')[0]
-    const dueDateShow = timestampToTimeFromHesabfa(hesabfaBillData?.DueDate)?.split(',')[0]
+const BillTable = ({ hesabfaBillData }) => {
+    let totalSumShow = 0;
+    let sumOfNumbers = 0;
+    const isVerified = hesabfaBillData?.Status;
+    const dateShow = timestampToTimeFromHesabfa(hesabfaBillData?.Date)?.split(',')[0];
+    const dueDateShow = timestampToTimeFromHesabfa(hesabfaBillData?.DueDate)?.split(',')[0];
+
     try {
-        return <div className={'bill__table__css '}>
-            <div
-                className={'flex flex-wrap my-3 justify-start gap-2 bill__info ' + `${isVerified ? "verifiedBill" : "unVerifiedBill"}`}>
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}>عنوان مشتری</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.ContactTitle}</div>
-                </div>
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> شماره فاکتور</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.Number}</div>
-                </div>
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> تاریخ</div>
-                    <div className={'bill__info__item__description'}>{dateShow}</div>
-                </div>
-
-                {/*<div className={'bill__info__item'}>*/}
-                {/*    <div className={'bill__info__item_title'}> تاریخ سر رسید</div>*/}
-                {/*    <div className={'bill__info__item__description'}>{dueDateShow}</div>*/}
-                {/*</div>*/}
-
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> کد مشتری</div>
-                    <div className={'bill__info__item__description'}>{Number(hesabfaBillData?.ContactCode)}</div>
-                </div>
-
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> نام مشتری</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.Contact?.Name}</div>
-                </div>
-
-                <div className={'bill__info__item'}>
-                    <div className={'bill__info__item_title'}> استان</div>
-                    <div className={'bill__info__item__description'}>{hesabfaBillData?.Contact?.State}</div>
-                </div>
-
-
-                {/*<div> شهر مشتری:*/}
-                {/*    {hesabfaBillData?.Contact?.City}*/}
-                {/*</div>*/}
-
-                {/*<div className={'bill__info__item'}>*/}
-                {/*    <div className={'bill__info__item_title'}> عنوان پروژه</div>*/}
-                {/*    <div className={'bill__info__item__description'}>{hesabfaBillData?.Project}</div>*/}
-                {/*</div>*/}
-
-                {/*<div className={'bill__info__item'}>*/}
-                {/*    <div className={'bill__info__item_title'}> برچسب</div>*/}
-                {/*    <div className={'bill__info__item__description'}>{hesabfaBillData?.Tag}</div>*/}
-                {/*</div>*/}
-
-            </div>
-            <div>
-                <div className="whitespace-nowrap0">
-                    <div className="  border border-gray-200 ">
-                        <ul className="">
-                            <li className="border border-b-2 border-gray-300 ">رد</li>
-                            <li className="border border-b-2 border-gray-300 px-4 py-2">نام</li>
-                            <li className="border border-b-2 border-gray-300 px-4 py-2">تعداد</li>
-                            <li className="border border-b-2 border-gray-300 px-4 py-2">واحد</li>
-                            <li className="border border-b-2 border-gray-300 px-4 py-2">قیمت واحد</li>
-                            <li className="border border-b-2 border-gray-300 px-4 py-2">جمع کل</li>
-                        </ul>
-                            {hesabfaBillData?.InvoiceItems.map((row, index) => {
-                                const {
-                                    RowNumber,
-                                    Description,
-                                    Quantity,
-                                    Unit,
-                                    UnitPrice,
-                                    Sum,
-                                    TotalAmount,
-                                } = row;
-                                const itemName = row?.Item?.Name
-                                const isEven = (index % 2 === 0)
-                                totalSumShow += TotalAmount
-                                sumOfNumbers += Quantity
-                                return <ul className={isEven ? 'bg-gray-100' : 'bg-white'}>
-                                    <li className="border border-gray-300 text-center">{RowNumber + 1}</li>
-                                    <li className="border border-gray-300  py-2 ">{itemName}</li>
-                                    <li className="border border-gray-300 px-4 py-2">{Quantity}</li>
-                                    <li className="border border-gray-300 px-4 py-2">{Unit}</li>
-                                    <li className="border border-gray-300 px-4 py-2">{formattedNumber(UnitPrice)}</li>
-                                    <li className="border border-gray-300 px-4 py-2">{formattedNumber(TotalAmount)}</li>
-                                </ul>
-                            })}
-                            <ul className={'font-bold'}>
-                                <li className="border border-t-2 border-gray-300  text-center"></li>
-                                <li className="border border-t-2 border-gray-300 px-4 py-2">جمع</li>
-                                <li className="border border-t-2 border-gray-300  py-2">{sumOfNumbers.toFixed(2)}</li>
-                                <li className="border border-t-2 border-gray-300 px-4 py-2"></li>
-                                <li className="border border-t-2 border-gray-300 px-4 py-2"></li>
-                                <li className="border border-t-2 border-gray-300 px-4 py-2 ">{formattedNumber(totalSumShow)}&nbsp;تومان</li>
-                            </ul>
+        return (
+            <div className="w-full max-w-4xl mx-auto font-sans text-gray-800 fontSizeMobile8">
+                {/* Invoice Information */}
+                <div className={`flex flex-wrap gap-4 p-4 rounded-md shadow-lg my-4 ${isVerified ? 'bg-green-100' : 'bg-red-100'}`}>
+                    <div className="flex-1 min-w-[150px] ">
+                        <div className="">عنوان مشتری</div>
+                        <div className="font-bold">{hesabfaBillData?.ContactTitle}</div>
                     </div>
-                    <div className={'w-full text-center p-3'}>
-                        جمع کل فاکتور:
-                        &nbsp;
-                        {formattedNumber(totalSumShow)}
-                        &nbsp;
-                        تومان
+                    <div className="flex-1 ">
+                        <div className=" ">شماره فاکتور</div>
+                        <div className="font-bold">{hesabfaBillData?.Number}</div>
+                    </div>
+                    <div className="flex-1 w-fit">
+                        <div className=" ">تاریخ</div>
+                        <div className="font-bold">{dateShow}</div>
+                    </div>
+                    <div className="flex-1  ">
+                        <div className=" ">کد مشتری</div>
+                        <div className="font-bold">{Number(hesabfaBillData?.ContactCode)}</div>
+                    </div>
+                    <div className="flex-1 min-w-[150px]">
+                        <div className=" ">نام مشتری</div>
+                        <div className="font-bold">{hesabfaBillData?.Contact?.Name}</div>
+                    </div>
+                    <div className="flex-1 ">
+                        <div className=" ">استان</div>
+                        <div className="font-bold">{hesabfaBillData?.Contact?.State}</div>
+                    </div>
+                </div>
+
+                {/* Invoice Table */}
+                <div className="overflow-x-auto ">
+                    <table className="min-w-full bg-white rounded-md shadow-md">
+                        <thead>
+                        <tr className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                            <th className="px-1 py-1 border-b border-gray-200 text-center">#</th>
+                            <th className="px-1 py-1 border-b border-gray-200">نام</th>
+                            <th className="px-1 py-1 border-b border-gray-200">تعداد</th>
+                            <th className="px-1 py-1 border-b border-gray-200 ">واحد</th>
+                            <th className="px-1 py-1 border-b border-gray-200 whitespace-nowrap">قیمت واحد</th>
+                            <th className="px-1 py-1 border-b border-gray-200">جمع کل</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {hesabfaBillData?.InvoiceItems.map((row, index) => {
+                            const { RowNumber, Quantity, Unit, UnitPrice, TotalAmount } = row;
+                            const itemName = row?.Item?.Name;
+                            const isEven = index % 2 === 0;
+                            totalSumShow += TotalAmount;
+                            sumOfNumbers += Quantity;
+                            return (
+                                <tr key={index} className={isEven ? 'bg-gray-50' : 'bg-white'}>
+                                    <td className="px-1 py-1 border border-gray-200 text-center">{RowNumber + 1}</td>
+                                    <td className="px-1 py-1 border border-gray-200 whitespace-nowrap">{itemName}</td>
+                                    <td className="px-1 py-1 border border-gray-200">{Quantity}</td>
+                                    <td className="px-1 py-1 border border-gray-200 whitespace-nowrap">{Unit}</td>
+                                    <td className="px-1 py-1 border border-gray-200">{formattedNumber(UnitPrice)}</td>
+                                    <td className="px-1 py-1 border border-gray-200">{formattedNumber(TotalAmount)}</td>
+                                </tr>
+                            );
+                        })}
+                        </tbody>
+                        <tfoot className="font-bold">
+                        <tr className="bg-gray-200">
+                            <td className="px-1 py-1 border-t border-gray-300 text-center"></td>
+                            <td className="px-1 py-1 border-t border-gray-300">جمع</td>
+                            <td className="px-1 py-1 border-t border-gray-300">{sumOfNumbers.toFixed(2)}</td>
+                            <td className="px-1 py-1 border-t border-gray-300"></td>
+                            <td className="px-1 py-1 border-t border-gray-300"></td>
+                            <td className="px-1 py-1 border-t border-gray-300">
+                                {formattedNumber(totalSumShow)} تومان
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div className="w-full text-center py-4 fontSize10 font-semibold">
+                       <div> جمع کل فاکتور: {formattedNumber(totalSumShow)} تومان</div>
+                        <div>{Num2persian(totalSumShow)} تومان </div>
                     </div>
                 </div>
             </div>
-
-
-        </div>
+        );
     } catch (error) {
-        return <div>{error.toString()}</div>
+        return <div>{error.toString()}</div>;
     }
 };
 

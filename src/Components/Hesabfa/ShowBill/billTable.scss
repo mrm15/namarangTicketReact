@@ -1,6 +1,6 @@
 .bill__table__css {
-  width: 70%;
-  font-size: 14px;
+  //width: 70%;
+  //font-size: 14px;
   margin: 0 auto;
   background-color: #f7f7f7;
   border-radius: 8px;
@@ -55,7 +55,7 @@
 @media (max-width: 768px) {
   .bill__table__css {
     max-width: 100%;
-    font-size: 8px;
+    //font-size: 8px;
 
     padding: 0.5rem;
   }
@@ -81,4 +81,11 @@
 .unVerifiedBill {
   border-top: 3px solid #f5b2b4;
   background-color: #fbeaeb;
+}
+
+
+@media (max-width: 768px) {
+  .fontSizeMobile8{
+    font-size: 8px;
+  }
 }

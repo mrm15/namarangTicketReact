@@ -67,7 +67,11 @@ const Pages = () => {
             <Routes>
                 {/* pages all people can see and no need to sidebar */}
                 {/*<Route path="register" element={<RegisterSMS/>}/>*/}
-
+                <Route path={`${PAGES.showBill}/:factorNumber`} element={
+                    <Suspense fallback={<Loader/>}>
+                        <ShowBill/>
+                    </Suspense>
+                }/>
                 <Route path={PAGES.LOGIN} element={<LoginSMS/>} />
                 <Route path={PAGES.PriceListPage} element={<PriceListPage/>} />
                 <Route path="public/*" element={<PublicPages />} />
@@ -88,11 +92,7 @@ const Pages = () => {
                     <Route path="/" element={<Layout/>}>
                         {/* TicketChatList */}
 
-                        <Route path={`${PAGES.showBill}/:factorNumber`} element={
-                            <Suspense fallback={<Loader/>}>
-                                <ShowBill/>
-                            </Suspense>
-                        }/>
+
                         {/* public routes */}
                         <Route path={"/mali09384642159"} element={<AccountingReports/>}/>
                         <Route path={'/'} element={
