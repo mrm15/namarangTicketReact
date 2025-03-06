@@ -56,7 +56,7 @@ function ProfileInHeader() {
                             className={"border-2 border-white rounded-full overflow-hidden"}>
                             <img style={{
                                 objectFit:"cover",
-                            }} src={`${BASE_URL}/download/${profilePhoto}`} alt="عکس پروفایل"/>
+                            }} src={`${process.env.REACT_APP_FTP_BASE_URL}/${profilePhoto}`} alt="عکس پروفایل"/>
                         </div>
                         : < FaUserCircle size={48}/>}
 
