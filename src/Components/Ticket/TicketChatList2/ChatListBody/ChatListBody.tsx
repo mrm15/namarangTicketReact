@@ -162,7 +162,7 @@ const ChatListBody: React.FC = () => {
                                         <div className="mt-2 space-y-2">
                                             {item.files?.map((file, idx) => {
                                                 const fileSizeInKB = (file.fileSize / 1024).toFixed(2);
-                                                const href = `${process.env.REACT_APP_BASE_URL}/download/${file.filePath}`;
+                                                const href = `${process.env.REACT_APP_FTP_BASE_URL}/${file.filePath}`;
                                                 const isPhoto = file.fileType.startsWith("image");
 
                                                 return (
