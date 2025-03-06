@@ -15,7 +15,7 @@ const ScreenshotButton = () => {
         // Use dom-to-image to capture the screenshot
         domtoimage.toBlob(element).then(blob => {
 
-            const fileName = fullData?.fileNumberText ? fullData?.fileNumberText + `.jpg` : 'codePlease.jpg';
+            const fileName = fullData?.fileNumberText ? fullData?.fileNumberText + "_"+ (fullData?.orderNumber ?? "") + `.jpg` : 'codePlease.jpg';
             // Use FileSaver.js to save the blob as a file
             saveAs(blob, fileName);
 
