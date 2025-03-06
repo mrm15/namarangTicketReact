@@ -4,12 +4,15 @@ import Select, {components} from "react-select";
 import NamarangLogoSvg from "../../../../assets/Svg/NamarangLogoSvg.tsx";
 import LittleSpinner from "../../../Loader/LittleSpinner.tsx";
 import {useAdvancedTicketContext} from "../AdvancedTicketContext.tsx";
+import useAuth from "../../../../hooks/useAuth.tsx";
 
 const SelectCustomerSection = () => {
 
 
     const {data, setData} = useAdvancedTicketContext()
-
+    const { auth } = useAuth();
+    const userData = auth?.userInfo?.userData
+    const showedName = (userData?.name ?? " " ) + " " + (userData.familyName?? " ") ;
     const [myOptions, setMyOptions] = useState([]);
     const userListDetails = useList("user/userListDetails")
     useEffect(() => {
@@ -79,6 +82,17 @@ const SelectCustomerSection = () => {
                         <LittleSpinner/>
                         :
                         <div className="w-full">
+                            <div>
+                                <b>
+                                    «
+
+                                    {showedName}&nbsp;عزیز
+                                    »
+
+                                </b>
+                                لطفا یک مشتری انتخاب کنید:
+
+                            </div>
                             <Select
                                 value={myOptions?.find(option => option.value === data.senderUserId) || null}
                                 onChange={addToState}
