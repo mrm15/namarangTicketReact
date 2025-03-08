@@ -13,6 +13,7 @@ import {IAdminSettingData} from "./Initial.tsx";
 import SendSMSAfterVerifyBill from "./Sections/SendSMSAfterVerifyBill.tsx";
 import ExceptionListDepartments from "./Sections/ExceptionListDepartments/ExceptionListDepartments.tsx";
 import MessageIdTag from "./Sections/MessageIdTag/MessageIdTag.tsx";
+import CustomersRole from "./Sections/CustomersRole.tsx";
 
 const AddSettings = props => {
 
@@ -32,6 +33,7 @@ const AddSettings = props => {
         registerDepartment: '',
         registerRole: '',
         customerDepartment: '',
+        customerRole: '',
         forwardTicketsAfterVerify: '',
         sendSMSAfterSubmitBill: false,
         sendSMSAfterVerifyBill: false,
@@ -203,6 +205,11 @@ const AddSettings = props => {
                                                                                             value={row.value}>{row.key}</option>)}
                             </select>
                         </div>
+                        <CustomersRole
+                            adminSettingData={adminSettingData}
+                            setAdminSettingData={setAdminSettingData}
+                            departmentList={getDepartmentList}
+                        />
                         <RegisterInPanel
                             adminSettingData={adminSettingData}
                             setAdminSettingData={setAdminSettingData}
