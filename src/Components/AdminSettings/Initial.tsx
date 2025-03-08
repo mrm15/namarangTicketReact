@@ -8,6 +8,7 @@ export interface IAdminSettingData {
     registerDepartment: string;
     registerRole: string;
     customerDepartment: string;
+    customerRole: string;
     forwardTicketsAfterVerify: string;
     sendSMSAfterSubmitBill: boolean,
     sendSMSAfterVerifyBill: boolean,
