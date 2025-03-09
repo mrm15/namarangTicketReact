@@ -16,6 +16,7 @@ import Tttttt from "../Components/Tttttt/Tttttt.tsx";
 import PublicPages from "./PublicPages.tsx";
 import LogTableList from "../Components/LogTableList/LogTableList.tsx";
 
+const AddCustomer = lazy(() => import('../Components/User/AddCustomer/AddCustomer.tsx'))
 const MyTicketList = lazy(() => import('../Components/MyTicketList/MyTicketList.tsx'))
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
 const ScreenShotBill = lazy(() => import('../Components/ScreenShotBill/ScreenShotBill.tsx'))
@@ -121,6 +122,13 @@ const Pages = () => {
                             <Route path={PAGES.messageTagList} element={
                                 <Suspense fallback={<Loader/>}>
                                     <ListMessageTagG/>
+                                </Suspense>
+                            }/>
+                        </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.createCustomer}/>}>
+                            <Route path={PAGES.createCustomer} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <AddCustomer />
                                 </Suspense>
                             }/>
                         </Route>
