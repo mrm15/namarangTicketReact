@@ -1,4 +1,5 @@
 export const ROLES = {
+    createCustomer:["createCustomer"],
     setMessageTagOnRepliesInChat:["setMessageTagOnRepliesInChat"],
     messageTagCollection:["messageTagCollection"],
     readAllOfTicketsAssignedToMe:["readAllOfTicketsAssignedToMe"],
