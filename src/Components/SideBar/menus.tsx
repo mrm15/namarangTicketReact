@@ -170,6 +170,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
     //     showItem: roleAccessList?.includes('userCreate'),
     // },
     {
+        name: "افزودن مشتری",
+        link: PAGES.createCustomer,
+        icon: BsPersonVideo2,
+        showItem: roleAccessList?.includes(ROLES.createCustomer[0]),
+    },
+    {
         name: "مشاهده کاربر",
         link: PAGES.USER_LIST,
         icon: BsPersonVideo2,
