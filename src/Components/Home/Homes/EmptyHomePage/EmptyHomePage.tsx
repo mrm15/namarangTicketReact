@@ -24,7 +24,9 @@ const EmptyHomePage = () => {
                 <section className="bg-white p-4 rounded-lg shadow-md mb-6">
                     <h2 className="text-xl font-semibold mb-3">میانبر ها</h2>
 
-                    <div className=" w-fit flex  flex-wrap  gap-2">
+
+
+                         <div className=" w-fit   flex  flex-wrap  gap-2">
 
                         {menus?.filter(row => row.showItem === true).map((menu, i) => {
                             const hasMargin = menu?.margin;
@@ -33,9 +35,17 @@ const EmptyHomePage = () => {
                                 <Link
                                     to={menu?.link}
                                     key={i}
-                                    className={`group flex items-center text-lg font-medium p-4 rounded-md bg-blue-500 hover:bg-blue-700 text-white transition duration-300 ${hasMargin ? "mt-5" : ""}`}
+                                    className={`
+                                    group flex items-center text-lg font-medium p-4 rounded-md bg-gray-100
+                                    border-2
+                                    hover:bg-gray-200 hover:text-black hover:border-gray-400 
+                                    text-blue-800 transition duration-300 
+                                    overflow-hidden
+                                     w-48 h-auto whitespace-nowrap
+                                     ${hasMargin ? "00mt-5" : ""}`
+                                }
                                 >
-                                    <div className="mr-3">
+                                    <div className="">
                                         {React.createElement(menu?.icon, { size: "24" })}
                                     </div>
                                     &nbsp;&nbsp;
@@ -43,6 +53,7 @@ const EmptyHomePage = () => {
                                 </Link>
                             );
                         })}
+
                     </div>
                 </section>
             </div>
