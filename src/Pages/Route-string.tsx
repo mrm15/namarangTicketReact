@@ -1,4 +1,5 @@
 export const PAGES = {
+    createCustomer:"createCustomer",
     messageTagList:"messageTagList",
     messageTag_add_edit:"/messageTag",
     Logs:"logs",
