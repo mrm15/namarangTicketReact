@@ -14,6 +14,7 @@ import useAuth from "../../../hooks/useAuth.tsx";
 import {ROLES} from "../../../Pages/ROLES.tsx";
 import {useNavigate} from "react-router-dom";
 import {PAGES} from "../../../Pages/Route-string.tsx";
+import {localStorageSaver} from "./localStorageSaver.tsx";
 
 const GetSubmitBillData = ({children}) => {
 
@@ -62,7 +63,7 @@ const GetSubmitBillData = ({children}) => {
                 } else {
                     // اینجا باید درخواست بزنم اطلاعات مشتری رو بگیرم که کد داره.
                     // و اونو توی بخش مخاطب بزارم
-                    if(data.billData.ContactCode) {
+                    if (data.billData.ContactCode) {
                         const ContactRequest = await myAxios.get("/hesabfa/getContactData/" + data.billData.ContactCode);
                         data.invoice.Contact = ContactRequest.data.data
                     }
@@ -74,7 +75,7 @@ const GetSubmitBillData = ({children}) => {
                     //     ticketNumber: data.billData.ticketNumber
                     // })
 
-                    const newTag12= detectTagInAddMode({auth,ticketNumber: data.billData.ticketNumber})
+                    const newTag12 = detectTagInAddMode({auth, ticketNumber: data.billData.ticketNumber})
 
                     setData({
                         invoice: {...data.invoice, Tag: newTag12}
@@ -93,23 +94,36 @@ const GetSubmitBillData = ({children}) => {
         void getData()
     }, [data.billNumber, billDetailsData?.data]);
 
+    useEffect(() => {
+        if (data.invoice.InvoiceItems.length === 0) {
+            return
+        }
+        const {
+            invoice: {ContactTitle: title, InvoiceItems: invoiceItems},
+            // billNumber: billId
+        } = data;
+        const billId = title
+        
+        const saveResult = localStorageSaver({title, billId, invoiceItems})
+    }, [data]);
 
-    let topAlert=<></>
+
+    let topAlert = <></>
     const roleAccessList = auth.userInfo?.roleAccessList;
     const hasAccessToTestFactor = roleAccessList?.includes(ROLES.submitBillInSubmitOrderForm[0])
     const testBillCalculatePrice = roleAccessList?.includes(ROLES.testBillCalculatePrice[0])
 
     // اگه هیچکدوم از این مقادیر رو نداده بود میتونم براش فاکتور تستی رو باز کنم.
-    if(!data.billNumber && !data.invoice.ContactCode && hasAccessToTestFactor){
-        topAlert= <div className={"w-full text-center"}>
+    if (!data.billNumber && !data.invoice.ContactCode && hasAccessToTestFactor) {
+        topAlert = <div className={"w-full text-center"}>
             <div className={"badge-bg-blue-text-white  "}>
-                 محاسبه قیمت فاکتور ویژه مشتری VIP
+                محاسبه قیمت فاکتور ویژه مشتری VIP
             </div>
         </div>
     }
 
     const navigateTo = useNavigate()
-    if(!data.billNumber && !data.invoice.ContactCode && !testBillCalculatePrice){
+    if (!data.billNumber && !data.invoice.ContactCode && !testBillCalculatePrice) {
         navigateTo(PAGES.DASHBOARD)
         return null
     }
