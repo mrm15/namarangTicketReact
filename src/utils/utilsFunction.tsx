@@ -377,10 +377,26 @@ export const isMobileDevice = () => {
     return result
 
 }
+export const convertTimestampToPersianDate = (timestamp:Date) => {
+    const currentDate = new Date(timestamp);
+    
+    const formatter = new Intl.DateTimeFormat('fa-IR', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
 
+        // The 'calendar' option is not included here as it's not standard in all environments
+    });
 
+    let formattedDate = formatter.format(currentDate);
 
+    // formattedDate = formattedDate.replaceAll('/', '-');
+    // Assuming numeric.p2e is a function to convert Persian numbers to English
+    formattedDate = numeric.p2e(formattedDate);
 
-
-
-
+    return formattedDate || '';
+}
