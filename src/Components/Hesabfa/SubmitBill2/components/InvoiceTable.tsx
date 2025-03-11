@@ -11,6 +11,7 @@ import calculateTotalSumOfAll from "./calculateTotalSumOfAll.tsx";
 import {FaSortAlphaDown, FaSortAlphaUp} from "react-icons/fa";
 import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 import RowNumber from "./RowNumber/RowNumber.tsx";
+import SaveItemsAndReopen from "./SaveItemsAndReopen.tsx";
 
 
 const InvoiceTable = () => {
@@ -115,7 +116,7 @@ const InvoiceTable = () => {
 
         return (
             <div className={"my-3"}>
-                <div className={"w-full flex justify-end gap-2 mb-2"}>
+                <div className={"w-full flex justify-end gap-2 mb-2 select-none ltr"}>
                     <div className={"btn-white-border-mir"}
                          onClick={() => sortItems({sortKey:"Name", reverseItems:false})}
                     >
@@ -128,6 +129,7 @@ const InvoiceTable = () => {
                         <FaSortAlphaUp  size={16}/>
 
                     </div>
+                    <SaveItemsAndReopen />
                 </div>
 
                 <div className={'InvoiceTableItems'}>
