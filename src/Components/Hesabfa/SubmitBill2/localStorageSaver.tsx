@@ -85,6 +85,10 @@ const updateBill = (
     return bills;
 };
 
+export const deleteBillsFromStorage = ()=>{
+    localStorage.removeItem(invoiceItemsSaverId);
+}
+
 /**
  * The pure function to handle saving invoice items.
  * It retrieves existing bills, updates/adds the current bill, sorts and saves back.
@@ -104,3 +108,5 @@ export const localStorageSaver = (billData: BillInput): boolean => {
     }
     return false;
 };
+
+
