@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FaSave, FaSortAlphaUp} from "react-icons/fa";
 import {useSubmitBillContext} from "../submitBillContext.tsx";
-import {getSavedBills, localStorageSaver} from "../localStorageSaver.tsx";
+import {deleteBillsFromStorage, getSavedBills, localStorageSaver} from "../localStorageSaver.tsx";
 import {toast} from "react-hot-toast";
 import {MdHistory} from "react-icons/md";
 import Modal from "../../../Modal/Modal.tsx";
@@ -39,7 +39,18 @@ const SaveItemsAndReopen = () => {
         closeModal();
     };
 
+    const handleDeleteAllSavedItems = () => {
 
+        if (savedItems.length === 0) {
+            return
+        }
+        const yes = window.confirm('آیا از حذف همه ی فاکتور های ذخیره شده مطمئن هستی؟')
+        if (yes) {
+            deleteBillsFromStorage()
+            closeModal()
+        }
+
+    }
     return (
         <>
             <div className={"btn-white-border-mir"}
@@ -58,6 +69,12 @@ const SaveItemsAndReopen = () => {
                     closeModal={closeModal}
                     title={" لیست آیتم های ذخیره شده فاکتور"}
                 >
+                    {savedItems.length===0 && <div className={"bg-red-200 p-4"}>هیچ فاکتور ذخیره شده ای موجود نیست.</div>}
+                    {savedItems.length!==0 && <button
+                        onClick={handleDeleteAllSavedItems}
+                        className={" rounded btn-small-delete"}>
+                        حذف همه
+                        </button>}
                     <div className={"flex gap-2 w-full  justify-center "}>
                         <table className={"min-w-full divide-y divide-gray-200 border"}>
                             <thead>
