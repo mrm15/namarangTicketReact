@@ -113,13 +113,13 @@ const ShowProductListForSelect = () => {
     };
     const CustomOption = (props) => (
         <components.Option {...props}>
-            <div className={"flex  gap-2 fontSize10 w-80"}>
+            <div className={"flex  gap-2  w-80"}>
                 <div className={" rounded border border-gray-400"}><NamarangLogoSvg width={50} height={50}/></div>
-                <div className={"flex flex-col justify-around"}>
+                <div className={"flex flex-col justify-around fontSize14"}>
                     <div>
                         {props.data.label.split("__")[0]}
                     </div>
-                    <div className={"fontSize10 text-gray-700"}>
+                    <div className={"fontSize12 text-gray-700"}>
                         {props.data.NodeFamily}
 
                     </div>
