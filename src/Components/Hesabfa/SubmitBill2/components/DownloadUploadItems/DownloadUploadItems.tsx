@@ -89,8 +89,12 @@ const DownloadUploadItems = () => {
                         const decryptedData = simpleDecrypt(fileContent, secretKey);
                         const parsedInvoiceItems = JSON.parse(decryptedData);
                         // Update the context with the uploaded invoice items.
-                        setData({ ...data, invoice: { ...data.invoice, InvoiceItems: parsedInvoiceItems } });
-                        toast.success('آیتم‌های جدید بارگزاری شدند.');
+                        if (confirm(`تمامی آیتم های قبلی حذف و آیتم های جدید جایگزین میشود. 
+                          
+                          آیا مطمئن هستید؟؟؟`)){
+                            setData({ ...data, invoice: { ...data.invoice, InvoiceItems: parsedInvoiceItems } });
+                            toast.success('آیتم‌های جدید بارگزاری شدند.');
+                        }
                     }
                 } catch (error) {
                     console.error(error);
