@@ -79,17 +79,17 @@ const BillTable = ({ hesabfaBillData }) => {
                         <tfoot className="font-bold">
                         <tr className="bg-gray-200">
                             <td className="px-1 py-1 border-t border-gray-300 text-center"></td>
-                            <td className="px-1 py-1 border-t border-gray-300">جمع</td>
-                            <td className="px-1 py-1 border-t border-gray-300">{sumOfNumbers.toFixed(2)}</td>
                             <td className="px-1 py-1 border-t border-gray-300"></td>
+                            <td className="px-1 py-1 border-t border-gray-300">{/*sumOfNumbers.toFixed(2)*/}</td>
                             <td className="px-1 py-1 border-t border-gray-300"></td>
-                            <td className="px-1 py-1 border-t border-gray-300">
+                            {/*<td className="px-1 py-1 border-t border-gray-300"></td>*/}
+                            <td className="px-1 py-1 border-t border-gray-300" colSpan={2}>
                                 {formattedNumber(totalSumShow)} تومان
                             </td>
                         </tr>
                         </tfoot>
                     </table>
-                    <div className="w-full text-center py-4 fontSize10 font-semibold">
+                    <div className="w-full text-center py-4 fontSize10 font-semibold flex flex-wrap gap-3 justify-between">
                        <div> جمع کل فاکتور: {formattedNumber(totalSumShow)} تومان</div>
                         <div>{Num2persian(totalSumShow)} تومان </div>
                     </div>
