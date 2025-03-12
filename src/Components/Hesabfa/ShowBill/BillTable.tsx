@@ -2,6 +2,7 @@ import React from 'react';
 import { formattedNumber, timestampToTimeFromHesabfa } from "../../../utils/utilsFunction.tsx";
 import Num2persian from 'num2persian';
 import "./billTable.scss"
+import ContactInfoUnderBillTable from "./ContactInfoUnderBillTable.tsx";
 
 
 
@@ -18,7 +19,7 @@ const BillTable = ({ hesabfaBillData }) => {
                 {/* Invoice Information */}
                 <div className={`flex flex-wrap gap-4 p-4 rounded-md shadow-lg my-4 ${isVerified ? 'bg-green-100' : 'bg-red-100'}`}>
                     <div className="flex-1 min-w-[150px] ">
-                        <div className="">عنوان مشتری</div>
+                        <div className="">عنوان سفارش</div>
                         <div className="font-bold">{hesabfaBillData?.ContactTitle}</div>
                     </div>
                     <div className="flex-1 ">
@@ -93,6 +94,9 @@ const BillTable = ({ hesabfaBillData }) => {
                         <div>{Num2persian(totalSumShow)} تومان </div>
                     </div>
                 </div>
+                <ContactInfoUnderBillTable
+                    isVerified={isVerified}
+                    customerName={hesabfaBillData?.Contact?.Name} />
             </div>
         );
     } catch (error) {
