@@ -12,6 +12,7 @@ import {FaSortAlphaDown, FaSortAlphaUp} from "react-icons/fa";
 import ShowProductListForSelect from "./ShowProductListForSelect.tsx";
 import RowNumber from "./RowNumber/RowNumber.tsx";
 import SaveItemsAndReopen from "./SaveItemsAndReopen.tsx";
+import DownloadUploadItems from "./DownloadUploadItems/DownloadUploadItems.tsx";
 
 
 const InvoiceTable = () => {
@@ -130,6 +131,7 @@ const InvoiceTable = () => {
 
                     </div>
                     <SaveItemsAndReopen />
+                    <DownloadUploadItems />
                 </div>
 
                 <div className={'InvoiceTableItems'}>
