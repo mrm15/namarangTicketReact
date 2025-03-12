@@ -58,7 +58,9 @@ const SaveItemsAndReopen = () => {
             >
                 <FaSave size={16}/>
             </div>
-            <div className={"btn-white-border-mir relative"}
+            <div
+                title={"بازیابی فاکتورهای ذخیره شده"}
+                className={"btn-white-border-mir relative"}
                  onClick={openModal}
             >
                 <MdHistory size={16}/>
