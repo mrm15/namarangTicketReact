@@ -115,6 +115,26 @@ export const ticketAssignmentListColumns = (inputs: IInputObject): ColumnDef<any
 
 
         },
+        {
+            id: "statusName",
+            accessorKey: 'statusName',
+            header: (info) => {
+                return <>
+                    <div>وضعیت</div>
+                    {/*<FilterTextInTable*/}
+                    {/*    placeHolder={"lastChangeTimeStamp"}*/}
+                    {/*    filterKey={"lastChangeTimeStamp"}*/}
+                    {/*    filterType={"date"}*/}
+                    {/*/>*/}
+                </>
+            },
+            size: 200,
+            minSize: 200,
+            maxSize: 200,
+            // hidden: false
+
+
+        },
         // _عملیات
         {
 
