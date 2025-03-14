@@ -26,9 +26,9 @@ const GetSubmitBillData = ({children}) => {
         return temp.data;
     }
     const billDetailsData = useQuery({
-        queryKey: ["billDetailsData"],
+        queryKey: ["billDetailsData"+ (data?.billNumber ?? "")],
         queryFn: () => queryFnGetBillData(getBillData + data.billNumber),
-        staleTime: 100,  // === 60*60*24*1000
+        staleTime: 5*60*1000,  // === 60*60*24*1000
         enabled: Boolean(data.billNumber),
     })
 
