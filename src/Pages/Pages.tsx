@@ -10,12 +10,12 @@ import {lazy, Suspense} from "react"
 import Loader from "../Components/Loader";
 import Skeleton from "../Components/Skeleton/Skeleton.tsx";
 import useAuth from "../hooks/useAuth.tsx";
-import AdvancedTicketCreate2 from "../Components/Ticket/advanedTicketCreate2/AdvancedTicketCreate2.tsx";
 import PriceListPage from "../PriceListPage/PriceListPage.tsx";
 import Tttttt from "../Components/Tttttt/Tttttt.tsx";
 import PublicPages from "./PublicPages.tsx";
 import LogTableList from "../Components/LogTableList/LogTableList.tsx";
 
+const AdvancedTicketCreate2 = lazy(() => import('../Components/Ticket/AdvancedTicketCreate2/AdvancedTicketCreate2.tsx'))
 const AddCustomer = lazy(() => import('../Components/User/AddCustomer/AddCustomer.tsx'))
 const MyTicketList = lazy(() => import('../Components/MyTicketList/MyTicketList.tsx'))
 const AccountingReports = lazy(() => import('../Components/AccountingReports/AccountingReports.tsx'))
