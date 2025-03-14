@@ -30,6 +30,7 @@ const SubmitBill2 = () => {
         ContactName: myStateData?.contactName || "", // if its empty  it is on Edit Mode
         backUrl: myStateData?.backUrl|| -1,
         ticketNumber:myStateData?.ticketNumber ?? "ندارد",
+        titleOfOrder:myStateData?.title ?? "ندارد",
     }
     const todayDate = new DateObject();
     todayDate.setHour(0)
@@ -42,7 +43,7 @@ const SubmitBill2 = () => {
     const invoice = {
         Contact: {},
         Number: componentInfo.billNumber + "",
-        ContactTitle: componentInfo.ContactName, // عنوان مشتری در فرم ثبت سفارش
+        ContactTitle: componentInfo.titleOfOrder, // عنوان مشتری در فرم ثبت سفارش
         Reference: '',
         Date: todayIsoDate,//
         DueDate: todayIsoDate,//
