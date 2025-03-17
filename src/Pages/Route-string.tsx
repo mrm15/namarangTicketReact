@@ -51,6 +51,7 @@ export const PAGES = {
     reportBill:"/reportBill",
     showFactorListInMenu:"/pack-send",
     adminReport:"/adminReport",
+    myDetailsBank:"/detailsBank",
     myBank:"/myBank",
     allBanks:"/allBanks",
     myBankDepartment:"/myBankDepartment",

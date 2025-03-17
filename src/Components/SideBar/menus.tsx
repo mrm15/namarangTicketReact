@@ -109,6 +109,12 @@ export const getMenus=({roleAccessList, isDepartmentAdmin}:any): MenuType => [
         icon: FaPiggyBank,
         showItem: roleAccessList?.includes(ROLES.myBankDepartment[0]),
     },
+    {
+        name: "متراژ ساخت مشتریان",
+        link: PAGES.myDetailsBank,
+        icon: FaPiggyBank,
+        showItem: roleAccessList?.includes(ROLES.fatherAccess[0]),
+    },
     // {
     //     name: "کل تیکت های من",
     //     link: PAGES.ticket_read_my_all_tickets,

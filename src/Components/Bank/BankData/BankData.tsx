@@ -21,24 +21,42 @@ const BankData = () => {
     // Build request URL based on `urlParams`
 
 
+    const findRequestUrl = () => {
+        const myBankKey = PAGES.myBank.split("/")[1];
+        const myBankDepartmentKey = PAGES.myBankDepartment.split("/")[1];
+        const allBanksKey = PAGES.allBanks.split("/")[1];
+        const detailsBankKey = PAGES.myDetailsBank.split("/")[1];
+
+        if (urlParams === myBankKey) {
+            return `banking/${ROLES.myBankFirstUserId}`;
+        }
+
+        if (urlParams === myBankDepartmentKey) {
+            return `banking/${ROLES.myBankDepartment}`;
+        }
+        if(urlParams === allBanksKey){
+            return `banking/${ROLES.allBanksFirstUserId}`;
+        }
+        if(urlParams === detailsBankKey){
+            return `banking/detailsBank`;
+
+        }
+
+        return ""
+
+    };
+
     // Update context state when `requestUrl` changes
     useEffect(() => {
-        const myRequestUrl =
-            urlParams ===PAGES.myBank.split("/")[1]
-                ? `banking/${ROLES.myBankFirstUserId}`
-                : urlParams === PAGES.myBankDepartment.split("/")[1]
-                    ? `banking/${ROLES.myBankDepartment}`
-                    : `banking/${ROLES.allBanksFirstUserId}`;
 
-        console.log(myRequestUrl);
+
 
         setData({
             tableData: [],
-            requestUrl:myRequestUrl,
+            requestUrl:findRequestUrl(),
             reload: nanoid(5),
         });
     }, [urlParams, setData]);
-    console.log(data)
 
     // Query function for fetching data
     const fetchData = async () => {

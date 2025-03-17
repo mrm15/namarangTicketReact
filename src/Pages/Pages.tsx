@@ -388,6 +388,13 @@ const Pages = () => {
                                 </Suspense>
                             }/>
                         </Route>
+                        <Route element={<RequireAuth allowedRoles={ROLES.fatherAccess[0]}/>}>
+                            <Route path={PAGES.myDetailsBank} element={
+                                <Suspense fallback={<Loader/>}>
+                                    <Bank/>
+                                </Suspense>
+                            }/>
+                        </Route>
 
                         <Route path={'/unauthorized'} element={<Unauthorized/>}/>
                     </Route>
