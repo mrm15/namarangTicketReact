@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import DatePicker, {DateObject} from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 // gregorian calendar & locale
 import gregorian from "react-date-object/calendars/gregorian";
 import gregorian_fa from "react-date-object/locales/gregorian_fa";
@@ -29,6 +30,8 @@ interface MyDatePicker2Props {
     onChange: (dates: ConvertedDates | null) => void;
     className?: string;
     placeholder?: string;
+    enableTimePicker?: boolean; // New prop to toggle time selection
+
 }
 
 export default function  (props: MyDatePicker2Props) {
@@ -36,6 +39,7 @@ export default function  (props: MyDatePicker2Props) {
         value = null, // default value is null
         onChange = (x) => console.log(x),
         placeholder = "تاریخ",
+        enableTimePicker= false,
     } = props;
 
     let {className = ""} = props;
@@ -141,6 +145,8 @@ export default function  (props: MyDatePicker2Props) {
         >
             <div className={"relative"}>
                 <DatePicker
+                    plugins={enableTimePicker ? [<TimePicker position="bottom" />] : []} // Conditionally add TimePicker
+                    // format={"MM-DD-YYYY,HH:mm:ss"}
                     value={value} // Controlled value via state
                     onChange={setValue} // Handle change with setValue
                     className={className + " "}
