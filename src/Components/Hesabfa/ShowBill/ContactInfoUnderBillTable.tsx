@@ -57,7 +57,7 @@ const ContactInfoUnderBillTable = ({customerName = "", isVerified = false}) => {
                     title="برای کپی کلیک کنید"
                 >
                     <span
-                        className="font-mono font-extrabold text-gray-800 select-all ltr">6037 9975 9302 6133
+                        className="font-mono font-extrabold text-gray-800 select-all ltr">6037 9975 9302 6132
                     </span>
                     <span className={"fontFamilyIranSans"}>بانک ملی</span>
                     {copied === '6037997593026132' ? <FaCheck size={18} className="text-green-600"/> :
