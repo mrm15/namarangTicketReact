@@ -50,9 +50,9 @@ const ContactInfoUnderBillTable = ({customerName = "", isVerified = false}) => {
             {/* شماره کارت دوم */}
             <div className="space-y-2">
                 <button
-                    onClick={() => copyToClipboard('6037997593026133')}
+                    onClick={() => copyToClipboard('6037997593026132')}
                     className={`flex items-center justify-between fontSize12 gap-2 md:gap-3 rounded-lg p-3 w-full md:w-fit
-                        ${copied === '6037997593026133' ? 'bg-green-100 border border-green-500' : 'bg-gray-100 hover:bg-gray-200 border border-gray-300'}
+                        ${copied === '6037997593026132' ? 'bg-green-100 border border-green-500' : 'bg-gray-100 hover:bg-gray-200 border border-gray-300'}
                         transition-all duration-300 shadow-sm active:scale-95`}
                     title="برای کپی کلیک کنید"
                 >
@@ -60,7 +60,7 @@ const ContactInfoUnderBillTable = ({customerName = "", isVerified = false}) => {
                         className="font-mono font-extrabold text-gray-800 select-all ltr">6037 9975 9302 6133
                     </span>
                     <span className={"fontFamilyIranSans"}>بانک ملی</span>
-                    {copied === '6037997593026133' ? <FaCheck size={18} className="text-green-600"/> :
+                    {copied === '6037997593026132' ? <FaCheck size={18} className="text-green-600"/> :
                         <MdContentCopy size={18} className="text-blue-500"/>}
                 </button>
             </div>
