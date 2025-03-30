@@ -102,7 +102,7 @@ export const readLogs = (inputs: IInputObject): ColumnDef<any>[] => {
             header: () => <div>
                 <StringFilter
                     uniqueId={"name"}
-                    operator={"="}
+                    operator={"*"}
                     property={"name"}
                     placeHolder={"نام کاربر در لحظه ثبت"}
                 />
