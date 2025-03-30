@@ -190,6 +190,7 @@ export const ticketlistColumns = (inputs: IInputObject): ColumnDef<any>[] => {
                 return <div>
                     {/*<div>تاریخ ثبت سفارش</div>*/}
                     <DatesFilter
+                        enableTimePicker={false}
                         property={"createAt"}
                         model = {"advanced"}
                         dateFormatValue = {"jsDate"}
