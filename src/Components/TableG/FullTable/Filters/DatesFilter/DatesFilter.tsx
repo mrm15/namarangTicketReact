@@ -24,7 +24,8 @@ const op = {
 const DatesFilter = ({
                          property,
                          model = "advanced",
-                         dateFormatValue = "jsDate"
+                         dateFormatValue = "jsDate",
+                         enableTimePicker=false,
                      }) => {
 
     const context = useContext(TableGContext);
@@ -119,6 +120,7 @@ const DatesFilter = ({
     if (model !== "advanced") {
 
         return <MyDatePicker2
+            enableTimePicker={enableTimePicker}
             onChange={(singleDate) => {
                 const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
                 const value0 = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate;
@@ -132,6 +134,7 @@ const DatesFilter = ({
 
         const content = <>
             <MyDatePicker2
+                enableTimePicker={enableTimePicker}
                 onChange={(singleDate) => {
                     const showValue = singleDate.jsDate === null ? "" : singleDate.jsDate
                     const value0 = dateFormatValue === "hesabfa" ? singleDate.hesabfaFormatDate : singleDate.jsDate;
